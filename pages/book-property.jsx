@@ -128,19 +128,19 @@ const Index = () => {
               2. Personal details
             </h1>
             <div className="flex flex-col mt-4 space-y-6">
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between ">
                 <input
                   type="text"
                   name=""
                   id=""
-                  className="h-[3rem] w-fourty8 rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal placeholder:text-secondary placeholder:text-opacity-40"
+                  className="h-[3rem] outline-none w-fourty8 rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal px-2 placeholder:text-secondary placeholder:text-opacity-40"
                   placeholder="First name"
                 />
                 <input
                   type="text"
                   name=""
                   id=""
-                  className="h-[3rem] w-fourty8 rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal placeholder:text-secondary placeholder:text-opacity-40"
+                  className="h-[3rem] outline-none w-fourty8 rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
                   placeholder="Last name"
                 />
               </div>
@@ -150,14 +150,14 @@ const Index = () => {
                   type="text"
                   name=""
                   id=""
-                  className="h-[3rem] w-fourty8 rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal placeholder:text-secondary placeholder:text-opacity-40"
+                  className="h-[3rem] w-fourty8 outline-none rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
                   placeholder="First name"
                 />
                 <input
                   type="text"
                   name=""
                   id=""
-                  className="h-[3rem] w-fourty8 rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal placeholder:text-secondary placeholder:text-opacity-40"
+                  className="h-[3rem] w-fourty8 outline-none rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
                   placeholder="Last name"
                 />
               </div>
@@ -167,26 +167,26 @@ const Index = () => {
                   type="text"
                   name=""
                   id=""
-                  className="h-[3rem] w-fourty8 rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal placeholder:text-secondary placeholder:text-opacity-40"
+                  className="h-[3rem] w-fourty8 outline-none rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
                   placeholder="First name"
                 />
                 <input
                   type="text"
                   name=""
                   id=""
-                  className="h-[3rem] w-fourty8 rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal placeholder:text-secondary placeholder:text-opacity-40"
+                  className="h-[3rem] w-fourty8 outline-none rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
                   placeholder="Last name"
                 />
               </div>
               <textarea
                 name=""
                 id=""
-                className="h-[7.438rem] w-full rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal placeholder:text-secondary placeholder:text-opacity-40"
+                className="h-[7.438rem] outline-none w-full rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
                 placeholder="Comments"
               />
             </div>
 
-            <div className="flex flex-col mt-4 space-y-4 text-sm font-normal text-gray-600">
+            <div className="flex flex-col px-2 mt-4 space-y-4 text-sm font-normal text-gray-600">
               <div className="flex items-center space-x-3">
                 <input
                   type="checkbox"
