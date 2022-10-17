@@ -6,9 +6,11 @@ import applogo from "/public/images/app_logo.png";
 import DropDown from "../DropDown";
 
 const Links = [
-  { href: "/Bookings", label: "Bookings" },
-  { href: "/Wishlist", label: "Wishlist" },
-  { href: "/Become a host", label: "Become a host" },
+  { href: "/bookingsEmpty", label: "Bookings Empty" },
+  { href: "/bookingsActive", label: "Bookings Active" },
+  { href: "/wishlist", label: "Wishlist" },
+  { href: "/wishlistActive", label: "Wishlist Active" },
+  { href: "/new-user-home", label: "Become a host" },
   { href: "/Account settings", label: "Account settings" },
   { href: "/Log out", label: "Log out" },
 ];
@@ -16,7 +18,7 @@ const Links = [
 const Header = ({ links = Links }) => {
   return (
     <nav className="mx-auto flex w-full max-w-[90rem] items-center justify-between border-b border-b-gray-200 bg-white px-20 py-7">
-      <Link href="/new-user-home">
+      <Link href="/">
         <div className="relative h-[2.5rem] w-[9.75rem] cursor-pointer">
           <Image src={applogo} className="absolute" alt="app logo" />
         </div>

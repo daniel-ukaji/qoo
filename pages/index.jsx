@@ -13,7 +13,7 @@ import { FaSwimmingPool } from "react-icons/fa";
 const Links = [
   { href: "/Bookings", label: "Sign up" },
   { href: "/Wishlist", label: "Login" },
-  { href: "/Become a host", label: "Become a host" },
+  { href: "/new-user-home", label: "Become a host" },
   { href: "/Account settings", label: "Help" },
 ];
 

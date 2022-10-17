@@ -24,6 +24,6 @@
     "pages/api/hello.js",
     "pages/components/misc/header.jsx",
     "pages/components/misc/footer.jsx"
-  ],
+, "pages/details.jsx"  ],
   "exclude": ["node_modules"]
 }
