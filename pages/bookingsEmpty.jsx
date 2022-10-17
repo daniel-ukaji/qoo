@@ -9,7 +9,7 @@ function bookingsEmpty() {
     <div className="font-sora relative">
         <Header />
         <div className=' max-w-3xl mx-auto mt-8 border-b pb-3'>
-            <h5 className='font-Sora text-3xl text-[#162748]'>Wishlist</h5>
+            <h5 className='font-Sora text-3xl text-[#162748]'>Bookings</h5>
         </div>
         <div class="text-center mt-20 space-y-2 pb-20">
             <Image src={social} />
