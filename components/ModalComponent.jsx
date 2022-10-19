@@ -11,7 +11,9 @@ export default function ModalComponent({
   const handleOnClose = (e) => {
     if (e && e.target.id === "container") onClose();
   };
+
   if (!isVisible) return null;
+
   return (
     <Transition
       show={isVisible}
