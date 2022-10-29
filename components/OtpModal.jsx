@@ -1,10 +1,14 @@
 import { useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+
 import { AuthLevelContext } from "../utils/context/AuthLevelContext";
 import OtpInput from "../components/misc/OtpInput";
 import { useApi } from "../utils/hooks/useApi";
 import { resendOtp as ResendOtpFunc } from "../utils/api/auth/resendOtp";
 import { completeErrollment } from "../utils/api/auth/completeErollment";
-import { toast } from "react-toastify";
+import { login } from "../utils/api/auth/login";
+
+import { useAuth } from "../utils/hooks/useAuth";
 
 const OtpModal = () => {
   const authLevel = useContext(AuthLevelContext);
@@ -28,6 +32,8 @@ const OtpModal = () => {
     errorMessage: completeRegErrorMessage,
   } = useApi(completeErrollment);
 
+  const loginApi = useApi(login);
+
   const [otpValue, setOtpValue] = useState("");
 
   useEffect(() => {
@@ -47,16 +53,18 @@ const OtpModal = () => {
       };
 
       const response = await completeReqRequest(requestData);
+      console.log("response", response);
 
       toast.update(id, {
         type: response.data.responseCode !== "00" ? "error" : "success",
         render: response.data.responseMessage,
         isLoading: completeRegLoading,
         autoClose: true,
-        onClick: () => !completeRegError && toast.dismiss(),
+        onClick: () => toast.dismiss(),
       });
 
       setOtpValue("");
+      if (response.data.responseCode === "00") console.log(response.data);
     }
   };
 

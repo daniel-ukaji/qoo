@@ -20,6 +20,12 @@ export const useApi = (apiFunc) => {
           ? response.data.responseMessage
           : "Oops! Something happened 🥲"
       );
+
+      return Promise.reject(
+        response.data.responseMessage
+          ? response.data.responseMessage
+          : "Oops! Something happened 🥲"
+      );
     } else {
       setLoading(false);
       setData(response.data.data ? response.data.data : []);

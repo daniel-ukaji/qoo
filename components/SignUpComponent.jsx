@@ -5,9 +5,13 @@ import { MdClose } from "react-icons/md";
 import logo from "/public/images/qoo_logo.png";
 import { BsFacebook } from "react-icons/bs";
 import { ImAppleinc } from "react-icons/im";
+import { toast } from "react-toastify";
+
 import Loader from "../components/Loader";
 import { initialEnrollment } from "../utils/api/auth/initialEnrolment";
 import { AuthLevelContext } from "../utils/context/AuthLevelContext.js";
+
+import { useApi } from "../utils/hooks/useApi";
 
 const SignUpComponent = () => {
   const authLevel = useContext(AuthLevelContext);
@@ -20,7 +24,8 @@ const SignUpComponent = () => {
   const [passwordMatch, setPasswordMatch] = useState(false);
   const [errorMessage, seterrorMessage] = useState("");
   const [checked, setchecked] = useState(false);
-  const [loading, setLoading] = useState(false);
+
+  const inititialEnrolApi = useApi(initialEnrollment);
 
   let phoneNumber = "090" + Math.floor(100000000 + Math.random() * 900000000);
   let countryCode = "234";
@@ -62,23 +67,26 @@ const SignUpComponent = () => {
       source,
     };
 
-    setLoading(true);
+    let id = toast.loading("Please wait whiles we complete your request");
 
-    let response = await initialEnrollment(enrollmentData);
+    const response = await inititialEnrolApi.request(enrollmentData);
 
-    setLoading(false);
-    console.log("response", response);
-    if (response.status === 200) {
-      if (response.data.responseCode === "00") {
-        authLevel.setModalType("OTP");
-        authLevel.setEmail(email);
-      }
-    } else {
-      seterrorMessage("Oops! something happened");
+    toast.update(id, {
+      type: response.data.responseCode !== "00" ? "error" : "success",
+      render: response.data.responseMessage,
+      isLoading: inititialEnrolApi.loading,
+      autoClose: true,
+      onClick: () => !completeRegError && toast.dismiss(),
+    });
+
+    if (response.data.responseCode !== "00") return;
+
+    if (response.data.responseCode === "00") {
+      authLevel.setModalType("OTP");
+      authLevel.setEmail(email);
+      authLevel.setPassword(password);
     }
   };
-
-  console.log("passwordMatch", passwordMatch);
 
   return (
     <div className="relative p-6 overflow-scroll bg-white rounded-2xl">
@@ -162,7 +170,7 @@ const SignUpComponent = () => {
             I agree to Qoospace’s Terms of Use & Privacy Policy
           </div>
 
-          {loading ? (
+          {inititialEnrolApi.loading ? (
             <div className="flex items-center justify-center">
               <Loader />
             </div>

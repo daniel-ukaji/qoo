@@ -9,4 +9,6 @@ export const AuthLevelContext = createContext({
   setEmail: (email) => email,
   password: "",
   setPassword: (password) => password,
+  user: null,
+  setUser: (user) => user,
 });
