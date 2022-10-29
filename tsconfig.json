@@ -23,7 +23,9 @@
     "pages/_app.js",
     "pages/api/hello.js",
     "pages/components/misc/header.jsx",
-    "pages/components/misc/footer.jsx"
-, "pages/details.jsx"  ],
+    "pages/components/misc/footer.jsx",
+    "pages/details.jsx",
+    "components/Loader.jsx"
+  ],
   "exclude": ["node_modules"]
 }

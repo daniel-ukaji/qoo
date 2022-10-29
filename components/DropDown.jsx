@@ -35,6 +35,7 @@ const DropDown = ({ links }) => {
             if (link.actionType === "BUTTON") {
               return (
                 <button
+                  key={link.id}
                   onClick={link.onPress}
                   className="flex w-full h-full px-5 py-2 text-sm font-medium text-gray-900 rounded hover:bg-gray-200 hover:text-black"
                 >

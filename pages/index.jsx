@@ -3,15 +3,17 @@ import Footer from "../components/misc/footer";
 import Header from "../components/misc/header";
 import RoomCard from "../components/RoomCard";
 import { GoSettings } from "react-icons/go";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import ModalComponent from "../components/ModalComponent";
 import LoginModal from "../components/LoginModal";
 import SignUpComponent from "../components/SignUpComponent";
+import OtpModal from "../components/OtpModal";
 
 import FilterComponent from "../components/FilterComponent.jsx";
+import { AuthLevelContext } from "../utils/context/AuthLevelContext";
 export default function Home() {
-  const [modalType, setModalType] = useState("FILTER");
   const [modalActive, setModalActive] = useState(false);
+  const authLevel = useContext(AuthLevelContext);
 
   const Links = [
     {
@@ -19,8 +21,8 @@ export default function Home() {
       actionType: "BUTTON",
       id: "1",
       onPress: () => {
-        setModalType("REGISTER");
-        setModalActive(true);
+        authLevel.setModalVisible(true);
+        authLevel.setModalType("REGISTER");
       },
     },
     {
@@ -28,8 +30,8 @@ export default function Home() {
       actionType: "BUTTON",
       id: "3",
       onPress: () => {
-        setModalType("LOGIN");
-        setModalActive(true);
+        authLevel.setModalVisible(true);
+        authLevel.setModalType("LOGIN");
       },
     },
     {
@@ -60,8 +62,7 @@ export default function Home() {
           <h1 className="font-semibold">Explore Listing</h1>
           <button
             onClick={() => {
-              setModalType("FILTER");
-              setFilterModalActive(true);
+              setModalActive(true);
             }}
             className="flex items-center px-3 py-4 space-x-1 border border-gray-300 rounded-lg"
           >
@@ -103,18 +104,21 @@ export default function Home() {
         shouldBeCentered
         onClose={() => setModalActive(false)}
       >
-        {modalType === "FILTER" ? (
-          <FilterComponent onClick={() => setModalActive(false)} />
-        ) : modalType === "LOGIN" ? (
-          <LoginModal
-            onClick={() => setModalActive(false)}
-            onChange={() => setModalType("REGISTER")}
-          />
-        ) : modalType === "REGISTER" ? (
-          <SignUpComponent
-            onClick={() => setModalActive(false)}
-            onChange={() => setModalType("LOGIN")}
-          />
+        <FilterComponent onClick={() => setModalActive(false)} />
+      </ModalComponent>
+
+      <ModalComponent
+        isVisible={authLevel.modalVisible}
+        shouldBeBlurAndDarkened
+        shouldBeCentered
+        onClose={() => authLevel.setModalVisible(false)}
+      >
+        {authLevel.modalType === "LOGIN" ? (
+          <LoginModal />
+        ) : authLevel.modalType === "REGISTER" ? (
+          <SignUpComponent />
+        ) : authLevel.modalType === "OTP" ? (
+          <OtpModal />
         ) : null}
       </ModalComponent>
     </div>
