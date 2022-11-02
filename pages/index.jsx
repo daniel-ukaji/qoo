@@ -3,50 +3,12 @@ import Footer from "../components/misc/footer";
 import Header from "../components/misc/header";
 import RoomCard from "../components/RoomCard";
 import { GoSettings } from "react-icons/go";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import ModalComponent from "../components/ModalComponent";
-import LoginModal from "../components/LoginModal";
-import SignUpComponent from "../components/SignUpComponent";
-import OtpModal from "../components/OtpModal";
 
 import FilterComponent from "../components/FilterComponent.jsx";
-import { AuthLevelContext } from "../utils/context/AuthLevelContext";
 export default function Home() {
   const [modalActive, setModalActive] = useState(false);
-  const authLevel = useContext(AuthLevelContext);
-
-  const Links = [
-    {
-      label: "Sign up",
-      actionType: "BUTTON",
-      id: "1",
-      onPress: () => {
-        authLevel.setModalVisible(true);
-        authLevel.setModalType("REGISTER");
-      },
-    },
-    {
-      label: "Login",
-      actionType: "BUTTON",
-      id: "3",
-      onPress: () => {
-        authLevel.setModalVisible(true);
-        authLevel.setModalType("LOGIN");
-      },
-    },
-    {
-      label: "Become a Host",
-      actionType: "LINK",
-      id: "2",
-      href: "/become-a-host",
-    },
-    {
-      label: "Help",
-      actionType: "LINK",
-      href: "/help&Support",
-      id: "4",
-    },
-  ];
 
   return (
     <div className="font-sora">
@@ -55,7 +17,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header links={Links} />
+      <Header />
 
       <main className="px-20 mt-8">
         <div className="flex items-center justify-between">
@@ -105,21 +67,6 @@ export default function Home() {
         onClose={() => setModalActive(false)}
       >
         <FilterComponent onClick={() => setModalActive(false)} />
-      </ModalComponent>
-
-      <ModalComponent
-        isVisible={authLevel.modalVisible}
-        shouldBeBlurAndDarkened
-        shouldBeCentered
-        onClose={() => authLevel.setModalVisible(false)}
-      >
-        {authLevel.modalType === "LOGIN" ? (
-          <LoginModal />
-        ) : authLevel.modalType === "REGISTER" ? (
-          <SignUpComponent />
-        ) : authLevel.modalType === "OTP" ? (
-          <OtpModal />
-        ) : null}
       </ModalComponent>
     </div>
   );

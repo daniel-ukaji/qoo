@@ -195,7 +195,7 @@ const SignUpComponent = () => {
           )}
         </div>
         <div className="text-sm font-normal mt-6 text-[#68717F]">
-          Already have an account?
+          Already have an account?{" "}
           <span className="text-primary">
             <button onClick={() => authLevel.setModalType("LOGIN")}>
               Log in

@@ -1,5 +1,5 @@
 import jwtDecode from "jwt-decode";
-const key = process.env.KEY;
+const key = process.env.NEXT_PUBLIC_KEY;
 
 const storeToken = (authToken) => {
   localStorage.setItem(key, window.btoa(authToken));
@@ -7,11 +7,13 @@ const storeToken = (authToken) => {
 
 const getToken = () => {
   let base64String = localStorage.getItem(key);
-  return window.atob(base64String);
+  console.log("base64String", base64String);
+  return base64String ? window.atob(base64String) : null;
 };
 
 const getUser = () => {
   const token = getToken();
+
   return token ? jwtDecode(token) : null;
 };
 

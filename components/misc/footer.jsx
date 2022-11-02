@@ -13,7 +13,7 @@ const Footer = () => {
       </div>
       <div>
         <div>
-          <ul className="flex space-x-3">
+          <ul className="flex space-x-3 cursor-pointer">
             <li>About Us</li>
             <li>Contact Us</li>
           </ul>

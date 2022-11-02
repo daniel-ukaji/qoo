@@ -64,7 +64,7 @@ const OtpModal = () => {
       });
 
       setOtpValue("");
-      if (response.data.responseCode === "00") console.log(response.data);
+      if (response.data.responseCode === "00") authLevel.setModalType("LOGIN");
     }
   };
 

@@ -11,26 +11,31 @@ export const useApi = (apiFunc) => {
     setError(false);
     setLoading(true);
     const response = await apiFunc(...args);
+    setLoading(false);
 
-    if (response.data.responseCode !== "00" || !response.ok) {
-      setLoading(false);
+    if (!response.ok) {
+      setData([]);
       setError(true);
-      setErrorMessage(
-        response.data.responseMessage
-          ? response.data.responseMessage
-          : "Oops! Something happened 🥲"
-      );
+      setErrorMessage(response.originalError);
 
       return Promise.reject(
         response.data.responseMessage
           ? response.data.responseMessage
           : "Oops! Something happened 🥲"
       );
-    } else {
-      setLoading(false);
+    } else if (response.ok && response.data.responseCode != "00") {
+      setError(true);
+
+      setErrorMessage(
+        response.data ? response.data.responseMessage : response.originalError
+      );
+      return response;
+    } else if (response.ok && response.data.responseCode === "00") {
+      setError(false);
+      setErrorMessage("");
       setData(response.data.data ? response.data.data : []);
+      return response;
     }
-    return response;
   };
 
   return { data, error, loading, request, errorMessage };
