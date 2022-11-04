@@ -8,7 +8,7 @@ const apiClient = create({
 apiClient.addAsyncRequestTransform(async (reqTransformer) => {
   const authToken = storage.getToken();
   if (!authToken) return;
-  reqTransformer.headers["Authorization"] = `Bearer ${authToken}`;
+  reqTransformer.headers["Authorization"] = `Bearer ${authToken} `;
 });
 
 export default apiClient;

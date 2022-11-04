@@ -2,11 +2,23 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-}
-
+};
 
 module.exports = {
   images: {
-    domains: ["links.papareact.com", "a0.muscache.com", "ibb.co", "i.ibb.co"]
-  }
-}
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "veezahrepo.s3.amazonaws.com",
+        pathname: "/account123/**",
+      },
+    ],
+    domains: [
+      "links.papareact.com",
+      "a0.muscache.com",
+      "ibb.co",
+      "i.ibb.co",
+      "veezahrepo.s3.amazonaws.com",
+    ],
+  },
+};

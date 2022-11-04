@@ -1,14 +1,41 @@
 import Head from "next/head";
+import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
+
 import Footer from "../components/misc/footer";
 import Header from "../components/misc/header";
 import RoomCard from "../components/RoomCard";
 import { GoSettings } from "react-icons/go";
 import { useState } from "react";
 import ModalComponent from "../components/ModalComponent";
-
 import FilterComponent from "../components/FilterComponent.jsx";
+import { fetchproperties } from "../utils/api/property/getProperties";
+
 export default function Home() {
   const [modalActive, setModalActive] = useState(false);
+  // const {
+  //   data: properties,
+  //   isError,
+  //   error,
+  //   isLoading,
+  //   isFetching,
+  // } = useQuery({
+  //   queryKey: ["properties"],
+  //   queryFn: fetchproperties,
+  //   initialData: props.properties,
+  //   cacheTime: 60000 * 30,
+  //   staleTime: 300000,
+  // });
+
+  const {
+    data: properties,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["posts"],
+    queryFn: fetchproperties,
+    cacheTime: 60000 * 30,
+    staleTime: 300000,
+  });
 
   return (
     <div className="font-sora">
@@ -33,28 +60,20 @@ export default function Home() {
           </button>
         </div>
         <div className="flex flex-wrap items-center mt-8 mb-7 gap-x-5 gap-y-10">
-          <RoomCard />
-          <RoomCard />
-          <RoomCard />
-          <RoomCard />
-          <RoomCard />
-          <RoomCard />
-          <RoomCard />
-          <RoomCard />
-          <RoomCard />
-          <RoomCard />
-          <RoomCard />
-          <RoomCard />
-          <RoomCard />
-          <RoomCard />
-          <RoomCard />
-          <RoomCard />
-          <RoomCard />
-          <RoomCard />
-          <RoomCard />
-          <RoomCard />
-          <RoomCard />
-          <RoomCard />
+          {isError && <p>{error.message}</p>}
+          {properties &&
+            properties.map((property) => (
+              <RoomCard
+                key={property.propertyId}
+                roomAddy={`${property.propertyStreet} ${property.propertyCity}, ${property.propertyState} `}
+                imageUrl={property.propertyImage}
+                numOfBath={property.propertyBathroomNumber}
+                numOfBed={property.propertyBedroomNumber}
+                roomTitle={property.propertyIntroduction}
+                roomId={property.propertyId}
+                price={property.propertyRentalPrice}
+              />
+            ))}
         </div>
       </main>
 
@@ -70,4 +89,16 @@ export default function Home() {
       </ModalComponent>
     </div>
   );
+}
+
+export async function getStaticProps() {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(["posts"], fetchproperties);
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
 }

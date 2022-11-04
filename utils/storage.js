@@ -6,14 +6,14 @@ const storeToken = (authToken) => {
 };
 
 const getToken = () => {
-  let base64String = localStorage.getItem(key);
-  console.log("base64String", base64String);
-  return base64String ? window.atob(base64String) : null;
+  if (typeof window !== "undefined") {
+    let base64String = localStorage.getItem(key);
+    return base64String ? window.atob(base64String) : null;
+  }
 };
 
 const getUser = () => {
   const token = getToken();
-
   return token ? jwtDecode(token) : null;
 };
 
