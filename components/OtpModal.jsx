@@ -32,13 +32,13 @@ const OtpModal = () => {
   const [otpValue, setOtpValue] = useState("");
 
   useEffect(() => {
-    if (otpValue.length === 4) {
+    if (otpValue.length === 6) {
       handleSubmit();
     }
   }, [otpValue]);
 
   const handleSubmit = async () => {
-    if (otpValue.length === 4) {
+    if (otpValue.length === 6) {
       let id = toast.loading("Please wait whiles we complete your request");
       let requestData = {
         otp: otpValue,
@@ -117,7 +117,7 @@ const OtpModal = () => {
       </div>
       <div className="flex items-center justify-center w-full mt-16">
         <button
-          disabled={otpValue.length !== 4}
+          disabled={otpValue.length !== 6}
           onClick={handleSubmit}
           className="rounded-xl w-[27.375rem] h-[3.125rem] text-center bg-primary text-white text-sm"
         >
