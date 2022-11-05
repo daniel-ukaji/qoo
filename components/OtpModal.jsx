@@ -6,9 +6,6 @@ import OtpInput from "../components/misc/OtpInput";
 import { useApi } from "../utils/hooks/useApi";
 import { resendOtp as ResendOtpFunc } from "../utils/api/auth/resendOtp";
 import { completeErrollment } from "../utils/api/auth/completeErollment";
-import { login } from "../utils/api/auth/login";
-
-import { useAuth } from "../utils/hooks/useAuth";
 
 const OtpModal = () => {
   const authLevel = useContext(AuthLevelContext);
@@ -31,8 +28,6 @@ const OtpModal = () => {
     request: completeReqRequest,
     errorMessage: completeRegErrorMessage,
   } = useApi(completeErrollment);
-
-  const loginApi = useApi(login);
 
   const [otpValue, setOtpValue] = useState("");
 
