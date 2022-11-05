@@ -31,6 +31,7 @@ const RoomCard = ({
             alt="property image"
             className="absolute rounded-md"
             layout="fill"
+            objectFit="cover"
           />
         </div>
         <div>

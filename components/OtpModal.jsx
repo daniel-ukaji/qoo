@@ -110,7 +110,7 @@ const OtpModal = () => {
         <OtpInput
           autoFocus
           isNumberInput
-          inputLength={4}
+          inputLength={6}
           onChangeOtp={(otp) => setOtpValue(otp)}
         />
         <p className="mt-4 text-xs font-normal text-center text-gray-500">
