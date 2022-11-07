@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Router, { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { BiChevronDown, BiChevronLeft } from "react-icons/bi";
 import { FaBath, FaSpotify } from "react-icons/fa";
 import { FiHeart, FiMapPin, FiShare2, FiUser } from "react-icons/fi";
@@ -12,13 +12,47 @@ import { fetchproperties } from "../../utils/api/property/getProperties";
 import Header from "../../components/misc/header";
 import Footer from "../../components/misc/footer";
 import RoomCard from "../../components/RoomCard";
+import { GlobalContext } from "../../context/GlobalState";
+
+
 
 import roomImage from "/public/images/room_image.png";
 import { fetchproperty } from "../../utils/api/property/getProperty";
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
+import 'react-date-range/dist/styles.css'; // main css file
+import 'react-date-range/dist/theme/default.css'; // theme css file
+
+import { DateRange } from 'react-date-range';
+import { addDays } from 'date-fns'
+import format from 'date-fns/format'
+import { useRef } from 'react';
 
 const Property = () => {
   const [hasBeenLiked, setHasBeenLiked] = useState(false);
+  
+  const [range, setRange] = useState([
+    {
+        startDate: new Date(),
+        endDate: addDays(new Date(), 7),
+        key: 'selection'
+    }
+])
+
+const [open, setOpen] = useState(false)
+
+//get the target element to toggle
+const refOne = useRef(null)
+
+useEffect(() => {
+  document.addEventListener("click", hideOnClickOutside, true)
+}, [])
+
+//Hide on outside click
+const hideOnClickOutside = (e) => {
+    if(refOne.current && ! refOne.current.contains(e.target)){
+        setOpen(false)
+    }
+}
   const router = useRouter();
   const { propertyId } = router.query;
 
@@ -34,6 +68,14 @@ const Property = () => {
   });
 
   if (property) {
+    const {
+      addMovieToWatchlist,
+      watchlist
+    } = useContext(GlobalContext)
+
+    let storedMovie = watchlist.find(o => o.propertyId === property.propertyId)
+
+    const watchlistDisabled = storedMovie ? true : false;
     return (
       <div className="font-sora">
         <Header />
@@ -333,7 +375,7 @@ const Property = () => {
                 <div className="self-end p-6 border border-gray-200 rounded-lg w-ninety">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center justify-center space-x-1 text-[#031C43]">
-                      <h1 className="text-2xl font-medium ">₦50,000</h1>
+                      <h1 className="text-2xl font-medium ">{property.propertyRentalPrice}</h1>
                       <h1 className="text-sm font-normal">night</h1>
                     </div>
                     <div className="flex items-center space-x-2">
@@ -348,29 +390,66 @@ const Property = () => {
                     </div>
                   </div>
 
-                  <div className="mt-6 text-sm font-normal text-secondary text-opacity-40">
-                    <div className="flex items-center justify-between">
-                      <div className="flex w-[9.184rem] items-center justify-between rounded-lg border border-gray-200 py-3 px-4">
-                        <h1>Check-in</h1>
-                        <BiChevronDown className="w-4 h-5 text-black" />
-                      </div>
-                      <div className="flex w-[9.184rem] items-center justify-between rounded-lg border border-gray-200 py-3 px-4">
-                        <h1>Check-out</h1>
-                        <BiChevronDown className="w-4 h-5 text-black" />
-                      </div>
+                  <div className='mt-6 text-sm font-normal text-secondary text-opacity-40'>
+                  <div className='flex items-center justify-between inline-block relative'>
+                    <div className='flex w-[9.184rem] items-center justify-between rounded-lg border border-gray-200 py-3 px-4'>
+                      <input 
+                        value={ `${format(range[0].startDate, "MM/dd/yyyy")}` }
+                        placeholder='Check-in'
+                        className='w-full outline-none' 
+                        onClick={() => setOpen(open => !open)}
+                        />
+                      <BiChevronDown className='w-4 h-5 text-black' />
                     </div>
-                    <div className="flex items-center justify-between px-4 py-3 mt-4 border border-gray-200 rounded-lg">
-                      <h1>Check-out</h1>
-                      <BiChevronDown className="w-4 h-5 text-black" />
+                    <div className='flex w-[9.184rem] items-center justify-between rounded-lg border border-gray-200 py-3 px-4'>
+                    <input 
+                        value={ `${format(range[0].endDate, "MM/dd/yyyy")}` }
+                        placeholder='Check-out'
+                        className='w-full outline-none'
+                        onClick={() => setOpen(open => !open)}
+                        />
+                      <BiChevronDown className='w-4 h-5 text-black' />
+                    </div>
+                    <div ref={refOne}>
+                      {open && 
+                          <DateRange 
+                              editableDateInputs={true}
+                              onChange={item => setRange([item.selection])}
+                              moveRangeOnFirstSelection={false}
+                              minDate={new Date()}
+                              ranges={range}
+                              rangeColors={["#DB5461"]}
+                              months={2}
+                              direction="horizontal"
+                              className="absolute left-1/2 -translate-x-2/4 top-10 border z-30  "
+                          />
+                      }
                     </div>
                   </div>
+                  <div className='flex items-center justify-between px-4 py-3 mt-4 border border-gray-200 rounded-lg'>
+                    <input
+                      placeholder='Guests'
+                      className='outline-none'
+                    />
+                    <BiChevronDown className='w-4 h-5 text-black' />
+                  </div>
+                </div>
 
-                  <button
+                  {/* <button
                     className="mt-7 h-[2.875rem] w-full rounded-[10px] bg-primary text-sm font-medium text-white"
                     onClick={() => Router.push("/book-property")}
                   >
                     Book Now
+                  </button> */}
+
+                  <button
+                    className="mt-7 h-[2.875rem] w-full rounded-[10px] bg-primary text-sm font-medium text-white"
+                    disabled={watchlistDisabled}
+                    onClick={() => {addMovieToWatchlist(property); Router.push("/book-property");}}
+                  >
+                    Book Now
                   </button>
+                  
 
                   <div className="flex flex-col mt-6 text-sm font-normal gap-y-3 text-secondary">
                     <div className="flex items-center justify-between">

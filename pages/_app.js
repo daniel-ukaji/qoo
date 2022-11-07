@@ -10,6 +10,7 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { GlobalProvider } from '../context/GlobalState'
 
 function MyApp({ Component, pageProps }) {
   const [queryClient] = useState(() => new QueryClient());
@@ -38,6 +39,7 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   return (
+  <GlobalProvider>
     <QueryClientProvider client={queryClient}>
       <AuthLevelContext.Provider
         value={{
@@ -60,6 +62,7 @@ function MyApp({ Component, pageProps }) {
         <ToastContainer />
       </AuthLevelContext.Provider>
     </QueryClientProvider>
+    </GlobalProvider>
   );
 }
 

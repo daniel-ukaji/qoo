@@ -1,21 +1,27 @@
 import Image from "next/image";
 import Router from "next/router";
-import React from "react";
+import React, {useContext} from "react";
 import { BiChevronLeft } from "react-icons/bi";
 import { FiMapPin, FiUser } from "react-icons/fi";
+import { GlobalContext } from "../context/GlobalState";
 
 import propertyImage from "/public/images/details_image.png";
 import Header from "../components/misc/header";
 import Footer from "../components/misc/footer";
+import Property from "./property/[propertyId]";
+
 
 const Index = () => {
+  const {watchlist} = useContext(GlobalContext);
   const navBar = "96px";
   // const foot = '76px';
   return (
+    
     <div className="relative h-screen w-screen max-w-[90rem] font-sora">
       <div className="sticky top-0 z-50 h-[6rem] w-full">
         <Header />
       </div>
+      {watchlist.map((property) => (
       <div className="flex px-20">
         <div
           className="w-8/12 overflow-scroll scrollbar-hide"
@@ -31,9 +37,10 @@ const Index = () => {
               <BiChevronLeft className="text-sm font-normal text-gray-900" />
               <h1>Back to property</h1>
             </button>
+            
             <div className="mt-6">
               <h1 className="text-2xl font-bold text-gray-800">
-                Seaview room 24/7 power wifi Cinema @1004 VI
+                {property.propertyName} @{property.propertyGPS}  {property.propertyStreet}
               </h1>
             </div>
             <div className="flex justify-between mt-2">
@@ -245,6 +252,7 @@ const Index = () => {
 
           <div className="h-[37.313rem]"></div>
         </div>
+        
         <div className="sticky right-0 flex items-center justify-center w-2/6">
           <div className="inset-0 p-6 border border-gray-200 rounded-lg">
             <div className="flex flex-col space-y-2 text-sm font-normal text-secondary">
@@ -265,7 +273,7 @@ const Index = () => {
             <div className="my-4 border-t border-t-gray-200" />
             <div className="flex items-center justify-between text-sm font-bold text-secondary">
               <h1>Total</h1>
-              <h1>₦250,000</h1>
+              <h1>{property.propertyRentalPrice}</h1>
             </div>
             <button className="px-24 py-4 mt-4 text-sm font-medium text-white rounded-lg bg-primary">
               Book apartment
@@ -273,6 +281,7 @@ const Index = () => {
           </div>
         </div>
       </div>
+      ))}
 
       <div className="h-[4.75rem] w-full">
         <Footer />

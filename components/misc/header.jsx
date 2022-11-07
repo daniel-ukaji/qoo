@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { RiSearchLine } from "react-icons/ri";
 import applogo from "/public/images/app_logo.png";
 import DropDown from "../DropDown";
@@ -10,10 +10,47 @@ import ModalComponent from "../ModalComponent";
 import LoginModal from "../LoginModal";
 import SignUpComponent from "../SignUpComponent";
 import OtpModal from "../OtpModal";
+import { DateRangePicker } from 'react-date-range';
+import { 
+  UsersIcon,
+} from '@heroicons/react/solid'
+import { useRouter } from "next/router";
 
 const Header = () => {
+  const router = useRouter();
+  const [searchInput, setSearchInput] = useState("");
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [noOfGuests, setNoOfGuests] = useState(1);
   const authLevel = useContext(AuthLevelContext);
   const { logOut } = useAuth();
+
+  const handleSelect = (ranges) => {
+    setStartDate(ranges.selection.startDate)
+    setEndDate(ranges.selection.endDate)
+  }
+
+  const resetInput = () => {
+    setSearchInput('');
+  }
+
+  const search = () => {
+    router.push({
+      pathname: "/search",
+      query: {
+        location: searchInput,
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString(),
+        noOfGuests,
+      },
+    });
+  }
+
+  const selectionRange = {
+    startDate: startDate,
+    endDate: endDate,
+    key: 'selection'
+  }
 
   const unAuthorizedLinks = [
     {
@@ -58,25 +95,31 @@ const Header = () => {
     {
       label: "Wishlist",
       actionType: "LINK",
-      href: "/wishlists",
+      href: "/wishlist",
       id: "2",
+    },
+    {
+      label: "Bookings",
+      actionType: "LINK",
+      href: "/bookingsEmpty",
+      id: "3",
     },
     {
       label: "Become a host",
       actionType: "LINK",
-      href: "/become-a-host",
-      id: "3",
+      href: "/new-user-home",
+      id: "4",
     },
     {
       label: "Account settings",
       actionType: "LINK",
       href: "/_/me",
-      id: "4",
+      id: "5",
     },
     {
       label: "Log out",
       actionType: "BUTTON",
-      id: "5",
+      id: "6",
       onPress: () => logOut(),
     },
   ];
@@ -91,11 +134,13 @@ const Header = () => {
         </Link>
         <div className="flex h-[2.5rem] w-[20rem] items-center justify-between rounded-[64px] border border-gray-300 py-2 px-4">
           <input
+            value={searchInput} 
+            onChange={(e) =>setSearchInput(e.target.value)}
             type="text"
             name=""
             id=""
             className="w-10/12 h-full border-none outline-none placeholder:text-gray-400"
-            placeholder="Search any keyword"
+            placeholder="Search your keywords"
           />
           <div>
             <RiSearchLine className="w-5 h-5 text-gray-400" />
@@ -106,6 +151,42 @@ const Header = () => {
           links={authLevel.user ? authorizedLinks : unAuthorizedLinks}
         />
       </nav>
+
+
+      {/* flex-col col-span-3 mx-auto */}
+      {searchInput && (
+        <>
+          <div className='flex justify-center flex-col items-center'>
+            <DateRangePicker
+              ranges={[selectionRange]}
+              minDate={new Date()}
+              rangeColors={["#FD5B61"]}
+              onChange={handleSelect}
+            />
+            </div>
+            <div className="max-w-xl mx-auto">
+              <div className='flex items-center justify-center border-b mb-4'>
+                <h2 className='text-2xl flex-grow font-semibold'>Number of Guests</h2>
+              
+              
+              <UsersIcon className='h-5' />
+
+              <input 
+                value={noOfGuests}
+                onChange={(e) => setNoOfGuests(e.target.value)}
+                type="number" 
+                min={1}
+                className='w-12 pl-2 text-lg outline-none text-red-400' />
+              </div>
+
+              <div className='flex'>
+                <button onClick={resetInput} className='flex-grow text-gray-500'>Cancel</button>
+                <button onClick={search} className='flex-grow text-red-400'>Search</button>
+              </div>
+
+            </div>
+          </>
+        )}
 
       <ModalComponent
         isVisible={authLevel.modalVisible}

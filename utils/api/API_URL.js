@@ -8,3 +8,8 @@ export const ME = "authentication/user-details";
 // Properties
 export const GETPROPETIES = "property/read";
 export const GETPROPERTY = "property/read-by-property-id";
+
+
+// Bookings
+export const GETBOOKING = "booking/read-by-booking-id";
+export const GETBOOKINGS = "booking/read";
