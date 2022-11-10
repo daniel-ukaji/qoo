@@ -279,12 +279,12 @@ const Index = () => {
                   <div className="flex items-center justify-between">
                     <h1>Check-in</h1>
                     {/* <h1>02/09/2022</h1> */}
-                    <h1>{startDate}</h1>
+                    <h1>{`${format(new Date(startDate), "MM/dd/yyyy")}`}</h1>
                   </div>
                   <div className="flex items-center justify-between">
                     <h1>Check-out</h1>
                     {/* <h1>02/09/2022</h1> */}
-                    <h1>{endDate}</h1>
+                    <h1>{`${format(new Date(endDate), "MM/dd/yyyy")}`}</h1>
                   </div>
 
                   <div className="flex items-center justify-between">
