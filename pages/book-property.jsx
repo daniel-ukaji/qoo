@@ -17,8 +17,8 @@ const Index = () => {
   const router = useRouter();
   // console.log(router.query)
   const { startDate, endDate, noOfGuests } = router.query;
-  const formatStartDate = format(new Date(startDate), "yyyy-MM-dd")
-  const formatEndDate = format(new Date(endDate), "yyyy-MM-dd")
+  const formatStartDate = format(new Date(startDate), "dd MMMM yy")
+  const formatEndDate = format(new Date(endDate), "dd MMMM yy")
   const formattedStartDate = new Date(formatStartDate).getTime()
   const formattedEndDate = new Date(formatEndDate).getTime()
   console.log(formattedStartDate)
