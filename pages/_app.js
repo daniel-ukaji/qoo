@@ -16,17 +16,7 @@ import Router from "next/router";
 
 function MyApp({ Component, pageProps }) {
 
-  const progress = new ProgressBar({
-    size: 4,
-    color: "#FE595E",
-    className: "z-50",
-    delay: 100,
-  })
-
-
-  Router.events.on('routeChangeStart', progress.start)
-  Router.events.on('routeChangeComplete', progress.finish)
-  Router.events.on('routeChangeError', progress.finish)
+  
 
   const [queryClient] = useState(() => new QueryClient());
 
@@ -52,6 +42,18 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     restoreUser();
   }, []);
+
+  const progress = new ProgressBar({
+    size: 4,
+    color: "#FE595E",
+    className: "z-50",
+    delay: 100,
+  })
+
+
+  Router.events.on('routeChangeStart', progress.start)
+  Router.events.on('routeChangeComplete', progress.finish)
+  Router.events.on('routeChangeError', progress.finish)
 
   return (
   <GlobalProvider>

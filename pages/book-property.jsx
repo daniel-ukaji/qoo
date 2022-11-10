@@ -17,12 +17,18 @@ const Index = () => {
   const router = useRouter();
   // console.log(router.query)
   const { startDate, endDate, noOfGuests } = router.query;
-  // const formatStartDate = format(new Date(startDate), "MM/dd/yyyy")
-  // const formatEndDate = format(new Date(endDate), "MM/dd/yyyy")
-  const formattedStartDate = new Date(startDate).getTime()
-  const formattedEndDate = new Date(endDate).getTime()
+  const formatStartDate = format(new Date(startDate), "yyyy-MM-dd")
+  const formatEndDate = format(new Date(endDate), "yyyy-MM-dd")
+  const formattedStartDate = new Date(formatStartDate).getTime()
+  const formattedEndDate = new Date(formatEndDate).getTime()
+  console.log(formattedStartDate)
+  // console.log(formattedStartDate)
+  // console.log(formattedStartDate)
+  // console.log(formattedEndDate)
   const dateRange = formattedEndDate - formattedStartDate
+  console.log(dateRange)
   const finalDate = dateRange / (1000 * 3600 * 24);
+  console.log(finalDate)
   const navBar = "96px";
   // const foot = '76px';
   return (
@@ -33,7 +39,7 @@ const Index = () => {
       </div>
       {watchlist.map((property) => {
         const totalPrice = property.propertyRentalPrice * finalDate
-        console.log(totalPrice)
+        // console.log(totalPrice)
         return (
           <div className="flex px-20">
             <div
@@ -273,12 +279,12 @@ const Index = () => {
                   <div className="flex items-center justify-between">
                     <h1>Check-in</h1>
                     {/* <h1>02/09/2022</h1> */}
-                    <h1>{startDate}</h1>
+                    <h1>{formatStartDate}</h1>
                   </div>
                   <div className="flex items-center justify-between">
                     <h1>Check-out</h1>
                     {/* <h1>02/09/2022</h1> */}
-                    <h1>{endDate}</h1>
+                    <h1>{formatEndDate}</h1>
                   </div>
 
                   <div className="flex items-center justify-between">

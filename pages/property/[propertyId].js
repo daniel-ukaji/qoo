@@ -230,6 +230,18 @@ const hideOnClickOutside = (e) => {
                   )
                 })} */}
                   <p className="text-sm font-normal leading-6 text-gray-600 ">
+                    {property.propertyDescription}
+                    {/* This apartment is beautifully furnished style apartment in
+                    the heart of the Lekki phase 1 . It is in close proximity to
+                    the entertainment and business districts of Victoria Island
+                    and Ikoyi alike. it is located in a serene gated estate
+                    which assures you of safety at all times. Modern
+                    conveniences include 24/7 hours electricity supported by
+                    generator, fitted kitchen, WIFI, Smart TVs amongst others.
+                    Everything you need for a great stay can be found at this
+                    location. */}
+                  </p>
+                  {/* <p className="mt-8 text-sm font-normal leading-6 text-gray-600">
                     This apartment is beautifully furnished style apartment in
                     the heart of the Lekki phase 1 . It is in close proximity to
                     the entertainment and business districts of Victoria Island
@@ -239,18 +251,7 @@ const hideOnClickOutside = (e) => {
                     generator, fitted kitchen, WIFI, Smart TVs amongst others.
                     Everything you need for a great stay can be found at this
                     location.
-                  </p>
-                  <p className="mt-8 text-sm font-normal leading-6 text-gray-600">
-                    This apartment is beautifully furnished style apartment in
-                    the heart of the Lekki phase 1 . It is in close proximity to
-                    the entertainment and business districts of Victoria Island
-                    and Ikoyi alike. it is located in a serene gated estate
-                    which assures you of safety at all times. Modern
-                    conveniences include 24/7 hours electricity supported by
-                    generator, fitted kitchen, WIFI, Smart TVs amongst others.
-                    Everything you need for a great stay can be found at this
-                    location.
-                  </p>
+                  </p> */}
                 </div>
 
                 <div className="mt-8">
@@ -523,8 +524,8 @@ const hideOnClickOutside = (e) => {
                     onClick={() => {addMovieToWatchlist(property); watchlistDisabled; router.push({
                       pathname: "/book-property",
                       query: {
-                        startDate: startDate.toLocaleDateString(),
-                        endDate: endDate.toLocaleDateString(),
+                        startDate: startDate.toISOString(),
+                        endDate: endDate.toISOString(),
                         noOfGuests,
                       },
                     })}}
