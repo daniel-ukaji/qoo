@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import Router from 'next/router';
-import React, { useState } from 'react';
+import Router, { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
 import { BiChevronDown, BiChevronLeft } from 'react-icons/bi';
 import { FaBath, FaSpotify } from 'react-icons/fa';
 import { FiHeart, FiMapPin, FiShare2, FiUser } from 'react-icons/fi';
@@ -13,11 +13,42 @@ import {
 import Header from "../components/misc/header";
 import Footer from "../components/misc/footer";
 import RoomCard from "../components/RoomCard";
+import 'react-date-range/dist/styles.css'; // main css file
+import 'react-date-range/dist/theme/default.css'; // theme css file
+
+import { DateRange } from 'react-date-range';
+import { addDays } from 'date-fns'
+import format from 'date-fns/format'
+import { useRef } from 'react';
 
 import roomImage from '/public/images/room_image.png';
 
 const Details = () => {
   const [hasBeenLiked, setHasBeenLiked] = useState(false);
+  
+  const [range, setRange] = useState([
+    {
+        startDate: new Date(),
+        endDate: addDays(new Date(), 7),
+        key: 'selection'
+    }
+])
+
+const [open, setOpen] = useState(false)
+
+//get the target element to toggle
+const refOne = useRef(null)
+
+useEffect(() => {
+  document.addEventListener("click", hideOnClickOutside, true)
+}, [])
+
+//Hide on outside click
+const hideOnClickOutside = (e) => {
+    if(refOne.current && ! refOne.current.contains(e.target)){
+        setOpen(false)
+    }
+}
   return (
     <div className='font-sora'>
       <Header />
@@ -328,11 +359,21 @@ const Details = () => {
                 <div className='mt-6 text-sm font-normal text-secondary text-opacity-40'>
                   <div className='flex items-center justify-between'>
                     <div className='flex w-[9.184rem] items-center justify-between rounded-lg border border-gray-200 py-3 px-4'>
-                      <h1>Check-in</h1>
+                    <input 
+                        value={ `${format(range[0].startDate, "MM/dd/yyyy")}` }
+                        placeholder='Check-in'
+                        className='w-full outline-none' 
+                        onClick={() => setOpen(open => !open)}
+                        />
                       <BiChevronDown className='w-4 h-5 text-black' />
                     </div>
                     <div className='flex w-[9.184rem] items-center justify-between rounded-lg border border-gray-200 py-3 px-4'>
-                      <h1>Check-out</h1>
+                    <input 
+                        value={ `${format(range[0].endDate, "MM/dd/yyyy")}` }
+                        placeholder='Check-out'
+                        className='w-full outline-none'
+                        onClick={() => setOpen(open => !open)}
+                        />
                       <BiChevronDown className='w-4 h-5 text-black' />
                     </div>
                   </div>
@@ -340,6 +381,21 @@ const Details = () => {
                     <h1>Check-out</h1>
                     <BiChevronDown className='w-4 h-5 text-black' />
                   </div>
+                  <div ref={refOne}>
+                      {open && 
+                          <DateRange 
+                              editableDateInputs={true}
+                              onChange={item => setRange([item.selection])}
+                              moveRangeOnFirstSelection={false}
+                              minDate={new Date()}
+                              ranges={range}
+                              rangeColors={["#DB5461"]}
+                              months={2}
+                              direction="horizontal"
+                              className="absolute left-1/2 -translate-x-2/4 top-10 border z-30  "
+                          />
+                      }
+                    </div>
                 </div>
 
                 <button

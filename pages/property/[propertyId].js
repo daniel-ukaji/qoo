@@ -29,14 +29,20 @@ import { useRef } from 'react';
 
 const Property = () => {
   const [hasBeenLiked, setHasBeenLiked] = useState(false);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [noOfGuests, setNoOfGuests] = useState(1);
+
+  const handleSelect = (ranges) => {
+    setStartDate(ranges.selection.startDate)
+    setEndDate(ranges.selection.endDate)
+  }
   
-  const [range, setRange] = useState([
-    {
-        startDate: new Date(),
-        endDate: addDays(new Date(), 7),
-        key: 'selection'
-    }
-])
+  const selectionRange = {
+    startDate: startDate,
+    endDate: endDate,
+    key: 'selection'
+  }
 
 const [open, setOpen] = useState(false)
 
@@ -68,6 +74,13 @@ const hideOnClickOutside = (e) => {
   });
 
   if (property) {
+    const propertySplit = property.propertyImages.split(",")
+    // const propertyBedroomSplit = property.propertyBedroomDescription.split(",")
+    // const propertyGeneralSplit = property.propertyGeneral.split(",")
+    // const propertyMandatorySplit = property.propertyMandatory.split(",")
+    // const propertyOptionalServices = property.propertyOptionalServices.split(",")
+    // console.log(propertyOptionalServices)
+    
     const {
       addMovieToWatchlist,
       watchlist
@@ -94,6 +107,8 @@ const hideOnClickOutside = (e) => {
               {property.propertyStreet}
             </h1>
           </div>
+
+
 
           <div className="flex justify-between mt-2">
             <div className="flex self-end space-x-2">
@@ -136,7 +151,7 @@ const hideOnClickOutside = (e) => {
               {/* Big Image */}
               <div className="relative w-1/2 h-full">
                 <Image
-                  src={roomImage}
+                  src={propertySplit[0]}
                   alt="room image"
                   className="absolute h-full w-full rounded-tl-[10px] rounded-bl-[10px]"
                   layout="fill"
@@ -147,7 +162,7 @@ const hideOnClickOutside = (e) => {
                 <div className="flex justify-between">
                   <div className="relative h-[15.688rem] w-fourty8 ">
                     <Image
-                      src={roomImage}
+                      src={propertySplit[1]}
                       alt="room image"
                       className="absolute w-full h-full"
                       layout="fill"
@@ -155,7 +170,7 @@ const hideOnClickOutside = (e) => {
                   </div>
                   <div className="relative h-[15.688rem] w-fourty8 ">
                     <Image
-                      src={roomImage}
+                      src={propertySplit[2]}
                       alt="room image"
                       className="absolute h-full w-full rounded-tr-[10px]"
                       layout="fill"
@@ -165,7 +180,7 @@ const hideOnClickOutside = (e) => {
                 <div className="flex items-center justify-between">
                   <div className="relative h-[15.688rem] w-fourty8">
                     <Image
-                      src={roomImage}
+                      src={propertySplit[3]}
                       alt="room image"
                       className="absolute w-full h-full"
                       layout="fill"
@@ -173,7 +188,7 @@ const hideOnClickOutside = (e) => {
                   </div>
                   <div className="relative h-[15.688rem] w-fourty8">
                     <Image
-                      src={roomImage}
+                      src={propertySplit[4]}
                       alt="room image"
                       className="absolute h-full w-full rounded-br-[10px]"
                       layout="fill"
@@ -189,10 +204,18 @@ const hideOnClickOutside = (e) => {
             <div className="flex items-start justify-between w-full mt-4">
               <div className="w-2/3 ">
                 {/* First Div containing room info */}
+                
                 <div>
                   <h1 className="mb-4 text-lg font-bold text-gray-800">
                     Property Description
                   </h1>
+                  {/* {[property].map((properties) => {
+                    const propertyBedroomSplit = property.propertyBedroomDescription.split(",")
+                    // console.log(propertyBedroomSplit)
+                  return (
+                    <h1>{properties.propertyBedroomSplit}</h1>
+                  )
+                })} */}
                   <p className="text-sm font-normal leading-6 text-gray-600 ">
                     This apartment is beautifully furnished style apartment in
                     the heart of the Lekki phase 1 . It is in close proximity to
@@ -224,22 +247,22 @@ const hideOnClickOutside = (e) => {
                   <div className="flex gap-5 text-sm font-normal text-secondary">
                     <div className="flex w-[6.875rem] flex-col space-y-3 rounded-lg border border-gray-200 p-3">
                       <MdSupervisorAccount className="w-4 h-4 text-primary" />
-                      <h1>3 guests</h1>
+                      <h1>{property.propertyGuestNumber} guests</h1>
                     </div>
 
                     <div className="flex w-[6.875rem] flex-col space-y-3 rounded-lg border border-gray-200 p-3">
                       <IoIosBed className="w-4 h-4 text-primary" />
-                      <h1>3 bedroom</h1>
+                      <h1>{property.propertyBedroomNumber} bedroom</h1>
                     </div>
 
                     <div className="flex w-[6.875rem] flex-col space-y-3 rounded-lg border border-gray-200 p-3">
                       <FaBath className="w-4 h-4 text-primary" />
-                      <h1>3 bathroom</h1>
+                      <h1>{property.propertyBathroomNumber} bathroom</h1>
                     </div>
 
                     <div className="flex w-[6.875rem] flex-col space-y-3 rounded-lg border border-gray-200 p-3">
                       <FaSpotify className="w-4 h-4 text-primary" />
-                      <h1>3 guests</h1>
+                      <h1>{property.propertyGuestNumber} guests</h1>
                     </div>
 
                     <div className="flex w-[6.875rem] flex-col items-center justify-center space-y-3 rounded-lg border border-gray-200 p-3">
@@ -253,12 +276,16 @@ const hideOnClickOutside = (e) => {
                     Bedroom
                   </h1>
                   <div className="flex gap-5 text-sm font-normal text-secondary">
-                    <div className="p-2 bg-gray-200 rounded">
-                      1 King Size Bed
-                    </div>
-                    <div className="p-2 bg-gray-200 rounded">
-                      1 Queen Size Bed
-                    </div>
+                  {property.propertyBedroomDescription.split(",").map((item) => {
+                    return (
+                      
+                        <div className=" p-2 bg-gray-200 rounded">
+                          {item}
+                        </div>
+                        
+                      
+                    )
+                  })}
                   </div>
                 </div>
 
@@ -267,11 +294,14 @@ const hideOnClickOutside = (e) => {
                     General
                   </h1>
                   <div className="flex gap-5 text-sm font-normal text-secondary">
-                    <div className="p-2 bg-gray-200 rounded">
-                      Open-air parking the same building
-                    </div>
-                    <div className="p-2 bg-gray-200 rounded">Internet</div>
-                    <div className="p-2 bg-gray-200 rounded">TV</div>
+                  {property.propertyGeneral.split(",").map((item) => {
+                    return (
+                      
+                      <div className="p-2 bg-gray-200 rounded">{item}</div>
+                        
+                      
+                    )
+                  })}
                   </div>
                 </div>
 
@@ -280,15 +310,21 @@ const hideOnClickOutside = (e) => {
                     Mandatory or included services
                   </h1>
                   <div className="flex gap-5 text-sm font-normal text-secondary">
-                    <div className="p-2 bg-gray-200 rounded">
-                      Final Cleaning: Included
-                    </div>
-                    <div className="p-2 bg-gray-200 rounded">
+                  {property.propertyMandatory.split(",").map((item) => {
+                    return (
+                      
+                      <div className="p-2 bg-gray-200 rounded">{item}</div>
+                        
+                      
+                    )
+                  })}
+                    {/* <div className="p-2 bg-gray-200 rounded">{propertyMandatorySplit[0]}</div> */}
+                    {/* <div className="p-2 bg-gray-200 rounded">
                       Internet Access: Included
                     </div>
                     <div className="p-2 bg-gray-200 rounded">
                       Security deposit (Refundable): NGN50,000.00 /booking
-                    </div>
+                    </div> */}
                   </div>
                 </div>
 
@@ -297,12 +333,17 @@ const hideOnClickOutside = (e) => {
                     Optional services
                   </h1>
                   <div className="flex gap-5 text-sm font-normal text-secondary">
-                    <div className="p-2 bg-gray-200 rounded">
-                      Early Check in/Late check Out: NGN10,000.00 /booking
-                    </div>
-                    <div className="p-2 bg-gray-200 rounded">
+                  {property.propertyOptionalServices.split(",").map((item) => {
+                    return (
+                      
+                      <div className="p-2 bg-gray-200 rounded">{item}</div>
+                        
+                      
+                    )
+                  })}
+                    {/* <div className="p-2 bg-gray-200 rounded">
                       Video shoot: NGN50,000.00 /booking
-                    </div>
+                    </div> */}
                   </div>
                 </div>
 
@@ -311,18 +352,21 @@ const hideOnClickOutside = (e) => {
                     Check-in schedule/Check-out schedule
                   </h1>
                   <div className="flex gap-5 text-sm font-normal text-secondary">
-                    <div className="p-2 bg-gray-200 rounded">
-                      Early Check in/Late check Out: NGN10,000.00 /booking
-                    </div>
-                    <div className="p-2 bg-gray-200 rounded">
-                      Video shoot: NGN50,000.00 /booking
-                    </div>
+                    {property.propertySchedule.split(",").map((item) => {
+                      return (
+                      
+                        <div className="p-2 bg-gray-200 rounded">{item}</div>
+                        
+                      
+                      )
+                    })}
+                    
                   </div>
                 </div>
 
                 <div className="mt-12">
                   <h1 className="mb-4 text-lg font-bold text-gray-800">
-                    Secuirity Deposit
+                    Security Deposit
                   </h1>
                   <div className="flex flex-col gap-y-2">
                     <div className="flex gap-6">
@@ -330,7 +374,7 @@ const hideOnClickOutside = (e) => {
                         <h1>Amount:</h1>
                       </div>
                       <div className="text-sm font-bold text-secondary">
-                        <h1>NGN50,000.00 /booking</h1>
+                        <h1>{property.propertySecurityDeposit} /booking</h1>
                       </div>
                     </div>
 
@@ -350,8 +394,7 @@ const hideOnClickOutside = (e) => {
                     Booking Conditions
                   </h1>
                   <p className="text-sm font-normal text-secondary">
-                    From the booking date until 15 days before the check-in,
-                    there is no cancellation penalty
+                    {property.propertyBookingCondition}
                   </p>
                 </div>
 
@@ -360,12 +403,21 @@ const hideOnClickOutside = (e) => {
                     Additional notes
                   </h1>
                   <div className="flex flex-col gap-2 text-sm font-normal text-secondary">
-                    <p>- Check-in schedule: from 15:00 to 18:00 every day</p>
-                    <p>
+                  {property.propertyAdditionalNotes.split(",").map((item) => {
+                      return (
+                      
+                        <p>{`- ${item}`}</p>
+                        
+                      
+                      )
+                    })}
+
+
+                    {/* <p>
                       - Refund of security deposit to the credit card 24/48h
                       after your departure
                     </p>
-                    <p>- Check-out schedule: Before 12:00</p>
+                    <p>- Check-out schedule: Before 12:00</p> */}
                   </div>
                 </div>
               </div>
@@ -376,7 +428,7 @@ const hideOnClickOutside = (e) => {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center justify-center space-x-1 text-[#031C43]">
                       <h1 className="text-2xl font-medium ">{property.propertyRentalPrice}</h1>
-                      <h1 className="text-sm font-normal">night</h1>
+                      <h1 className="text-sm font-normal">/night</h1>
                     </div>
                     <div className="flex items-center space-x-2">
                       <GiRoundStar className="w-4 h-4 text-primary" />
@@ -394,7 +446,7 @@ const hideOnClickOutside = (e) => {
                   <div className='flex items-center justify-between inline-block relative'>
                     <div className='flex w-[9.184rem] items-center justify-between rounded-lg border border-gray-200 py-3 px-4'>
                       <input 
-                        value={ `${format(range[0].startDate, "MM/dd/yyyy")}` }
+                        value={ `${format(new Date(startDate), "MM/dd/yyyy")}` }
                         placeholder='Check-in'
                         className='w-full outline-none' 
                         onClick={() => setOpen(open => !open)}
@@ -403,7 +455,7 @@ const hideOnClickOutside = (e) => {
                     </div>
                     <div className='flex w-[9.184rem] items-center justify-between rounded-lg border border-gray-200 py-3 px-4'>
                     <input 
-                        value={ `${format(range[0].endDate, "MM/dd/yyyy")}` }
+                        value={ `${format(new Date(endDate), "MM/dd/yyyy")}` }
                         placeholder='Check-out'
                         className='w-full outline-none'
                         onClick={() => setOpen(open => !open)}
@@ -414,10 +466,11 @@ const hideOnClickOutside = (e) => {
                       {open && 
                           <DateRange 
                               editableDateInputs={true}
-                              onChange={item => setRange([item.selection])}
+                              // onChange={item => setRange([item.selection])}
+                              onChange={handleSelect}
                               moveRangeOnFirstSelection={false}
                               minDate={new Date()}
-                              ranges={range}
+                              ranges={[selectionRange]}
                               rangeColors={["#DB5461"]}
                               months={2}
                               direction="horizontal"
@@ -430,6 +483,9 @@ const hideOnClickOutside = (e) => {
                     <input
                       placeholder='Guests'
                       className='outline-none'
+                      value={noOfGuests}
+                      onChange={(e) => setNoOfGuests(e.target.value)}
+                      type="number"
                     />
                     <BiChevronDown className='w-4 h-5 text-black' />
                   </div>
@@ -437,15 +493,28 @@ const hideOnClickOutside = (e) => {
 
                   {/* <button
                     className="mt-7 h-[2.875rem] w-full rounded-[10px] bg-primary text-sm font-medium text-white"
-                    onClick={() => Router.push("/book-property")}
+                    onClick={() => router.push({
+                      pathname: "/book-property",
+                      query: {
+                        startDate: startDate.toISOString(),
+                        endDate: endDate.toISOString(),
+                      },
+                    })}
                   >
                     Book Now
                   </button> */}
 
                   <button
                     className="mt-7 h-[2.875rem] w-full rounded-[10px] bg-primary text-sm font-medium text-white"
-                    disabled={watchlistDisabled}
-                    onClick={() => {addMovieToWatchlist(property); Router.push("/book-property");}}
+                    // disabled={watchlistDisabled}
+                    onClick={() => {addMovieToWatchlist(property); watchlistDisabled; router.push({
+                      pathname: "/book-property",
+                      query: {
+                        startDate: startDate.toISOString(),
+                        endDate: endDate.toISOString(),
+                        noOfGuests,
+                      },
+                    })}}
                   >
                     Book Now
                   </button>

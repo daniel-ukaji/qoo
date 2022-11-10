@@ -6,6 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@badrap/bar-of-progress": "^0.2.2",
     "@headlessui/react": "^1.7.3",
     "@heroicons/react": "^1.0.6",
     "@reduxjs/toolkit": "^1.9.0",
