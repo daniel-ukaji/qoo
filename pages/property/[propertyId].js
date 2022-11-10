@@ -175,7 +175,7 @@ const hideOnClickOutside = (e) => {
                 <div className="flex justify-between">
                   <div className="relative h-[15.688rem] w-fourty8 ">
                     <Image
-                      src={propertySplit[1]}
+                      src={propertySplit[1].trim("")}
                       alt="room image"
                       className="absolute w-full h-full"
                       layout="fill"
@@ -183,7 +183,7 @@ const hideOnClickOutside = (e) => {
                   </div>
                   <div className="relative h-[15.688rem] w-fourty8 ">
                     <Image
-                      src={propertySplit[2]}
+                      src={propertySplit[2].trim("")}
                       alt="room image"
                       className="absolute h-full w-full rounded-tr-[10px]"
                       layout="fill"
@@ -193,7 +193,7 @@ const hideOnClickOutside = (e) => {
                 <div className="flex items-center justify-between">
                   <div className="relative h-[15.688rem] w-fourty8">
                     <Image
-                      src={propertySplit[3]}
+                      src={propertySplit[3].trim("")}
                       alt="room image"
                       className="absolute w-full h-full"
                       layout="fill"
@@ -201,7 +201,7 @@ const hideOnClickOutside = (e) => {
                   </div>
                   <div className="relative h-[15.688rem] w-fourty8">
                     <Image
-                      src={propertySplit[4]}
+                      src={propertySplit[4].trim("")}
                       alt="room image"
                       className="absolute h-full w-full rounded-br-[10px]"
                       layout="fill"
