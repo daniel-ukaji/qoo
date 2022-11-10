@@ -17,8 +17,8 @@ const Index = () => {
   const router = useRouter();
   // console.log(router.query)
   const { startDate, endDate, noOfGuests } = router.query;
-  const formatStartDate = format(new Date(startDate), "MM/dd/yyyy")
-  const formatEndDate = format(new Date(endDate), "MM/dd/yyyy")
+  // const formatStartDate = format(new Date(startDate), "MM/dd/yyyy")
+  // const formatEndDate = format(new Date(endDate), "MM/dd/yyyy")
   const formattedStartDate = new Date(startDate).getTime()
   const formattedEndDate = new Date(endDate).getTime()
   const dateRange = formattedEndDate - formattedStartDate
@@ -273,12 +273,12 @@ const Index = () => {
                   <div className="flex items-center justify-between">
                     <h1>Check-in</h1>
                     {/* <h1>02/09/2022</h1> */}
-                    <h1>{formatStartDate}</h1>
+                    <h1>{startDate}</h1>
                   </div>
                   <div className="flex items-center justify-between">
                     <h1>Check-out</h1>
                     {/* <h1>02/09/2022</h1> */}
-                    <h1>{formatEndDate}</h1>
+                    <h1>{endDate}</h1>
                   </div>
 
                   <div className="flex items-center justify-between">

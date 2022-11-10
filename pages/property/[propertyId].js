@@ -510,8 +510,8 @@ const hideOnClickOutside = (e) => {
                     onClick={() => {addMovieToWatchlist(property); watchlistDisabled; router.push({
                       pathname: "/book-property",
                       query: {
-                        startDate: startDate.toISOString(),
-                        endDate: endDate.toISOString(),
+                        startDate: startDate.toLocaleDateString(),
+                        endDate: endDate.toLocaleDateString(),
                         noOfGuests,
                       },
                     })}}
