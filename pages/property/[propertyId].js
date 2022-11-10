@@ -75,6 +75,11 @@ const hideOnClickOutside = (e) => {
 
   if (property) {
     const propertySplit = property.propertyImages.split(",")
+    console.log(propertySplit[0])
+    console.log(propertySplit[1])
+    console.log(propertySplit[2])
+    console.log(propertySplit[3])
+    console.log(propertySplit[4])
     // const propertyBedroomSplit = property.propertyBedroomDescription.split(",")
     // const propertyGeneralSplit = property.propertyGeneral.split(",")
     // const propertyMandatorySplit = property.propertyMandatory.split(",")
@@ -148,6 +153,14 @@ const hideOnClickOutside = (e) => {
           <div className="mt-9">
             {/* Image player ideally */}
             <div className="flex h-[32.5rem] w-full">
+            {/* {property.propertyGeneral.split(",").map((item) => {
+                    return (
+                      
+                      <div className="p-2 bg-gray-200 rounded">{item}</div>
+                        
+                      
+                    )
+                  })} */}
               {/* Big Image */}
               <div className="relative w-1/2 h-full">
                 <Image
