@@ -3,6 +3,7 @@ import React from "react";
 import Footer from "../components/misc/footer";
 import Header from "../components/misc/header";
 import HomeBanner from "/public/images/home-banner.png";
+import Router, { useRouter } from "next/router";
 
 const NewUserHome = () => {
   return (
@@ -16,7 +17,7 @@ const NewUserHome = () => {
           </h1>
         </div>
 
-        <button className="px-8 py-4 mt-6 text-sm font-medium text-center text-white rounded-xl bg-primary w-fit">
+        <button onClick={ () => Router.push('/hostHome1') } className="px-8 py-4 mt-6 text-sm font-medium text-center text-white rounded-xl bg-primary w-fit">
           Start Hosting
         </button>
 
