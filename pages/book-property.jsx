@@ -31,19 +31,19 @@ const Index = () => {
   console.log(finalDate)
   const navBar = "96px";
 
-  const onSubmit = async () => {
-    const response = await fetch('https://6v50nb72wg.execute-api.us-east-1.amazonaws.com/dev/booking/create', {
-      method: 'POST',
-      body: {
-        noOfGuests
-      },
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    const data = await response.json()
-    console.log(data)
-  }
+  // const onSubmit = async () => {
+  //   const response = await fetch('https://6v50nb72wg.execute-api.us-east-1.amazonaws.com/dev/booking/create', {
+  //     method: 'POST',
+  //     body: {
+  //       noOfGuests
+  //     },
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     }
+  //   })
+  //   const data = await response.json()
+  //   console.log(data)
+  // }
 
 
 
@@ -314,7 +314,7 @@ const Index = () => {
                   <h1>Total</h1>
                   <h1>₦{totalPrice}</h1>
                 </div>
-                <button onClick={onSubmit} className="px-24 py-4 mt-4 text-sm font-medium text-white rounded-lg bg-primary">
+                <button className="px-24 py-4 mt-4 text-sm font-medium text-white rounded-lg bg-primary">
                   Book apartment
                 </button>
               </div>
