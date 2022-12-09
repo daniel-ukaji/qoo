@@ -9,6 +9,7 @@ import { useState } from "react";
 import ModalComponent from "../components/ModalComponent";
 import FilterComponent from "../components/FilterComponent.jsx";
 import { fetchproperties } from "../utils/api/property/getProperties";
+import SkeletonCard from "../components/SkeletonCard";
 
 export default function Home() {
   const [modalActive, setModalActive] = useState(false);
@@ -30,6 +31,8 @@ export default function Home() {
     data: properties,
     isError,
     error,
+    loading,
+    setLoading,
   } = useQuery({
     queryKey: ["posts"],
     queryFn: fetchproperties,
@@ -60,8 +63,10 @@ export default function Home() {
           </button>
         </div>
         <div className="flex flex-wrap items-center mt-8 mb-7 gap-x-5 gap-y-10">
+          
           {isError && <p>{error.message}</p>}
-          {properties &&
+          {/* {properties && <SkeletonCard cards={9} />} */}
+          {properties && 
             properties.map((property) => (
               <RoomCard
                 key={property.propertyId}

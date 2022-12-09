@@ -13,7 +13,7 @@ import { format } from 'date-fns'
 
 
 const Index = () => {
-  const {watchlist} = useContext(GlobalContext);
+  const {booking} = useContext(GlobalContext);
   const router = useRouter();
   // console.log(router.query)
   const { startDate, endDate, noOfGuests } = router.query;
@@ -30,6 +30,23 @@ const Index = () => {
   const finalDate = dateRange / (1000 * 3600 * 24);
   console.log(finalDate)
   const navBar = "96px";
+
+  const onSubmit = async () => {
+    const response = await fetch('https://6v50nb72wg.execute-api.us-east-1.amazonaws.com/dev/booking/create', {
+      method: 'POST',
+      body: {
+        noOfGuests
+      },
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const data = await response.json()
+    console.log(data)
+  }
+
+
+
   // const foot = '76px';
   return (
     
@@ -37,7 +54,7 @@ const Index = () => {
       <div className="sticky top-0 z-50 h-[6rem] w-full">
         <Header />
       </div>
-      {watchlist.map((property) => {
+      {booking.map((property) => {
         const totalPrice = property.propertyRentalPrice * finalDate
         // console.log(totalPrice)
         return (
@@ -297,7 +314,7 @@ const Index = () => {
                   <h1>Total</h1>
                   <h1>₦{totalPrice}</h1>
                 </div>
-                <button className="px-24 py-4 mt-4 text-sm font-medium text-white rounded-lg bg-primary">
+                <button onClick={onSubmit} className="px-24 py-4 mt-4 text-sm font-medium text-white rounded-lg bg-primary">
                   Book apartment
                 </button>
               </div>

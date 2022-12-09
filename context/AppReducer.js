@@ -1,9 +1,9 @@
 export default (state, action) => {
     switch(action.type) {
-        case "ADD_MOVIE_TO_WATCHLIST":
+        case "ADD_TO_BOOKING":
             return {
                 ...state,
-                watchlist: [action.payload, ...state.watchlist],
+                booking: [action.payload, ...state.booking],
             }
         default:
             return state;

@@ -3,7 +3,7 @@ import AppReducer from './AppReducer';
 
 // initial state
 const initialState = {
-    watchlist: [],
+    booking: [],
 };
 
 //create context
@@ -25,16 +25,16 @@ export const GlobalProvider = props => {
     
 
     //actions
-const addMovieToWatchlist = (property) => {
-    dispatch({type: "ADD_MOVIE_TO_WATCHLIST", payload: property})
+const addToBooking = (property) => {
+    dispatch({type: "ADD_TO_BOOKING", payload: property})
 }
 
 
     return (
         <GlobalContext.Provider 
             value=
-            {{watchlist: state.watchlist, 
-            addMovieToWatchlist,}} >
+            {{booking: state.booking, 
+            addToBooking,}} >
             {props.children}
         </GlobalContext.Provider>
     )

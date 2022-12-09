@@ -87,13 +87,13 @@ const hideOnClickOutside = (e) => {
     // console.log(propertyOptionalServices)
     
     const {
-      addMovieToWatchlist,
-      watchlist
+      addToBooking,
+      booking
     } = useContext(GlobalContext)
 
-    let storedMovie = watchlist.find(o => o.propertyId === property.propertyId)
+    let storedBooking = booking.find(o => o.propertyId === property.propertyId)
 
-    const watchlistDisabled = storedMovie ? true : false;
+    const bookingDisabled = storedBooking ? true : false;
     return (
       <div className="font-sora">
         <Header />
@@ -521,7 +521,7 @@ const hideOnClickOutside = (e) => {
                   <button
                     className="mt-7 h-[2.875rem] w-full rounded-[10px] bg-primary text-sm font-medium text-white"
                     // disabled={watchlistDisabled}
-                    onClick={() => {addMovieToWatchlist(property); watchlistDisabled; router.push({
+                    onClick={() => {addToBooking(property); bookingDisabled; router.push({
                       pathname: "/book-property",
                       query: {
                         startDate: startDate.toISOString(),
