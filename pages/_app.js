@@ -18,7 +18,7 @@ const progress = new ProgressBar({
   size: 4,
   color: "#FE595E",
   className: "z-50",
-  delay: 100,
+  delay: 0,
 })
 
 
