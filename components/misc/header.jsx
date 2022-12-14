@@ -48,6 +48,21 @@ const Header = () => {
     });
   }
 
+  function handleOnSubmitSearch(e) {
+    e.preventDefault();
+
+    const { currentTarget = {} } = e;
+    const fields = Array.from(currentTarget?.elements);
+    const fieldQuery = fields.find(field => field.name === 'query');
+
+    const value = fieldQuery.value || '';
+    const endpoint = `https://6v50nb72wg.execute-api.us-east-1.amazonaws.com/dev/property/read/?propertyName=${value}`;
+
+    updatePage({
+      current: endpoint
+    })
+  }
+
   const selectionRange = {
     startDate: startDate,
     endDate: endDate,
@@ -125,6 +140,7 @@ const Header = () => {
       onPress: () => logOut(),
     },
   ];
+
 
   return (
     <>

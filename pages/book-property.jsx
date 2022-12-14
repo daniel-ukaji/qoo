@@ -10,6 +10,9 @@ import Header from "../components/misc/header";
 import Footer from "../components/misc/footer";
 import Property from "./property/[propertyId]";
 import { format } from 'date-fns'
+import { useApi } from "../utils/hooks/useApi";
+import { createBooking } from "../utils/api/booking/createBooking";
+import { toast } from "react-toastify";
 
 
 const Index = () => {
@@ -31,19 +34,67 @@ const Index = () => {
   console.log(finalDate)
   const navBar = "96px";
 
-  // const onSubmit = async () => {
-  //   const response = await fetch('https://6v50nb72wg.execute-api.us-east-1.amazonaws.com/dev/booking/create', {
-  //     method: 'POST',
-  //     body: {
-  //       noOfGuests
-  //     },
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     }
-  //   })
-  //   const data = await response.json()
-  //   console.log(data)
-  // }
+  const CreateBooking = useApi(createBooking)
+
+  const bookingData = {
+    bookingRenterId : "100001",
+    bookingPropertyId : "100001",
+    bookingComment : "ablzcihyfssfkq",
+    bookingGPS : "odpylyebk",
+    bookingAmount : "80040.98",
+    bookingCurrency : "USD",
+    bookingCountry : "France",
+    bookingCity : "Aba",
+    bookingStreet : "bookingStreet",
+    bookingEmail : "Smith@Yahoo.com",
+    bookingPhoneNumber : "013012138314",
+    bookingSequence : "ibpagnengivpo",
+    bookingStartDate : "2021-07-12 21:04:45.440",
+    bookingEndDate : "2021-07-12 21:04:45.440",
+    bookingState : "Lagos",
+    bookingImage : "qiiweooorjrrrk",
+    bookingOptionalService : "jgtbjg",
+    selfBooking : "True",
+    bookingGuestFirstName : "hjjker",
+    bookingGuestLastName : "hjjker",
+    bookingGuestMiddleName : "hjjker",
+    bookingGuestEmail : "hjjker",
+    bookingGuestPhoneNumber : "hjjker",
+    bookingGuestCity : "hjjker",
+    bookingGuestState : "hjjker",
+    bookingGuestCountry : "hjjker",
+    bookingGuestStreet : "hjjker",
+    bookingGuestComment : "hjjker",
+    bookingGuestIdCard : "hjjker",
+    bookingAdditionalNotes : "hjjker",
+    bookingPromotion : "hjjker",
+    bookingPromoCode : "hjjker"
+  }
+
+  const onSubmit = async () => {
+    // const response = await fetch('https://6v50nb72wg.execute-api.us-east-1.amazonaws.com/dev/booking/create', {
+    //   method: 'POST',
+    //   body: {bookingData},
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   }
+    // })
+    // const data = await response.json()
+    // console.log(data)
+      let id = toast.loading("Please wait whiles we complete your request");
+
+      const response = await CreateBooking.request(bookingData);
+
+      toast.update(id, {
+        type: response.data.responseCode !== "00" ? "error" : "success",
+        render: response.data.responseMessage,
+        isLoading: CreateBooking.loading,
+        autoClose: true,
+        // onClick: () => !completeRegError && toast.dismiss(),
+      });
+
+      console.log(response)
+  }
 
 
 
@@ -314,7 +365,7 @@ const Index = () => {
                   <h1>Total</h1>
                   <h1>₦{totalPrice}</h1>
                 </div>
-                <button className="px-24 py-4 mt-4 text-sm font-medium text-white rounded-lg bg-primary">
+                <button onClick={onSubmit} className="px-24 py-4 mt-4 text-sm font-medium text-white rounded-lg bg-primary">
                   Book apartment
                 </button>
               </div>

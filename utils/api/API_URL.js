@@ -13,3 +13,5 @@ export const GETPROPERTY = "property/read-by-property-id";
 // Bookings
 export const GETBOOKING = "booking/read-by-booking-id";
 export const GETBOOKINGS = "booking/read";
+export const CREATEBOOKINGS = "booking/create";
+

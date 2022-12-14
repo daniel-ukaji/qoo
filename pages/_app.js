@@ -12,7 +12,7 @@ import {
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { GlobalProvider } from '../context/GlobalState'
 import ProgressBar from "@badrap/bar-of-progress";
-import Router from "next/router";
+import { useRouter } from "next/router";
 
 const progress = new ProgressBar({
   size: 4,
@@ -22,9 +22,9 @@ const progress = new ProgressBar({
 })
 
 
-Router.events.on('routeChangeStart', progress.start)
-Router.events.on('routeChangeComplete', progress.finish)
-Router.events.on('routeChangeError', progress.finish)
+// Router.events.on('routeChangeStart', progress.start)
+// Router.events.on('routeChangeComplete', progress.finish)
+// Router.events.on('routeChangeError', progress.finish)
 
 function MyApp({ Component, pageProps }) {
 
@@ -53,9 +53,23 @@ function MyApp({ Component, pageProps }) {
     restoreUser();
   }, []);
 
+  const router = useRouter();
+
+        useEffect(() => {
+          router.events.on("routeChangeStart", progress.start);
+          router.events.on("routeChangeComplete", progress.finish);
+          router.events.on("routeChangeError", progress.finish);
+
+          return () => {
+            router.events.off("routeChangeStart", progress.start);
+            router.events.off("routeChangeComplete", progress.finish);
+            router.events.off("routeChangeError", progress.finish);
+          };
+        }, [router]);
   
 
   return (
+    
   <GlobalProvider>
     <QueryClientProvider client={queryClient}>
       <AuthLevelContext.Provider
@@ -73,6 +87,8 @@ function MyApp({ Component, pageProps }) {
         }}
       >
         <Hydrate state={pageProps.dehydratedState}>
+        
+
           <Component {...pageProps} />
         </Hydrate>
         <ReactQueryDevtools initialIsOpen={false} />

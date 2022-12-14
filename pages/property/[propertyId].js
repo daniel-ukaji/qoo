@@ -75,16 +75,6 @@ const hideOnClickOutside = (e) => {
 
   if (property) {
     const propertySplit = property.propertyImages.split(",")
-    console.log(propertySplit[0])
-    console.log(propertySplit[1])
-    console.log(propertySplit[2])
-    console.log(propertySplit[3])
-    console.log(propertySplit[4])
-    // const propertyBedroomSplit = property.propertyBedroomDescription.split(",")
-    // const propertyGeneralSplit = property.propertyGeneral.split(",")
-    // const propertyMandatorySplit = property.propertyMandatory.split(",")
-    // const propertyOptionalServices = property.propertyOptionalServices.split(",")
-    // console.log(propertyOptionalServices)
     
     const {
       addToBooking,
