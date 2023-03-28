@@ -20,6 +20,10 @@ module.exports = {
       "ibb.co",
       "i.ibb.co",
       "veezahrepo.s3.amazonaws.com",
+      "upload.wikimedia.org",
+      "media.wired.com",
+      "ichef.bbci.co.uk",
+      "wallpapers.com",
     ],
   },
 };

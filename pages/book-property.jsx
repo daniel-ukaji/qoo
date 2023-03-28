@@ -12,14 +12,17 @@ import Property from "./property/[propertyId]";
 import { format } from 'date-fns'
 import { useApi } from "../utils/hooks/useApi";
 import { createBooking } from "../utils/api/booking/createBooking";
+import { createpayment } from "../utils/api/payment/createPayment";
 import { toast } from "react-toastify";
+import { useAuth } from "../utils/hooks/useAuth";
+import Loader from "../components/Loader";
 
 
 const Index = () => {
   const {booking} = useContext(GlobalContext);
   const router = useRouter();
   // console.log(router.query)
-  const { startDate, endDate, noOfGuests } = router.query;
+  const { startDate, endDate, noOfGuests, propertyId } = router.query;
   // const formatStartDate = format(new Date(startDate), "MM/dd/yyyy")
   // const formatEndDate = format(new Date(endDate), "MM/dd/yyyy")
   const formattedStartDate = new Date(startDate).getTime()
@@ -35,6 +38,8 @@ const Index = () => {
   const navBar = "96px";
 
   const CreateBooking = useApi(createBooking)
+
+  const CreatePayment = useApi(createpayment)
 
   const bookingData = {
     bookingRenterId : "100001",
@@ -69,31 +74,106 @@ const Index = () => {
     bookingAdditionalNotes : "hjjker",
     bookingPromotion : "hjjker",
     bookingPromoCode : "hjjker"
+
   }
 
+  const auth = useAuth();
+
+  const user = auth.user?.userId;
+  console.log(user);
+
+  console.log(booking.propertyId);
+
+  console.log(booking.propertyName)
+
+  console.log(booking[0]?.propertyHost.hostUserId)
+
+  console.log(booking[0]?.propertyName)
+
+  console.log(booking)
+
+  console.log(booking[0]?.propertyId)
+
+  console.log(startDate)
+
+  console.log(booking[0]?.propertyBookedDates[0]?.checkInDate)
+
+  // const checkInDate = booking[0].propertyBookedDates[0].checkInDate
+
+  // const checkOutDate = booking[0].propertyBookedDates[0].checkOutDate
+
+  // console.log(format(new Date(booking[0]?.propertyBookedDates[0]?.checkInDate), "MM/dd/yyyy"))
+
+  const hostId = booking[0]?.propertyHost.hostUserId;
+
+  const propName = booking[0]?.propertyName
+
+  const price = booking[0]?.propertyBookingPrice
+
+  const propId = booking[0]?.propertyId
+
+  const propertyOptionalServices = booking[0]?.propertyOptionalServices
+
+  const PriceTag = booking[0]?.propertyBookingPrice * finalDate
+
+
+
+
+
+  const paymentData = {
+    paymentUserId: user,
+    // paymentHostUserId: "100041",
+    paymentHostUserId: hostId,
+    paymentPropertyName: propName,
+    paymentAmount: PriceTag,
+    paymentCurrency:"NGN",
+    paymentReference: "55tTYT67IUJRE",
+  }
+
+  
+
   const onSubmit = async () => {
-    // const response = await fetch('https://6v50nb72wg.execute-api.us-east-1.amazonaws.com/dev/booking/create', {
-    //   method: 'POST',
-    //   body: {bookingData},
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   }
-    // })
-    // const data = await response.json()
-    // console.log(data)
-      let id = toast.loading("Please wait whiles we complete your request");
+    
+      // let id = toast.loading("Please wait whiles we complete your request");
 
-      const response = await CreateBooking.request(bookingData);
+      // const response = await CreateBooking.request(bookingData);
 
-      toast.update(id, {
-        type: response.data.responseCode !== "00" ? "error" : "success",
-        render: response.data.responseMessage,
-        isLoading: CreateBooking.loading,
-        autoClose: true,
-        // onClick: () => !completeRegError && toast.dismiss(),
-      });
+      const response = await CreatePayment.request(paymentData);
 
-      console.log(response)
+      if (response.data.paymentUrl) { // Check if payment URL was returned by backend API
+        window.location.href = response.data.paymentUrl; // Redirect user to payment URL
+      }
+
+      const bookingResponse = {
+        bookingRenterUserId: user,
+        bookingPropertyId: propId,
+        bookingPaymentId: "100000",
+        bookingCheckInDate: startDate,
+        bookingCheckOutDate: endDate,
+        bookingAmount: price,
+        bookingOptionalService: propertyOptionalServices,
+        bookingGuestNumber: "3",
+        bookingGuestTypes: "Children, Cats"
+      }
+
+      
+
+      const bookingSubmit = await CreateBooking.request(bookingResponse);
+
+      const bookingCheckInDate = booking.startDate;
+      const bookingCheckOutDate = booking.endDate;
+      const bookingTotal = booking.totalPrice;
+
+      // toast.update(id, {
+      //   type: response.data.responseCode !== "00" ? "error" : "success",
+      //   render: response.data.responseMessage,
+      //   isLoading: CreateBooking.loading,
+      //   autoClose: true,
+      //   // onClick: () => !completeRegError && toast.dismiss(),
+      // });
+
+      console.log(response);
+      console.log(bookingSubmit);
   }
 
 
@@ -105,10 +185,8 @@ const Index = () => {
       <div className="sticky top-0 z-50 h-[6rem] w-full">
         <Header />
       </div>
-      {booking.map((property) => {
-        const totalPrice = property.propertyRentalPrice * finalDate
-        // console.log(totalPrice)
-        return (
+      
+        
           <div className="flex px-20">
             <div
               className="w-8/12 overflow-scroll scrollbar-hide"
@@ -125,11 +203,15 @@ const Index = () => {
                   <h1>Back to property</h1>
                 </button>
                 
-                <div className="mt-6">
-                  <h1 className="text-2xl font-bold text-gray-800">
-                    {property.propertyName} @{property.propertyGPS}  {property.propertyStreet}
-                  </h1>
-                </div>
+                {booking.map((property) => {
+                    return (
+                      <div className="mt-6">
+                        <h1 className="text-2xl font-bold text-gray-800">
+                          {property.propertyName} @{property.propertyGPS}  {property.propertyStreet}
+                        </h1>
+                      </div>
+                      )
+                    })}
                 <div className="flex justify-between mt-2">
                   <div className="flex self-end space-x-2">
                     <div className="flex items-center space-x-1">
@@ -147,7 +229,8 @@ const Index = () => {
                   </div>
                 </div>
               </div>
-
+              {booking.map((property) => {
+                
               <div className="relative h-[25.313rem] w-full">
                 <Image
                   alt="Property Image"
@@ -157,6 +240,7 @@ const Index = () => {
                   objectFit="cover"
                 />
               </div>
+              })}
 
               <div className="flex flex-col mt-11">
                 <h1 className="text-lg font-bold text-gray-800">1. Summary</h1>
@@ -341,40 +425,52 @@ const Index = () => {
               <div className="h-[37.313rem]"></div>
             </div>
             
-            <div className="sticky right-0 flex items-center justify-center w-2/6">
-              <div className="inset-0 p-6 border border-gray-200 rounded-lg">
-                <div className="flex flex-col space-y-2 text-sm font-normal text-secondary">
-                  <div className="flex items-center justify-between">
-                    <h1>Check-in</h1>
-                    {/* <h1>02/09/2022</h1> */}
-                    <h1>{`${format(new Date(startDate), "MM/dd/yyyy")}`}</h1>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <h1>Check-out</h1>
-                    {/* <h1>02/09/2022</h1> */}
-                    <h1>{`${format(new Date(endDate), "MM/dd/yyyy")}`}</h1>
-                  </div>
+            {booking.map((property) => {
+              const totalPrice = property.propertyBookingPrice * finalDate
+              return (
+              <div className="sticky right-0 flex items-center justify-center w-2/6">
+                <div className="inset-0 p-6 border border-gray-200 rounded-lg">
+                  <div className="flex flex-col space-y-2 text-sm font-normal text-secondary">
+                    <div className="flex items-center justify-between">
+                      <h1>Check-in</h1>
+                      {/* <h1>02/09/2022</h1> */}
+                      <h1>{`${format(new Date(startDate), "MM/dd/yyyy")}`}</h1>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <h1>Check-out</h1>
+                      {/* <h1>02/09/2022</h1> */}
+                      <h1>{`${format(new Date(endDate), "MM/dd/yyyy")}`}</h1>
+                    </div>
 
-                  <div className="flex items-center justify-between">
-                    <h1>Guests</h1>
-                    <h1>{noOfGuests}</h1>
+                    <div className="flex items-center justify-between">
+                      <h1>{noOfGuests}</h1>
+                      <h1>3</h1>
+                    </div>
                   </div>
+                  <div className="my-4 border-t border-t-gray-200" />
+                  <div className="flex items-center justify-between text-sm font-bold text-secondary">
+                    <h1>Total</h1>
+                    <h1>₦{totalPrice}</h1>
+                  </div>
+                  {CreatePayment.loading ? (
+                    <div className="flex items-center justify-center">
+                      <Loader fill_color="fill-primary" />
+                    </div>
+                  ):(
+                    <button onClick={onSubmit} className="px-24 py-4 mt-4 text-sm font-medium text-white rounded-lg bg-primary">
+                      Book apartment
+                    </button>
+                  )}
                 </div>
-                <div className="my-4 border-t border-t-gray-200" />
-                <div className="flex items-center justify-between text-sm font-bold text-secondary">
-                  <h1>Total</h1>
-                  <h1>₦{totalPrice}</h1>
-                </div>
-                <button onClick={onSubmit} className="px-24 py-4 mt-4 text-sm font-medium text-white rounded-lg bg-primary">
-                  Book apartment
-                </button>
               </div>
-            </div>
+            )
+            })}
+            
           </div>
           
-        )
-      }
-      )}
+        
+      {/* }
+      )} */}
 
       <div className="h-[4.75rem] w-full">
         <Footer />

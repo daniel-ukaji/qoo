@@ -74,7 +74,12 @@ const hideOnClickOutside = (e) => {
   });
 
   if (property) {
-    const propertySplit = property.propertyImages.split(",")
+    //const propertySplit = property.propertyImages.split(",")
+
+    console.log(property.propertyImages[0].propertyImageUrl)
+    console.log(property)
+
+    
     
     const {
       addToBooking,
@@ -103,6 +108,9 @@ const hideOnClickOutside = (e) => {
             </h1>
           </div>
 
+          <div>
+            {property.propertyImages.propertyImageUrl}
+          </div>
 
 
           <div className="flex justify-between mt-2">
@@ -154,7 +162,7 @@ const hideOnClickOutside = (e) => {
               {/* Big Image */}
               <div className="relative w-1/2 h-full">
                 <Image
-                  src={propertySplit[0]}
+                  src={property.propertyImages[0].propertyImageUrl}
                   alt="room image"
                   className="absolute h-full w-full rounded-tl-[10px] rounded-bl-[10px]"
                   layout="fill"
@@ -165,7 +173,7 @@ const hideOnClickOutside = (e) => {
                 <div className="flex justify-between">
                   <div className="relative h-[15.688rem] w-fourty8 ">
                     <Image
-                      src={propertySplit[1].trim("")}
+                      src={property.propertyImages[0].propertyImageUrl}
                       alt="room image"
                       className="absolute w-full h-full"
                       layout="fill"
@@ -173,7 +181,7 @@ const hideOnClickOutside = (e) => {
                   </div>
                   <div className="relative h-[15.688rem] w-fourty8 ">
                     <Image
-                      src={propertySplit[2].trim("")}
+                      src={property.propertyImages[0].propertyImageUrl}
                       alt="room image"
                       className="absolute h-full w-full rounded-tr-[10px]"
                       layout="fill"
@@ -183,7 +191,7 @@ const hideOnClickOutside = (e) => {
                 <div className="flex items-center justify-between">
                   <div className="relative h-[15.688rem] w-fourty8">
                     <Image
-                      src={propertySplit[3].trim("")}
+                      src={property.propertyImages[0].propertyImageUrl}
                       alt="room image"
                       className="absolute w-full h-full"
                       layout="fill"
@@ -191,7 +199,7 @@ const hideOnClickOutside = (e) => {
                   </div>
                   <div className="relative h-[15.688rem] w-fourty8">
                     <Image
-                      src={propertySplit[4].trim("")}
+                      src={property.propertyImages[0].propertyImageUrl}
                       alt="room image"
                       className="absolute h-full w-full rounded-br-[10px]"
                       layout="fill"
@@ -279,7 +287,7 @@ const hideOnClickOutside = (e) => {
                   <h1 className="mb-4 text-lg font-bold text-gray-800">
                     Bedroom
                   </h1>
-                  <div className="flex gap-5 text-sm font-normal text-secondary">
+                  {/* <div className="flex gap-5 text-sm font-normal text-secondary">
                   {property.propertyBedroomDescription.split(",").map((item) => {
                     return (
                       
@@ -290,14 +298,14 @@ const hideOnClickOutside = (e) => {
                       
                     )
                   })}
-                  </div>
+                  </div> */}
                 </div>
 
                 <div className="mt-12">
                   <h1 className="mb-4 text-lg font-bold text-gray-800">
                     General
                   </h1>
-                  <div className="flex gap-5 text-sm font-normal text-secondary">
+                  {/* <div className="flex gap-5 text-sm font-normal text-secondary">
                   {property.propertyGeneral.split(",").map((item) => {
                     return (
                       
@@ -306,14 +314,14 @@ const hideOnClickOutside = (e) => {
                       
                     )
                   })}
-                  </div>
+                  </div> */}
                 </div>
 
                 <div className="mt-12">
                   <h1 className="mb-4 text-lg font-bold text-gray-800">
                     Mandatory or included services
                   </h1>
-                  <div className="flex gap-5 text-sm font-normal text-secondary">
+                  {/* <div className="flex gap-5 text-sm font-normal text-secondary">
                   {property.propertyMandatory.split(",").map((item) => {
                     return (
                       
@@ -322,14 +330,8 @@ const hideOnClickOutside = (e) => {
                       
                     )
                   })}
-                    {/* <div className="p-2 bg-gray-200 rounded">{propertyMandatorySplit[0]}</div> */}
-                    {/* <div className="p-2 bg-gray-200 rounded">
-                      Internet Access: Included
-                    </div>
-                    <div className="p-2 bg-gray-200 rounded">
-                      Security deposit (Refundable): NGN50,000.00 /booking
-                    </div> */}
-                  </div>
+                    
+                  </div> */}
                 </div>
 
                 <div className="mt-12">
@@ -355,7 +357,7 @@ const hideOnClickOutside = (e) => {
                   <h1 className="mb-4 text-lg font-bold text-gray-800">
                     Check-in schedule/Check-out schedule
                   </h1>
-                  <div className="flex gap-5 text-sm font-normal text-secondary">
+                  {/* <div className="flex gap-5 text-sm font-normal text-secondary">
                     {property.propertySchedule.split(",").map((item) => {
                       return (
                       
@@ -365,7 +367,7 @@ const hideOnClickOutside = (e) => {
                       )
                     })}
                     
-                  </div>
+                  </div> */}
                 </div>
 
                 <div className="mt-12">
@@ -545,7 +547,7 @@ const hideOnClickOutside = (e) => {
 
                   <div className="flex items-center justify-between text-sm font-bold text-secondary">
                     <h1>Total</h1>
-                    <h1>₦250,000</h1>
+                    <h1>{property.propertyBookingPrice}</h1>
                   </div>
                 </div>
               </div>

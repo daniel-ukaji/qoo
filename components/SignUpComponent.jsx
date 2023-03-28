@@ -58,12 +58,12 @@ const SignUpComponent = () => {
     }
 
     const enrollmentData = {
-      firstName,
-      lastName,
-      email,
-      countryCode,
+      userFirstName: firstName,
+      userLastName: lastName,
+      userEmail: email,
+      userCountryCode: countryCode,
       country,
-      phone: phoneNumber,
+      userPhone: phoneNumber,
       source,
     };
 

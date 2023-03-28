@@ -13,6 +13,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { GlobalProvider } from '../context/GlobalState'
 import ProgressBar from "@badrap/bar-of-progress";
 import { useRouter } from "next/router";
+import { wrapper } from '../reduxstore/store';
 
 const progress = new ProgressBar({
   size: 4,
@@ -99,4 +100,4 @@ function MyApp({ Component, pageProps }) {
   );
 }
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);

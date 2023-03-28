@@ -130,13 +130,19 @@ const Header = () => {
     {
       label: "Account settings",
       actionType: "LINK",
-      href: "/_/me",
+      href: "/AccountSettings",
       id: "5",
+    },
+    {
+      label: "Host Admin",
+      actionType: "LINK",
+      href: "/hostProperty",
+      id: "6",
     },
     {
       label: "Log out",
       actionType: "BUTTON",
-      id: "6",
+      id: "7",
       onPress: () => logOut(),
     },
   ];

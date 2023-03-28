@@ -10,6 +10,8 @@ import ModalComponent from "../components/ModalComponent";
 import FilterComponent from "../components/FilterComponent.jsx";
 import { fetchproperties } from "../utils/api/property/getProperties";
 import SkeletonCard from "../components/SkeletonCard";
+import Navbar from "../components/Navbar";
+
 
 export default function Home() {
   const [modalActive, setModalActive] = useState(false);
@@ -47,7 +49,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      {/* <Navbar /> */}
       <Header />
+
 
       <main className="px-20 mt-8">
         <div className="flex items-center justify-between">
@@ -71,12 +75,12 @@ export default function Home() {
               <RoomCard
                 key={property.propertyId}
                 roomAddy={`${property.propertyStreet} ${property.propertyCity}, ${property.propertyState} `}
-                imageUrl={property.propertyImage}
+                imageUrl={property.propertyImages}
                 numOfBath={property.propertyBathroomNumber}
                 numOfBed={property.propertyBedroomNumber}
-                roomTitle={property.propertyIntroduction}
+                roomTitle={property.propertyName}
                 roomId={property.propertyId}
-                price={property.propertyRentalPrice}
+                price={property.propertyBookingPrice}
               />
             ))}
         </div>

@@ -1,13 +1,13 @@
 import apiClient from "../apiClient";
 import { GETBOOKING } from "../API_URL";
 
-export const getBooking = (bookingId) =>
+export const getBooking = (bookingRenterUserId) =>
   apiClient.post(`/${GETBOOKING}`, {
-    bookingId,
+    bookingRenterUserId,
   });
 
-export const fetchbooking = async (bookingId) => {
-  let response = await getBooking(bookingId);
+export const fetchbooking = async (bookingRenterUserId) => {
+  let response = await getBooking(bookingRenterUserId);
   if (response.ok && response.data && response.data.responseCode === "00") {
     return response.data.data;
   }

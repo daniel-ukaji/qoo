@@ -2,7 +2,7 @@ import { create } from "apisauce";
 import storage from "../storage";
 
 const apiClient = create({
-  baseURL: process.env.NEXT_PUBLIC_URL,
+  baseURL: "https://6v50nb72wg.execute-api.us-east-1.amazonaws.com/dev",
 });
 
 apiClient.addAsyncRequestTransform(async (reqTransformer) => {

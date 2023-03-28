@@ -32,6 +32,8 @@ const LoginModal = () => {
 
       const response = await loginApi.request(req);
 
+      console.log(response)
+
       toast.update(id, {
         type: response.data.responseCode !== "00" ? "error" : "success",
         render: response.data.responseMessage,

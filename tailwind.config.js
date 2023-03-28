@@ -22,6 +22,10 @@ module.exports = {
       colors: {
         primary: "#DB5461",
         secondary: "#162748",
+        'airbnb-red': '#FF5A5F',
+        'airbnb-gray': '#484848',
+        'airbnb-light-gray': '#F7F7F7',
+        colorMan: "linear-gradient(180deg, #DB5461 0%, #7B61FF 100%)",
       },
     },
   },
