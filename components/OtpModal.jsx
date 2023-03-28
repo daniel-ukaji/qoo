@@ -41,10 +41,10 @@ const OtpModal = () => {
     if (otpValue.length === 6) {
       let id = toast.loading("Please wait whiles we complete your request");
       let requestData = {
-        otp: otpValue,
-        email: authLevel.email,
-        password: authLevel.password,
-        confirmPassword: authLevel.password,
+        userOtp: otpValue,
+        userEmail: authLevel.email,
+        userPassword: authLevel.password,
+        userConfirmPassword: authLevel.password,
       };
 
       const response = await completeReqRequest(requestData);
