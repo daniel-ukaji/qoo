@@ -25,3 +25,6 @@ export const CREATEPAYMENT = "payment/create-payment";
 // User
 export const VERIFYPROFILE = "user/verify-profile";
 
+// Image
+export const IMAGEURL = "uploadimage2s3"
+

@@ -24,6 +24,8 @@ module.exports = {
       "media.wired.com",
       "ichef.bbci.co.uk",
       "wallpapers.com",
+      "www.google.com",
+      "apvertise-repo.s3.amazonaws.com",
     ],
   },
 };

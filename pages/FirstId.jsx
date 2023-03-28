@@ -1,6 +1,9 @@
 import { useRouter } from "next/router";
 import Layout from "../components/Layout";
 import { useState } from "react";
+import HostFrame from '../public/images/HostFrame.png'
+import Image from "next/image";
+
 
 export default function RadioPage() {
     const router = useRouter();
@@ -33,7 +36,7 @@ export default function RadioPage() {
             </div>
           <div className="flex items-center pl-4 rounded border border-gray-200 dark:border-gray-700">
                       <label className="py-4 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">Driver's license</label>
-                      <input id="bordered-radio-1" type="radio" value="Driver's license" name="options" checked={selectedOption === "Drivers_licencse"} onChange={handleOptionChange} className="w-6 h-6 outline-none text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 mr-3" />
+                      <input id="bordered-radio-1" type="radio" value="Driver's license" name="options" checked={selectedOption === "Driver's license"} onChange={handleOptionChange} className="w-6 h-6 outline-none text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 mr-3" />
           </div>
           <div className="flex items-center pl-4 rounded border border-gray-200 dark:border-gray-700">
                       <label className="py-4 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">Passport</label>
@@ -41,7 +44,7 @@ export default function RadioPage() {
           </div>
           <div className="flex items-center pl-4 rounded border border-gray-200 dark:border-gray-700">
                       <label className="py-4 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">National Identity Card</label>
-                      <input id="bordered-radio-1" type="radio" value="National Identity Card" name="options" checked={selectedOption === "National_Identity_Card"} onChange={handleOptionChange} className="w-6 h-6 outline-none text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 mr-3" />
+                      <input id="bordered-radio-1" type="radio" value="National Identity Card" name="options" checked={selectedOption === "National Identity Card"} onChange={handleOptionChange} className="w-6 h-6 outline-none text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 mr-3" />
           </div>
           
         </div>
@@ -58,7 +61,18 @@ export default function RadioPage() {
       </div>
       <div className="flex flex-col justify-between pl-10 p-6 relative bg-gradient-to-b from-[#DB5461] to-[#7B61FF] min-h-screen">
         {/* <!-- Content for the right side --> */}
-        
+        <div className='h-10 w-10'>
+            <Image src={HostFrame}  />
+        </div>
+
+        <div className='font-sora  mb-36'>
+            <p className='text-5xl font-bold text-white mb-5'>Add a photo of your ID</p>
+            <p className='text-md text-white'>Your ID will be handled according to our Privacy Policy and won't be shared with your guests.</p>
+        </div>
+
+        <div>
+
+        </div>
         
       </div>
 

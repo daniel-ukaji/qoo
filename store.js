@@ -1,6 +1,7 @@
 import { createStore } from 'redux';
 
-
+const ADD_IMAGE = 'ADD_IMAGE';
+const REMOVE_IMAGE = 'REMOVE_IMAGE';
 
 const initialState = {
   pageNumber: 1,
@@ -25,6 +26,7 @@ const initialState = {
   propertySecurityDeposit: '',
   propertyHostId: "100001",
   propertyBookingConditions: '',
+  propertyImage: '',
 };
 
 const formReducer = (state = initialState, action) => {
@@ -56,8 +58,8 @@ const formReducer = (state = initialState, action) => {
       return { ...state, propertyBathroomNumber: action.payload };
     case 'SET_PROPERTY_SERVICES':
       return { ...state, propertyServices: action.payload };
-    case 'SET_PROPERTY_IMAGES':
-      return { ...state, propertyImages: action.payload };
+      case 'SET_PROPERTY_IMAGE':
+        return { ...state, propertyImage: action.payload };
     case 'SET_PAGE8_INPUT':
       return { ...state, propertyName: action.payload };
     case 'SET_PAGE9_INPUT':
@@ -72,10 +74,16 @@ const formReducer = (state = initialState, action) => {
       return { ...state, propertySecurityDeposit: action.payload };
     case 'SET_PROPERTY_BOOKING_CONDITIONS':
       return { ...state, propertyBookingConditions: action.payload };
-    // case 'ADD_PROPERTY_IMAGE':
-    //   return { ...state, propertyImages: [...state.propertyImages, action.payload] }; // add new image to array
-    // case 'REMOVE_PROPERTY_IMAGE':
-    //   return { ...state, propertyImages: state.propertyImages.filter(image => image !== action.payload) }; // remove image from array
+    case ADD_IMAGE:
+      return {...state, propertyImages: action.payload};
+        
+    // case REMOVE_IMAGE:
+    //     const newImages = {...state.propertyImages};
+    //     newImages.splice(action.payload, 1);
+      return {
+          ...state,
+          propertyImages: newImages,
+        };
     default:
       return state;
   }
@@ -84,3 +92,4 @@ const formReducer = (state = initialState, action) => {
 const store = createStore(formReducer);
 
 export default store;
+export { ADD_IMAGE, REMOVE_IMAGE };

@@ -160,9 +160,9 @@ const Index = () => {
 
       const bookingSubmit = await CreateBooking.request(bookingResponse);
 
-      const bookingCheckInDate = booking.startDate;
-      const bookingCheckOutDate = booking.endDate;
-      const bookingTotal = booking.totalPrice;
+      // const bookingCheckInDate = booking.startDate;
+      // const bookingCheckOutDate = booking.endDate;
+      // const bookingTotal = booking.totalPrice;
 
       // toast.update(id, {
       //   type: response.data.responseCode !== "00" ? "error" : "success",

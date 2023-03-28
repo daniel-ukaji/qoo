@@ -3,28 +3,69 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import store from '../store';
 import { useAuth } from "../utils/hooks/useAuth";
+import { useApi } from '../utils/hooks/useApi';
+import { imageurl } from '../utils/api/imagecreate/ImageUrl';
 
 
 
 const PageFive = () => {
 
     const user = useAuth();
-    const hostId = user.user.userHostId
-    console.log(user.user.userHostId)
+    // const hostId = user.user?.userHostId
+    // console.log(user.user?.userHostId)
 
-    
+    // const ImageApi = useApi(imageurl)
+
+    // const ImageData = {
+    //   username : hostId,
+    //   base64 : useSelector((state) => state.propertyImages),
+    //   region : "us-east-1",
+    //   source : "qucoon",
+    //   s3bucket : "qoospayce-repo"
+    // }
+
+    // console.log(useSelector((state) => state.propertyImages))
+
+    // const PropertyApi = useApi(createproperty);
 
     const submitForm = async () => {
         
         const data = store.getState();
+        // const response = await ImageApi.request(ImageData);
+        // console.log(response)
+
+
+        const url = "https://6v50nb72wg.execute-api.us-east-1.amazonaws.com/dev/property/create";
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data)
+        })
+        .then((response) => response.json())
+              .then((data) => console.log(data))
+              .catch((error) => console.error(error));
+        // const responseData = await response.json();
+        // console.log(responseData)
+        // return responseData;
+      }
         
-        try {
-          const response = await axios.post('https://6v50nb72wg.execute-api.us-east-1.amazonaws.com/dev/property/create', data);
-          console.log('Form submitted successfully:', response.data);
-        } catch (error) {
-          console.error('Error submitting form:', error);
-        }
-      };      
+      //   try {
+      //     const response = await axios.post('https://6v50nb72wg.execute-api.us-east-1.amazonaws.com/dev/property/create', data);
+      //     console.log('Form submitted successfully:', response)
+      //   } catch (error) {
+      //     console.error('Error submitting form:', error);
+      //   }
+      // };      
+
+
+
+      
+
+      // if (response.data.url) {
+      //   const response = axios.post('')
+      // }
 
       const handleSubmit = (event) => {
         event.preventDefault();
@@ -50,6 +91,9 @@ const PageFive = () => {
   const Price = useSelector((state) => state.propertyBookingPrice);
   const Questions = useSelector((state) => state.propertyAdditionalNotes);
   const MoreQuestions = useSelector((state) => state.propertyBookingConditions);
+  // const Images = useSelector((state) => state.propertyImages)
+
+  // console.log(ImageUpload)
 
   return (
     <>

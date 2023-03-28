@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useAuth } from "../utils/hooks/useAuth";
 import { useApi } from "../utils/hooks/useApi";
 import { verifyuser } from "../utils/api/user/verifyUser";
+import HostFrame from '../public/images/HostFrame.png'
 
 
 export default function FormPage() {
@@ -22,7 +23,7 @@ export default function FormPage() {
 
     const verifyData = {
         userId: userProfile,
-        userIdType: router.query.option,
+        userIdType: "DRIVERS_LICENSE",
         reference: "uiyuiyuiyui8980",
         userIdNumber: text,
       }
@@ -98,7 +99,18 @@ export default function FormPage() {
       </div>
       <div className="flex flex-col justify-between pl-10 p-6 relative bg-gradient-to-b from-[#DB5461] to-[#7B61FF] min-h-screen">
         {/* <!-- Content for the right side --> */}
-        
+        <div className='h-10 w-10'>
+            <Image src={HostFrame}  />
+        </div>
+
+        <div className='font-sora  mb-36'>
+            <p className='text-5xl font-bold text-white mb-5'>Add a photo of your ID</p>
+            <p className='text-md text-white'>Your ID will be handled according to our Privacy Policy and won't be shared with your guests.</p>
+        </div>
+
+        <div>
+
+        </div>
         
       </div>
 

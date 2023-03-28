@@ -11,7 +11,7 @@ const PageTestThree = ({ prevStep }) => {
   const propertyState = useSelector((state) => state.propertyState);
   const propertyZipCode = useSelector((state) => state.propertyZipCode);
   const propertyCountry = useSelector((state) => state.propertyCountry);
-  const propertyImages = useSelector((state) => state.propertyImages);
+  const propertyImage = useSelector((state) => state.propertyImage);
 
   const handleStreetChange = (e) => {
     dispatch({ type: 'SET_PROPERTY_STREET', payload: e.target.value });
@@ -34,17 +34,17 @@ const PageTestThree = ({ prevStep }) => {
   };
 
   const handleImagesChange = (e) => {
-    dispatch({ type: 'SET_PROPERTY_IMAGES', payload: e.target.value });
+    dispatch({ type: 'SET_PROPERTY_IMAGE', payload: e.target.value });
   };
 
   const handleNextClick = () => {
-    if (!propertyStreet || !propertyCity || !propertyState || !propertyZipCode || !propertyCountry || !propertyImages) return; // Do not proceed if input field is empty
+    if (!propertyStreet || !propertyCity || !propertyState || !propertyZipCode || !propertyCountry || !propertyImage) return; // Do not proceed if input field is empty
     dispatch({ type: 'SET_PROPERTY_STREET', payload: propertyStreet });
     dispatch({ type: 'SET_PROPERTY_CITY', payload: propertyCity });
     dispatch({ type: 'SET_PROPERTY_STATE', payload: propertyState });
     dispatch({ type: 'SET_PROPERTY_ZIPCODE', payload: propertyZipCode });
     dispatch({ type: 'SET_PROPERTY_COUNTRY', payload: propertyCountry });
-    dispatch({ type: 'SET_PROPERTY_IMAGES', payload: propertyImages });
+    dispatch({ type: 'SET_PROPERTY_IMAGE', payload: propertyImage });
     dispatch({ type: 'SET_PAGE_NUMBER', payload: 4 });
   };
 
@@ -135,10 +135,10 @@ const PageTestThree = ({ prevStep }) => {
                 <InputField
                   label="Enter your Address:"
                   placeholder="Nigeria"
-                  value={propertyImages}
+                  value={propertyImage}
                   onChange={handleImagesChange}
                   setPageInput={(option) => ({
-                      type: 'SET_PROPERTY_IMAGES',
+                      type: 'SET_PROPERTY_IMAGE',
                       payload: option,
                 })}
                 />
