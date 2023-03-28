@@ -19,7 +19,7 @@ function hostProperty() {
     const user = useAuth();
     console.log(user.user)
 
-    const propertyHostId = user.user?.userHostId;
+    const propertyHost = user.user?.userHostId;
 
     const FetchHostProp = useApi(getPropertyHostId)
 
@@ -49,7 +49,6 @@ function hostProperty() {
     //     staleTime: 30000,
     //   });   
 
-      console.log(propertyHostId)
 
     // const response = await CreateBooking.request(bookingData);
 
@@ -102,7 +101,7 @@ function hostProperty() {
 
                     <div className="flex space-x-3 overflow-scroll scrollbar-hide p-5 -ml-3">
                     {properties && properties.map((property) => {
-                        // if (property.propertyId === 100010) {
+                        if (property.propertyHostId === propertyHost) {
                         return (
                             <PropertyCard
                                 key={property.propertyId}
@@ -115,7 +114,7 @@ function hostProperty() {
                                 price={property.propertyBookingPrice}
                             />
                         )
-                        //}
+                        }
                     })}
                     </div>
                         
