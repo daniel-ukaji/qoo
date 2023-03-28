@@ -16,7 +16,7 @@ export default function FormPage() {
 
     const user = useAuth();
 
-    const userProfile = user.user.userId;
+    const userProfile = user.user?.userId;
 
     const CreateVerify = useApi(verifyuser)
 
