@@ -176,7 +176,9 @@ const Index = () => {
       console.log(bookingSubmit);
   }
 
-
+  const formatter = new Intl.NumberFormat("en-US", {
+    currency: "USD",
+  });
 
   // const foot = '76px';
   return (
@@ -450,7 +452,7 @@ const Index = () => {
                   <div className="my-4 border-t border-t-gray-200" />
                   <div className="flex items-center justify-between text-sm font-bold text-secondary">
                     <h1>Total</h1>
-                    <h1>₦{totalPrice}</h1>
+                    <h1>₦ {formatter.format(totalPrice)}</h1>
                   </div>
                   {CreatePayment.loading ? (
                     <div className="flex items-center justify-center">

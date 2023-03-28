@@ -287,18 +287,18 @@ const hideOnClickOutside = (e) => {
                   <h1 className="mb-4 text-lg font-bold text-gray-800">
                     Bedroom
                   </h1>
-                  {/* <div className="flex gap-5 text-sm font-normal text-secondary">
-                  {property.propertyBedroomDescription.split(",").map((item) => {
-                    return (
+                  <div className="flex gap-5 text-sm font-normal text-secondary">
+                  {/* {property.propertyBedroomDescription.map((item) => { */}
+                    {/* return ( */}
                       
                         <div className=" p-2 bg-gray-200 rounded">
-                          {item}
+                          {property.propertyBedroomDescription}
                         </div>
                         
                       
-                    )
-                  })}
-                  </div> */}
+                    {/* ) */}
+                  {/* })} */}
+                  </div>
                 </div>
 
                 <div className="mt-12">
@@ -434,7 +434,7 @@ const hideOnClickOutside = (e) => {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center justify-center space-x-1 text-[#031C43]">
                       <h1 className="text-2xl font-medium ">{property.propertyRentalPrice}</h1>
-                      <h1 className="text-sm font-normal">/night</h1>
+                      <h1 className="text-sm font-normal">{property.propertyBookingPrice}/night</h1>
                     </div>
                     <div className="flex items-center space-x-2">
                       <GiRoundStar className="w-4 h-4 text-primary" />

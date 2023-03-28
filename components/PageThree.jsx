@@ -11,7 +11,7 @@ const PageTestThree = ({ prevStep }) => {
   const propertyState = useSelector((state) => state.propertyState);
   const propertyZipCode = useSelector((state) => state.propertyZipCode);
   const propertyCountry = useSelector((state) => state.propertyCountry);
-  const propertyImage = useSelector((state) => state.propertyImage);
+  // const propertyImage = useSelector((state) => state.propertyImage);
 
   const handleStreetChange = (e) => {
     dispatch({ type: 'SET_PROPERTY_STREET', payload: e.target.value });
@@ -33,18 +33,18 @@ const PageTestThree = ({ prevStep }) => {
     dispatch({ type: 'SET_PROPERTY_COUNTRY', payload: e.target.value });
   };
 
-  const handleImagesChange = (e) => {
-    dispatch({ type: 'SET_PROPERTY_IMAGE', payload: e.target.value });
-  };
+  // const handleImagesChange = (e) => {
+  //   dispatch({ type: 'SET_PROPERTY_IMAGE', payload: e.target.value });
+  // };
 
   const handleNextClick = () => {
-    if (!propertyStreet || !propertyCity || !propertyState || !propertyZipCode || !propertyCountry || !propertyImage) return; // Do not proceed if input field is empty
+    if (!propertyStreet || !propertyCity || !propertyState || !propertyZipCode || !propertyCountry) return; // Do not proceed if input field is empty
     dispatch({ type: 'SET_PROPERTY_STREET', payload: propertyStreet });
     dispatch({ type: 'SET_PROPERTY_CITY', payload: propertyCity });
     dispatch({ type: 'SET_PROPERTY_STATE', payload: propertyState });
     dispatch({ type: 'SET_PROPERTY_ZIPCODE', payload: propertyZipCode });
     dispatch({ type: 'SET_PROPERTY_COUNTRY', payload: propertyCountry });
-    dispatch({ type: 'SET_PROPERTY_IMAGE', payload: propertyImage });
+    // dispatch({ type: 'SET_PROPERTY_IMAGE', payload: propertyImage });
     dispatch({ type: 'SET_PAGE_NUMBER', payload: 4 });
   };
 
@@ -131,7 +131,7 @@ const PageTestThree = ({ prevStep }) => {
                 <label htmlFor="" className='absolute top-0 left-0 bg-white px-2 -mt-3 ml-3 text-gray-600 text-sm'>Country</label>
               </div>
 
-              <div className='relative'>
+              {/* <div className='relative'>
                 <InputField
                   label="Enter your Address:"
                   placeholder="Nigeria"
@@ -143,7 +143,7 @@ const PageTestThree = ({ prevStep }) => {
                 })}
                 />
                 <label htmlFor="" className='absolute top-0 left-0 bg-white px-2 -mt-3 ml-3 text-gray-600 text-sm'>Images</label>
-              </div>
+              </div> */}
             </div>
 
             <div>

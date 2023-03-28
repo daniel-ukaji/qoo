@@ -57,7 +57,9 @@ const PageTwelve = ({ prevStep }) => {
       const Questions = useSelector((state) => state.propertyAdditionalNotes);
       const MoreQuestions = useSelector((state) => state.propertyBookingConditions);
       const Amenities = useSelector((state) => state.propertyAmenities);
-      const Images = useSelector((state) => state?.propertyImages.url);
+      const Images = useSelector((state) => state?.propertyImages[0]);
+
+      console.log(Images)
   
 
     const submitForm = async () => {
