@@ -332,14 +332,14 @@ const Index = () => {
                       name=""
                       id=""
                       className="h-[3rem] w-fourty8 outline-none rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
-                      placeholder="First name"
+                      placeholder="Address"
                     />
                     <input
                       type="text"
                       name=""
                       id=""
                       className="h-[3rem] w-fourty8 outline-none rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
-                      placeholder="Last name"
+                      placeholder="City"
                     />
                   </div>
 
@@ -349,14 +349,14 @@ const Index = () => {
                       name=""
                       id=""
                       className="h-[3rem] w-fourty8 outline-none rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
-                      placeholder="First name"
+                      placeholder="Phone number"
                     />
                     <input
                       type="text"
                       name=""
                       id=""
                       className="h-[3rem] w-fourty8 outline-none rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
-                      placeholder="Last name"
+                      placeholder="Email Address"
                     />
                   </div>
                   <textarea
