@@ -59,14 +59,14 @@ const Index = () => {
 
 
 
-const parsedSelectedDateRange = JSON.parse(selectedDateRange);
+// const parsedSelectedDateRange = JSON.parse(selectedDateRange);
 
 const handleClick = () => {
   router.push('/').then(() => router.reload());
 };
 
-const checkOutDate = parsedSelectedDateRange?.endDate;
-const checkInDate = parsedSelectedDateRange?.startDate;
+// const checkOutDate = parsedSelectedDateRange?.endDate;
+// const checkInDate = parsedSelectedDateRange?.startDate;
 
   const CreateBooking = useApi(createBooking)
 
@@ -95,13 +95,13 @@ const checkInDate = parsedSelectedDateRange?.startDate;
 
   // console.log(checkOutDate.toISOString().split('T')[0])
 
-  console.log(parsedSelectedDateRange)
+  // console.log(parsedSelectedDateRange)
 
   // console.log(checkOuttDate)
 
   // console.log(checkInDate)
 
-  console.log(checkInDate)
+  // console.log(checkInDate)
 
   // console.log(checkDate)
 
