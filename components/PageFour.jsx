@@ -4,6 +4,8 @@ import ClickableBox from './ClickableBox';
 import HostFrame from '../public/images/HostFrame.png'
 import Image from 'next/image';
 import ClickableCircle from './ClickableCircle';
+import Link from 'next/link';
+
 
 
 const PageTestFour = ({ prevStep }) => {

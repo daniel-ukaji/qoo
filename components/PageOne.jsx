@@ -3,6 +3,7 @@ import ClickableBox from './ClickableBox'
 import Layout from '../components/Layout'
 import HostFrame from '../public/images/HostFrame.png'
 import Image from 'next/image';
+import Link from 'next/link';
 
 
 const PageTest = () => {

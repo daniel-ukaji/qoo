@@ -3,6 +3,7 @@ import Layout from '../components/Layout'
 import ClickableMultipleBox from '../components/ClickableMultipleBox';
 import HostFrame from '../public/images/HostFrame.png'
 import Image from 'next/image';
+import Link from 'next/link';
 
 
 const PageSix = ({ prevStep }) => {

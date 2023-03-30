@@ -7,6 +7,7 @@ import { useState } from 'react';
 import PriceField from './PriceField';
 import Minus from '../pages/images/minus.png'
 import Plus from '../pages/images/plus.png'
+import Link from 'next/link';
 
 
 const PageEleven = ({ prevStep }) => {

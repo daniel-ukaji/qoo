@@ -5,6 +5,7 @@ import HostFrame from '../public/images/HostFrame.png'
 import Image from 'next/image';
 import { useState } from 'react';
 import InputField from './InputField';
+import Link from 'next/link';
 
 
 const PageSeven = ({prevStep}) => {

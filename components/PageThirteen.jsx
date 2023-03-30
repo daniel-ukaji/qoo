@@ -10,6 +10,7 @@ import { TrashIcon } from "@heroicons/react/solid";
 import { useDispatch } from 'react-redux'
 import { ADD_IMAGE, REMOVE_IMAGE } from '../store'
 import { PlusIcon } from '@heroicons/react/solid';
+import Link from 'next/link'
 
 
 
@@ -87,9 +88,11 @@ const handleBackClick = () => {
     <Layout>
       <div className="pl-10 p-6 h-screen flex flex-col justify-between">
         {/* <!-- Content for the left side --> */}
-        <div className="">
-            <button className="py-2 px-5 mr-2 mb-2 text-sm font-medium focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200">Exit</button>
-        </div>
+        <Link href="/">
+          <div className="">
+              <button className="py-2 px-5 mr-2 mb-2 text-sm font-medium focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200">Exit</button>
+          </div>
+        </Link>
         <div className='border max-w-lg flex flex-col items-center'>
                 <div className='flex flex-col items-center mt-16 mb-16'>
                 {selectedImages.length === 0 && (

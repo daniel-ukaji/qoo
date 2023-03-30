@@ -4,6 +4,8 @@ import InputField from '../components/InputField';
 import HostFrame from '../public/images/HostFrame.png'
 import Image from 'next/image';
 import TextAreaField from './TextAreaField';
+import Link from 'next/link';
+
 
 
 const PageNine = ({ prevStep }) => {

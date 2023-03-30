@@ -64,7 +64,7 @@ const MultiStepForm = () => {
     }
   };
 
-  return <div className="container mx-auto">{getPage(pageNumber || step)}</div>;
+  return <div className="">{getPage(pageNumber || step)}</div>;
 };
 
 export default MultiStepForm;
