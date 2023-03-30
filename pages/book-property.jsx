@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Router, { useRouter } from "next/router";
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import { BiChevronLeft } from "react-icons/bi";
 import { FiMapPin, FiUser } from "react-icons/fi";
 import { GlobalContext } from "../context/GlobalState";
@@ -15,14 +15,29 @@ import { createBooking } from "../utils/api/booking/createBooking";
 import { createpayment } from "../utils/api/payment/createPayment";
 import { toast } from "react-toastify";
 import { useAuth } from "../utils/hooks/useAuth";
+// import Loader from "../components/Loader";
+import Load from "../components/Load";
 import Loader from "../components/Loader";
+import {AiOutlineWhatsApp} from 'react-icons/ai'
+import {AiOutlineMail} from 'react-icons/ai'
+import {AiOutlinePhone} from 'react-icons/ai'
+import Link from "next/link";
 
 
 const Index = () => {
+  const [firstname, setFirstName] = useState("");
+  const [lastname, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [phonenumber, setPhoneNumber] = useState("");
+  const [comments, setComments] = useState("");
+
+
   const {booking} = useContext(GlobalContext);
   const router = useRouter();
   // console.log(router.query)
-  const { startDate, endDate, noOfGuests, propertyId } = router.query;
+  const { startDate, endDate, noOfGuests, selectedDateRange, propertyId } = router.query;
   // const formatStartDate = format(new Date(startDate), "MM/dd/yyyy")
   // const formatEndDate = format(new Date(endDate), "MM/dd/yyyy")
   const formattedStartDate = new Date(startDate).getTime()
@@ -37,45 +52,25 @@ const Index = () => {
   console.log(finalDate)
   const navBar = "96px";
 
+//   const checkInDate = new Date(startDate);
+// const checkOutDate = new Date(endDate);
+
+
+
+
+
+const parsedSelectedDateRange = JSON.parse(selectedDateRange);
+
+const handleClick = () => {
+  router.push('/').then(() => router.reload());
+};
+
+const checkOutDate = parsedSelectedDateRange?.endDate;
+const checkInDate = parsedSelectedDateRange?.startDate;
+
   const CreateBooking = useApi(createBooking)
 
   const CreatePayment = useApi(createpayment)
-
-  const bookingData = {
-    bookingRenterId : "100001",
-    bookingPropertyId : "100001",
-    bookingComment : "ablzcihyfssfkq",
-    bookingGPS : "odpylyebk",
-    bookingAmount : "80040.98",
-    bookingCurrency : "USD",
-    bookingCountry : "France",
-    bookingCity : "Aba",
-    bookingStreet : "bookingStreet",
-    bookingEmail : "Smith@Yahoo.com",
-    bookingPhoneNumber : "013012138314",
-    bookingSequence : "ibpagnengivpo",
-    bookingStartDate : "2021-07-12 21:04:45.440",
-    bookingEndDate : "2021-07-12 21:04:45.440",
-    bookingState : "Lagos",
-    bookingImage : "qiiweooorjrrrk",
-    bookingOptionalService : "jgtbjg",
-    selfBooking : "True",
-    bookingGuestFirstName : "hjjker",
-    bookingGuestLastName : "hjjker",
-    bookingGuestMiddleName : "hjjker",
-    bookingGuestEmail : "hjjker",
-    bookingGuestPhoneNumber : "hjjker",
-    bookingGuestCity : "hjjker",
-    bookingGuestState : "hjjker",
-    bookingGuestCountry : "hjjker",
-    bookingGuestStreet : "hjjker",
-    bookingGuestComment : "hjjker",
-    bookingGuestIdCard : "hjjker",
-    bookingAdditionalNotes : "hjjker",
-    bookingPromotion : "hjjker",
-    bookingPromoCode : "hjjker"
-
-  }
 
   const auth = useAuth();
 
@@ -86,23 +81,39 @@ const Index = () => {
 
   console.log(booking.propertyName)
 
-  console.log(booking[0]?.propertyHost.hostUserId)
+  // console.log(booking[0]?.propertyHost.hostUserId)
 
-  console.log(booking[0]?.propertyName)
+  // console.log(booking[0]?.propertyName)
 
-  console.log(booking)
+  // console.log(booking)
 
-  console.log(booking[0]?.propertyId)
+  // console.log(booking[0]?.propertyId)
 
-  console.log(startDate)
+  // console.log(startDate)
 
-  console.log(booking[0]?.propertyBookedDates[0]?.checkInDate)
+  // console.log(booking[0]?.propertyBookedDates[0]?.checkInDate)
+
+  // console.log(checkOutDate.toISOString().split('T')[0])
+
+  console.log(parsedSelectedDateRange)
+
+  // console.log(checkOuttDate)
+
+  // console.log(checkInDate)
+
+  console.log(checkInDate)
+
+  // console.log(checkDate)
+
+  // console.log(startDate)
 
   // const checkInDate = booking[0].propertyBookedDates[0].checkInDate
 
   // const checkOutDate = booking[0].propertyBookedDates[0].checkOutDate
 
   // console.log(format(new Date(booking[0]?.propertyBookedDates[0]?.checkInDate), "MM/dd/yyyy"))
+
+  console.log(booking)
 
   const hostId = booking[0]?.propertyHost.hostUserId;
 
@@ -115,6 +126,9 @@ const Index = () => {
   const propertyOptionalServices = booking[0]?.propertyOptionalServices
 
   const PriceTag = booking[0]?.propertyBookingPrice * finalDate
+
+  const message = 'Hello, how are you?';
+  const encodedMessage = encodeURIComponent(message);
 
 
 
@@ -129,6 +143,25 @@ const Index = () => {
     paymentCurrency:"NGN",
     paymentReference: "55tTYT67IUJRE",
   }
+
+  // const bookingResponse = {
+  //   bookingRenterUserId: user,
+  //   bookingRenterFirstName: firstname,
+  //   bookingRenterLastName: lastname,
+  //   bookingRenterAddress: address,
+  //   bookingRenterCity: city,
+  //   bookingRenterPhoneNumber: phonenumber,
+  //   bookingRenterEmail: email,
+  //   bookingRenterComment: comments,
+  //   bookingPropertyId: propId,
+  //   bookingPaymentId: "100000",
+  //   bookingCheckInDate: checkInDate,
+  //   bookingCheckOutDate: checkOutDate,
+  //   bookingAmount: price,
+  //   bookingOptionalService: propertyOptionalServices,
+  //   bookingGuestNumber: noOfGuests,
+  //   bookingGuestTypes: "Children, Cats"
+  // }
 
   
 
@@ -146,13 +179,20 @@ const Index = () => {
 
       const bookingResponse = {
         bookingRenterUserId: user,
+        bookingRenterFirstName: firstname,
+        bookingRenterLastName: lastname,
+        bookingRenterAddress: address,
+        bookingRenterCity: city,
+        bookingRenterPhoneNumber: phonenumber,
+        bookingRenterEmail: email,
+        bookingRenterComment: comments,
         bookingPropertyId: propId,
         bookingPaymentId: "100000",
         bookingCheckInDate: startDate,
         bookingCheckOutDate: endDate,
         bookingAmount: price,
         bookingOptionalService: propertyOptionalServices,
-        bookingGuestNumber: "3",
+        bookingGuestNumber: noOfGuests,
         bookingGuestTypes: "Children, Cats"
       }
 
@@ -198,7 +238,8 @@ const Index = () => {
             >
               <div className="py-9">
                 <button
-                  onClick={() => Router.back()}
+                  // onClick={() => Router.back()}
+                  onClick={handleClick}
                   className="flex items-center px-2 py-3 space-x-2 border border-gray-200 rounded-lg w-fit"
                 >
                   <BiChevronLeft className="text-sm font-normal text-gray-900" />
@@ -236,7 +277,7 @@ const Index = () => {
               <div className="relative h-[25.313rem] w-full">
                 <Image
                   alt="Property Image"
-                  src={property.propertyImage}
+                  src={property.propertyImages[0].propertyImageUrl}
                   className="absolute w-full h-full rounded-2xl"
                   layout="fill"
                   objectFit="cover"
@@ -312,15 +353,19 @@ const Index = () => {
                   <div className="flex items-center justify-between ">
                     <input
                       type="text"
-                      name=""
-                      id=""
+                      name="firstname"
+                      id="firstname"
+                      value={firstname}
+                      onChange={(e) => setFirstName(e.target.value)}
                       className="h-[3rem] outline-none w-fourty8 rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal px-2 placeholder:text-secondary placeholder:text-opacity-40"
                       placeholder="First name"
                     />
                     <input
                       type="text"
-                      name=""
-                      id=""
+                      name="lastname"
+                      id="lastname"
+                      value={lastname}
+                      onChange={(e) => setLastName(e.target.value)}
                       className="h-[3rem] outline-none w-fourty8 rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
                       placeholder="Last name"
                     />
@@ -329,15 +374,19 @@ const Index = () => {
                   <div className="flex items-center justify-between">
                     <input
                       type="text"
-                      name=""
-                      id=""
+                      name="address"
+                      id="address"
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
                       className="h-[3rem] w-fourty8 outline-none rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
                       placeholder="Address"
                     />
                     <input
                       type="text"
-                      name=""
-                      id=""
+                      name="city"
+                      id="city"
+                      value={city}
+                      onChange={(e) => setCity(e.target.value)}
                       className="h-[3rem] w-fourty8 outline-none rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
                       placeholder="City"
                     />
@@ -347,21 +396,27 @@ const Index = () => {
                     <input
                       type="text"
                       name=""
-                      id=""
+                      id="phonenumber"
+                      value={phonenumber}
+                      onChange={(e) => setPhoneNumber(e.target.value)}
                       className="h-[3rem] w-fourty8 outline-none rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
                       placeholder="Phone number"
                     />
                     <input
-                      type="text"
-                      name=""
-                      id=""
+                      type="email"
+                      name="email"
+                      id="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                       className="h-[3rem] w-fourty8 outline-none rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
                       placeholder="Email Address"
                     />
                   </div>
                   <textarea
-                    name=""
-                    id=""
+                    name="comments"
+                    id="comments"
+                    value={comments}
+                    onChange={(e) => setComments(e.target.value)}
                     className="h-[7.438rem] outline-none w-full rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
                     placeholder="Comments"
                   />
@@ -445,29 +500,36 @@ const Index = () => {
                     </div>
 
                     <div className="flex items-center justify-between">
+                      <h1>Guests</h1>
                       <h1>{noOfGuests}</h1>
-                      <h1>3</h1>
                     </div>
                   </div>
-                  <div className="my-4 border-t border-t-gray-200" />
+                  <div className="my-4 border-t border-t-gray-200 border-b" >
                   <div className="flex items-center justify-between text-sm font-bold text-secondary">
                     <h1>Total</h1>
                     <h1>₦ {formatter.format(totalPrice)}</h1>
                   </div>
                   {CreatePayment.loading ? (
                     <div className="flex items-center justify-center">
-                      <Loader fill_color="fill-primary" />
+                      <Load />
                     </div>
                   ):(
                     <button onClick={onSubmit} className="px-24 py-4 mt-4 text-sm font-medium text-white rounded-lg bg-primary">
                       Book apartment
                     </button>
                   )}
+                  </div>
+                  <div className="flex border-t justify-between items-center mt-5">
+                    <Link href="mailto:qoospayce@gmail.com"><div className=" flex flex-col justify-center items-center space-y-2 mt-3"><AiOutlineMail className="text-2xl" /> <p className="text-xs">Contact</p></div></Link>
+                    <Link href={`https://api.whatsapp.com/send?phone=+2349115015468&text=${encodedMessage}`}><div className=" flex flex-col justify-center items-center space-y-2 mt-3"><AiOutlineWhatsApp className="text-2xl" /><p className="text-xs">WhatsApp</p></div></Link>
+                    <div className=" flex flex-col justify-center items-center space-y-2 mt-3"><AiOutlinePhone className="text-2xl" /> <p className="text-xs">+234-9122877657</p></div>
+                  </div>
+
+                  {/* <Load /> */}
                 </div>
               </div>
             )
-            })}
-            
+            })}            
           </div>
           
         

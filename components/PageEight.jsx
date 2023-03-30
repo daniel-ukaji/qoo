@@ -27,15 +27,17 @@ const PageEight = ({ prevStep }) => {
 
   return (
     <Layout>
-        <div className="pl-10 p-6 h-screen flex flex-col justify-between">
+        <div className="pl-10 p-6 h-screen flex flex-col justify-between font-sora">
             {/* <!-- Content for the left side --> */}
-            <div className="">
-              <button className="py-2 px-5 mr-2 mb-2 text-sm font-medium focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200">Exit</button>
-            </div>
+            <Link href="/" className=''>
+              <div className="">
+                <button className="py-2 px-5 mr-2 mb-2 text-sm font-medium focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200">Exit</button>
+              </div>
+            </Link>
 
             <div className="">
             <h1 className='font-bold'>Create Your Title</h1>
-            <p className='mb-5 text-gray-500'>Your listing should highlight what makes your place special</p>
+            <p className='mb-5 text-gray-500 text-sm'>Your listing should highlight what makes your place special</p>
             <TextAreaField
                 label="Create your Title:"
                 placeholder="Name"

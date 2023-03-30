@@ -4,10 +4,10 @@ import PageOne from './PageOne';
 import PageTwo from './PageTwo';
 import PageThree from './PageThree';
 import PageFour from './PageFour';
-import PageFive from './PageFive';
+// import PageFive from './PageFive';
 import PageStepTwo from './PageStepTwo';
 import PageSix from './PageSix';
-import PageSeven from './PageSeven';
+// import PageSeven from './PageSeven';
 import PageEight from './PageEight';
 import PageNine from './PageNine';
 import PageStepThree from './PageStepThree';
@@ -15,8 +15,8 @@ import PageTen from './PageTen';
 import PageEleven from './PageEleven';
 import PageTwelve from './PageTwelve';
 import PageThirteen from './PageThirteen';
-import ProgressBar from "@badrap/bar-of-progress";
-import { useRouter } from 'next/router';
+// import ProgressBar from "@badrap/bar-of-progress";
+// import { useRouter } from 'next/router';
 
 
 

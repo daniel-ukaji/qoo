@@ -88,12 +88,12 @@ const Header = () => {
         authLevel.setModalType("LOGIN");
       },
     },
-    {
-      label: "Become a Host",
-      actionType: "LINK",
-      id: "2",
-      href: "/become-a-host",
-    },
+    // {
+    //   label: "Become a Host",
+    //   actionType: "LINK",
+    //   id: "2",
+    //   href: "/become-a-host",
+    // },
     {
       label: "Help",
       actionType: "LINK",
@@ -147,15 +147,19 @@ const Header = () => {
     },
   ];
 
+  const handleClick = () => {
+    router.push('/').then(() => router.reload());
+  };
+
 
   return (
     <>
       <nav className="mx-auto flex w-full max-w-[90rem] items-center justify-between border-b border-b-gray-200 bg-white px-20 py-7">
-        <Link href="/">
-          <div className="relative h-[2.5rem] w-[9.75rem] cursor-pointer">
+        {/* <Link href="/"> */}
+          <div onClick={handleClick} className="relative h-[2.5rem] w-[9.75rem] cursor-pointer">
             <Image src={applogo} className="absolute" alt="app logo" />
           </div>
-        </Link>
+        {/* </Link> */}
         <div className="flex h-[2.5rem] w-[20rem] items-center justify-between rounded-[64px] border border-gray-300 py-2 px-4">
           <input
             value={searchInput} 

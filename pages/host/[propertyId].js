@@ -177,6 +177,7 @@ const router = useRouter();
         propertyServices: "ywuhjdkw",
         propertyCity: "Akure",
         propertyState: "Ondo",
+        propertyBookingPrice,
         propertyStreet,
         propertyBedroomNumber,
         propertyCountry: "Nigeria",
@@ -185,7 +186,7 @@ const router = useRouter();
         propertyGuestSpace: "2"
       };
 
-      let id = toast.loading("Please wait whiles we complete your request");
+      let id = toast.loading("We are publishing your listing...");
 
       const response = await propertyApi.request(req);
 
@@ -224,10 +225,11 @@ const router = useRouter();
               
               <div className="relative w-1/2 h-full">
                 <Image
-                  src={roomImage}
+                  src={property.propertyImages[0].propertyImageUrl}
                   alt="room image"
                   className="absolute h-full w-full rounded-tl-[10px] rounded-bl-[10px]"
                   layout="fill"
+                  objectFit='cover'
                 />
               </div>
               {/* Sub images */}
@@ -235,36 +237,40 @@ const router = useRouter();
                 <div className="flex justify-between">
                   <div className="relative h-[15.688rem] w-fourty8 ">
                     <Image
-                      src={roomImage}
+                      src={property.propertyImages[0].propertyImageUrl}
                       alt="room image"
                       className="absolute w-full h-full"
                       layout="fill"
+                      objectFit='cover'
                     />
                   </div>
                   <div className="relative h-[15.688rem] w-fourty8 ">
                     <Image
-                      src={roomImage}
+                      src={property.propertyImages[0].propertyImageUrl}
                       alt="room image"
                       className="absolute h-full w-full rounded-tr-[10px]"
                       layout="fill"
+                      objectFit='cover'
                     />
                   </div>
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="relative h-[15.688rem] w-fourty8">
                     <Image
-                      src={roomImage}
+                      src={property.propertyImages[0].propertyImageUrl}
                       alt="room image"
                       className="absolute w-full h-full"
                       layout="fill"
+                      objectFit='cover'
                     />
                   </div>
                   <div className="relative h-[15.688rem] w-fourty8">
                     <Image
-                      src={roomImage}
+                      src={property.propertyImages[0].propertyImageUrl}
                       alt="room image"
                       className="absolute h-full w-full rounded-br-[10px]"
                       layout="fill"
+                      objectFit='cover'
                     />
                   </div>
                 </div>
@@ -358,7 +364,7 @@ const router = useRouter();
                                     value={propertyGuestNumber}
                                     onChange={(e) => setpropertyGuestNumber(e.target.value)}
                                     className="inputbox-full mt-3"
-                                    placeholder="Email address"
+                                    placeholder="Number of Guests"
                                     autoFocus
                                 />
                                 <button
@@ -468,7 +474,7 @@ const router = useRouter();
                                     value={propertyBedroomNumber}
                                     onChange={(e) => setPropertyBedroomNumber(e.target.value)}
                                     className="inputbox-full mt-3"
-                                    placeholder="Email address"
+                                    placeholder="Bedroom Number"
                                     autoFocus
                                 />
                                 <button
@@ -596,7 +602,7 @@ const router = useRouter();
                                 value={propertyBookingPrice}
                                 onChange={(e) => setPropertyBookingPrice(e.target.value)}
                                 className="inputbox-full mt-3"
-                                placeholder="Email address"
+                                placeholder="Your Property Price"
                                 autoFocus
                             />
                             <button

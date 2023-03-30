@@ -12,7 +12,7 @@ const InputField = ({ inputValue, setPageInput }) => {
       <input
         type="text"
         id="inputField"
-        className="border-2 border-gray-300 rounded-lg py-2 px-4 block w-3/4 appearance-none leading-normal"
+        className="border-2 border-[#E9EBEF] text-[#D1D5DB] outline-none rounded-lg py-2 px-4 block w-3/4 appearance-none leading-normal"
         value={inputValue}
         onChange={handleInputChange}
       />

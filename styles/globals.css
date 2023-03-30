@@ -12,6 +12,10 @@
   @apply rounded-lg px-4 py-3 outline-none h-12 border border-gray-200 w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2;
 }
 
+.image-container {
+  @apply absolute top-0 left-0 z-50;
+}
+
 @layer base {
   input[type="number"]::-webkit-inner-spin-button,
   input[type="number"]::-webkit-outer-spin-button {

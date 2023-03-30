@@ -17,7 +17,7 @@ import { useApi } from '../utils/hooks/useApi'
 function hostProperty() {
 
     const user = useAuth();
-    console.log(user.user)
+    console.log(user.user?.userHostId)
 
     const propertyHost = user.user?.userHostId;
 
@@ -101,7 +101,7 @@ function hostProperty() {
 
                     <div className="flex space-x-3 overflow-scroll scrollbar-hide p-5 -ml-3">
                     {properties && properties.map((property) => {
-                        // if (property.propertyHostId === propertyHost) {
+                        if (property.propertyHostId === propertyHost) {
                         return (
                             <PropertyCard
                                 key={property.propertyId}
@@ -114,7 +114,7 @@ function hostProperty() {
                                 price={property.propertyBookingPrice}
                             />
                         )
-                        // }
+                         }
                     })}
                     </div>
                         

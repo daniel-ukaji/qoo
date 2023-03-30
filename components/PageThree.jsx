@@ -56,9 +56,11 @@ const PageTestThree = ({ prevStep }) => {
     <Layout>
         <div className="pl-10 p-6 h-screen flex flex-col justify-between">
             {/* <!-- Content for the left side --> */}
-            <div className="">
-              <button className="py-2 px-5 mr-2 mb-2 text-sm font-medium focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200">Exit</button>
-            </div>
+            <Link href="/" className=''>
+              <div className="">
+                <button className="py-2 px-5 mr-2 mb-2 text-sm font-medium focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200">Exit</button>
+              </div>
+            </Link>
 
             <div className="flex flex-col space-y-8">
               <div className='relative'>
@@ -72,7 +74,7 @@ const PageTestThree = ({ prevStep }) => {
                         payload: option,
                   })}
                   />
-                  <label htmlFor="" className='absolute top-0 left-0 bg-white px-2 -mt-3 ml-3 text-gray-600 text-sm'>Street</label>
+                  <label htmlFor="" className='absolute top-0 left-0 bg-white px-2 -mt-3 ml-3 text-[#D1D5DB] text-sm'>Street</label>
               </div>
 
               <div className='relative'>
@@ -86,7 +88,7 @@ const PageTestThree = ({ prevStep }) => {
                       payload: option,
                 })}
                 />
-                <label htmlFor="" className='absolute top-0 left-0 bg-white px-2 -mt-3 ml-3 text-gray-600 text-sm'>City</label>
+                <label htmlFor="" className='absolute top-0 left-0 bg-white px-2 -mt-3 ml-3 text-[#D1D5DB] text-sm'>City</label>
               </div>
 
               <div className='relative'>
@@ -100,7 +102,7 @@ const PageTestThree = ({ prevStep }) => {
                       payload: option,
                 })}
                 />
-                <label htmlFor="" className='absolute top-0 left-0 bg-white px-2 -mt-3 ml-3 text-gray-600 text-sm'>State</label>
+                <label htmlFor="" className='absolute top-0 left-0 bg-white px-2 -mt-3 ml-3 text-[#D1D5DB] text-sm'>State (optional)</label>
               </div>
 
               <div className='relative'>
@@ -114,7 +116,7 @@ const PageTestThree = ({ prevStep }) => {
                       payload: option,
                 })}
                 />
-                <label htmlFor="" className='absolute top-0 left-0 bg-white px-2 -mt-3 ml-3 text-gray-600 text-sm'>ZipCode</label>
+                <label htmlFor="" className='absolute top-0 left-0 bg-white px-2 -mt-3 ml-3 text-[#D1D5DB] text-sm'>ZipCode (optional)</label>
               </div>
 
               <div className='relative'>
@@ -128,7 +130,7 @@ const PageTestThree = ({ prevStep }) => {
                       payload: option,
                 })}
                 />
-                <label htmlFor="" className='absolute top-0 left-0 bg-white px-2 -mt-3 ml-3 text-gray-600 text-sm'>Country</label>
+                <label htmlFor="" className='absolute top-0 left-0 bg-white px-2 -mt-3 ml-3 text-[#D1D5DB] text-sm'>Country</label>
               </div>
 
               {/* <div className='relative'>

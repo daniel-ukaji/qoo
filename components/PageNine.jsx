@@ -27,14 +27,16 @@ const PageNine = ({ prevStep }) => {
 
   return (
     <Layout>
-        <div className="pl-10 p-6 h-screen flex flex-col justify-between">
+        <div className="pl-10 p-6 h-screen flex flex-col justify-between font-sora">
             {/* <!-- Content for the left side --> */}
-            <div className="">
-              <button className="py-2 px-5 mr-2 mb-2 text-sm font-medium focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200">Exit</button>
-            </div>
+            <Link href="/" className=''>
+              <div className="">
+                <button className="py-2 px-5 mr-2 mb-2 text-sm font-medium focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200">Exit</button>
+              </div>
+            </Link>
 
             <div className="">
-            <h1 className='font-bold mb-5'>Create Your Description</h1>
+            <h1 className='font-bold mb-5'>Create your Description</h1>
             <TextAreaField
                 label="Create your Description:"
                 placeholder="Name"

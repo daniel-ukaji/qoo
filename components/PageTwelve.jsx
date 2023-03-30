@@ -8,6 +8,8 @@ import { useApi } from '../utils/hooks/useApi';
 import { useRouter } from "next/router";
 import Loader from './Loader';
 import { createproperty } from '../utils/api/property/createProperty';
+import { useAuth } from '../utils/hooks/useAuth';
+import Link from 'next/link';
 // import { useHistory } from 'react-router-dom';
 
 
@@ -15,6 +17,10 @@ import { createproperty } from '../utils/api/property/createProperty';
 const PageTwelve = ({ prevStep }) => {
   const router = useRouter();
   // const history = useHistory();
+
+  const userHost = useAuth();
+  console.log(userHost.user)
+  const userHos = userHost.user?.userHostId
 
 
     const dispatch = useDispatch();
@@ -57,9 +63,15 @@ const PageTwelve = ({ prevStep }) => {
       const Questions = useSelector((state) => state.propertyAdditionalNotes);
       const MoreQuestions = useSelector((state) => state.propertyBookingConditions);
       const Amenities = useSelector((state) => state.propertyAmenities);
-      const Images = useSelector((state) => state?.propertyImages[0]);
+      const propertyImages = useSelector((state) => state?.propertyImages);
 
-      console.log(Images)
+      const imageString = propertyImages?.map((image) => image.toString()).join(',');
+
+      console.log(selectedBathrooms)
+
+      console.log(imageString)
+
+      console.log(WhatToOffer)
   
 
     const submitForm = async () => {
@@ -69,7 +81,7 @@ const PageTwelve = ({ prevStep }) => {
       
 
       const data = {
-        propertyHostId: "100001",
+        propertyHostId: userHos,
         propertyName: createTitle,
         propertyGPS: "asdfdsd",
         propertyCountry: country,
@@ -81,7 +93,7 @@ const PageTwelve = ({ prevStep }) => {
         propertyDescription: createDescription,
         propertyType: clickBox,
         propertyAmenities: Amenities,
-        propertyImages: Images,
+        propertyImages: imageString,
         propertyGuestSpace: "SingleRoom",
         propertyGuestNumber: selectedBeds,
         propertyBedroomNumber: selectedBedrooms,
@@ -145,9 +157,11 @@ const PageTwelve = ({ prevStep }) => {
     <Layout>
         <div className="pl-10 p-6 h-screen flex flex-col justify-between">
             {/* <!-- Content for the left side --> */}
-            <div className="">
-              <button className="py-2 px-5 mr-2 mb-2 text-sm font-medium focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200">Exit</button>
-            </div>
+            <Link href="/" className=''>
+              <div className="">
+                <button className="py-2 px-5 mr-2 mb-2 text-sm font-medium focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200">Exit</button>
+              </div>
+            </Link>
 
 
             <div className="flex flex-col space-y-8">

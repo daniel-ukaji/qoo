@@ -1,9 +1,18 @@
 import { useEffect, useState } from 'react';
 import { fetchbooking } from "../utils/api/booking/getBooking";
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
+import { useAuth } from '../utils/hooks/useAuth';
+import Social from '../public/images/Social03.png'
+import Image from 'next/image';
+
 
 function MultiTable() {
   const [activeTab, setActiveTab] = useState('listing');
+
+  const user = useAuth();
+  console.log(user.user?.userHostId)
+
+  const propertyHost = user.user?.userHostId;
 
   const {
     data: bookings,
@@ -18,9 +27,11 @@ function MultiTable() {
     staleTime: 300000,
   });
   
+  
 
   function CurrentlyHosting() {
-    return (
+        return(
+        <section className=''>
         <table className="w-full border-collapse border rounded-md border-gray-300">
         <thead>
           <tr className="">
@@ -57,70 +68,103 @@ function MultiTable() {
             </th>
           </tr>
         </thead>
-        <tbody className="bg-white divide-y divide-gray-150">
-          {bookings && bookings.map(booking => (
-            <tr className=''>
-              <td className="px-6 py-4 whitespace-nowrap flex items-center gap-2 font-bold">
-                <input
-                    type="checkbox"
-                    checked=""
-                    onChange=""
-                    className="form-checkbox h-5 w-5 text-blue-600 border-gray-500"
-                />
-                Daniel
-            </td>
-              <td className="px-6 py-4 whitespace-nowrap text-gray-500">09072553406</td>
-              <td className="px-6 py-4 whitespace-nowrap text-gray-500">danny@email.com</td>
-              <td className="px-6 py-4 whitespace-nowrap text-gray-500">Bana Island</td>
-              <td className="px-6 py-4 whitespace-nowrap text-gray-500">{booking.bookingGuestNumber}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-gray-500">2</td>
-              <td className="px-6 py-4 whitespace-nowrap text-gray-500">{booking.bookingCheckInDate}</td>
-            </tr>
 
-          ))}
+        {bookings && bookings.map((booking) => {
+        if (booking.bookingHostId === propertyHost) {
+         return( 
+        <tbody className="bg-white divide-y divide-gray-150">
+          
+            
+              <tr className=''>
+                <td className="px-6 py-4 whitespace-nowrap flex items-center gap-2 font-bold">
+                  <input
+                      type="checkbox"
+                      checked=""
+                      onChange=""
+                      className="form-checkbox h-5 w-5 text-blue-600 border-gray-500"
+                  />
+                  {booking.renterFirstName} {booking.renterLastName}
+              </td>
+                <td className="px-6 py-4 whitespace-nowrap text-gray-500">{booking.renterPhoneNumber || "-------------------"}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-gray-500">{booking.renterEmail}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-gray-500">{booking.propertyName || "-------------------"}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-gray-500">{booking.bookingGuestNumber}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-gray-500">{booking.bookingNightNumber || "-------------------"}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-gray-500">{booking.bookingCheckInDate.split(' ')[0]}</td>
+              </tr>
+            
+            
+          
           
         </tbody>
+            )} 
+          })}
+          
       </table>
-    );
+      {bookings && bookings.filter((booking) => booking.bookingHostId !== propertyHost).length === bookings.length && (
+            <div className='mt-10'>
+            <div className='border border-gray-200 bg-[#F9FAFB] flex flex-col items-center justify-center h-full'>
+                <div className='mt-20'>
+                    <Image src={Social} alt='' objectFit='contain' className='' />
+                </div>
+                <div className='mb-20 flex flex-col justify-center items-center'>
+                    <p>You do not have any guest checking</p>
+                    <p>out today.</p>
+                </div>
+            </div>
+        </div>
+          )}
+      </section>
+      )
+    
   }
 
   function Reservations() {
     return (
-        <table className="w-full border-collapse border rounded-md border-gray-300">
-        <thead>
-          <tr className="">
-            <th className="flex items-center text-sm gap-2 px-6 py-3 text-left font-medium text-gray-500 tracking-wider">
-            <input
-                type="checkbox"
-                checked=""
-                onChange=""
-                className="form-checkbox h-5 w-5 text-blue-600 border-gray-500"
-            />
-              Name
-            </th>
-            <th className="px-6 text-sm py-3 text-left font-medium  text-gray-500 tracking-wider">
-              Phone number
-            </th>
-            <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
-              Email
-            </th>
-            <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
-              Property
-            </th>
-            <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
-              Guest
-            </th>
-            <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
-              Nights
-            </th>
-            <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
-              Cancelled
-            </th>
-          </tr>
-        </thead>
-        <tbody className="bg-white divide-y divide-gray-150">
-          {bookings && bookings.map((booking) => {
-            return(
+      <section>
+      <table className="w-full border-collapse border rounded-md border-gray-300">
+      <thead>
+        <tr className="">
+
+        {/* <th className="px-6 py-3 text-left font-medium text-gray-500 tracking-wider">
+          
+        </th> */}
+          <th className="flex items-center text-sm gap-2 px-6 py-3 text-left font-medium text-gray-500 tracking-wider">
+          <input
+              type="checkbox"
+              checked=""
+              onChange=""
+              className="form-checkbox h-5 w-5 text-blue-600 border-gray-500"
+          />
+            Name
+          </th>
+          <th className="px-6 text-sm py-3 text-left font-medium  text-gray-500 tracking-wider">
+            Phone number
+          </th>
+          <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
+            Email
+          </th>
+          <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
+            Property
+          </th>
+          <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
+            Guest
+          </th>
+          <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
+            Nights
+          </th>
+          <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
+            Cancelled
+          </th>
+        </tr>
+      </thead>
+
+      {bookings && bookings.map((booking) => {
+      if (booking.bookingHostId === propertyHost) {
+       return( 
+      <tbody className="bg-white divide-y divide-gray-150">
+        
+          
             <tr className=''>
               <td className="px-6 py-4 whitespace-nowrap flex items-center gap-2 font-bold">
                 <input
@@ -129,66 +173,90 @@ function MultiTable() {
                     onChange=""
                     className="form-checkbox h-5 w-5 text-blue-600 border-gray-500"
                 />
-                Daniel
+                {booking.renterFirstName} {booking.renterLastName}
             </td>
-              <td className="px-6 py-4 whitespace-nowrap text-gray-500">09072553406</td>
-              <td className="px-6 py-4 whitespace-nowrap text-gray-500">danny@email.com</td>
-              <td className="px-6 py-4 whitespace-nowrap text-gray-500">Bana Island</td>
+              <td className="px-6 py-4 whitespace-nowrap text-gray-500">{booking.renterPhoneNumber || "-------------------"}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-gray-500">{booking.renterEmail}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-gray-500">{booking.propertyName || "-------------------"}</td>
               <td className="px-6 py-4 whitespace-nowrap text-gray-500">{booking.bookingGuestNumber}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-gray-500">2</td>
-              <td className="px-6 py-4 whitespace-nowrap text-gray-500">Yes</td>
+              <td className="px-6 py-4 whitespace-nowrap text-gray-500">{booking.bookingNightNumber || "-------------------"}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-gray-500">{booking.bookingCancelled || "--------------"}</td>
             </tr>
-            );
-          })}
           
-        </tbody>
-      </table>
+          
+        
+        
+      </tbody>
+          )} 
+        })}
+        
+    </table>
+    {bookings && bookings.filter((booking) => booking.bookingHostId !== propertyHost).length === bookings.length && (
+          <div className='mt-10'>
+          <div className='border border-gray-200 bg-[#F9FAFB] flex flex-col items-center justify-center h-full'>
+              <div className='mt-20'>
+                  <Image src={Social} alt='' objectFit='contain' className='' />
+              </div>
+              <div className='mb-20 flex flex-col justify-center items-center'>
+                    <p>You do not have any guest checking</p>
+                    <p>out today.</p>
+                </div>
+          </div>
+      </div>
+        )}
+    </section>
     );
   }
 
   function CheckingOut() {
     return (
-        <table className="w-full border-collapse border rounded-md border-gray-300">
-        <thead>
-          <tr className="">
+      <section>
+      <table className="w-full border-collapse border rounded-md border-gray-300">
+      <thead>
+        <tr className="">
 
-          {/* <th className="px-6 py-3 text-left font-medium text-gray-500 tracking-wider">
-            
-          </th> */}
-            <th className="flex items-center text-sm gap-2 px-6 py-3 text-left font-medium text-gray-500 tracking-wider">
-            <input
-                type="checkbox"
-                checked=""
-                onChange=""
-                className="form-checkbox h-5 w-5 text-blue-600 border-gray-500"
-            />
-              Name
-            </th>
-            <th className="px-6 text-sm py-3 text-left font-medium  text-gray-500 tracking-wider">
-              Phone number
-            </th>
-            <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
-              Email
-            </th>
-            <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
-              Property
-            </th>
-            <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
-              Guest
-            </th>
-            <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
-              Nights
-            </th>
-            <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
-              Checked in
-            </th>
-            <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
-              Checked out
-            </th>
-          </tr>
-        </thead>
-        <tbody className="bg-white divide-y divide-gray-150">
-          {bookings && bookings.map((booking) => (
+        {/* <th className="px-6 py-3 text-left font-medium text-gray-500 tracking-wider">
+          
+        </th> */}
+          <th className="flex items-center text-sm gap-2 px-6 py-3 text-left font-medium text-gray-500 tracking-wider">
+          <input
+              type="checkbox"
+              checked=""
+              onChange=""
+              className="form-checkbox h-5 w-5 text-blue-600 border-gray-500"
+          />
+            Name
+          </th>
+          <th className="px-6 text-sm py-3 text-left font-medium  text-gray-500 tracking-wider">
+            Phone number
+          </th>
+          <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
+            Email
+          </th>
+          <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
+            Property
+          </th>
+          <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
+            Guest
+          </th>
+          <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
+            Nights
+          </th>
+          <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
+            Checked in
+          </th>
+          <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
+            Checked Out
+          </th>
+        </tr>
+      </thead>
+
+      {bookings && bookings.map((booking) => {
+      if (booking.bookingHostId === propertyHost) {
+       return( 
+      <tbody className="bg-white divide-y divide-gray-150">
+        
+          
             <tr className=''>
               <td className="px-6 py-4 whitespace-nowrap flex items-center gap-2 font-bold">
                 <input
@@ -197,66 +265,91 @@ function MultiTable() {
                     onChange=""
                     className="form-checkbox h-5 w-5 text-blue-600 border-gray-500"
                 />
-                Daniel
+                {booking.renterFirstName} {booking.renterLastName}
             </td>
-              <td className="px-6 py-4 whitespace-nowrap text-gray-500">09072553406</td>
-              <td className="px-6 py-4 whitespace-nowrap text-gray-500">danny@email.com</td>
-              <td className="px-6 py-4 whitespace-nowrap text-gray-500">Bana Island</td>
+              <td className="px-6 py-4 whitespace-nowrap text-gray-500">{booking.renterPhoneNumber || "-------------------"}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-gray-500">{booking.renterEmail}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-gray-500">{booking.propertyName || "-------------------"}</td>
               <td className="px-6 py-4 whitespace-nowrap text-gray-500">{booking.bookingGuestNumber}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-gray-500">2</td>
-              <td className="px-6 py-4 whitespace-nowrap text-gray-500">{booking.bookingCheckInDate}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-gray-500">{booking.bookingCheckOutDate}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-gray-500">{booking.bookingNightNumber || "-------------------"}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-gray-500">{booking.bookingCheckInDate.split(' ')[0]}</td>
+              <td className='px-6 py-4 whitespace-nowrap text-gray-500'>{booking.bookingCheckOutDate.split(' ')[0] || "--------------"}</td>
             </tr>
-          ))}
           
-        </tbody>
-      </table>
+          
+        
+        
+      </tbody>
+          )} 
+        })}
+        
+    </table>
+    {bookings && bookings.filter((booking) => booking.bookingHostId !== propertyHost).length === bookings.length && (
+          <div className='mt-10'>
+          <div className='border border-gray-200 bg-[#F9FAFB] flex flex-col items-center justify-center h-full'>
+              <div className='mt-20'>
+                  <Image src={Social} alt='' objectFit='contain' className='' />
+              </div>
+              <div className='mb-20 flex flex-col justify-center items-center'>
+                    <p>You do not have any guest checking</p>
+                    <p>out today.</p>
+                </div>
+          </div>
+      </div>
+        )}
+    </section>
     );
   }
 
   function ArrivingToday() {
     return (
-    <table className="w-full border-collapse border rounded-md border-gray-300">
-        <thead>
-          <tr className="">
+      <section>
+      <table className="w-full border-collapse border rounded-md border-gray-300">
+      <thead>
+        <tr className="">
 
-          {/* <th className="px-6 py-3 text-left font-medium text-gray-500 tracking-wider">
-            
-          </th> */}
-            <th className="flex items-center text-sm gap-2 px-6 py-3 text-left font-medium text-gray-500 tracking-wider">
-            <input
-                type="checkbox"
-                checked=""
-                onChange=""
-                className="form-checkbox h-5 w-5 text-blue-600 border-gray-500"
-            />
-              Name
-            </th>
-            <th className="px-6 text-sm py-3 text-left font-medium  text-gray-500 tracking-wider">
-              Phone number
-            </th>
-            <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
-              Email
-            </th>
-            <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
-              Property
-            </th>
-            <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
-              Guest
-            </th>
-            <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
-              Nights
-            </th>
-            <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
-              Checked in
-            </th>
-            <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
-              Cancelled
-            </th>
-          </tr>
-        </thead>
-        <tbody className="bg-white divide-y divide-gray-150">
-          {bookings && bookings.map((booking) => (
+        {/* <th className="px-6 py-3 text-left font-medium text-gray-500 tracking-wider">
+          
+        </th> */}
+          <th className="flex items-center text-sm gap-2 px-6 py-3 text-left font-medium text-gray-500 tracking-wider">
+          <input
+              type="checkbox"
+              checked=""
+              onChange=""
+              className="form-checkbox h-5 w-5 text-blue-600 border-gray-500"
+          />
+            Name
+          </th>
+          <th className="px-6 text-sm py-3 text-left font-medium  text-gray-500 tracking-wider">
+            Phone number
+          </th>
+          <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
+            Email
+          </th>
+          <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
+            Property
+          </th>
+          <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
+            Guest
+          </th>
+          <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
+            Nights
+          </th>
+          <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
+            Checked in
+          </th>
+          <th className="px-6 py-3 text-sm text-left font-medium text-gray-500 tracking-wider">
+            Cancelled
+          </th>
+        </tr>
+      </thead>
+
+      {bookings && bookings.map((booking) => {
+      if (booking.bookingHostId === propertyHost) {
+       return( 
+      <tbody className="bg-white divide-y divide-gray-150">
+        
+          
             <tr className=''>
               <td className="px-6 py-4 whitespace-nowrap flex items-center gap-2 font-bold">
                 <input
@@ -265,20 +358,39 @@ function MultiTable() {
                     onChange=""
                     className="form-checkbox h-5 w-5 text-blue-600 border-gray-500"
                 />
-                Daniel
+                {booking.renterFirstName} {booking.renterLastName}
             </td>
-              <td className="px-6 py-4 whitespace-nowrap text-gray-500">09072553406</td>
-              <td className="px-6 py-4 whitespace-nowrap text-gray-500">danny@email.com</td>
-              <td className="px-6 py-4 whitespace-nowrap text-gray-500">Bana Island</td>
+              <td className="px-6 py-4 whitespace-nowrap text-gray-500">{booking.renterPhoneNumber || "-------------------"}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-gray-500">{booking.renterEmail}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-gray-500">{booking.propertyName || "-------------------"}</td>
               <td className="px-6 py-4 whitespace-nowrap text-gray-500">{booking.bookingGuestNumber}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-gray-500">2</td>
-              <td className="px-6 py-4 whitespace-nowrap text-gray-500">{booking.bookingCheckInDate}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-gray-500">Yes</td>
+              <td className="px-6 py-4 whitespace-nowrap text-gray-500">{booking.bookingNightNumber || "-------------------"}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-gray-500">{booking.bookingCheckInDate.split(' ')[0]}</td>
+              <td className='px-6 py-4 whitespace-nowrap text-gray-500'>{booking.bookingCancelled || "--------------"}</td>
             </tr>
-          ))}
           
-        </tbody>
-      </table>
+          
+        
+        
+      </tbody>
+          )} 
+        })}
+        
+    </table>
+    {bookings && bookings.filter((booking) => booking.bookingHostId !== propertyHost).length === bookings.length && (
+          <div className='mt-10'>
+          <div className='border border-gray-200 bg-[#F9FAFB] flex flex-col items-center justify-center h-full'>
+              <div className='mt-20'>
+                  <Image src={Social} alt='' objectFit='contain' className='' />
+              </div>
+              <div className='mb-20 flex flex-col justify-center items-center'>
+                    <p>You do not have any guest checking</p>
+                    <p>out today.</p>
+                </div>
+          </div>
+      </div>
+        )}
+    </section>
       );
   }
 

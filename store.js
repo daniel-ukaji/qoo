@@ -1,4 +1,5 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 
 const ADD_IMAGE = 'ADD_IMAGE';
 const REMOVE_IMAGE = 'REMOVE_IMAGE';
@@ -16,7 +17,7 @@ const initialState = {
   propertyBedroomNumber: '',
   propertyGuestNumber: '',
   propertyBathroomNumber:'',
-  propertyServices: '',
+  propertyServices: [],
   propertyImages: '', // added new field for selected image file, null
   propertyName: '',
   propertyDescription: '',
@@ -56,8 +57,16 @@ const formReducer = (state = initialState, action) => {
       return { ...state, propertyGuestNumber: action.payload };
     case 'SET_BATHROOMS_SELECTION':
       return { ...state, propertyBathroomNumber: action.payload };
+    // case 'SET_PROPERTY_SERVICES':
+    //   return { ...state, propertyServices: action.payload };
     case 'SET_PROPERTY_SERVICES':
-      return { ...state, propertyServices: action.payload };
+        if (state.propertyServices.includes(action.payload)) {
+          // If the option is already selected, remove it
+          return { ...state, propertyServices: state.propertyServices.filter(option => option !== action.payload) };
+        } else {
+          // If the option is not selected, add it
+          return { ...state, propertyServices: [...state.propertyServices, action.payload] };
+        }
       case 'SET_PROPERTY_IMAGE':
         return { ...state, propertyImage: action.payload };
     case 'SET_PAGE8_INPUT':
@@ -70,6 +79,16 @@ const formReducer = (state = initialState, action) => {
       return { ...state, propertyBookingPrice: action.payload };
     case 'SET_PROPERTY_ADDITIONAL_NOTES':
       return { ...state, propertyAdditionalNotes: action.payload };
+    case 'ADD_PROPERTY_SERVICE':
+      return {
+        ...state,
+        propertyServices: [...state.propertyServices, action.payload],
+      };
+    case 'REMOVE_PROPERTY_SERVICE':
+      return {
+        ...state,
+        propertyServices: state.propertyServices.filter((option) => option !== action.payload),
+      };
     case 'SET_PROPERTY_SECURITY_DEPOSIT':
       return { ...state, propertySecurityDeposit: action.payload };
     case 'SET_PROPERTY_BOOKING_CONDITIONS':
@@ -89,7 +108,7 @@ const formReducer = (state = initialState, action) => {
   }
 };
 
-const store = createStore(formReducer);
+const store = createStore(formReducer, applyMiddleware(thunk));
 
 export default store;
 export { ADD_IMAGE, REMOVE_IMAGE };

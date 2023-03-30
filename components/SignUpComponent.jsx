@@ -12,6 +12,7 @@ import { initialEnrollment } from "../utils/api/auth/initialEnrolment";
 import { AuthLevelContext } from "../utils/context/AuthLevelContext.js";
 
 import { useApi } from "../utils/hooks/useApi";
+import Load from "./Load";
 
 const SignUpComponent = () => {
   const authLevel = useContext(AuthLevelContext);
@@ -67,17 +68,17 @@ const SignUpComponent = () => {
       source,
     };
 
-    let id = toast.loading("Please wait whiles we complete your request");
+    // let id = toast.loading("Please wait whiles we complete your request");
 
     const response = await inititialEnrolApi.request(enrollmentData);
 
-    toast.update(id, {
-      type: response.data.responseCode !== "00" ? "error" : "success",
-      render: response.data.responseMessage,
-      isLoading: inititialEnrolApi.loading,
-      autoClose: true,
-      onClick: () => !completeRegError && toast.dismiss(),
-    });
+    // toast.update(id, {
+    //   type: response.data.responseCode !== "00" ? "error" : "success",
+    //   render: response.data.responseMessage,
+    //   isLoading: inititialEnrolApi.loading,
+    //   autoClose: true,
+    //   onClick: () => !completeRegError && toast.dismiss(),
+    // });
 
     if (response.data.responseCode !== "00") return;
 
@@ -172,7 +173,7 @@ const SignUpComponent = () => {
 
           {inititialEnrolApi.loading ? (
             <div className="flex items-center justify-center">
-              <Loader />
+              <Load />
             </div>
           ) : (
             <button

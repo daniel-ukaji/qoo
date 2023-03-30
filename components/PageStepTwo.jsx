@@ -10,6 +10,10 @@ function PageStepTwo() {
         dispatch({ type: 'SET_PAGE_NUMBER', payload: 6 });
       };
 
+      const handleBackClick = () => {
+        dispatch({ type: 'SET_PAGE_NUMBER', payload: 4 });
+      };
+
   return (
     <Layout>
       <div className="bg-gradient-to-b from-[#DB5461] to-[#7B61FF] min-h-screen">
@@ -26,7 +30,7 @@ function PageStepTwo() {
             <h1 className="text-4xl font-bold">Make your place stand out</h1>
         </div>
         <div className="flex justify-end">
-          <button className="py-3 px-6 mr-2 mb-2 text-sm font-medium focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200">
+          <button onClick={handleBackClick} className="py-3 px-6 mr-2 mb-2 text-sm font-medium focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200">
             Back
           </button>
           <button

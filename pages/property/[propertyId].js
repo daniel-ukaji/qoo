@@ -26,23 +26,71 @@ import { DateRange } from 'react-date-range';
 import { addDays } from 'date-fns'
 import format from 'date-fns/format'
 import { useRef } from 'react';
+import { useAuth } from "../../utils/hooks/useAuth";
+import Load from "../../components/Load";
+import { AuthLevelContext } from "../../utils/context/AuthLevelContext";
+import Link from "next/link";
 
 const Property = () => {
   const [hasBeenLiked, setHasBeenLiked] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [noOfGuests, setNoOfGuests] = useState(1);
+  const [selectedDateRange, setSelectedDateRange] = useState(null);
+  const authLevel = useContext(AuthLevelContext);
 
   const handleSelect = (ranges) => {
     setStartDate(ranges.selection.startDate)
     setEndDate(ranges.selection.endDate)
+    setSelectedDateRange(ranges.selection);
   }
+
+  useEffect(() => {
+    window.onbeforeunload = function() {
+      // Reload the page when the user navigates away from it
+      window.location.reload();
+    };
+  }, []);
   
   const selectionRange = {
     startDate: startDate,
     endDate: endDate,
     key: 'selection'
   }
+
+  const formattedStartDate = new Date(startDate).getTime()
+  const formattedEndDate = new Date(endDate).getTime()
+  const dateRange = formattedEndDate - formattedStartDate
+  const finalDate = dateRange / (1000 * 3600 * 24);
+
+  const handleSubmit = () => {
+    // Submit the data to the backend
+    const checkInDate = startDate.toISOString()
+    const checkOutDate = endDate.toISOString()
+
+    // Update the disabled dates state
+    setSelectedDateRange({checkInDate, checkOutDate});
+
+    router.push({
+      pathname: "/book-property",
+      query: { 
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString(),
+        selectedDateRange: JSON.stringify(selectedDateRange),
+        noOfGuests, 
+      },
+    });
+
+    // Reset the selected dates to default
+    setStartDate(null);
+    setEndDate(null);
+  };
+
+  // console.log(startDate.toISOString().split('T')[0])
+
+  const user = useAuth();
+
+  console.log(user.logIn)
 
 const [open, setOpen] = useState(false)
 
@@ -73,11 +121,23 @@ const hideOnClickOutside = (e) => {
     staleTime: 30000,
   });
 
+  const formatter = new Intl.NumberFormat("en-US", {
+    currency: "USD",
+  });
+
+  const message = 'Hello, how are you?';
+  const encodedMessage = encodeURIComponent(message);
+
+
   if (property) {
     //const propertySplit = property.propertyImages.split(",")
 
     console.log(property.propertyImages[0].propertyImageUrl)
     console.log(property)
+
+    console.log(property.propertyBedroomNumber)
+
+    const totalPrice = property.propertyBookingPrice * finalDate
 
     
     
@@ -166,6 +226,7 @@ const hideOnClickOutside = (e) => {
                   alt="room image"
                   className="absolute h-full w-full rounded-tl-[10px] rounded-bl-[10px]"
                   layout="fill"
+                  objectFit="cover"
                 />
               </div>
               {/* Sub images */}
@@ -177,6 +238,7 @@ const hideOnClickOutside = (e) => {
                       alt="room image"
                       className="absolute w-full h-full"
                       layout="fill"
+                      objectFit="cover"
                     />
                   </div>
                   <div className="relative h-[15.688rem] w-fourty8 ">
@@ -185,6 +247,7 @@ const hideOnClickOutside = (e) => {
                       alt="room image"
                       className="absolute h-full w-full rounded-tr-[10px]"
                       layout="fill"
+                      objectFit="cover"
                     />
                   </div>
                 </div>
@@ -195,6 +258,7 @@ const hideOnClickOutside = (e) => {
                       alt="room image"
                       className="absolute w-full h-full"
                       layout="fill"
+                      objectFit="cover"
                     />
                   </div>
                   <div className="relative h-[15.688rem] w-fourty8">
@@ -203,6 +267,7 @@ const hideOnClickOutside = (e) => {
                       alt="room image"
                       className="absolute h-full w-full rounded-br-[10px]"
                       layout="fill"
+                      objectFit="cover"
                     />
                   </div>
                 </div>
@@ -252,7 +317,7 @@ const hideOnClickOutside = (e) => {
                   </p> */}
                 </div>
 
-                <div className="mt-8">
+                <div className="mt-8 mr-5">
                   <h1 className="mb-4 text-lg font-bold text-gray-800">
                     Amenities
                   </h1>
@@ -288,16 +353,16 @@ const hideOnClickOutside = (e) => {
                     Bedroom
                   </h1>
                   <div className="flex gap-5 text-sm font-normal text-secondary">
-                  {/* {property.propertyBedroomDescription.map((item) => { */}
-                    {/* return ( */}
+                  {property.propertyBedroomDescription?.split(",").map((item) => { 
+                     return (
                       
                         <div className=" p-2 bg-gray-200 rounded">
-                          {property.propertyBedroomDescription}
-                        </div>
+                          {item}
+                        </div> 
                         
                       
-                    {/* ) */}
-                  {/* })} */}
+                     ) 
+                   })} 
                   </div>
                 </div>
 
@@ -430,7 +495,7 @@ const hideOnClickOutside = (e) => {
 
               <div className="flex flex-col w-1/3">
                 {/* Card-booking */}
-                <div className="self-end p-6 border border-gray-200 rounded-lg w-ninety">
+                <div className="self-end p-6 border border-gray-200 rounded-lg w-full">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center justify-center space-x-1 text-[#031C43]">
                       <h1 className="text-2xl font-medium ">{property.propertyRentalPrice}</h1>
@@ -475,6 +540,7 @@ const hideOnClickOutside = (e) => {
                               // onChange={item => setRange([item.selection])}
                               onChange={handleSelect}
                               moveRangeOnFirstSelection={false}
+                              disabledDates={[selectedDateRange]}
                               minDate={new Date()}
                               ranges={[selectionRange]}
                               rangeColors={["#DB5461"]}
@@ -509,47 +575,34 @@ const hideOnClickOutside = (e) => {
                   >
                     Book Now
                   </button> */}
+                  {/* <button onClick="" className="mt-7 h-[2.875rem] w-full rounded-[10px] bg-primary text-sm font-medium text-white">Click Me</button> */}
 
                   <button
                     className="mt-7 h-[2.875rem] w-full rounded-[10px] bg-primary text-sm font-medium text-white"
-                    // disabled={watchlistDisabled}
-                    onClick={() => {addToBooking(property); bookingDisabled; router.push({
-                      pathname: "/book-property",
-                      query: {
-                        startDate: startDate.toISOString(),
-                        endDate: endDate.toISOString(),
-                        noOfGuests,
-                      },
-                    })}}
+                    onClick={() => {
+                      if (!authLevel.user) {
+                        authLevel.setModalVisible(true);
+                        authLevel.setModalType("LOGIN");
+                      } else {
+                        addToBooking(property);
+                        handleSubmit();
+                      }
+                    }}
                   >
-                    Book Now
+                    {!authLevel.user ? "Sign in to Book" : "Book Now"}
                   </button>
+
                   
-
-                  <div className="flex flex-col mt-6 text-sm font-normal gap-y-3 text-secondary">
-                    <div className="flex items-center justify-between">
-                      <h1>₦50,000 x 5 night</h1>
-                      <h1>₦250,000</h1>
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <h1>Cleaning fee</h1>
-                      <h1>₦250,000</h1>
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <h1>Service fee</h1>
-                      <h1>₦250,000</h1>
-                    </div>
-                  </div>
 
                   <div className="my-4 border-t border-t-gray-200"></div>
 
                   <div className="flex items-center justify-between text-sm font-bold text-secondary">
                     <h1>Total</h1>
-                    <h1>{property.propertyBookingPrice}</h1>
+                    <h1>₦ {formatter.format(totalPrice)}</h1>
                   </div>
+                  {/* <Load /> */}
                 </div>
+                
               </div>
             </div>
           </div>

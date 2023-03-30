@@ -55,10 +55,11 @@ function search({ searchResults }) {
                         {properties &&
                             properties.map((property) => (
                               <InfoCard 
-                                imageUrl={property.propertyImage}
+                                imageUrl={property.propertyImages}
+                                roomDesc={property.propertyDescription}
                                 roomAddy={`${property.propertyStreet} ${property.propertyCity}, ${property.propertyState} `}
-                                roomTitle={property.propertyIntroduction}
-                                price={property.propertyRentalPrice}
+                                roomTitle={property.propertyName}
+                                price={property.propertyBookingPrice}
                               />
                             ))
                         }

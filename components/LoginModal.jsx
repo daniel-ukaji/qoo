@@ -8,7 +8,7 @@ import { ImAppleinc } from "react-icons/im";
 import { useApi } from "../utils/hooks/useApi";
 import { login } from "../utils/api/auth/login";
 import { AuthLevelContext } from "../utils/context/AuthLevelContext";
-import Loader from "./Loader";
+import Load from "./Load";
 import { useAuth } from "../utils/hooks/useAuth";
 import { toast } from "react-toastify";
 
@@ -28,19 +28,19 @@ const LoginModal = () => {
         password,
       };
 
-      let id = toast.loading("Please wait whiles we complete your request");
+      // let id = toast.loading("Please wait whiles we complete your request");
 
       const response = await loginApi.request(req);
 
       console.log(response)
 
-      toast.update(id, {
-        type: response.data.responseCode !== "00" ? "error" : "success",
-        render: response.data.responseMessage,
-        isLoading: loginApi.loading,
-        autoClose: true,
-        onClick: () => !loginApi.errorMessage && toast.dismiss(),
-      });
+      // toast.update(id, {
+      //   type: response.data.responseCode !== "00" ? "error" : "success",
+      //   render: response.data.responseMessage,
+      //   isLoading: loginApi.loading,
+      //   autoClose: true,
+      //   onClick: () => !loginApi.errorMessage && toast.dismiss(),
+      // });
 
       if (response.data && response.data.responseCode === "00") {
         let unusualResponseString = response.data.token;
@@ -97,7 +97,7 @@ const LoginModal = () => {
 
           {loginApi.loading ? (
             <div className="flex items-center justify-center">
-              <Loader fill_color="fill-primary" />
+              <Load />
             </div>
           ) : (
             <button

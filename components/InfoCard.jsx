@@ -8,6 +8,7 @@ function InfoCard({
     price,
     imageUrl,
     roomTitle,
+    roomDesc,
     numOfBed,
     numOfBath,
     roomAddy, 
@@ -29,15 +30,15 @@ function InfoCard({
 
         <div className='flex flex-col flex-grow pl-5'>
             <div className='flex justify-between'>
-                <p>{roomAddy}</p>
+                <p className='font-bold text-2xl'>{roomTitle}</p>
                 <HeartIcon className='h-7 cursor-pointer' />
             </div>
 
-            <h4 className='text-xl'>{roomTitle}</h4>
+            <h4 className='text-lg'>{roomAddy}</h4>
 
             <div className='border-b w-10 pt-2' />
 
-            <p className='pt-2 text-sm text-gray-500 flex-grow'>Description</p>
+            <p className='pt-2 text-sm text-gray-500 flex-grow'>{roomDesc}</p>
         
             <div className='flex justify-between items-end pt-5'>
                 <p className='flex items-center'>

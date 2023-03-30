@@ -1,6 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux';
 import RadioButtons from './RadioButtons'
 import Layout from '../components/Layout'
+import HostFrame from '../public/images/HostFrame.png'
+import Image from 'next/image';
+
 
 const PageTwo = ({ prevStep }) => {
     const dispatch = useDispatch();
@@ -24,11 +27,13 @@ const PageTwo = ({ prevStep }) => {
     <Layout>
         <div className="pl-10 p-6 h-screen flex flex-col justify-between">
             {/* <!-- Content for the left side --> */}
-            <div className="">
-              <button className="py-2 px-5 mr-2 mb-2 text-sm font-medium focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200">Exit</button>
-            </div>
+            <Link href="/" className=''>
+              <div className="">
+                <button className="py-2 px-5 mr-2 mb-2 text-sm font-medium focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200">Exit</button>
+              </div>
+            </Link>
 
-            <div className="">
+            <div className="flex flex-col space-y-3">
                 <RadioButtons
                     options={options}
                     selectedOption={selectedOption}
@@ -36,6 +41,7 @@ const PageTwo = ({ prevStep }) => {
                     type: 'SET_PROPERTY_GUEST_SPACE',
                     payload: option,
                 })}
+                // style={{ margin: '3rem 0' }}
                 />
             </div>
 
@@ -57,6 +63,19 @@ const PageTwo = ({ prevStep }) => {
         </div>
         <div className="flex flex-col justify-between pl-10 p-6 relative bg-gradient-to-b from-[#DB5461] to-[#7B61FF] min-h-screen">
             {/* <!-- Content for the right side --> */}
+            <div className='h-10 w-10'>
+                <Image src={HostFrame}  />
+            </div>
+
+            <div className='font-sora mb-36 space-y-5'>
+                <p className='text-3xl text-white font-bold mb-10'>4.</p>
+                <p className='text-4xl text-white font-bold'>What type of place will guests have?</p>
+                {/* <p className='text-md text-white'>We will send your address to guests only when they've made reservations</p> */}
+            </div>
+
+            <div>
+
+            </div>
         </div>
     </Layout>
   );

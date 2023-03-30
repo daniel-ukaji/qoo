@@ -9,10 +9,11 @@ import axios from "axios";
 import { TrashIcon } from "@heroicons/react/solid";
 import { useDispatch } from 'react-redux'
 import { ADD_IMAGE, REMOVE_IMAGE } from '../store'
+import { PlusIcon } from '@heroicons/react/solid';
 
 
 
-function hostHomeStepTwoTwo() {
+function hostHomeStepTwoTwo({ prevStep }) {
     const dispatch = useDispatch();
     const [selectedImages, setSelectedImages] = useState([]);
 
@@ -28,10 +29,12 @@ function hostHomeStepTwoTwo() {
             const base64Image = reader.result.split(",")[1];
             selectedImagesCopy.push({ file, preview: reader.result });
             setSelectedImages(selectedImagesCopy);
+
+            const usernam = "hostId_" + Math.random().toString(36).slice(2);
       
             // Send ImageData to the API and log the response
             const ImageData = {
-              username: "hostId",
+              username: usernam,
               base64: base64Image,
               region: "us-east-1",
               source: "qucoon",
@@ -76,6 +79,10 @@ function hostHomeStepTwoTwo() {
     dispatch({ type: 'SET_PAGE_NUMBER', payload: 8 });
 };
 
+const handleBackClick = () => {
+  prevStep(dispatch({ type: 'SET_PAGE_NUMBER', payload: 6 }))
+}
+
   return (
     <Layout>
       <div className="pl-10 p-6 h-screen flex flex-col justify-between">
@@ -85,11 +92,15 @@ function hostHomeStepTwoTwo() {
         </div>
         <div className='border max-w-lg flex flex-col items-center'>
                 <div className='flex flex-col items-center mt-16 mb-16'>
+                {selectedImages.length === 0 && (
+                  <>
                     <Image src={Icon}/>
                     <h1 className='font-bold mt-5 text-xl'>Drag your photos here</h1>
                     <p className='mt-1 text-gray-500'>Add atleast 5 images</p>
-                    <div>
-      <div className="grid grid-cols-3 gap-4">
+                    </>
+                    )}
+                    <div className="">
+      <div className="grid grid-cols-3 gap-3">
         {selectedImages.slice(0, 1).map((image, index) => (
           <div key={index} className="relative col-span-3">
             <button
@@ -125,13 +136,16 @@ function hostHomeStepTwoTwo() {
 
       {selectedImages.length > 0 && (
         <button
-          className="mt-8 bg-blue-600 text-white px-4 py-2 rounded-lg"
+          className="mt-8 text-[#667085] px-2 py-3 border border-[#98A2B3] rounded-lg flex justify-center items-center space-x-1"
           onClick={() => {
             document.getElementById("imageInput").click();
             dispatch({ type: "ADD_IMAGE", payload: selectedImages });
           }}
         >
-          Add more
+          <PlusIcon className='w-4 h-4'/>
+          <div>
+            Add more
+          </div>
         </button>
       )}
 
@@ -146,9 +160,14 @@ function hostHomeStepTwoTwo() {
  
                 </div>
             </div>
-        <div>
-            <button onClick={handleNextClick} className="py-3 px-6 mr-2 mb-2 text-sm font-medium text-white focus:outline-none bg-[#DB5461] rounded-lg border border-gray-200">Proceed</button>
-        </div>
+            <div className='flex space-x-3'>
+              <div>
+                <button onClick={handleBackClick} className="py-3 px-6 mr-2 mb-2 text-sm font-medium text-black focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200">Back</button>
+              </div>
+              <div>
+                <button onClick={handleNextClick} className="py-3 px-6 mr-2 mb-2 text-sm font-medium text-white focus:outline-none bg-[#DB5461] rounded-lg border border-gray-200">Proceed</button>
+              </div>
+            </div>
       </div>
       <div className="flex flex-col justify-between pl-10 p-6 relative bg-gradient-to-b from-[#DB5461] to-[#7B61FF] min-h-screen">
         {/* <!-- Content for the right side --> */}

@@ -34,9 +34,11 @@ const PageTestFour = ({ prevStep }) => {
     <Layout>
         <div className="pl-10 p-6 h-screen flex flex-col justify-between">
             {/* <!-- Content for the left side --> */}
-            <div className="">
-              <button className="py-2 px-5 mr-2 mb-2 text-sm font-medium focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200">Exit</button>
-            </div>
+            <Link href="/" className=''>
+              <div className="">
+                <button className="py-2 px-5 mr-2 mb-2 text-sm font-medium focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200">Exit</button>
+              </div>
+            </Link>
 
             <div className="flex flex-col mt-4 space-y-3 text-sm font-medium text-secondary">
             <h1 className='font-bold mb-3'>Room & Bathroom</h1>
@@ -61,7 +63,7 @@ const PageTestFour = ({ prevStep }) => {
                 selectedOption={bathroomsSelection}
                 setPageSelection={(option) => dispatch({ type: 'SET_BATHROOMS_SELECTION', payload: option })}
             />
-            <h1>Bathrooms</h1>
+            <h1 className='font-bold pt-3'>Amenities</h1>
             <ClickableCircle
                 title="Amenities"
                 options={['Wifi', 'Air Condition', 'TV', 'Pool']}

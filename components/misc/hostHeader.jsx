@@ -24,12 +24,6 @@ const HostHeader = () => {
   const authLevel = useContext(AuthLevelContext);
   const { logOut } = useAuth();
 
-  
-
- 
-
- 
-
   const unAuthorizedLinks = [
     {
       label: "Sign up",
@@ -126,8 +120,8 @@ const HostHeader = () => {
         
         <div className="flex space-x-5 text-gray-500">
             <Link href="/hostProperty" ><a className={isActive("/hostProperty")}>Today</a></Link>
-            <Link href="/" >Inbox</Link>
-            <Link href="/" >Calendar</Link>
+            <Link href="/Inbox" >Inbox</Link>
+            <Link href="/Calendar" >Calendar</Link>
             <Link href="/Wallet"><a className={isActive("/Wallet")}>Wallet</a></Link>
         </div>
 
