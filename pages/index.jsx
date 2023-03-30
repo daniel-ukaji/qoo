@@ -15,19 +15,7 @@ import Navbar from "../components/Navbar";
 
 export default function Home() {
   const [modalActive, setModalActive] = useState(false);
-  // const {
-  //   data: properties,
-  //   isError,
-  //   error,
-  //   isLoading,
-  //   isFetching,
-  // } = useQuery({
-  //   queryKey: ["properties"],
-  //   queryFn: fetchproperties,
-  //   initialData: props.properties,
-  //   cacheTime: 60000 * 30,
-  //   staleTime: 300000,
-  // });
+  const [numItems, setNumItems] = useState(8);
 
   const {
     data: properties,
@@ -35,6 +23,7 @@ export default function Home() {
     error,
     loading,
     setLoading,
+    isFetching,
   } = useQuery({
     queryKey: ["posts"],
     queryFn: fetchproperties,
@@ -69,9 +58,9 @@ export default function Home() {
         <div className="flex flex-wrap items-center mt-8 mb-7 gap-x-5 gap-y-10">
           
           {isError && <p>{error.message}</p>}
-          {/* {properties && <SkeletonCard cards={9} />} */}
-          {properties && 
-            properties.map((property) => (
+          {/* {properties && <SkeletonCard cards={numItems} />}           */}
+          {properties &&  
+            properties.slice(0, numItems).map((property) => (
               <RoomCard
                 key={property.propertyId}
                 roomAddy={`${property.propertyStreet} ${property.propertyCity}, ${property.propertyState} `}
@@ -84,6 +73,18 @@ export default function Home() {
               />
             ))}
         </div>
+        {properties && numItems < properties.length &&
+        <div className="flex justify-center items-center mb-20">
+          <button
+            onClick={() => {
+              setNumItems(numItems + 8);
+            }}
+            className="flex justify-center items-center px-4 py-2 bg-primary text-white rounded-md mt-4"
+          >
+            Load More
+          </button>
+        </div>
+        }
       </main>
 
       <Footer />

@@ -30,14 +30,43 @@ import { useAuth } from "../../utils/hooks/useAuth";
 import Load from "../../components/Load";
 import { AuthLevelContext } from "../../utils/context/AuthLevelContext";
 import Link from "next/link";
+import { AiOutlineMail, AiOutlinePhone, AiOutlineWhatsApp } from "react-icons/ai";
 
 const Property = () => {
+
   const [hasBeenLiked, setHasBeenLiked] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [noOfGuests, setNoOfGuests] = useState(1);
   const [selectedDateRange, setSelectedDateRange] = useState(null);
   const authLevel = useContext(AuthLevelContext);
+  
+
+
+  const guests = ["1", "2", "3", "4", "5"];
+
+  const [selectedGuests, setSelectedGuests] = useState(guests[0]);
+
+  const handleSelectChange = (event) => {
+    setSelectedGuests(event.target.value);
+  };
+
+  const router = useRouter();
+  const { propertyId } = router.query;
+
+  const {
+    data: property,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["post", propertyId],
+    queryFn: () => fetchproperty(propertyId),
+    cacheTime: 60000 * 30,
+    staleTime: 30000,
+  });
+
+  
+
 
   const handleSelect = (ranges) => {
     setStartDate(ranges.selection.startDate)
@@ -58,10 +87,14 @@ const Property = () => {
     key: 'selection'
   }
 
+  
+
   const formattedStartDate = new Date(startDate).getTime()
   const formattedEndDate = new Date(endDate).getTime()
   const dateRange = formattedEndDate - formattedStartDate
   const finalDate = dateRange / (1000 * 3600 * 24);
+
+  // const [totalPrice, setTotalPrice] = useState(property.propertyBookingPrice * finalDate);
 
   const handleSubmit = () => {
     // Submit the data to the backend
@@ -107,19 +140,7 @@ const hideOnClickOutside = (e) => {
         setOpen(false)
     }
 }
-  const router = useRouter();
-  const { propertyId } = router.query;
-
-  const {
-    data: property,
-    isError,
-    error,
-  } = useQuery({
-    queryKey: ["post", propertyId],
-    queryFn: () => fetchproperty(propertyId),
-    cacheTime: 60000 * 30,
-    staleTime: 30000,
-  });
+  
 
   const formatter = new Intl.NumberFormat("en-US", {
     currency: "USD",
@@ -127,6 +148,9 @@ const hideOnClickOutside = (e) => {
 
   const message = 'Hello, how are you?';
   const encodedMessage = encodeURIComponent(message);
+
+  // const totalPriceRef = useRef(property.propertyBookingPrice * finalDate);
+
 
 
   if (property) {
@@ -138,6 +162,12 @@ const hideOnClickOutside = (e) => {
     console.log(property.propertyBedroomNumber)
 
     const totalPrice = property.propertyBookingPrice * finalDate
+    const finalPrice = totalPrice + (totalPrice * 7 / 100)
+  // const [totalPrice, setTotalPrice] = useState(property.propertyBookingPrice * finalDate);
+
+    
+    
+    
 
     
     
@@ -152,7 +182,7 @@ const hideOnClickOutside = (e) => {
     return (
       <div className="font-sora">
         <Header />
-        <section className="mx-auto  mt-8 mb-14 max-w-[90rem] px-20 py-7">
+        <section className="mx-auto  mt-8 mb-14 max-w-[90rem] px-10 py-7">
           <button
             onClick={() => Router.back()}
             className="flex items-center px-2 py-3 space-x-3 border border-gray-200 rounded-lg w-fit"
@@ -493,13 +523,13 @@ const hideOnClickOutside = (e) => {
                 </div>
               </div>
 
-              <div className="flex flex-col w-1/3">
+              <div className="flex flex-col w-2/3">
                 {/* Card-booking */}
                 <div className="self-end p-6 border border-gray-200 rounded-lg w-full">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center justify-center space-x-1 text-[#031C43]">
-                      <h1 className="text-2xl font-medium ">{property.propertyRentalPrice}</h1>
-                      <h1 className="text-sm font-normal">{property.propertyBookingPrice}/night</h1>
+                      {/* <h1 className="text-2xl font-medium ">{property.propertyRentalPrice}</h1> */}
+                      <h1 className="text-sm font-normal">₦ {formatter.format(property.propertyBookingPrice)} / night</h1>
                     </div>
                     <div className="flex items-center space-x-2">
                       <GiRoundStar className="w-4 h-4 text-primary" />
@@ -514,24 +544,30 @@ const hideOnClickOutside = (e) => {
                   </div>
 
                   <div className='mt-6 text-sm font-normal text-secondary text-opacity-40'>
-                  <div className='flex items-center justify-between inline-block relative'>
-                    <div className='flex w-[9.184rem] items-center justify-between rounded-lg border border-gray-200 py-3 px-4'>
-                      <input 
-                        value={ `${format(new Date(startDate), "MM/dd/yyyy")}` }
-                        placeholder='Check-in'
-                        className='w-full outline-none' 
-                        onClick={() => setOpen(open => !open)}
-                        />
-                      <BiChevronDown className='w-4 h-5 text-black' />
+                  <div className='flex items-center justify-between relative'>
+                    <div >
+                      <p className="font-bold text-black mb-1">Check In</p>
+                      <div className='flex w-[9.184rem] items-center justify-between rounded-lg border border-gray-200 py-3 px-4'>
+                        <input 
+                          value={ `${format(new Date(startDate), "MM/dd/yyyy")}` }
+                          placeholder='Check-in'
+                          className='w-full outline-none' 
+                          onClick={() => setOpen(open => !open)}
+                          />
+                        <BiChevronDown className='w-4 h-5 text-black' />
+                      </div>
                     </div>
-                    <div className='flex w-[9.184rem] items-center justify-between rounded-lg border border-gray-200 py-3 px-4'>
-                    <input 
-                        value={ `${format(new Date(endDate), "MM/dd/yyyy")}` }
-                        placeholder='Check-out'
-                        className='w-full outline-none'
-                        onClick={() => setOpen(open => !open)}
-                        />
-                      <BiChevronDown className='w-4 h-5 text-black' />
+                    <div>
+                      <p className="font-bold text-black mb-1">Check Out</p>
+                      <div className='flex w-[9.184rem] items-center justify-between rounded-lg border border-gray-200 py-3 px-4'>
+                        <input 
+                            value={ `${format(new Date(endDate), "MM/dd/yyyy")}` }
+                            placeholder='Check-out'
+                            className='w-full outline-none'
+                            onClick={() => setOpen(open => !open)}
+                            />
+                          <BiChevronDown className='w-4 h-5 text-black' />
+                      </div>
                     </div>
                     <div ref={refOne}>
                       {open && 
@@ -546,12 +582,14 @@ const hideOnClickOutside = (e) => {
                               rangeColors={["#DB5461"]}
                               months={2}
                               direction="horizontal"
-                              className="absolute left-1/2 -translate-x-2/4 top-10 border z-30  "
+                              className="absolute left-1/2 -translate-x-2/4 top-10 border z-30 bg-transparent  "
                           />
                       }
                     </div>
                   </div>
-                  <div className='flex items-center justify-between px-4 py-3 mt-4 border border-gray-200 rounded-lg'>
+                  
+                  <p className="mt-3 font-bold text-black mb-1">Number of Guests</p>
+                  <div className='flex items-center justify-between px-4 py-3 border border-gray-200 rounded-lg'>
                     <input
                       placeholder='Guests'
                       className='outline-none'
@@ -561,6 +599,7 @@ const hideOnClickOutside = (e) => {
                     />
                     <BiChevronDown className='w-4 h-5 text-black' />
                   </div>
+                  
                 </div>
 
                   {/* <button
@@ -594,13 +633,33 @@ const hideOnClickOutside = (e) => {
 
                   
 
-                  <div className="my-4 border-t border-t-gray-200"></div>
+                  <div className="my-4 border-t border-t-gray-200">
 
-                  <div className="flex items-center justify-between text-sm font-bold text-secondary">
-                    <h1>Total</h1>
-                    <h1>₦ {formatter.format(totalPrice)}</h1>
+                  <div className="">
+                  {selectedDateRange ? (
+                    <div className="flex flex-col mt-5 justify-between text-sm font-bold text-secondary space-y-3">
+                      <div className="flex justify-between">
+                          <h1>Price after tax</h1>
+                          
+                          <h1>₦ {formatter.format(finalPrice)}</h1>
+                        </div>
+                        <div className="flex justify-between">
+                          <h1>Qoospayce service fee</h1>
+                      
+                          <h1>₦0 </h1>
+                        </div>
+                      </div>
+                    ):(
+                      null
+                    )}
+                  </div>
                   </div>
                   {/* <Load /> */}
+                  <div className="flex border-t justify-between items-center mt-5">
+                    <Link href="mailto:qoospayce@gmail.com"><div className="cursor-pointer flex flex-col justify-center items-center space-y-2 mt-3"><AiOutlineMail className="text-2xl" /> <p className="text-xs">Contact</p></div></Link>
+                    <Link href={`https://api.whatsapp.com/send?phone=+2349115015468&text=${encodedMessage}`}><div className="cursor-pointer flex flex-col justify-center items-center space-y-2 mt-3"><AiOutlineWhatsApp className="text-2xl" /><p className="text-xs">WhatsApp</p></div></Link>
+                    <div className="cursor-pointer flex flex-col justify-center items-center space-y-2 mt-3"><AiOutlinePhone className="text-2xl" /> <p className="text-xs">+234-9122877657</p></div>
+                  </div>
                 </div>
                 
               </div>

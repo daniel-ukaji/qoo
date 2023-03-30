@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Router, { useRouter } from "next/router";
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { BiChevronLeft } from "react-icons/bi";
 import { FiMapPin, FiUser } from "react-icons/fi";
 import { GlobalContext } from "../context/GlobalState";
@@ -32,12 +32,15 @@ const Index = () => {
   const [city, setCity] = useState("");
   const [phonenumber, setPhoneNumber] = useState("");
   const [comments, setComments] = useState("");
+  const [formErrors, setFormErrors] = useState({});
+  const [isFormComplete, setIsFormComplete] = useState(false);
+
 
 
   const {booking} = useContext(GlobalContext);
   const router = useRouter();
   // console.log(router.query)
-  const { startDate, endDate, noOfGuests, selectedDateRange, propertyId } = router.query;
+  const { startDate, endDate, noOfGuests, selectedGuests, selectedDateRange, propertyId } = router.query;
   // const formatStartDate = format(new Date(startDate), "MM/dd/yyyy")
   // const formatEndDate = format(new Date(endDate), "MM/dd/yyyy")
   const formattedStartDate = new Date(startDate).getTime()
@@ -142,79 +145,82 @@ const handleClick = () => {
     paymentAmount: PriceTag,
     paymentCurrency:"NGN",
     paymentReference: "55tTYT67IUJRE",
-  }
+  }  
 
-  // const bookingResponse = {
-  //   bookingRenterUserId: user,
-  //   bookingRenterFirstName: firstname,
-  //   bookingRenterLastName: lastname,
-  //   bookingRenterAddress: address,
-  //   bookingRenterCity: city,
-  //   bookingRenterPhoneNumber: phonenumber,
-  //   bookingRenterEmail: email,
-  //   bookingRenterComment: comments,
-  //   bookingPropertyId: propId,
-  //   bookingPaymentId: "100000",
-  //   bookingCheckInDate: checkInDate,
-  //   bookingCheckOutDate: checkOutDate,
-  //   bookingAmount: price,
-  //   bookingOptionalService: propertyOptionalServices,
-  //   bookingGuestNumber: noOfGuests,
-  //   bookingGuestTypes: "Children, Cats"
-  // }
-
-  
-
-  const onSubmit = async () => {
+  const onSubmit = async (e) => {
     
       // let id = toast.loading("Please wait whiles we complete your request");
 
       // const response = await CreateBooking.request(bookingData);
 
-      const response = await CreatePayment.request(paymentData);
 
-      if (response.data.paymentUrl) { // Check if payment URL was returned by backend API
-        window.location.href = response.data.paymentUrl; // Redirect user to payment URL
+      e.preventDefault();
+      const errors = {};
+
+      // Check if required fields are empty
+      if (!firstname) {
+        errors.firstname = 'Please enter your first name';
+      }
+      if (!lastname) {
+        errors.lastname = 'Please enter your last name';
+      }
+      if (!address) {
+        errors.address = 'Please enter your address';
+      }
+      if (!city) {
+        errors.city = 'Please enter your city';
+      }
+      if (!phonenumber) {
+        errors.phonenumber = 'Please enter your phone number';
+      }
+      if (!email) {
+        errors.email = 'Please enter your email address';
       }
 
-      const bookingResponse = {
-        bookingRenterUserId: user,
-        bookingRenterFirstName: firstname,
-        bookingRenterLastName: lastname,
-        bookingRenterAddress: address,
-        bookingRenterCity: city,
-        bookingRenterPhoneNumber: phonenumber,
-        bookingRenterEmail: email,
-        bookingRenterComment: comments,
-        bookingPropertyId: propId,
-        bookingPaymentId: "100000",
-        bookingCheckInDate: startDate,
-        bookingCheckOutDate: endDate,
-        bookingAmount: price,
-        bookingOptionalService: propertyOptionalServices,
-        bookingGuestNumber: noOfGuests,
-        bookingGuestTypes: "Children, Cats"
+      if (Object.keys(errors).length > 0) {
+        setFormErrors(errors);
+        setIsFormComplete(false);
+      } else {
+        // Submit form
+        const response = await CreatePayment.request(paymentData);
+  
+        if (response.data.paymentUrl) { // Check if payment URL was returned by backend API
+          window.location.href = response.data.paymentUrl; // Redirect user to payment URL
+        }
+  
+        const bookingResponse = {
+          bookingRenterUserId: user,
+          bookingRenterFirstName: firstname,
+          bookingRenterLastName: lastname,
+          bookingRenterAddress: address,
+          bookingRenterCity: city,
+          bookingRenterPhoneNumber: phonenumber,
+          bookingRenterEmail: email,
+          bookingRenterComment: comments,
+          bookingPropertyId: propId,
+          bookingPaymentId: "100000",
+          bookingCheckInDate: startDate,
+          bookingCheckOutDate: endDate,
+          bookingAmount: price,
+          bookingOptionalService: propertyOptionalServices,
+          bookingGuestNumber: noOfGuests,
+          bookingGuestTypes: "Children, Cats"
+        }
+  
+        
+  
+        const bookingSubmit = await CreateBooking.request(bookingResponse);
+        console.log(response);
+        console.log(bookingSubmit);
       }
 
-      
-
-      const bookingSubmit = await CreateBooking.request(bookingResponse);
-
-      // const bookingCheckInDate = booking.startDate;
-      // const bookingCheckOutDate = booking.endDate;
-      // const bookingTotal = booking.totalPrice;
-
-      // toast.update(id, {
-      //   type: response.data.responseCode !== "00" ? "error" : "success",
-      //   render: response.data.responseMessage,
-      //   isLoading: CreateBooking.loading,
-      //   autoClose: true,
-      //   // onClick: () => !completeRegError && toast.dismiss(),
-      // });
-
-      console.log(response);
-      console.log(bookingSubmit);
   }
+
+  useEffect(() => {
+    setIsFormComplete(
+      !!firstname && !!lastname && !!address && !!city && !!phonenumber && !!email
+    );
+  }, [firstname, lastname, address, city, phonenumber, email]);
 
   const formatter = new Intl.NumberFormat("en-US", {
     currency: "USD",
@@ -360,6 +366,8 @@ const handleClick = () => {
                       className="h-[3rem] outline-none w-fourty8 rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal px-2 placeholder:text-secondary placeholder:text-opacity-40"
                       placeholder="First name"
                     />
+                      {formErrors.firstname && <div className="text-red-500">{formErrors.firstname}</div>}
+
                     <input
                       type="text"
                       name="lastname"
@@ -369,6 +377,8 @@ const handleClick = () => {
                       className="h-[3rem] outline-none w-fourty8 rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
                       placeholder="Last name"
                     />
+                      {formErrors.lastname && <div className="text-red-500">{formErrors.lastname}</div>}
+
                   </div>
 
                   <div className="flex items-center justify-between">
@@ -381,6 +391,8 @@ const handleClick = () => {
                       className="h-[3rem] w-fourty8 outline-none rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
                       placeholder="Address"
                     />
+                      {formErrors.address && <div className="text-red-500">{formErrors.address}</div>}
+
                     <input
                       type="text"
                       name="city"
@@ -390,6 +402,8 @@ const handleClick = () => {
                       className="h-[3rem] w-fourty8 outline-none rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
                       placeholder="City"
                     />
+                      {formErrors.city && <div className="text-red-500">{formErrors.city}</div>}
+
                   </div>
 
                   <div className="flex items-center justify-between">
@@ -402,6 +416,8 @@ const handleClick = () => {
                       className="h-[3rem] w-fourty8 outline-none rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
                       placeholder="Phone number"
                     />
+                      {formErrors.phonenumber && <div className="text-red-500">{formErrors.phonenumber}</div>}
+
                     <input
                       type="email"
                       name="email"
@@ -411,6 +427,8 @@ const handleClick = () => {
                       className="h-[3rem] w-fourty8 outline-none rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
                       placeholder="Email Address"
                     />
+                      {formErrors.email && <div className="text-red-500">{formErrors.email}</div>}
+
                   </div>
                   <textarea
                     name="comments"
@@ -420,6 +438,8 @@ const handleClick = () => {
                     className="h-[7.438rem] outline-none w-full rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
                     placeholder="Comments"
                   />
+                    {formErrors.comments && <div className="text-red-500">{formErrors.comments}</div>}
+
                 </div>
 
                 <div className="flex flex-col px-2 mt-4 space-y-4 text-sm font-normal text-gray-600">
@@ -514,7 +534,11 @@ const handleClick = () => {
                       <Load />
                     </div>
                   ):(
-                    <button onClick={onSubmit} className="px-24 py-4 mt-4 text-sm font-medium text-white rounded-lg bg-primary">
+                    <button onClick={onSubmit} className={`px-24 py-4 mt-4 text-sm font-medium text-white rounded-lg bg-primary ${
+                      !isFormComplete ? "bg-gray-300 pointer-events-none" : ""
+                    }`}
+                    disabled={!isFormComplete}
+                    >
                       Book apartment
                     </button>
                   )}
