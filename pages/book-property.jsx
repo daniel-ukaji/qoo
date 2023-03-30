@@ -5,7 +5,6 @@ import { BiChevronLeft } from "react-icons/bi";
 import { FiMapPin, FiUser } from "react-icons/fi";
 import { GlobalContext } from "../context/GlobalState";
 
-import propertyImage from "/public/images/details_image.png";
 import Header from "../components/misc/header";
 import Footer from "../components/misc/footer";
 import Property from "./property/[propertyId]";
