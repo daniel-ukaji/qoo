@@ -175,6 +175,9 @@ const handleClick = () => {
       if (!email) {
         errors.email = 'Please enter your email address';
       }
+      if (!comments) {
+        errors.comments = 'Please enter your email address';
+      }
 
       if (Object.keys(errors).length > 0) {
         setFormErrors(errors);
@@ -218,9 +221,9 @@ const handleClick = () => {
 
   useEffect(() => {
     setIsFormComplete(
-      !!firstname && !!lastname && !!address && !!city && !!phonenumber && !!email
+      !!firstname && !!lastname && !!address && !!city && !!phonenumber && !!email && !!comments
     );
-  }, [firstname, lastname, address, city, phonenumber, email]);
+  }, [firstname, lastname, address, city, phonenumber, email, comments]);
 
   const formatter = new Intl.NumberFormat("en-US", {
     currency: "USD",
