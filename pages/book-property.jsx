@@ -180,6 +180,7 @@ const handleClick = () => {
         setFormErrors(errors);
         setIsFormComplete(false);
       } else {
+        // setIsFormComplete(true)
         // Submit form
         const response = await CreatePayment.request(paymentData);
   
@@ -536,7 +537,7 @@ const handleClick = () => {
                     <button onClick={onSubmit} className={`px-24 py-4 mt-4 text-sm font-medium text-white rounded-lg bg-primary ${
                       !isFormComplete ? "bg-gray-300 pointer-events-none" : ""
                     }`}
-                    disabled={!isFormComplete}
+                    // disabled={!isFormComplete}
                     >
                       Book apartment
                     </button>

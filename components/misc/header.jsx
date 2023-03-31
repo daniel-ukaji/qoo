@@ -94,55 +94,55 @@ const Header = () => {
     //   id: "2",
     //   href: "/become-a-host",
     // },
-    {
-      label: "Help",
-      actionType: "LINK",
-      href: "/help&Support",
-      id: "4",
-    },
+    // {
+    //   label: "Help",
+    //   actionType: "LINK",
+    //   href: "/help&Support",
+    //   id: "4",
+    // },
   ];
 
   const authorizedLinks = [
-    {
-      label: "Bookings",
-      actionType: "LINK",
-      id: "1",
-      href: "/bookings",
-    },
-    {
-      label: "Wishlist",
-      actionType: "LINK",
-      href: "/wishlist",
-      id: "2",
-    },
+    // {
+    //   label: "Bookings",
+    //   actionType: "LINK",
+    //   id: "1",
+    //   href: "/bookings",
+    // },
+    // {
+    //   label: "Wishlist",
+    //   actionType: "LINK",
+    //   href: "/wishlist",
+    //   id: "2",
+    // },
     {
       label: "Bookings",
       actionType: "LINK",
       href: "/bookingsEmpty",
-      id: "3",
+      id: "1",
     },
     {
       label: "Become a host",
       actionType: "LINK",
       href: "/new-user-home",
-      id: "4",
+      id: "2",
     },
     {
       label: "Account settings",
       actionType: "LINK",
       href: "/AccountSettings",
-      id: "5",
+      id: "3",
     },
     {
       label: "Host Admin",
       actionType: "LINK",
       href: "/hostProperty",
-      id: "6",
+      id: "4",
     },
     {
       label: "Log out",
       actionType: "BUTTON",
-      id: "7",
+      id: "5",
       onPress: () => logOut(),
     },
   ];

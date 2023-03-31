@@ -551,7 +551,7 @@ const hideOnClickOutside = (e) => {
                         <input 
                           value={ `${format(new Date(startDate), "MM/dd/yyyy")}` }
                           placeholder='Check-in'
-                          className='w-full outline-none' 
+                          className='w-full outline-none bg-transparent' 
                           onClick={() => setOpen(open => !open)}
                           />
                         <BiChevronDown className='w-4 h-5 text-black' />
@@ -563,7 +563,7 @@ const hideOnClickOutside = (e) => {
                         <input 
                             value={ `${format(new Date(endDate), "MM/dd/yyyy")}` }
                             placeholder='Check-out'
-                            className='w-full outline-none'
+                            className='w-full outline-none bg-transparent'
                             onClick={() => setOpen(open => !open)}
                             />
                           <BiChevronDown className='w-4 h-5 text-black' />
@@ -592,7 +592,7 @@ const hideOnClickOutside = (e) => {
                   <div className='flex items-center justify-between px-4 py-3 border border-gray-200 rounded-lg'>
                     <input
                       placeholder='Guests'
-                      className='outline-none'
+                      className='outline-none bg-transparent'
                       value={noOfGuests}
                       onChange={(e) => setNoOfGuests(e.target.value)}
                       type="number"
