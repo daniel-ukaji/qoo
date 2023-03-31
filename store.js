@@ -4,6 +4,15 @@ import thunk from 'redux-thunk';
 const ADD_IMAGE = 'ADD_IMAGE';
 const REMOVE_IMAGE = 'REMOVE_IMAGE';
 
+const SET_COUNT = 'SET_COUNT';
+
+const setCount = (count) => {
+  return {
+    type: SET_COUNT,
+    payload: count,
+  };
+};
+
 const initialState = {
   pageNumber: 1,
   propertyType: '',
@@ -28,6 +37,7 @@ const initialState = {
   propertyHostId: "100001",
   propertyBookingConditions: '',
   propertyImage: '',
+  count: 0,
 };
 
 const formReducer = (state = initialState, action) => {
@@ -103,6 +113,8 @@ const formReducer = (state = initialState, action) => {
           ...state,
           propertyImages: newImages,
         };
+    case SET_COUNT:
+      return { ...state, count: action.payload };
     default:
       return state;
   }

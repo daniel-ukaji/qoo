@@ -54,7 +54,7 @@ const PageTwelve = ({ prevStep }) => {
       const selectedBedrooms = useSelector((state) => state.propertyBedroomNumber);
       const selectedBeds = useSelector((state) => state.propertyGuestNumber);
       const selectedBathrooms = useSelector((state) => state.propertyBathroomNumber);
-      const WhatToOffer = useSelector((state) => state.propertyServices);
+      const WhatToOffer = useSelector((state) => state.propertyServices.toString());
       const ImageUpload = useSelector((state) => state.propertyImages);
       const createTitle = useSelector((state) => state.propertyName);
       const createDescription = useSelector((state) => state.propertyDescription);
@@ -71,9 +71,13 @@ const PageTwelve = ({ prevStep }) => {
 
       console.log(imageString)
 
-      console.log(WhatToOffer)
-  
+      // console.log(WhatToOffer)
 
+      
+
+      
+  
+      console.log(WhatToOffer)
     const submitForm = async () => {
         
       // const data = store.getState();
@@ -119,12 +123,24 @@ const PageTwelve = ({ prevStep }) => {
   .then(response => response.json())
   .then(data => {
     console.log(data)
-    // Handle response data here
-    router.push('/hostSuccess');
+    
+    if (data.responseCode !== "00") {
+      // Handle the error here
+      router.push('/hostError');
+      console.error(data.responseMessage);
+    } else {
+      // Handle successful submission here
+      // alert('Successful');
+      router.push('/hostSuccess');
+    }
   })
   .catch(error => {
-    // Handle error here
+    // console.error(error);
+    // alert('There was a problem submitting your request. Please try again later.');
+    debugger;
   });
+
+
 
       // const response = await PropertyApi.request(data);
 

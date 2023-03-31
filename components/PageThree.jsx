@@ -76,7 +76,7 @@ const PageTestThree = ({ prevStep }) => {
                         payload: option,
                   })}
                   />
-                  <label htmlFor="" className='absolute top-0 left-0 bg-white px-2 -mt-3 ml-3 text-[#D1D5DB] text-sm'>Street</label>
+                  <label htmlFor="" className='absolute top-0 left-0 bg-[#FAFAFC] px-2 -mt-3 ml-3 text-[#D1D5DB] text-sm'>Street</label>
               </div>
 
               <div className='relative'>
@@ -90,7 +90,7 @@ const PageTestThree = ({ prevStep }) => {
                       payload: option,
                 })}
                 />
-                <label htmlFor="" className='absolute top-0 left-0 bg-white px-2 -mt-3 ml-3 text-[#D1D5DB] text-sm'>City</label>
+                <label htmlFor="" className='absolute top-0 left-0 bg-[#FAFAFC] px-2 -mt-3 ml-3 text-[#D1D5DB] text-sm'>City</label>
               </div>
 
               <div className='relative'>
@@ -104,7 +104,7 @@ const PageTestThree = ({ prevStep }) => {
                       payload: option,
                 })}
                 />
-                <label htmlFor="" className='absolute top-0 left-0 bg-white px-2 -mt-3 ml-3 text-[#D1D5DB] text-sm'>State (optional)</label>
+                <label htmlFor="" className='absolute top-0 left-0 bg-[#FAFAFC] px-2 -mt-3 ml-3 text-[#D1D5DB] text-sm'>State (optional)</label>
               </div>
 
               <div className='relative'>
@@ -118,7 +118,7 @@ const PageTestThree = ({ prevStep }) => {
                       payload: option,
                 })}
                 />
-                <label htmlFor="" className='absolute top-0 left-0 bg-white px-2 -mt-3 ml-3 text-[#D1D5DB] text-sm'>ZipCode (optional)</label>
+                <label htmlFor="" className='absolute top-0 left-0 bg-[#FAFAFC] px-2 -mt-3 ml-3 text-[#D1D5DB] text-sm'>ZipCode (optional)</label>
               </div>
 
               <div className='relative'>
@@ -132,7 +132,7 @@ const PageTestThree = ({ prevStep }) => {
                       payload: option,
                 })}
                 />
-                <label htmlFor="" className='absolute top-0 left-0 bg-white px-2 -mt-3 ml-3 text-[#D1D5DB] text-sm'>Country</label>
+                <label htmlFor="" className=' absolute top-0 left-0 bg-[#FAFAFC] px-2 -mt-3 ml-3 text-[#D1D5DB] text-sm'>Country</label>
               </div>
 
               {/* <div className='relative'>

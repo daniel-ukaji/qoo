@@ -15,6 +15,7 @@ import PageTen from './PageTen';
 import PageEleven from './PageEleven';
 import PageTwelve from './PageTwelve';
 import PageThirteen from './PageThirteen';
+import PageCounter from './PageCounter';
 // import ProgressBar from "@badrap/bar-of-progress";
 // import { useRouter } from 'next/router';
 
