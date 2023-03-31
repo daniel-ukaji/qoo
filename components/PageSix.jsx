@@ -74,8 +74,8 @@ const PageSix = ({ prevStep }) => {
                 Back
               </button>
               <button
-                className="py-3 px-6 mr-2 mb-2 text-sm font-medium text-white focus:outline-none bg-[#DB5461] rounded-lg border border-gray-200"
-                disabled={!selectedOption}
+                className={`py-3 px-6 mr-2 mb-2 text-sm font-medium text-white focus:outline-none bg-[#DB5461] rounded-lg border border-gray-200 ${selectedOption === 0 ? "bg-gray-300 pointer-events-none" : ""}`}
+                disabled={selectedOption === 0}
                 onClick={handleNextClick}
               >
                 Next

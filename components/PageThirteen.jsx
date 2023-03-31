@@ -168,7 +168,7 @@ const handleBackClick = () => {
                 <button onClick={handleBackClick} className="py-3 px-6 mr-2 mb-2 text-sm font-medium text-black focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200">Back</button>
               </div>
               <div>
-                <button onClick={handleNextClick} className="py-3 px-6 mr-2 mb-2 text-sm font-medium text-white focus:outline-none bg-[#DB5461] rounded-lg border border-gray-200">Proceed</button>
+                <button onClick={handleNextClick} disabled={selectedImages.length < 5}  className={`py-3 px-6 mr-2 mb-2 text-sm font-medium text-white focus:outline-none bg-[#DB5461] rounded-lg border border-gray-200 ${selectedImages.length < 5 ? "bg-gray-300 pointer-events-none" : ""}`}>Proceed</button>
               </div>
             </div>
       </div>

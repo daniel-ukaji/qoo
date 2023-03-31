@@ -41,7 +41,7 @@ const PageTest = () => {
 
             <div>
               <button
-                className="py-3 px-6 mr-2 mb-2 text-sm font-medium text-white focus:outline-none bg-[#DB5461] rounded-lg border border-gray-200"
+                className={`py-3 px-6 mr-2 mb-2 text-sm font-medium text-white focus:outline-none bg-[#DB5461] rounded-lg border border-gray-200 ${!selectedOption ? "bg-gray-300 pointer-events-none" : ""}`}
                 disabled={!selectedOption}
                 onClick={handleNextClick}
               >

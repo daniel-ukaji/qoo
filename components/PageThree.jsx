@@ -132,7 +132,7 @@ const PageTestThree = ({ prevStep }) => {
                       payload: option,
                 })}
                 />
-                <label htmlFor="" className=' absolute top-0 left-0 bg-[#FAFAFC] px-2 -mt-3 ml-3 text-[#D1D5DB] text-sm'>Country</label>
+                <label htmlFor="" className=' absolute top-0 left-0 px-2 -mt-3 ml-3 text-[#D1D5DB] text-sm'>Country</label>
               </div>
 
               {/* <div className='relative'>
@@ -158,7 +158,7 @@ const PageTestThree = ({ prevStep }) => {
                 Back
               </button>
               <button
-                className="py-3 px-6 mr-2 mb-2 text-sm font-medium text-white focus:outline-none bg-[#DB5461] rounded-lg border border-gray-200"
+                className={`py-3 px-6 mr-2 mb-2 text-sm font-medium text-white focus:outline-none bg-[#DB5461] rounded-lg border border-gray-200 ${!propertyStreet || !propertyCity || !propertyState || !propertyZipCode || !propertyCountry ? "bg-gray-300 pointer-events-none" : ""}`}
                 disabled={!propertyStreet || !propertyCity || !propertyState || !propertyZipCode || !propertyCountry}
                 onClick={handleNextClick}
               >

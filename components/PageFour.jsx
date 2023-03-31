@@ -74,7 +74,7 @@ const PageTestFour = ({ prevStep }) => {
             />
             </div>
 
-            <div className='mt-3'>
+            <div className='mt-6'>
             <button
                 className="py-3 px-6 mr-2 mb-2 text-sm font-medium text-black focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200"
                 onClick={handleBackClick}
@@ -82,7 +82,7 @@ const PageTestFour = ({ prevStep }) => {
                 Back
               </button>
               <button
-                className="py-3 px-6 mr-2 mb-2 text-sm font-medium text-white focus:outline-none bg-[#DB5461] rounded-lg border border-gray-200"
+                className={`py-3 px-6 mr-2 mb-2 text-sm font-medium text-white focus:outline-none bg-[#DB5461] rounded-lg border border-gray-200 ${!bedroomsSelection || !bedsSelection || !bathroomsSelection || !propertyAmenities ? "bg-gray-300 pointer-events-none" : ""}`}
                 disabled={!bedroomsSelection || !bedsSelection || !bathroomsSelection || !propertyAmenities}
                 onClick={handleNextClick}
               >
