@@ -8,27 +8,27 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useApi } from '../utils/hooks/useApi';
 import { updateProfile } from '../utils/api/user/updateUser';
 import { toast } from 'react-toastify';
-import { readUser, readUsers } from '../utils/api/user/readUser';
-import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
+// import { readUser, readUsers } from '../utils/api/user/readUser';
+// import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 
 
 function AccountSettings() {
     const user = useAuth();
-    const usersId = user?.user.userId;
+    // const usersId = user?.user.userId;
     console.log(user)
     // console.log(user.user?.userFirstName)
     const [users, setUsers] = useState({});
     const [activeTab, setActiveTab] = useState('listing');
-    const [userFirstName, setUserFirstName] = useState('');
-    const [userLastName, setUserLastName] = useState('');
-    const [userEmail, setUserEmail] = useState('');
-    const [userDateOfBirth, setUserDateOfBirth] = useState('');
-    const [userPhoneNumber, setUserPhoneNumber] = useState('');
-    const [userCountry, setUserCountry] = useState('');
-    const [userState, setUserState] = useState('');
-    const [userCity, setUserCity] = useState('');
-    const [userStreet, setUserStreet] = useState('');
-    const [userIdentityNumber, setUserIdentityNumber] = useState('');
+    // const [userFirstName, setUserFirstName] = useState('');
+    // const [userLastName, setUserLastName] = useState('');
+    // const [userEmail, setUserEmail] = useState('');
+    // const [userDateOfBirth, setUserDateOfBirth] = useState('');
+    // const [userPhoneNumber, setUserPhoneNumber] = useState('');
+    // const [userCountry, setUserCountry] = useState('');
+    // const [userState, setUserState] = useState('');
+    // const [userCity, setUserCity] = useState('');
+    // const [userStreet, setUserStreet] = useState('');
+    // const [userIdentityNumber, setUserIdentityNumber] = useState('');
     // const datias = {
     //     userId: usersId 
     // }

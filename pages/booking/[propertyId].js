@@ -36,19 +36,10 @@ import { getPaymentStatus } from "../../utils/api/payment/getPaymentStatus";
 
 
 const Index = () => {
-  const [firstname, setFirstName] = useState("");
-  const [lastname, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [phonenumber, setPhoneNumber] = useState("");
-  const [comments, setComments] = useState("");
-  const [formErrors, setFormErrors] = useState({});
-  const [isFormComplete, setIsFormComplete] = useState(false);
   
 
   const router = useRouter();
-  const { startDate, endDate, noOfGuests, numGuests, selectedGuests, selectedDateRange, propertyId } = router.query;
+  const { startDate, endDate, numGuests, propertyId } = router.query;
 
 
   const {
@@ -63,22 +54,12 @@ const Index = () => {
   });
 
 
-//   const {booking} = useContext(GlobalContext);
-//   const router = useRouter();
-  // console.log(router.query)
-  // const formatStartDate = format(new Date(startDate), "MM/dd/yyyy")
-  // const formatEndDate = format(new Date(endDate), "MM/dd/yyyy")
+
   const formattedStartDate = new Date(startDate).getTime()
   const formattedEndDate = new Date(endDate).getTime()
   console.log(formattedStartDate)
 
-//   const formatStartDate = new Date(startDate)
-//   const formatEndDate = new Date(endDate)
-//   const newStartDate = format(formatStartDate, 'MM/dd/yyyy');
-//   const newEndDate = format(formatEndDate, 'MM/dd/yyyy');
-  // console.log(formattedStartDate)
-  // console.log(formattedStartDate)
-  // console.log(formattedEndDate)
+
   const dateRange = formattedEndDate - formattedStartDate
   console.log(dateRange)
   const finalDate = dateRange / (1000 * 3600 * 24);
@@ -122,43 +103,7 @@ const handleClick = () => {
   const user = auth.user?.userId;
   console.log(user);
 
-//   console.log(booking.propertyId);
 
-//   console.log(booking.propertyName)
-
-  // console.log(booking[0]?.propertyHost.hostUserId)
-
-  // console.log(booking[0]?.propertyName)
-
-  // console.log(booking)
-
-  // console.log(booking[0]?.propertyId)
-
-  // console.log(startDate)
-
-  // console.log(booking[0]?.propertyBookedDates[0]?.checkInDate)
-
-  // console.log(checkOutDate.toISOString().split('T')[0])
-
-  // console.log(parsedSelectedDateRange)
-
-  // console.log(checkOuttDate)
-
-  // console.log(checkInDate)
-
-  // console.log(checkInDate)
-
-  // console.log(checkDate)
-
-  // console.log(startDate)
-
-  // const checkInDate = booking[0].propertyBookedDates[0].checkInDate
-
-  // const checkOutDate = booking[0].propertyBookedDates[0].checkOutDate
-
-  // console.log(format(new Date(booking[0]?.propertyBookedDates[0]?.checkInDate), "MM/dd/yyyy"))
-
-//   console.log(booking)
 
   const hostId = property.propertyHost.hostUserId;
 //   console.log(hostId)
@@ -449,105 +394,6 @@ console.log(propId)
     }
   };
   
-  
-  // const onSubmit = async (values, { setSubmitting }) => {
-  //   try {
-  //     // Submit form
-  //     const response = await CreatePayment.request(paymentData);
-
-  //     if (response.data.paymentUrl) { // Check if payment URL was returned by backend API
-  //       window.location.href = response.data.paymentUrl; // Redirect user to payment URL
-        
-  //       // Poll for payment verification
-  //       let verified = false;
-  //       while (!verified) {
-  //         const verifyResponse = await GetPaymentStatus.request({ paymentReference: response.data.paymentReference });
-  //         if (verifyResponse.data.paymentId) {
-  //           // Payment was successful, submit booking response
-  //           const bookingResponse = {
-  //             bookingRenterUserId: user,
-  //             bookingRenterFirstName: values.firstname,
-  //             bookingRenterLastName: values.lastname,
-  //             bookingRenterAddress: values.address,
-  //             bookingRenterCity: values.city,
-  //             bookingRenterPhoneNumber: values.phonenumber,
-  //             bookingRenterEmail: values.email,
-  //             bookingRenterComment: values.comments,
-  //             bookingPropertyId: propId,
-  //             bookingPaymentId: verifyResponse.data.paymentId,
-  //             bookingCheckInDate: startDate,
-  //             bookingCheckOutDate: endDate,
-  //             bookingAmount: property.propertyBookingPrice,
-  //             bookingOptionalService: propertyOptionalServices,
-  //             bookingGuestNumber: numGuests,
-  //             bookingGuestTypes: "Children, Cats"
-  //           };
-  //           const bookingSubmit = await CreateBooking.request(bookingResponse);
-  //           console.log(bookingSubmit);
-  //           verified = true;
-  //         }
-  //         await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second before polling again
-  //       }
-  //     }
-
-  //     // Reset form
-  //     setSubmitting(false);
-  //   } catch (error) {
-  //     console.error(error);
-  //     // Handle error
-  //     setSubmitting(false);
-  //   }
-  // };
-
-
-// const onSubmit = async (values, { setSubmitting }) => {
-//   try {
-//     const response = await CreatePayment.request(paymentData);
-  
-//     if (response.data.paymentUrl) { // Check if payment URL was returned by backend API
-//       window.location.href = response.data.paymentUrl; // Redirect user to payment URL
-//       return; // exit function since we're redirecting
-//     }
-
-//     const req = { 
-//       paymentReference: response.data.paymentReference 
-//     }
-  
-//     // Payment was successful, so verify the payment before submitting booking details
-//     const verifyResponse = await GetPaymentStatus.request(req);
-//     if (verifyResponse.data.responseCode !== "00") {
-//       throw new Error("Payment verification failed"); // Throw error and exit function
-//     }
-    
-//     // Payment was successfully verified, so submit booking details
-//     const bookingResponse = {
-//       bookingRenterUserId: user,
-//       bookingRenterFirstName: firstname,
-//       bookingRenterLastName: lastname,
-//       bookingRenterAddress: address,
-//       bookingRenterCity: city,
-//       bookingRenterPhoneNumber: phonenumber,
-//       bookingRenterEmail: email,
-//       bookingRenterComment: comments,
-//       bookingPropertyId: propId,
-//       bookingPaymentId: "100000",
-//       bookingCheckInDate: startDate,
-//       bookingCheckOutDate: endDate,
-//       bookingAmount: finalPrice,
-//       bookingOptionalService: propertyOptionalServices,
-//       bookingGuestNumber: noOfGuests,
-//       bookingGuestTypes: "Children, Cats"
-//     };
-    
-//     const bookingSubmit = await CreateBooking.request(bookingResponse);
-//     console.log(response);
-//     console.log(bookingSubmit);
-    
-//   } catch (error) {
-//     console.error(error);
-//     // Handle error and display appropriate message to user
-//   }
-//   };
   
   
   const validationSchema = Yup.object().shape({
