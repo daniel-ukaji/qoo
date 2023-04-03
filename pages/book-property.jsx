@@ -45,7 +45,7 @@ const Index = () => {
   const {booking} = useContext(GlobalContext);
   const router = useRouter();
   // console.log(router.query)
-  const { startDate, endDate, noOfGuests, selectedGuests, selectedDateRange, propertyId } = router.query;
+  const { startDate, endDate, noOfGuests, numGuests, selectedGuests, selectedDateRange, propertyId } = router.query;
   // const formatStartDate = format(new Date(startDate), "MM/dd/yyyy")
   // const formatEndDate = format(new Date(endDate), "MM/dd/yyyy")
   const formattedStartDate = new Date(startDate).getTime()
@@ -213,7 +213,7 @@ const handleClick = () => {
           bookingCheckOutDate: endDate,
           bookingAmount: finalPrice,
           bookingOptionalService: propertyOptionalServices,
-          bookingGuestNumber: noOfGuests,
+          bookingGuestNumber: numGuests,
           bookingGuestTypes: "Children, Cats"
         }
   
@@ -465,7 +465,7 @@ const handleClick = () => {
 
                     <div className="flex items-center justify-between">
                       <h1>Guests</h1>
-                      <h1>{noOfGuests}</h1>
+                      <h1>{numGuests}</h1>
                     </div>
                   </div>
                   <div className="my-4 border-t border-t-gray-200 border-b" >
