@@ -21,9 +21,12 @@ export const CREATEBOOKINGS = "booking/create";
 
 // Payment
 export const CREATEPAYMENT = "payment/create-payment";
+export const VERIFYPAYMENT = "payment/verify-payment";
 
 // User
 export const VERIFYPROFILE = "user/verify-profile";
+export const UPDATEPROFILE = "User/update";
+export const READBYUSERID = "user/read-by-user-id";
 
 // Image
 export const IMAGEURL = "uploadimage2s3"

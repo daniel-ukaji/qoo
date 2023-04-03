@@ -12,16 +12,6 @@ export const GlobalContext = createContext(initialState);
 //provider components
 export const GlobalProvider = props => {
     const [state, dispatch] = useReducer(AppReducer, initialState);
-
-
-    // if (typeof window !== 'undefined') {
-    //     // Perform localStorage action
-    //     localStorage.setItem('watchlist', JSON.stringify(state.watchlist))
-    //   }
-
-    // useEffect(() => {
-    //     localStorage.setItem('watchlist', JSON.stringify(state.watchlist))
-    // }, [state]);
     
 
     //actions

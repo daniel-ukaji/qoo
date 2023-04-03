@@ -47,21 +47,21 @@ const PageTestFour = ({ prevStep }) => {
             <h1>Bedrooms</h1>
             <ClickableCircle
                 title="Bedrooms"
-                options={['1', '2', '3', '4', '4+']}
+                options={['1', '2', '3', '4', '5', '6+']}
                 selectedOption={bedroomsSelection}
                 setPageSelection={(option) => dispatch({ type: 'SET_BEDROOMS_SELECTION', payload: option })}
             />
-            <h1>Beds</h1>
+            <h1>Guests</h1>
             <ClickableCircle
                 title="Beds"
-                options={['1', '2', '3', '4', '4+']}
+                options={['1', '2', '3', '4', '5', '6+']}
                 selectedOption={bedsSelection}
                 setPageSelection={(option) => dispatch({ type: 'SET_BEDS_SELECTION', payload: option })}
             />
             <h1>Bathrooms</h1>
             <ClickableCircle
                 title="Bathrooms"
-                options={['1', '2', '3', '4', '4+']}
+                options={['1', '2', '3', '4', '5', '6+']}
                 selectedOption={bathroomsSelection}
                 setPageSelection={(option) => dispatch({ type: 'SET_BATHROOMS_SELECTION', payload: option })}
             />

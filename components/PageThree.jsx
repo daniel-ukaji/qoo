@@ -66,6 +66,7 @@ const PageTestThree = ({ prevStep }) => {
 
             <div className="flex flex-col space-y-8">
               <div className='relative'>
+              <label htmlFor="" className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>Street</label>
                   <InputField
                     label="Enter your Address:"
                     placeholder="Maloko Close"
@@ -76,10 +77,11 @@ const PageTestThree = ({ prevStep }) => {
                         payload: option,
                   })}
                   />
-                  <label htmlFor="" className='absolute top-0 left-0 bg-[#FAFAFC] px-2 -mt-3 ml-3 text-[#D1D5DB] text-sm'>Street</label>
+                  
               </div>
 
               <div className='relative'>
+              <label htmlFor="" className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>City</label>
                 <InputField
                   label="Enter your Address:"
                   placeholder="Lagos"
@@ -90,10 +92,11 @@ const PageTestThree = ({ prevStep }) => {
                       payload: option,
                 })}
                 />
-                <label htmlFor="" className='absolute top-0 left-0 bg-[#FAFAFC] px-2 -mt-3 ml-3 text-[#D1D5DB] text-sm'>City</label>
+                
               </div>
 
               <div className='relative'>
+              <label htmlFor="" className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>State (optional)</label>
                 <InputField
                   label="Enter your Address:"
                   placeholder="Lagos"
@@ -104,10 +107,11 @@ const PageTestThree = ({ prevStep }) => {
                       payload: option,
                 })}
                 />
-                <label htmlFor="" className='absolute top-0 left-0 bg-[#FAFAFC] px-2 -mt-3 ml-3 text-[#D1D5DB] text-sm'>State (optional)</label>
+                
               </div>
 
               <div className='relative'>
+              <label htmlFor="" className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>ZipCode (optional)</label>
                 <InputField
                   label="Enter your Address:"
                   placeholder="102213"
@@ -118,10 +122,11 @@ const PageTestThree = ({ prevStep }) => {
                       payload: option,
                 })}
                 />
-                <label htmlFor="" className='absolute top-0 left-0 bg-[#FAFAFC] px-2 -mt-3 ml-3 text-[#D1D5DB] text-sm'>ZipCode (optional)</label>
+                
               </div>
 
               <div className='relative'>
+              <label htmlFor="" className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>Country</label>
                 <InputField
                   label="Enter your Address:"
                   placeholder="Name"
@@ -132,7 +137,7 @@ const PageTestThree = ({ prevStep }) => {
                       payload: option,
                 })}
                 />
-                <label htmlFor="" className=' absolute top-0 left-0 px-2 -mt-3 ml-3 text-[#D1D5DB] text-sm'>Country</label>
+                
               </div>
 
               {/* <div className='relative'>

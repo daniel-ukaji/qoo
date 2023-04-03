@@ -15,7 +15,8 @@ import Navbar from "../components/Navbar";
 
 export default function Home() {
   const [modalActive, setModalActive] = useState(false);
-  const [numItems, setNumItems] = useState(8);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [numItems, setNumItems] = useState(10);
 
   const {
     data: properties,
@@ -31,6 +32,29 @@ export default function Home() {
     staleTime: 300000,
   });
 
+  const reversedProperties = properties ? [...properties].reverse() : [];
+
+  const filteredProperties = properties
+  ? [...properties]
+      .reverse()
+      .filter(
+        (property) =>
+          property.propertyName
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase()) ||
+          property.propertyCity
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase()) ||
+          property.propertyState
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase()) ||
+          property.propertyStreet
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase())
+      )
+  : [];
+
+
   return (
     <div className="font-sora">
       <Head>
@@ -39,54 +63,42 @@ export default function Home() {
       </Head>
 
       {/* <Navbar /> */}
-      <Header />
+      <Header onSearch={setSearchQuery} />
 
 
       <main className="px-20 mt-8">
-        <div className="flex items-center justify-between">
-          <h1 className="font-semibold">Explore Listing</h1>
-          <button
-            onClick={() => {
-              setModalActive(true);
-            }}
-            className="flex items-center px-3 py-4 space-x-1 border border-gray-300 rounded-lg"
-          >
-            <GoSettings className="w-6 h-5 text-gray-900" />
-            <h1 className="text-sm text-gray-900">Filter</h1>
-          </button>
-        </div>
         <div className="flex flex-wrap items-center mt-8 mb-7 gap-x-5 gap-y-10">
-          
           {isError && <p>{error.message}</p>}
-          {/* {properties && <SkeletonCard cards={numItems} />}           */}
-          {properties &&  
-            properties.slice(0, numItems).map((property) => (
-              <RoomCard
-                key={property.propertyId}
-                roomAddy={`${property.propertyStreet} ${property.propertyCity}, ${property.propertyState} `}
-                imageUrl={property.propertyImages}
-                numOfBath={property.propertyBathroomNumber}
-                numOfBed={property.propertyBedroomNumber}
-                roomTitle={property.propertyName}
-                roomId={property.propertyId}
-                price={property.propertyBookingPrice}
-              />
-            ))}
+          {loading && <SkeletonCard cards={numItems} />}
+          {!loading &&
+            filteredProperties
+              .slice(0, numItems)
+              .map((property) => (
+                <RoomCard
+                  key={property.propertyId}
+                  roomAddy={`${property.propertyStreet} ${property.propertyCity}, ${property.propertyState} `}
+                  imageUrl={property.propertyImages}
+                  numOfBath={property.propertyBathroomNumber}
+                  numOfBed={property.propertyBedroomNumber}
+                  roomTitle={property.propertyName}
+                  roomId={property.propertyId}
+                  price={property.propertyBookingPrice}
+                />
+              ))}
         </div>
-        {properties && numItems < properties.length &&
-        <div className="flex justify-center items-center mb-20">
-          <button
-            onClick={() => {
-              setNumItems(numItems + 8);
-            }}
-            className="flex justify-center items-center px-4 py-2 bg-primary text-white rounded-md mt-4"
-          >
-            Load More
-          </button>
-        </div>
-        }
+        {filteredProperties.length > numItems && (
+          <div className="flex justify-center items-center mb-20">
+            <button
+              onClick={() => {
+                setNumItems(numItems + 8);
+              }}
+              className="flex justify-center items-center px-4 py-2 bg-primary text-white rounded-md mt-4"
+            >
+              Load More
+            </button>
+          </div>
+        )}
       </main>
-
       <Footer />
 
       <ModalComponent

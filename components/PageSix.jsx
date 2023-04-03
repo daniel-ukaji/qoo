@@ -41,8 +41,8 @@ const PageSix = ({ prevStep }) => {
     }
 
   return (
-    <Layout>
-        <div className="pl-10 p-6 h-screen flex flex-col justify-between">
+    <Layout className="">
+        <div className="pl-10 p-6  flex flex-col justify-between">
             {/* <!-- Content for the left side --> */}
             <Link href="/" className=''>
               <div className="">
@@ -66,7 +66,7 @@ const PageSix = ({ prevStep }) => {
             /> */}
             </div>
 
-            <div>
+            <div className='mt-3'>
             <button
                 className="py-3 px-6 mr-2 mb-2 text-sm font-medium text-black focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200"
                 onClick={handleBackClick}
@@ -82,7 +82,7 @@ const PageSix = ({ prevStep }) => {
               </button>
             </div>
         </div>
-        <div className="flex flex-col justify-between pl-10 p-6 relative bg-gradient-to-b from-[#DB5461] to-[#7B61FF] min-h-screen">
+        <div className="flex flex-col justify-between pl-10 p-6 relative bg-gradient-to-b from-[#DB5461] to-[#7B61FF] h-screen">
             {/* <!-- Content for the right side --> */}
             <div className='h-10 w-10'>
                 <Image src={HostFrame}  />

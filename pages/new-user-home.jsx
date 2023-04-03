@@ -9,10 +9,10 @@ import Navbar from "../components/Navbar";
 const NewUserHome = () => {
   return (
     <div className="font-sora">
-      {/* <Header /> */}
-      <Navbar />
+      <Header />
+      {/* <Navbar /> */}
 
-      <main className="flex flex-col items-center justify-center w-full mt-32 mb-16">
+      <main className="flex flex-col items-center justify-center w-full mt-10 mb-16">
         <div className="w-[24.438rem] ">
           <h1 className="text-5xl font-bold text-center text-secondary leading-[3.75rem]">
             Open your door to hosting

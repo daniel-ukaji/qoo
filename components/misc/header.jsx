@@ -17,15 +17,20 @@ import {
 import { useRouter } from "next/router";
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
+import { GoSettings } from "react-icons/go";
+import FilterComponent from "../FilterComponent";
 
-const Header = () => {
+const Header = ({ onSearch }) => {
   const router = useRouter();
   const [searchInput, setSearchInput] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [noOfGuests, setNoOfGuests] = useState(1);
   const authLevel = useContext(AuthLevelContext);
+  const [modalActive, setModalActive] = useState(false);
   const { logOut } = useAuth();
+  const [searchValue, setSearchValue] = useState("");
+
 
   const handleSelect = (ranges) => {
     setStartDate(ranges.selection.startDate)
@@ -35,6 +40,11 @@ const Header = () => {
   const resetInput = () => {
     setSearchInput('');
   }
+
+  const handleSearch = (e) => {
+    setSearchValue(e.target.value);
+    onSearch(e.target.value);
+  };
 
   const search = () => {
     router.push({
@@ -154,7 +164,7 @@ const Header = () => {
 
   return (
     <>
-      <nav className="mx-auto flex w-full max-w-[90rem] items-center justify-between border-b border-b-gray-200 bg-white px-20 py-7">
+      <nav className="mx-auto flex w-full max-w-[90rem] items-center justify-between border-b border-b-gray-200 bg-white px-20 py-4">
         {/* <Link href="/"> */}
           <div onClick={handleClick} className="relative h-[2.5rem] w-[9.75rem] cursor-pointer">
             <Image src={applogo} className="absolute" alt="app logo" />
@@ -162,22 +172,35 @@ const Header = () => {
         {/* </Link> */}
         <div className="flex h-[2.5rem] w-[20rem] items-center justify-between rounded-[64px] border border-gray-300 py-2 px-4">
           <input
-            value={searchInput} 
-            onChange={(e) =>setSearchInput(e.target.value)}
+            value={searchValue} 
+            // onChange={(e) =>setSearchInput(e.target.value)}
+            onChange={handleSearch}
             type="text"
             name=""
             id=""
             className="w-10/12 h-full border-none outline-none placeholder:text-gray-400"
-            placeholder="Search your keywords"
+            placeholder="Search the location"
           />
           <div>
             <RiSearchLine className="w-5 h-5 text-gray-400" />
           </div>
         </div>
 
+        <div className="flex space-x-7 items-center">
+        <button
+            onClick={() => {
+              setModalActive(true);
+            }}
+            className="flex items-center px-3 py-3 space-x-1 border border-gray-300 rounded-lg"
+          >
+            <GoSettings className="w-6 h-5 text-gray-900" />
+            <h1 className="text-sm text-gray-900">Filter</h1>
+          </button>
         <DropDown
           links={authLevel.user ? authorizedLinks : unAuthorizedLinks}
         />
+        </div>
+
       </nav>
 
 
@@ -215,6 +238,16 @@ const Header = () => {
             </div>
           </>
         )}
+
+          
+<ModalComponent
+        isVisible={modalActive}
+        shouldBeBlurAndDarkened
+        shouldBeCentered
+        onClose={() => setModalActive(false)}
+      >
+        <FilterComponent onClick={() => setModalActive(false)} />
+      </ModalComponent>
 
       <ModalComponent
         isVisible={authLevel.modalVisible}

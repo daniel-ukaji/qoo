@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { useDispatch } from 'react-redux';
 import hostlogo from '../public/images/hostlogo.png'
+import { HiOutlineBuildingOffice2 } from 'react-icons/hi2'
 
 
 const ClickableBox = ({ options, selectedOption, setPageSelection }) => {
@@ -20,7 +21,8 @@ const ClickableBox = ({ options, selectedOption, setPageSelection }) => {
           }`}
           onClick={() => handleOptionClick(option)}
         >
-          <Image src={hostlogo}  />
+          <HiOutlineBuildingOffice2 className='w-8 h-8 text-primary' />
+          {/* <Image src={hostlogo}  /> */}
           {option}
         </div>
       ))}

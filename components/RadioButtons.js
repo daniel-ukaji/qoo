@@ -10,11 +10,11 @@ const RadioButtons = ({ options, selectedOption, setPageSelection }) => {
   return (
     <div className="flex flex-col space-y-8">
       {options.map((option) => (
-        <div className='flex mt-5 items-center pl-4 pt-2 pb-2 rounded border border-gray-200 dark:border-gray-700'>
+        <div className='flex mt-5 items-center pl-4 pt-2 pb-2 rounded border border-black dark:border-gray-700'>
         <label
           key={option}
           htmlFor={`option-${option}`}
-          className={`cursor-pointer py-4 ml-2 w-full text-sm font-bold text-gray-900 dark:text-gray-300 ${
+          className={`cursor-pointer py-4 ml-2 w-full text-sm font-bold text-black dark:text-gray-300 ${
             selectedOption === option ? ' text-black' : ''
           }`}
         >
@@ -26,7 +26,7 @@ const RadioButtons = ({ options, selectedOption, setPageSelection }) => {
         value={option}
         checked={selectedOption === option}
         onChange={handleOptionChange}
-        className='w-8 h-8  border-gray-300 outline-none accent-[#DB5461]  mr-3'
+        className='w-8 h-8 bg-transparent border-gray-300 outline-none accent-[#DB5461]  mr-3'
       />
       </div>
       ))}

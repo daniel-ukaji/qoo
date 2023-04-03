@@ -99,7 +99,7 @@ const handleBackClick = () => {
                   <>
                     <Image src={Icon}/>
                     <h1 className='font-bold mt-5 text-xl'>Drag your photos here</h1>
-                    <p className='mt-1 text-gray-500'>Add atleast 5 images</p>
+                    <p className='mt-1 mb-5 text-gray-500'>Add atleast 5 images</p>
                     </>
                     )}
                     <div className="">
@@ -132,7 +132,7 @@ const handleBackClick = () => {
       </div>
 
       {selectedImages.length === 0 && (
-        <label htmlFor="imageInput" className="mt-8 cursor-pointer text-blue-600">
+        <label htmlFor="imageInput" className="mt-8 cursor-pointer text-gray-500">
           Upload from your device
         </label>
       )}
