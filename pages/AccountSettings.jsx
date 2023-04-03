@@ -17,7 +17,7 @@ function AccountSettings() {
     // const usersId = user?.user.userId;
     console.log(user)
     // console.log(user.user?.userFirstName)
-    const [users, setUsers] = useState({});
+    // const [users, setUsers] = useState({});
     const [activeTab, setActiveTab] = useState('listing');
     // const [userFirstName, setUserFirstName] = useState('');
     // const [userLastName, setUserLastName] = useState('');
