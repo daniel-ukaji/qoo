@@ -134,6 +134,7 @@ const handleClick = () => {
   const propertyOptionalServices = booking[0]?.propertyOptionalServices
 
   const PriceTag = booking[0]?.propertyBookingPrice * finalDate
+  const finalPrice = PriceTag + (PriceTag * 7 / 100)
 
   const message = 'Hello, how are you?';
   const encodedMessage = encodeURIComponent(message);
@@ -147,7 +148,7 @@ const handleClick = () => {
     // paymentHostUserId: "100041",
     paymentHostUserId: hostId,
     paymentPropertyName: propName,
-    paymentAmount: PriceTag,
+    paymentAmount: finalPrice,
     paymentCurrency:"NGN",
     paymentReference: "55tTYT67IUJRE",
   }  
@@ -210,7 +211,7 @@ const handleClick = () => {
           bookingPaymentId: "100000",
           bookingCheckInDate: startDate,
           bookingCheckOutDate: endDate,
-          bookingAmount: price,
+          bookingAmount: finalPrice,
           bookingOptionalService: propertyOptionalServices,
           bookingGuestNumber: noOfGuests,
           bookingGuestTypes: "Children, Cats"
