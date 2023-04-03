@@ -134,15 +134,19 @@ const Property = () => {
   const dateRange = formattedEndDate - formattedStartDate
   const finalDate = dateRange / (1000 * 3600 * 24);
 
+  const date = new Date()
+  console.log("Daniel:", startDate)
+
   // const [totalPrice, setTotalPrice] = useState(property.propertyBookingPrice * finalDate);
 
   const handleSubmit = () => {
     // Submit the data to the backend
-    const checkInDate = startDate.toISOString()
-    const checkOutDate = endDate.toISOString()
+    // const checkInDate = startDate.toISOString()
+    // const checkOutDate = endDate.toISOString()
 
-    // Update the disabled dates state
-    setSelectedDateRange({checkInDate, checkOutDate});
+    // // Update the disabled dates state
+    // setSelectedDateRange({checkInDate, checkOutDate});
+  
 
     router.push({
       pathname: "/book-property",
@@ -205,8 +209,105 @@ const hideOnClickOutside = (e) => {
     const finalPrice = totalPrice + (totalPrice * 7 / 100)
   // const [totalPrice, setTotalPrice] = useState(property.propertyBookingPrice * finalDate);
 
+//   const checkInDate = new Date(property.propertyBookedDates[8].checkInDate);
+//   const checkOutDate = new Date(property.propertyBookedDates[8].checkOutDate);
+//   const rangeOfDates = [];
+
+//   console.log(checkInDate)
+
+//   let currentDate = checkInDate;
+// while (currentDate <= checkOutDate) {
+//   rangeOfDates.push(new Date(currentDate));
+//   currentDate.setDate(currentDate.getDate() + 1);
+// }
+
+// const formattedDates = rangeOfDates.map(date => {
+//   const isoString = date.toISOString();
+//   const formattedString = isoString.replace("T", " ").replace("Z", "");
+//   return formattedString;
+// });
+
+// console.log(formattedDates[0])
+
+// console.log(date)
+
+// console.log(rangeOfDates)
+
+// console.log(property.propertyBookedDates.checkInDate)
+
+// console.log(property.propertyBookedDates)
+
+const propertyBookedDates = property.propertyBookedDates;
+
+const allDates = [];
+
+propertyBookedDates.forEach(({ checkInDate, checkOutDate }) => {
+  const startDate = new Date(checkInDate);
+  const endDate = new Date(checkOutDate);
+
+  while (startDate <= endDate) {
+    allDates.push(new Date(startDate));
+    startDate.setDate(startDate.getDate() + 1);
+  }
+});
+
+const formattedDates = allDates.map(date => {
+  const isoString = date.toISOString();
+  const formattedString = isoString.replace("T", " ").replace("Z", "");
+  return formattedString;
+});
+
+console.log(formattedDates);
+
+  // console.log(property.propertyBookedDates)
+  // console.log(property.propertyBookedDates[8].checkInDate)
+  // console.log(property.propertyBookedDates[8].checkOutDate)
+
     
-    
+  // const checkInDate = new Date(property.propertyBookedDates[8].checkInDate);
+  // const checkOutDate = new Date(property.propertyBookedDates[8].checkOutDate);
+  // const rangeOfDates = [];
+  
+  // let currentDate = checkInDate;
+  // while (currentDate <= checkOutDate) {
+  //   rangeOfDates.push(new Date(currentDate));
+  //   currentDate.setDate(currentDate.getDate() + 1);
+  // }
+  
+  // const disabledDates = rangeOfDates.map(date => {
+  //   const year = date.getFullYear();
+  //   const month = date.getMonth();
+  //   const day = date.getDate();
+  //   return new Date(year, month, day);
+  // });
+  
+  // const isDateDisabled = (date) => {
+  //   // check if the date is in the disabledDates array
+  //   return disabledDates.some(disabledDate => {
+  //     return date.getTime() === disabledDate.getTime();
+  //   });
+  // };
+
+  // const formattedDisabledDates = disabledDates.map(date => {
+  //   const isoString = date.toISOString();
+  //   const formattedString = isoString.substring(0, 10);
+  //   return formattedString;
+  // });
+
+  // console.log(formattedDisabledDates)
+
+// console.log(formattedDates);
+
+// const isDateDisabled = (date) => {
+//   // check if the date is in the disabledDates array
+//   return formattedDates.some(formattedDates => {
+//     return date.getTime() === formattedDates.getTime();
+//   });
+// };
+
+
+// console.log(rangeOfDates);
+
     
 
     
@@ -705,7 +806,7 @@ const hideOnClickOutside = (e) => {
                               // onChange={item => setRange([item.selection])}
                               onChange={handleSelect}
                               moveRangeOnFirstSelection={false}
-                              disabledDates={[selectedDateRange]}
+                              disabledDates={allDates}
                               minDate={new Date()}
                               ranges={[selectionRange]}
                               rangeColors={["#DB5461"]}

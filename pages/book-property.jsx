@@ -153,6 +153,25 @@ const handleClick = () => {
     paymentReference: "55tTYT67IUJRE",
   }  
 
+  const bookingResponse = {
+    bookingRenterUserId: user,
+    bookingRenterFirstName: firstname,
+    bookingRenterLastName: lastname,
+    bookingRenterAddress: address,
+    bookingRenterCity: city,
+    bookingRenterPhoneNumber: phonenumber,
+    bookingRenterEmail: email,
+    bookingRenterComment: comments,
+    bookingPropertyId: propId,
+    bookingPaymentId: "100000",
+    bookingCheckInDate: startDate,
+    bookingCheckOutDate: endDate,
+    bookingAmount: finalPrice,
+    bookingOptionalService: propertyOptionalServices,
+    bookingGuestNumber: numGuests,
+    bookingGuestTypes: "Children, Cats"
+  }
+
   const onSubmit = async (e) => {
     
       // let id = toast.loading("Please wait whiles we complete your request");
@@ -192,35 +211,35 @@ const handleClick = () => {
       } else {
         // setIsFormComplete(true)
         // Submit form
-        const response = await CreatePayment.request(paymentData);
+        // const response = await CreatePayment.request(paymentData);
   
-        if (response.data.paymentUrl) { // Check if payment URL was returned by backend API
-          window.location.href = response.data.paymentUrl; // Redirect user to payment URL
-        }
+        // if (response.data.paymentUrl) { // Check if payment URL was returned by backend API
+        //   window.location.href = response.data.paymentUrl; // Redirect user to payment URL
+        // }
   
-        const bookingResponse = {
-          bookingRenterUserId: user,
-          bookingRenterFirstName: firstname,
-          bookingRenterLastName: lastname,
-          bookingRenterAddress: address,
-          bookingRenterCity: city,
-          bookingRenterPhoneNumber: phonenumber,
-          bookingRenterEmail: email,
-          bookingRenterComment: comments,
-          bookingPropertyId: propId,
-          bookingPaymentId: "100000",
-          bookingCheckInDate: startDate,
-          bookingCheckOutDate: endDate,
-          bookingAmount: finalPrice,
-          bookingOptionalService: propertyOptionalServices,
-          bookingGuestNumber: numGuests,
-          bookingGuestTypes: "Children, Cats"
-        }
+        // const bookingResponse = {
+        //   bookingRenterUserId: user,
+        //   bookingRenterFirstName: firstname,
+        //   bookingRenterLastName: lastname,
+        //   bookingRenterAddress: address,
+        //   bookingRenterCity: city,
+        //   bookingRenterPhoneNumber: phonenumber,
+        //   bookingRenterEmail: email,
+        //   bookingRenterComment: comments,
+        //   bookingPropertyId: propId,
+        //   bookingPaymentId: "100000",
+        //   bookingCheckInDate: startDate,
+        //   bookingCheckOutDate: endDate,
+        //   bookingAmount: finalPrice,
+        //   bookingOptionalService: propertyOptionalServices,
+        //   bookingGuestNumber: numGuests,
+        //   bookingGuestTypes: "Children, Cats"
+        // }
   
         
   
         const bookingSubmit = await CreateBooking.request(bookingResponse);
-        console.log(response);
+        // console.log(response);
         console.log(bookingSubmit);
       }
 
