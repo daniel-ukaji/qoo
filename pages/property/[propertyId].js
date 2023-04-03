@@ -784,11 +784,11 @@ const hideOnClickOutside = (e) => {
                         authLevel.setModalVisible(true);
                         authLevel.setModalType("LOGIN");
                       } else {
-                        // addToBooking(property);
+                        addToBooking(property);
                         router.push({
-                          pathname:`/booking/${propertyId}`,
+                          pathname:"/book-property",
                           query: {
-                            propertyId: propertyId,
+                            // propertyId: propertyId,
                             startDate: startDate.toISOString(),
                             endDate: endDate.toISOString(),
                             numGuests,

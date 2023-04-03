@@ -15,7 +15,7 @@ import { toast } from 'react-toastify';
 function AccountSettings() {
     const user = useAuth();
     // const usersId = user?.user.userId;
-    console.log(user)
+    // console.log(user)
     // console.log(user.user?.userFirstName)
     // const [users, setUsers] = useState({});
     const [activeTab, setActiveTab] = useState('listing');
@@ -55,21 +55,21 @@ function AccountSettings() {
 
 
     
-    console.log(user?.user.userDateOfBirth)
+    // console.log(user?.user.userDateOfBirth)
    
 
 
     const [userData, setUserData] = useState({
-        userFirstName: user?.user.userFirstName,
-        userLastName: user?.user.userLastName,
-        userEmail: user?.user.userEmail,
+        userFirstName: user.user?.userFirstName,
+        userLastName: user.user?.userLastName,
+        userEmail: user.user?.userEmail,
         userDateOfBirth: '',
-        userPhoneNumber: user?.user.userPhoneNumber,
-        userCountry: user?.user.userCountry,
-        userState: user?.user.userState,
-        userCity: user?.user.userCity,
-        userStreet: user?.user.userStreet,
-        userIdentityNumber: user?.user.userIdentityNumber,
+        userPhoneNumber: user.user?.userPhoneNumber,
+        userCountry: user.user?.userCountry,
+        userState: user.user?.userState,
+        userCity: user.user?.userCity,
+        userStreet: user.user?.userStreet,
+        userIdentityNumber: user.user?.userIdentityNumber,
         userPicture: 'rodeuxhlgwtut',
         userIdentityImage: '9870',
       });
@@ -120,7 +120,7 @@ function handleDrop(event) {
 
   const onSubmit = async () => {
     let req = {
-        userId: user?.user.userId,
+        userId: user.user?.userId,
         ...userData,
     // userFirstName,
     // userLastName,
@@ -174,6 +174,7 @@ function handleDrop(event) {
                             onChange={(e) => setUserData({ ...userData, userFirstName: e.target.value })}
                             className="inputbox-full mb-5"
                             placeholder="First Name"
+                            autoFocus
                         />
                     </div>
                     <div className='mt-10 border-b'>
@@ -189,6 +190,7 @@ function handleDrop(event) {
                             onChange={(e) => setUserData({ ...userData, userLastName: e.target.value })}
                             className="inputbox-full mb-5"
                             placeholder="Last Name"
+                            autoFocus
                         />
                     </div>
                     <div className='mt-10 border-b'>
@@ -204,6 +206,7 @@ function handleDrop(event) {
                             onChange={(e) => setUserData({ ...userData, userEmail: e.target.value })}
                             className="inputbox-full mb-5"
                             placeholder="Email Address"
+                            autoFocus
                         />
                     </div>
                     <div className='mt-10 border-b'>
@@ -237,6 +240,7 @@ function handleDrop(event) {
                             onChange={(e) => setUserData({ ...userData, userPhoneNumber: e.target.value })}
                             className="inputbox-full mb-5"
                             placeholder="Phone Number"
+                            autoFocus
                         />
                     </div>
                     <div className='mt-10 border-b'>
@@ -252,6 +256,7 @@ function handleDrop(event) {
                             onChange={(e) => setUserData({ ...userData, userCountry: e.target.value })}
                             className="inputbox-full mb-5"
                             placeholder="Country"
+                            autoFocus
                         />
                     </div>
                     <div className='mt-10 border-b'>
@@ -267,6 +272,7 @@ function handleDrop(event) {
                             onChange={(e) => setUserData({ ...userData, userState: e.target.value })}
                             className="inputbox-full mb-5"
                             placeholder="State"
+                            autoFocus
                         />
                     </div>
                     <div className='mt-10 border-b'>
@@ -282,6 +288,7 @@ function handleDrop(event) {
                             onChange={(e) => setUserData({ ...userData, userCity: e.target.value })}
                             className="inputbox-full mb-5"
                             placeholder="City"
+                            autoFocus
                         />
                     </div>
                     <div className='mt-10 border-b'>
@@ -297,6 +304,7 @@ function handleDrop(event) {
                             onChange={(e) => setUserData({ ...userData, userStreet: e.target.value })}
                             className="inputbox-full mb-5"
                             placeholder="Street"
+                            autoFocus
                         />
                     </div>
                     
@@ -324,6 +332,7 @@ function handleDrop(event) {
                             onChange={(e) => setUserData({ ...userData, userIdentityNumber: e.target.value })}
                             className="inputbox-full mb-5"
                             placeholder="Enter the number"
+                            autoFocus
                         />
                         </div>
 
