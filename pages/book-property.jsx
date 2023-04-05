@@ -27,6 +27,9 @@ import { MdOutlineWaterDrop } from "react-icons/md";
 import { BsHeadset, BsHouseDoor } from "react-icons/bs";
 import { RiGasStationFill } from "react-icons/ri";
 import { GiNuclearWaste, GiUmbrella } from "react-icons/gi";
+import { nanoid } from 'nanoid';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
 
 const Index = () => {
@@ -139,6 +142,7 @@ const handleClick = () => {
   const message = 'Hello, how are you?';
   const encodedMessage = encodeURIComponent(message);
 
+  const paymentRef = nanoid(); // generates a random 21-character string
 
 
 
@@ -150,100 +154,158 @@ const handleClick = () => {
     paymentPropertyName: propName,
     paymentAmount: finalPrice,
     paymentCurrency:"NGN",
-    paymentReference: "55tTYT67IUJRE",
+    paymentReference: paymentRef,
   }  
 
-  const bookingResponse = {
-    bookingRenterUserId: user,
-    bookingRenterFirstName: firstname,
-    bookingRenterLastName: lastname,
-    bookingRenterAddress: address,
-    bookingRenterCity: city,
-    bookingRenterPhoneNumber: phonenumber,
-    bookingRenterEmail: email,
-    bookingRenterComment: comments,
-    bookingPropertyId: propId,
-    bookingPaymentId: "100000",
-    bookingCheckInDate: startDate,
-    bookingCheckOutDate: endDate,
-    bookingAmount: finalPrice,
-    bookingOptionalService: propertyOptionalServices,
-    bookingGuestNumber: numGuests,
-    bookingGuestTypes: "Children, Cats"
-  }
+  const initialValues = {
+    firstname: '',
+    lastname: '',
+    email: '',
+    address: '',
+    city: '',
+    phonenumber: '',
+    comments: '',
+  };
 
-  const onSubmit = async (e) => {
-    
-      // let id = toast.loading("Please wait whiles we complete your request");
+  const onSubmit = async (values, { setSubmitting }) => {
+    try {
+      // Submit form
+      const response = await CreatePayment.request(paymentData);
 
-      // const response = await CreateBooking.request(bookingData);
-
-
-      e.preventDefault();
-      const errors = {};
-
-      // Check if required fields are empty
-      if (!firstname) {
-        errors.firstname = 'Please enter your first name';
-      }
-      if (!lastname) {
-        errors.lastname = 'Please enter your last name';
-      }
-      if (!address) {
-        errors.address = 'Please enter your address';
-      }
-      if (!city) {
-        errors.city = 'Please enter your city';
-      }
-      if (!phonenumber) {
-        errors.phonenumber = 'Please enter your phone number';
-      }
-      if (!email) {
-        errors.email = 'Please enter your email address';
-      }
-      if (!comments) {
-        errors.comments = 'Please enter your email address';
-      }
-
-      if (Object.keys(errors).length > 0) {
-        setFormErrors(errors);
-        setIsFormComplete(false);
-      } else {
-        // setIsFormComplete(true)
-        // Submit form
-        // const response = await CreatePayment.request(paymentData);
+        if (response.data.paymentUrl) { 
+          // paymentData.paymentReference = response.data.paymentReference; // Store payment reference in localStorage
+          window.location.href = response.data.paymentUrl; // Redirect user to payment URL
+          localStorage.setItem('paymentReference', response.data.paymentReference);
+          // localStorage.setItem('paymentUrl', response.data.paymentUrl);
+        }
   
-        // if (response.data.paymentUrl) { // Check if payment URL was returned by backend API
-        //   window.location.href = response.data.paymentUrl; // Redirect user to payment URL
-        // }
-  
-        // const bookingResponse = {
-        //   bookingRenterUserId: user,
-        //   bookingRenterFirstName: firstname,
-        //   bookingRenterLastName: lastname,
-        //   bookingRenterAddress: address,
-        //   bookingRenterCity: city,
-        //   bookingRenterPhoneNumber: phonenumber,
-        //   bookingRenterEmail: email,
-        //   bookingRenterComment: comments,
-        //   bookingPropertyId: propId,
-        //   bookingPaymentId: "100000",
-        //   bookingCheckInDate: startDate,
-        //   bookingCheckOutDate: endDate,
-        //   bookingAmount: finalPrice,
-        //   bookingOptionalService: propertyOptionalServices,
-        //   bookingGuestNumber: numGuests,
-        //   bookingGuestTypes: "Children, Cats"
-        // }
+        const bookingResponse = {
+          bookingRenterUserId: user,
+          bookingRenterFirstName: firstname,
+          bookingRenterLastName: lastname,
+          bookingRenterAddress: address,
+          bookingRenterCity: city,
+          bookingRenterPhoneNumber: phonenumber,
+          bookingRenterEmail: email,
+          bookingRenterComment: comments,
+          bookingPropertyId: propId,
+          bookingPaymentId: null,
+          bookingCheckInDate: startDate,
+          bookingCheckOutDate: endDate,
+          bookingAmount: finalPrice,
+          bookingOptionalService: propertyOptionalServices,
+          bookingGuestNumber: numGuests,
+          bookingGuestTypes: "Children, Cats"
+        }
   
         
-  
-        const bookingSubmit = await CreateBooking.request(bookingResponse);
-        // console.log(response);
-        console.log(bookingSubmit);
-      }
+        localStorage.setItem('bookingResponse', JSON.stringify(bookingResponse)); // Store booking response in localStorage
 
-  }
+        const bookingSubmit = await CreateBooking.request(bookingResponse);
+        console.log(response);
+        console.log(bookingSubmit);
+  
+      // Reset form
+      setSubmitting(false);
+    } catch (error) {
+      console.error(error);
+      // Handle error
+      setSubmitting(false);
+    }
+  };
+
+  // const onSubmit = async (e) => {
+    
+  //     // let id = toast.loading("Please wait whiles we complete your request");
+
+  //     // const response = await CreateBooking.request(bookingData);
+
+
+  //     e.preventDefault();
+  //     const errors = {};
+
+  //     // Check if required fields are empty
+  //     if (!firstname) {
+  //       errors.firstname = 'Please enter your first name';
+  //     }
+  //     if (!lastname) {
+  //       errors.lastname = 'Please enter your last name';
+  //     }
+  //     if (!address) {
+  //       errors.address = 'Please enter your address';
+  //     }
+  //     if (!city) {
+  //       errors.city = 'Please enter your city';
+  //     }
+  //     if (!phonenumber) {
+  //       errors.phonenumber = 'Please enter your phone number';
+  //     }
+  //     if (!email) {
+  //       errors.email = 'Please enter your email address';
+  //     }
+  //     if (!comments) {
+  //       errors.comments = 'Please enter your email address';
+  //     }
+
+  //     if (Object.keys(errors).length > 0) {
+  //       setFormErrors(errors);
+  //       setIsFormComplete(false);
+  //     } else {
+  //       setIsFormComplete(true)
+  //       // Submit form
+  //       // const response = await CreatePayment.request(paymentData);
+  
+  //       // if (response.data.paymentUrl) { // Check if payment URL was returned by backend API
+  //       //   window.location.href = response.data.paymentUrl; // Redirect user to payment URL
+  //       // }
+
+  //       const response = await CreatePayment.request(paymentData);
+
+  //       if (response.data.paymentUrl) { 
+  //         // paymentData.paymentReference = response.data.paymentReference; // Store payment reference in localStorage
+  //         window.location.href = response.data.paymentUrl; // Redirect user to payment URL
+  //         localStorage.setItem('paymentReference', response.data.paymentReference);
+  //         // localStorage.setItem('paymentUrl', response.data.paymentUrl);
+  //       }
+  
+  //       const bookingResponse = {
+  //         bookingRenterUserId: user,
+  //         bookingRenterFirstName: firstname,
+  //         bookingRenterLastName: lastname,
+  //         bookingRenterAddress: address,
+  //         bookingRenterCity: city,
+  //         bookingRenterPhoneNumber: phonenumber,
+  //         bookingRenterEmail: email,
+  //         bookingRenterComment: comments,
+  //         bookingPropertyId: propId,
+  //         bookingPaymentId: null,
+  //         bookingCheckInDate: startDate,
+  //         bookingCheckOutDate: endDate,
+  //         bookingAmount: finalPrice,
+  //         bookingOptionalService: propertyOptionalServices,
+  //         bookingGuestNumber: numGuests,
+  //         bookingGuestTypes: "Children, Cats"
+  //       }
+  
+        
+  //       localStorage.setItem('bookingResponse', JSON.stringify(bookingResponse)); // Store booking response in localStorage
+
+  //       const bookingSubmit = await CreateBooking.request(bookingResponse);
+  //       console.log(response);
+  //       console.log(bookingSubmit);
+  //     }
+
+  // }
+
+  const validationSchema = Yup.object().shape({
+    firstname: Yup.string().required('Please enter your first name'),
+    lastname: Yup.string().required('Please enter your last name'),
+    email: Yup.string().email('Invalid email address').required('Please enter your email address'),
+    address: Yup.string().required('Please enter your address'),
+    city: Yup.string().required('Please enter your city'),
+    phonenumber: Yup.string().required('Please enter your phone number'),
+    comments: Yup.string().required('Please enter your comments'),
+  });
 
   useEffect(() => {
     setIsFormComplete(
@@ -263,7 +325,13 @@ const handleClick = () => {
         <Header />
       </div>
       
-        
+      <Formik
+    initialValues={initialValues}
+    onSubmit={onSubmit}
+    validationSchema={validationSchema}
+  >
+    {({ isSubmitting }) => (
+      <Form>
           <div className="flex px-20">
             <div
               className="w-8/12 overflow-scroll scrollbar-hide"
@@ -307,18 +375,18 @@ const handleClick = () => {
                   </div>
                 </div>
               </div>
-              {booking.map((property) => {
+              {/* {booking.map((property) => {
                 
               <div className="relative h-[25.313rem] w-full">
                 <Image
                   alt="Property Image"
-                  src={property.propertyImages[0].propertyImageUrl}
+                  src={property.propertyImages[0]?.propertyImageUrl}
                   className="absolute w-full h-full rounded-2xl"
                   layout="fill"
                   objectFit="cover"
                 />
               </div>
-              })}
+              })} */}
 
               <div className="flex flex-col mt-11">
               <div className="mt-5 border-b">
@@ -353,92 +421,92 @@ const handleClick = () => {
                 <h1 className="text-lg font-bold text-gray-800">
                   2. Personal details
                 </h1>
+
                 <div className="flex flex-col mt-4 space-y-6">
-                  <div className="flex items-center justify-between ">
-                    <input
-                      type="text"
-                      name="firstname"
-                      id="firstname"
-                      value={firstname}
-                      onChange={(e) => setFirstName(e.target.value)}
-                      className="h-[3rem] outline-none w-fourty8 rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal px-2 placeholder:text-secondary placeholder:text-opacity-40"
-                      placeholder="First name"
-                    />
-                      {formErrors.firstname && <div className="text-red-500">{formErrors.firstname}</div>}
+          <div className="flex items-center justify-between ">
+            <div className="flex flex-col w-fourty8">
+              <Field
+                type="text"
+                name="firstname"
+                id="firstname"
+                className="h-[3rem] outline-none  rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal px-2 placeholder:text-secondary placeholder:text-opacity-40"
+                placeholder="First name"
+              />
+              <ErrorMessage name="firstname" component="div" className="text-red-500" />
+            </div>
 
-                    <input
-                      type="text"
-                      name="lastname"
-                      id="lastname"
-                      value={lastname}
-                      onChange={(e) => setLastName(e.target.value)}
-                      className="h-[3rem] outline-none w-fourty8 rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
-                      placeholder="Last name"
-                    />
-                      {formErrors.lastname && <div className="text-red-500">{formErrors.lastname}</div>}
 
-                  </div>
+            <div className="flex flex-col w-fourty8">
+              <Field
+                type="text"
+                name="lastname"
+                id="lastname"
+                className="h-[3rem] outline-none rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
+                placeholder="Last name"
+              />
+              <ErrorMessage name="lastname" component="div" className="text-red-500" />
+            </div>
+          </div>
 
-                  <div className="flex items-center justify-between">
-                    <input
-                      type="text"
-                      name="address"
-                      id="address"
-                      value={address}
-                      onChange={(e) => setAddress(e.target.value)}
-                      className="h-[3rem] w-fourty8 outline-none rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
-                      placeholder="Address"
-                    />
-                      {formErrors.address && <div className="text-red-500">{formErrors.address}</div>}
+          <div className="flex items-center justify-between">
+            <div className="flex flex-col w-fourty8">
+              <Field
+                type="text"
+                name="address"
+                id="address"
+                className="h-[3rem] outline-none rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
+                placeholder="Address"
+              />
+              <ErrorMessage name="address" component="div" className="text-red-500" />
+            </div>
+            
+            <div className="flex flex-col w-fourty8">
+              <Field
+                type="text"
+                name="city"
+                id="city"
+                className="h-[3rem] outline-none rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
+                placeholder="City"
+              />
+              <ErrorMessage name="city" component="div" className="text-red-500" />
+            </div>
+          </div>
+          <div className="flex items-center justify-between">
+            <div className="flex flex-col w-fourty8">
+              <Field
+                type="text"
+                name="phonenumber"
+                id="phonenumber"
+                className="h-[3rem] outline-none rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
+                placeholder="Phone Number"
+              />
+              <ErrorMessage name="phonenumber" component="div" className="text-red-500" />
+            </div>
+            
+            <div className="flex flex-col w-fourty8">
+              <Field
+                type="text"
+                name="email"
+                id="email"
+                className="h-[3rem] outline-none rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
+                placeholder="Email Address"
+              />
+              <ErrorMessage name="email" component="div" className="text-red-500" />
+            </div>
+          </div>
+          <div>
+            <Field 
+              as="textarea"
+              type="comments"
+              name="comments"
+              id="comments"
+              className="h-[7.438rem] outline-none w-full rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
+              placeholder="Comments"
+            />
 
-                    <input
-                      type="text"
-                      name="city"
-                      id="city"
-                      value={city}
-                      onChange={(e) => setCity(e.target.value)}
-                      className="h-[3rem] w-fourty8 outline-none rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
-                      placeholder="City"
-                    />
-                      {formErrors.city && <div className="text-red-500">{formErrors.city}</div>}
-
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <input
-                      type="text"
-                      name=""
-                      id="phonenumber"
-                      value={phonenumber}
-                      onChange={(e) => setPhoneNumber(e.target.value)}
-                      className="h-[3rem] w-fourty8 outline-none rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
-                      placeholder="Phone number"
-                    />
-                      {formErrors.phonenumber && <div className="text-red-500">{formErrors.phonenumber}</div>}
-
-                    <input
-                      type="email"
-                      name="email"
-                      id="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="h-[3rem] w-fourty8 outline-none rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
-                      placeholder="Email Address"
-                    />
-                      {formErrors.email && <div className="text-red-500">{formErrors.email}</div>}
-
-                  </div>
-                  <textarea
-                    name="comments"
-                    id="comments"
-                    value={comments}
-                    onChange={(e) => setComments(e.target.value)}
-                    className="h-[7.438rem] outline-none w-full rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
-                    placeholder="Comments"
-                  />
-                    {formErrors.comments && <div className="text-red-500">{formErrors.comments}</div>}
-
-                </div>
+              <ErrorMessage name="comments" component="div" className="text-red-500" />
+          </div>
+          </div>
 
                 <div className="flex flex-col px-2 mt-4 space-y-4 text-sm font-normal text-gray-600">
                   <div className="flex items-center space-x-3">
@@ -497,10 +565,8 @@ const handleClick = () => {
                       <Load />
                     </div>
                   ):(
-                    <button onClick={onSubmit} className={`px-24 py-4 mt-4 text-sm font-medium text-white rounded-lg bg-primary ${
-                      !isFormComplete ? "bg-gray-300 pointer-events-none" : ""
-                    }`}
-                    // disabled={!isFormComplete}
+                    <button type="submit" className={`px-24 py-4 mt-4 text-sm font-medium text-white rounded-lg bg-primary `}
+                    disabled={isSubmitting}
                     >
                       Book apartment
                     </button>
@@ -522,6 +588,9 @@ const handleClick = () => {
         
       {/* }
       )} */}
+      </Form>
+)}
+</Formik>
 
       <div className="h-[4.75rem] w-full">
         <Footer />

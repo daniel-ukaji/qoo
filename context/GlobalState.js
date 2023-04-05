@@ -19,12 +19,22 @@ const addToBooking = (property) => {
     dispatch({type: "ADD_TO_BOOKING", payload: property})
 }
 
+const resetBooking = () => {
+    dispatch({type: "RESET_BOOKING"});
+  }
+  
+
+// const setBooking = (property) => {
+//     dispatch({type: "ADD_TO_BOOKING", payload: property})
+// }
+
 
     return (
         <GlobalContext.Provider 
             value=
             {{booking: state.booking, 
-            addToBooking,}} >
+            addToBooking,
+            resetBooking,}} >
             {props.children}
         </GlobalContext.Provider>
     )

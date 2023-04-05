@@ -18,7 +18,7 @@ const initialState = {
   propertyBedroomNumber: '',
   propertyGuestNumber: '',
   propertyBathroomNumber:'',
-  propertyServices: [],
+  propertyServices: '',
   propertyImages: '', // added new field for selected image file, null
   propertyName: '',
   propertyDescription: '',

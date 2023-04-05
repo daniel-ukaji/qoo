@@ -195,6 +195,7 @@ const hideOnClickOutside = (e) => {
 
   // const totalPriceRef = useRef(property.propertyBookingPrice * finalDate);
 
+  
 
 
   if (property) {
@@ -308,18 +309,35 @@ console.log(formattedDates);
 
 // console.log(rangeOfDates);
 
-    
+
 
     
     
     const {
       addToBooking,
+      resetBooking,
       booking
     } = useContext(GlobalContext)
+
+    // useEffect(() => {
+    //   return () => {
+    //     addToBooking([]); // Reset booking state when unmounting
+    //   };
+    // }, []);
+
+    // const addToBook = (property) => {
+    //   if (!booking.some((p) => p.propertyId === property.propertyId)) {
+    //     addToBooking((prevBooking) => [...prevBooking, property]);
+    //   }
+    // };
 
     let storedBooking = booking.find(o => o.propertyId === property.propertyId)
 
     const bookingDisabled = storedBooking ? true : false;
+
+
+    
+
     return (
       <div className="font-sora">
         <Header />
@@ -465,27 +483,8 @@ console.log(formattedDates);
                 })} */}
                   <p className="text-sm font-normal leading-6 text-gray-600 ">
                     {property.propertyDescription}
-                    {/* This apartment is beautifully furnished style apartment in
-                    the heart of the Lekki phase 1 . It is in close proximity to
-                    the entertainment and business districts of Victoria Island
-                    and Ikoyi alike. it is located in a serene gated estate
-                    which assures you of safety at all times. Modern
-                    conveniences include 24/7 hours electricity supported by
-                    generator, fitted kitchen, WIFI, Smart TVs amongst others.
-                    Everything you need for a great stay can be found at this
-                    location. */}
                   </p>
-                  {/* <p className="mt-8 text-sm font-normal leading-6 text-gray-600">
-                    This apartment is beautifully furnished style apartment in
-                    the heart of the Lekki phase 1 . It is in close proximity to
-                    the entertainment and business districts of Victoria Island
-                    and Ikoyi alike. it is located in a serene gated estate
-                    which assures you of safety at all times. Modern
-                    conveniences include 24/7 hours electricity supported by
-                    generator, fitted kitchen, WIFI, Smart TVs amongst others.
-                    Everything you need for a great stay can be found at this
-                    location.
-                  </p> */}
+                  
                 </div>
 
                 <div className="mt-8 mr-5">
@@ -525,20 +524,20 @@ console.log(formattedDates);
                   </h1>
                   <section className="flex flex-col space-y-20">
                     <div className="flex space-x-28">
-                      <div className="flex flex-col justify-center items-center space-y-2"><IoBulbOutline className="w-10 h-10 text-primary" /> <h1>Power Supply</h1></div>
-                      <div className="flex flex-col justify-center items-center space-y-2"><HiOutlineSparkles className="w-10 h-10 text-primary" /> <h1>Cleaning Services</h1></div>
-                      <div className="flex flex-col justify-center items-center space-y-2"><MdOutlineWaterDrop className="w-10 h-10 text-primary" /> <h1>Water Supply</h1></div>
+                      <div className="flex flex-col justify-center items-center space-y-2"><IoBulbOutline className="w-7 h-7 text-primary" /> <h1>Power Supply</h1></div>
+                      <div className="flex flex-col justify-center items-center space-y-2"><HiOutlineSparkles className="w-7 h-7 text-primary" /> <h1>Cleaning Services</h1></div>
+                      <div className="flex flex-col justify-center items-center space-y-2"><MdOutlineWaterDrop className="w-7 h-7 text-primary" /> <h1>Water Supply</h1></div>
                     </div>
 
                     <div className="flex space-x-28">
-                      <div className="flex flex-col justify-center items-center space-y-2"><BsHeadset className="w-10 h-10 text-primary" /> <h1>24-hours Support</h1></div>
-                      <div className="flex flex-col justify-center items-center space-y-2"><RiGasStationFill className="w-10 h-10 text-primary" /><h1>Gas Supply</h1></div>
-                      <div className="flex flex-col justify-center items-center space-y-2"><GiNuclearWaste className="w-10 h-10 text-primary" /> <h1>Waste management</h1></div>
+                      <div className="flex flex-col justify-center items-center space-y-2"><BsHeadset className="w-7 h-7 text-primary" /> <h1>24-hours Support</h1></div>
+                      <div className="flex flex-col justify-center items-center space-y-2"><RiGasStationFill className="w-7 h-7 text-primary" /><h1>Gas Supply</h1></div>
+                      <div className="flex flex-col justify-center items-center space-y-2"><GiNuclearWaste className="w-7 h-7 text-primary" /> <h1>Waste management</h1></div>
                     </div>
 
                     <div className="flex space-x-28">
-                      <div className="flex flex-col justify-center items-center space-y-2"><BsHouseDoor className="w-10 h-10 text-primary" /> <h1>Estate dues</h1></div>
-                      <div className="flex flex-col justify-center items-center space-y-2"><GiUmbrella className="w-10 h-10 ml-10 text-primary" /> <h1 className="ml-10">Amenities</h1></div>
+                      <div className="flex flex-col justify-center items-center space-y-2"><BsHouseDoor className="w-7 h-7 text-primary" /> <h1>Estate dues</h1></div>
+                      <div className="flex flex-col justify-center items-center space-y-2"><GiUmbrella className="w-7 h-7 ml-10 text-primary" /> <h1 className="ml-10">Amenities</h1></div>
                     </div>
 
                   </section>
@@ -561,31 +560,6 @@ console.log(formattedDates);
                      ) 
                    })} 
                     </div>
-
-                    {/* <div className="grid grid-cols-2 gap-4">
-                      <div className="flex space-x-3"><SlScreenDesktop className="w-5 h-5 text-primary" /> <h1>Netflix</h1></div>
-                      <div className="flex space-x-3"><SlScreenDesktop className="w-5 h-5 text-primary" /><h1>Chandalier</h1></div>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="flex space-x-3"><SlScreenDesktop className="w-5 h-5 text-primary" /><h1>Television</h1></div>
-                      <div className="flex space-x-3"><SlScreenDesktop className="w-5 h-5 text-primary" /><h1>Cable</h1></div>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="flex space-x-3"><SlScreenDesktop className="w-5 h-5 text-primary" /><h1>WiFi</h1></div>
-                      <div className="flex space-x-3"><SlScreenDesktop className="w-5 h-5 text-primary" /><h1>Chair</h1></div>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="flex space-x-3"><SlScreenDesktop className="w-5 h-5 text-primary" /><h1>TV</h1></div>
-                      <div className="flex space-x-3"><SlScreenDesktop className="w-5 h-5 text-primary" /><h1>AC</h1></div>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="flex space-x-3"><SlScreenDesktop className="w-5 h-5 text-primary" /><h1>Oven</h1></div>
-                      <div className="flex space-x-3"><SlScreenDesktop className="w-5 h-5 text-primary" /><h1>Heat Extractor</h1></div>
-                    </div> */}
 
                     <button onClick={() => {
                         setModalActive(true);
@@ -612,7 +586,41 @@ console.log(formattedDates);
                   </section>
                 </div>
 
-                <div className="mt-12">
+                <div className="mt-12 border-b">
+                  <h1 className="mb-4 text-lg font-bold text-gray-800">
+                    Mandatory or Included Services
+                  </h1>
+                  <section className="flex flex-col space-y-10">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1>Final CLeaning: Included</h1></div>
+                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1>Internet Access: Included</h1></div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1>Security deposit (Refundable): NGN50,000.00 /booking</h1></div>
+                      {/* <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1>No Inflammables</h1></div> */}
+                    </div>
+                  </section>
+                </div>
+
+                <div className="mt-12 border-b">
+                  <h1 className="mb-4 text-lg font-bold text-gray-800">
+                    Optional Services
+                  </h1>
+                  <section className="flex flex-col space-y-10">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1>Early Check in/Late check Out: NGN10,000.00 /booking</h1></div>
+                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1>Open-air parking: Included</h1></div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1>Video shoot: NGN100,000.00 /booking</h1></div>
+                      {/* <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1>No Inflammables</h1></div> */}
+                    </div>
+                  </section>
+                </div>
+
+                {/* <div className="mt-12">
                   <h1 className="mb-4 text-lg font-bold text-gray-800">
                     Bedroom
                   </h1>
@@ -628,7 +636,7 @@ console.log(formattedDates);
                      ) 
                    })} 
                   </div>
-                </div>
+                </div> */}
 
                 {/* <div className="mt-12">
                   <h1 className="mb-4 text-lg font-bold text-gray-800">
@@ -663,7 +671,7 @@ console.log(formattedDates);
                   </div>
                 </div> */}
 
-                <div className="mt-12">
+                {/* <div className="mt-12">
                   <h1 className="mb-4 text-lg font-bold text-gray-800">
                     Optional services
                   </h1>
@@ -676,11 +684,11 @@ console.log(formattedDates);
                       
                     )
                   })}
-                    {/* <div className="p-2 bg-gray-200 rounded">
+                    <div className="p-2 bg-gray-200 rounded">
                       Video shoot: NGN50,000.00 /booking
-                    </div> */}
+                    </div>
                   </div>
-                </div>
+                </div> */}
 
                 {/* <div className="mt-12">
                   <h1 className="mb-4 text-lg font-bold text-gray-800">
@@ -885,6 +893,7 @@ console.log(formattedDates);
                         authLevel.setModalVisible(true);
                         authLevel.setModalType("LOGIN");
                       } else {
+                        resetBooking();
                         addToBooking(property);
                         router.push({
                           pathname:"/book-property",
