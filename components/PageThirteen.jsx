@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Layout from '../components/Layout'
 import hostlogo from '../public/images/hostlogo.png'
 import Image from 'next/image'
@@ -17,52 +17,56 @@ import Link from 'next/link'
 function hostHomeStepTwoTwo({ prevStep }) {
     const dispatch = useDispatch();
     const [selectedImages, setSelectedImages] = useState([]);
+    const [convertedUrls, setConvertedUrls] = useState([]);
+
 
     const handleImageSelect = (event) => {
-        const files = Array.from(event.target.files);
-        const selectedImagesCopy = [...selectedImages];
-        const urls = [];
-      
-        files.forEach((file) => {
-          const reader = new FileReader();
-      
-          reader.onload = () => {
-            const base64Image = reader.result.split(",")[1];
-            selectedImagesCopy.push({ file, preview: reader.result });
-            setSelectedImages(selectedImagesCopy);
-
-            const usernam = "hostId_" + Math.random().toString(36).slice(2);
-      
-            // Send ImageData to the API and log the response
-            const ImageData = {
-              username: usernam,
-              base64: base64Image,
-              region: "us-east-1",
-              source: "qucoon",
-              s3bucket: "apvertise-repo",
-            };
-            fetch("https://m2nz1o078e.execute-api.us-east-1.amazonaws.com/prod/uploadimage2s3", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(ImageData),
-            })
-              .then((response) => response.json())
-              .then((data) => {
-                console.log(data.url)
-                const imageUrl = data.url; // Retrieve the URL from the API response
-                urls.push(imageUrl);
-                if (urls.length === files.length) {
-                  dispatch({ type: ADD_IMAGE, payload: urls }); // Dispatch the URL to the ADD_IMAGE action
-                }
-              })
-              .catch((error) => console.error(error));
+      const files = Array.from(event.target.files);
+      const selectedImagesCopy = [...selectedImages];
+    
+      files.forEach((file) => {
+        const reader = new FileReader();
+    
+        reader.onload = () => {
+          const base64Image = reader.result.split(",")[1];
+          selectedImagesCopy.push({ file, preview: reader.result });
+          setSelectedImages(selectedImagesCopy);
+    
+          const usernam = "hostId_" + Math.random().toString(36).slice(2);
+    
+          // Send ImageData to the API and log the response
+          const ImageData = {
+            username: usernam,
+            base64: base64Image,
+            region: "us-east-1",
+            source: "qucoon",
+            s3bucket: "apvertise-repo",
           };
-      
-          reader.readAsDataURL(file);
-        });
-      };
+    
+          fetch("https://m2nz1o078e.execute-api.us-east-1.amazonaws.com/prod/uploadimage2s3", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(ImageData),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              const imageUrl = data.url;
+              setConvertedUrls((prevUrls) => [...prevUrls, imageUrl]);
+            })
+            .catch((error) => console.error(error));
+        };
+    
+        reader.readAsDataURL(file);
+      });
+    };
+    
+    useEffect(() => {
+      if (convertedUrls.length === selectedImages.length) {
+        dispatch({ type: ADD_IMAGE, payload: convertedUrls });
+      }
+    }, [convertedUrls, dispatch, selectedImages]);
       
       
     
@@ -93,7 +97,7 @@ const handleBackClick = () => {
               <button className="py-2 px-5 mr-2 mb-2 text-sm font-medium focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200">Exit</button>
           </div>
         </Link>
-        <div className='border max-w-lg flex flex-col items-center'>
+        <div className='border cursor-pointer max-w-lg flex flex-col items-center'>
                 <div className='flex flex-col items-center mt-16 mb-16'>
                 {selectedImages.length === 0 && (
                   <>
@@ -103,21 +107,25 @@ const handleBackClick = () => {
                     </>
                     )}
                     <div className="">
-      <div className="grid grid-cols-3 gap-3">
-        {selectedImages.slice(0, 1).map((image, index) => (
-          <div key={index} className="relative col-span-3">
+                    {selectedImages.map((image, index) => (
+      <div className="inline-grid grid-cols-2 gap-4 border w-[10rem]">
+        
+          <div key={index}  className='relative w-[10rem]'>
             <button
               className="absolute top-0 right-0 text-white font-bold text-sm bg-red-500 rounded-full w-5 h-5 flex items-center justify-center"
               onClick={() => handleImageDelete(index)}
             >
               x
             </button>
-            <img src={image.preview} className="w-full h-full object-cover" />
+            {/* <div className='relative w-[10rem] h-[10rem]'>
+              <Image src={image.preview} layout='fill' objectFit='cover'/>
+            </div> */}
+            <img src={image.preview} className="w-[10rem] h-[10rem] object-cover" />
           </div>
-        ))}
+        
 
-        <div className="grid grid-cols-2 gap-4 col-span-3">
-          {selectedImages.slice(1).map((image, index) => (
+        {/* <div className="grid grid-cols-2 gap-4 col-span-3">
+          {selectedImages.map((image, index) => (
             <div key={index} className="relative">
               <button
                 className="absolute top-0 right-0 text-white font-bold text-sm bg-red-500 rounded-full w-5 h-5 flex items-center justify-center"
@@ -128,8 +136,9 @@ const handleBackClick = () => {
               <img src={image.preview} className="w-full h-full object-cover" />
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
+      ))}
 
       {selectedImages.length === 0 && (
         <label htmlFor="imageInput" className="mt-8 cursor-pointer text-gray-500">
@@ -168,7 +177,7 @@ const handleBackClick = () => {
                 <button onClick={handleBackClick} className="py-3 px-6 mr-2 mb-2 text-sm font-medium text-black focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200">Back</button>
               </div>
               <div>
-                <button onClick={handleNextClick} disabled={selectedImages.length < 5}  className={`py-3 px-6 mr-2 mb-2 text-sm font-medium text-white focus:outline-none bg-[#DB5461] rounded-lg border border-gray-200 ${selectedImages.length < 5 ? "bg-gray-300 pointer-events-none" : ""}`}>Proceed</button>
+                <button onClick={handleNextClick}  className={`py-3 px-6 mr-2 mb-2 text-sm font-medium text-white focus:outline-none bg-[#DB5461] rounded-lg border border-gray-200 ${selectedImages.length < 5 ? "bg-gray-300 pointer-events-none" : ""}`}>Proceed</button>
               </div>
             </div>
       </div>
@@ -184,6 +193,11 @@ const handleBackClick = () => {
         </div>
 
         <div>
+
+        {/* onClick={() => {
+            document.getElementById("imageInput").click();
+            dispatch({ type: "ADD_IMAGE", payload: selectedImages });
+          }} */}
         
 
         </div>

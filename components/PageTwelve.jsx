@@ -54,7 +54,7 @@ const PageTwelve = ({ prevStep }) => {
       const selectedBedrooms = useSelector((state) => state.propertyBedroomNumber);
       const selectedBeds = useSelector((state) => state.propertyGuestNumber);
       const selectedBathrooms = useSelector((state) => state.propertyBathroomNumber);
-      const WhatToOffer = useSelector((state) => state.propertyServices.toString());
+      const WhatToOffer = useSelector((state) => state.propertyServices);
       const ImageUpload = useSelector((state) => state.propertyImages);
       const createTitle = useSelector((state) => state.propertyName);
       const createDescription = useSelector((state) => state.propertyDescription);
@@ -71,13 +71,26 @@ const PageTwelve = ({ prevStep }) => {
 
       console.log(imageString)
 
+      const flattenedAmenities = WhatToOffer.flat().filter((item, index, self) => {
+        return item && self.indexOf(item) === index;
+      });
+
+      const flatAmenities = flattenedAmenities.toString()
+      console.log(flatAmenities)
+
+      const uniqueArray = WhatToOffer.filter((item, index, self) => {
+        return self.indexOf(item) === index;
+      });
+
+      // console.log(uniqueArray)
+
       // console.log(WhatToOffer)
 
       
 
       
   
-      console.log(WhatToOffer)
+      // console.log(WhatToOffer)
     const submitForm = async () => {
         
       // const data = store.getState();
@@ -104,7 +117,7 @@ const PageTwelve = ({ prevStep }) => {
         propertyBathroomNumber: selectedBathrooms,
         propertyBedroomDescription: "Blue walls with neon bulbs. looking outside the window you can see wild animals do their stuff.",
         propertyCheckOut: "2022-07-07 21:04:45.440",
-        propertyServices: WhatToOffer,
+        propertyServices: flatAmenities,
         propertyOptionalServices: "werfg",
         propertyBookingConditions: MoreQuestions,
         propertyBookingSecurityDeposit: "100034.65",

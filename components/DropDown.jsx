@@ -3,9 +3,11 @@ import React, { useState } from "react";
 import { MdAccountCircle, MdClose } from "react-icons/md";
 import { VscMenu } from "react-icons/vsc";
 import ModalComponent from "./ModalComponent";
+import { useAuth } from "../utils/hooks/useAuth";
 
 const DropDown = ({ links }) => {
   const [isDDVisible, setisDDVisible] = useState(false);
+  const user = useAuth();
 
   return (
     <div className="relative z-50">
@@ -15,7 +17,8 @@ const DropDown = ({ links }) => {
         className="flex cursor-pointer items-center space-x-1 rounded-[72px] border border-gray-400 py-2 px-4 "
       >
         <VscMenu className="w-5 h-4" />
-        <MdAccountCircle className="w-6 h-6 text-gray-400 rounded-full" />
+        <img src={user.user?.userPicture} className="w-6 h-6 rounded-full" />
+        {/* <MdAccountCircle className="w-6 h-6 text-gray-400 rounded-full" /> */}
       </button>
       {/* ) : (
         <button

@@ -61,6 +61,14 @@ const formReducer = (state = initialState, action) => {
       return { ...state, propertyBathroomNumber: action.payload };
     // case 'SET_PROPERTY_SERVICES':
     //   return { ...state, propertyServices: action.payload };
+    // case 'SET_PROPERTY_SERVICES':
+    //     if (state.propertyServices.includes(action.payload)) {
+    //       // If the option is already selected, remove it
+    //       return { ...state, propertyServices: state.propertyServices.filter(option => option !== action.payload) };
+    //     } else {
+    //       // If the option is not selected, add it
+    //       return { ...state, propertyServices: [...state.propertyServices, action.payload] };
+    //     }
     case 'SET_PROPERTY_SERVICES':
         if (state.propertyServices.includes(action.payload)) {
           // If the option is already selected, remove it
@@ -81,16 +89,19 @@ const formReducer = (state = initialState, action) => {
       return { ...state, propertyBookingPrice: action.payload };
     case 'SET_PROPERTY_ADDITIONAL_NOTES':
       return { ...state, propertyAdditionalNotes: action.payload };
-    case 'ADD_PROPERTY_SERVICE':
-      return {
-        ...state,
-        propertyServices: [...state.propertyServices, action.payload],
-      };
-    case 'REMOVE_PROPERTY_SERVICE':
-      return {
-        ...state,
-        propertyServices: state.propertyServices.filter((option) => option !== action.payload),
-      };
+    // case 'ADD_PROPERTY_SERVICE':
+    //   return {
+    //     ...state,
+    //     propertyServices: [...state.propertyServices, action.payload],
+    //   };
+    // case 'ADD_PROPERTY_SERVICE':
+    //   return { ...state, propertyServices: action.payload };
+      
+    // case 'REMOVE_PROPERTY_SERVICE':
+    //   return {
+    //     ...state,
+    //     propertyServices: state.propertyServices.filter((option) => option !== action.payload),
+    //   };
     case 'SET_PROPERTY_SECURITY_DEPOSIT':
       return { ...state, propertySecurityDeposit: action.payload };
     case 'SET_PROPERTY_BOOKING_CONDITIONS':

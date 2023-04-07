@@ -1,12 +1,23 @@
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import Footer from "../components/misc/footer";
 import Header from "../components/misc/header";
 import HomeBanner from "/public/images/home-banner.png";
 import Router, { useRouter } from "next/router";
 import Navbar from "../components/Navbar";
+import ModalComponent from "../components/ModalComponent";
+import VerifyModal from "../components/VerifyModal";
+import { useAuth } from "../utils/hooks/useAuth";
 
 const NewUserHome = () => {
+
+  const [modeActive, setModeActive] = useState(false);
+  const user = useAuth();
+
+  console.log(user.user)
+
+  const userStat = user.user?.userStatus
+
   return (
     <div className="font-sora">
       <Header />
@@ -19,9 +30,21 @@ const NewUserHome = () => {
           </h1>
         </div>
 
-        <button onClick={ () => Router.push('/hostHomeIntro') } className="px-8 py-4 mt-6 text-sm font-medium text-center text-white rounded-xl bg-primary w-fit">
+        <button
+          onClick={() => {
+            if (userStat === "NOT_VERIFIED") {
+              // show modal that takes user to profile page
+              // ...
+              setModeActive(true);
+            } else {
+              Router.push('/hostHomeIntro');
+            }
+          }}
+          className="px-8 py-4 mt-6 text-sm font-medium text-center text-white rounded-xl bg-primary w-fit"
+        >
           Start Hosting
         </button>
+
 
         <div className="relative w-full mt-16 h-[30rem]">
           <Image
@@ -34,6 +57,14 @@ const NewUserHome = () => {
       </main>
 
       <Footer />
+      <ModalComponent
+        isVisible={modeActive}
+        shouldBeBlurAndDarkened
+        shouldBeCentered
+        onClose={() => setModeActive(false)}
+      >
+        <VerifyModal onClick={() => setModeActive(false)} />
+      </ModalComponent>
     </div>
   );
 };

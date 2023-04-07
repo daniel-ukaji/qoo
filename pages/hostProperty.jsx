@@ -37,42 +37,6 @@ function hostProperty() {
         cacheTime: 60000 * 30,
         staleTime: 300000,
       });
-
-    // const {
-    //     data: properties,
-    //     isError,
-    //     error,
-    //   } = useQuery({
-    //     queryKey: ["post", propertyHostId],
-    //     queryFn: () => fetchpropertyHostId(propertyHostId),
-    //     cacheTime: 60000 * 30,
-    //     staleTime: 30000,
-    //   });   
-
-
-    // const response = await CreateBooking.request(bookingData);
-
-    // const {
-    //     data: properties,
-    //     isLoading,
-    //     isError,
-    //     error
-    //   } = useQuery(
-    //     ['post', propertyHostId],
-    //     async () => {
-    //         // const response = await FetchHostProp.request()
-    //       const res = await fetch("https://6v50nb72wg.execute-api.us-east-1.amazonaws.com/dev/property/read-by-host-id");
-    //       if (!res.ok) {
-    //         throw new Error('Network response was not ok');
-    //       }
-    //       const data = await res.json();
-    //       return data;
-    //     },
-    //     {
-    //       cacheTime: 60000 * 30,
-    //       staleTime: 30000
-    //     }
-    //   );
       
     if (properties){
 

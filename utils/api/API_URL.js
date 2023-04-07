@@ -18,6 +18,7 @@ export const CREATEPROPERTY = "property/create"
 export const GETBOOKING = "booking/read-by-host-id";
 export const GETBOOKINGS = "booking/read";
 export const CREATEBOOKINGS = "booking/create";
+export const GETBOOKINGRENTER = "booking/read-by-user-id";
 
 // Payment
 export const CREATEPAYMENT = "payment/create-payment";

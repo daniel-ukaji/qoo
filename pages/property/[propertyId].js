@@ -40,6 +40,7 @@ import ModalComponent from "../../components/ModalComponent";
 import { GoSettings } from "react-icons/go";
 import FilterComponent from "../../components/FilterComponent";
 import AmenitiesComponent from "../../components/AmenitiesComponent";
+import VerifyModal from "../../components/VerifyModal";
 
 const Property = () => {
 
@@ -52,8 +53,10 @@ const Property = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
   const [modalActive, setModalActive] = useState(false);
+  const [modeActive, setModeActive] = useState(false);
 
   const authLevel = useContext(AuthLevelContext);
+
 
   const handleGuestClick = () => {
     setShowDropdown(!showDropdown);
@@ -167,7 +170,9 @@ const Property = () => {
 
   const user = useAuth();
 
-  console.log(user.logIn)
+  console.log(user.user)
+
+  const userStat = user.user?.userStatus
 
 const [open, setOpen] = useState(false)
 
@@ -886,29 +891,34 @@ console.log(formattedDates);
                   
                 </div>
 
-                  <button
-                    className="mt-7 h-[2.875rem] w-full rounded-[10px] bg-primary text-sm font-medium text-white"
-                    onClick={() => {
-                      if (!authLevel.user) {
-                        authLevel.setModalVisible(true);
-                        authLevel.setModalType("LOGIN");
-                      } else {
-                        resetBooking();
-                        addToBooking(property);
-                        router.push({
-                          pathname:"/book-property",
-                          query: {
-                            // propertyId: propertyId,
-                            startDate: startDate.toISOString(),
-                            endDate: endDate.toISOString(),
-                            numGuests,
-                          },
-                        });
-                      }
-                    }}
-                  >
-                    {!authLevel.user ? "Sign in to Book" : "Book Now"}
-                  </button>
+                <button
+  className="mt-7 h-[2.875rem] w-full rounded-[10px] bg-primary text-sm font-medium text-white"
+  onClick={() => {
+    if (!authLevel.user) {
+      authLevel.setModalVisible(true);
+      authLevel.setModalType("LOGIN");
+    } else if (userStat === "NOT_VERIFIED") { // add check for user status
+      // show modal that takes user to profile page
+      // ...
+      setModeActive(true);
+
+    } else {
+      resetBooking();
+      addToBooking(property);
+      router.push({
+        pathname:"/book-property",
+        query: {
+          startDate: startDate.toISOString(),
+          endDate: endDate.toISOString(),
+          numGuests,
+        },
+      });
+    }
+  }}
+>
+  {!authLevel.user ? "Sign in to Book" : "Book Now"}
+</button>
+
 
                   
 
@@ -971,6 +981,15 @@ console.log(formattedDates);
         onClose={() => setModalActive(false)}
       >
         <AmenitiesComponent onClick={() => setModalActive(false)} />
+      </ModalComponent>
+
+      <ModalComponent
+        isVisible={modeActive}
+        shouldBeBlurAndDarkened
+        shouldBeCentered
+        onClose={() => setModeActive(false)}
+      >
+        <VerifyModal onClick={() => setModeActive(false)} />
       </ModalComponent>
       </div>
     );

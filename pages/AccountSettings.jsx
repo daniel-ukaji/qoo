@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import HostHeader from '../components/misc/hostHeader'
 import Image from 'next/image';
 import AvatarProfile from '../public/images/AvatarProfile.png'
@@ -10,85 +10,161 @@ import { updateProfile } from '../utils/api/user/updateUser';
 import { toast } from 'react-toastify';
 // import { readUser, readUsers } from '../utils/api/user/readUser';
 // import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
+import axios from 'axios';
 
 
 function AccountSettings() {
     const user = useAuth();
-    // const usersId = user?.user.userId;
-    // console.log(user)
-    // console.log(user.user?.userFirstName)
-    // const [users, setUsers] = useState({});
     const [activeTab, setActiveTab] = useState('listing');
-    // const [userFirstName, setUserFirstName] = useState('');
-    // const [userLastName, setUserLastName] = useState('');
-    // const [userEmail, setUserEmail] = useState('');
-    // const [userDateOfBirth, setUserDateOfBirth] = useState('');
-    // const [userPhoneNumber, setUserPhoneNumber] = useState('');
-    // const [userCountry, setUserCountry] = useState('');
-    // const [userState, setUserState] = useState('');
-    // const [userCity, setUserCity] = useState('');
-    // const [userStreet, setUserStreet] = useState('');
-    // const [userIdentityNumber, setUserIdentityNumber] = useState('');
-    // const datias = {
-    //     userId: usersId 
-    // }
-    // useEffect(() => {
-    //     async function fetchData() {
-    //       const response = await fetch('https://6v50nb72wg.execute-api.us-east-1.amazonaws.com/dev/user/read-by-user-id', {
-    //         method: 'POST',
-    //         headers: {
-    //           'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify(datias)
-    //       });
-    //       const data = await response.json();
-    //       console.log(data)
-    //       setUsers(data);
-    //     }
-    //     fetchData();
-    //   }, []);
+    const [previewImage, setPreviewImage] = useState(null);
+    const [prevImage, setPrevImage] = useState(null);
+    
+    const inputRef = useRef(null);
 
-    //   console.log(users?.userLastName)
-    //   console.log(users?.userId)
-    //   const usersFirstName = users?.userFirstName
-    //   console.log(usersFirstName)
 
+    const API_ENDPOINT = 'https://6v50nb72wg.execute-api.us-east-1.amazonaws.com/dev/user/read-by-user-id';
+
+    const userId = user.user?.userId;
+
+    const requestBody = {
+        userId: userId
+      };
+
+    const [userData, setUserData] = useState({
+        userFirstName: '',
+        userLastName: '',
+        userEmail: '',
+        userDateOfBirth: new Date(),
+        userPhoneNumber: '',
+        userCountry: '',
+        userState: '',
+        userCity: '',
+        userStreet: '',
+        userIdentityNumber: '',
+        userPicture: null,
+        userIdentityImage: '9870',
+      });
+
+      useEffect(() => {
+        const savedUserData = JSON.parse(localStorage.getItem('userData'));
+        if (savedUserData) {
+          setUserData(savedUserData);
+        }
+      }, []);
+    
+      // save the user data to localStorage whenever the state is updated
+      useEffect(() => {
+        localStorage.setItem('userData', JSON.stringify(userData));
+      }, [userData]);
+
+//       axios.post(API_ENDPOINT, requestBody)
+//   .then(response => {
+//     // Handle the API response here
+//     console.log(response.data);
+//   })
+//   .catch(error => {
+//     // Handle any errors that occur during the API request
+//     console.error(error);
+//   });
+
+useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.post(API_ENDPOINT, requestBody);
+        setUserData(response.data);
+        console.log(response.data) // assuming that the API response is an object with the user data
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    fetchUserData();
+  }, []);
+
+//   useEffect(() => {
+//     setTimeout(() => {
+//       inputRef.current.focus();
+//     }, 0);
+//   }, []);
 
     
     // console.log(user?.user.userDateOfBirth)
+    const [selectedImages, setSelectedImages] = useState([]);
+
+    const handleImageSelect = (event) => {
+        const files = Array.from(event.target.files);
+        const selectedImagesCopy = [...selectedImages];
+        const urls = [];
+      
+        files.forEach((file) => {
+          const reader = new FileReader();
+      
+          reader.onload = () => {
+            const base64Image = reader.result.split(",")[1];
+            selectedImagesCopy.push({ file, preview: reader.result });
+            setSelectedImages(selectedImagesCopy);
+
+            const usernam = "hostId_" + Math.random().toString(36).slice(2);
+      
+            // Send ImageData to the API and log the response
+            const ImageData = {
+              username: usernam,
+              base64: base64Image,
+              region: "us-east-1",
+              source: "qucoon",
+              s3bucket: "apvertise-repo",
+            };
+            fetch("https://m2nz1o078e.execute-api.us-east-1.amazonaws.com/prod/uploadimage2s3", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(ImageData),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                console.log(data.url)
+                const imageUrl = data.url; // Retrieve the URL from the API response
+                urls.push(imageUrl);
+
+                setUserData((prevState) => {
+                    return {
+                      ...prevState,
+                      userPicture: imageUrl,
+                    };
+                  });
+
+                setPreviewImage(imageUrl)
+                  
+              })
+              .catch((error) => console.error(error));
+          };
+      
+          reader.readAsDataURL(file);
+        });
+      };
+
+
    
 
 
-    const [userData, setUserData] = useState({
-        userFirstName: user.user?.userFirstName,
-        userLastName: user.user?.userLastName,
-        userEmail: user.user?.userEmail,
-        userDateOfBirth: '',
-        userPhoneNumber: user.user?.userPhoneNumber,
-        userCountry: user.user?.userCountry,
-        userState: user.user?.userState,
-        userCity: user.user?.userCity,
-        userStreet: user.user?.userStreet,
-        userIdentityNumber: user.user?.userIdentityNumber,
-        userPicture: 'rodeuxhlgwtut',
-        userIdentityImage: '9870',
-      });
-    const [previewImage, setPreviewImage] = useState(null);
+    
+    
 
 
 function handleDrop(event) {
     event.preventDefault();
     const imageFile = event.dataTransfer.files[0];
-    const imageUrl = URL.createObjectURL(imageFile);
-    setPreviewImage(imageUrl);
+    const imageUri = URL.createObjectURL(imageFile);
+    setPrevImage(imageUri);
   }
 
   function handleDragOver(event) {
     event.preventDefault();
   }
 
-  function handleImageClick() {
-    if (previewImage) {
+  function handleImageClic() {
+    if (prevImage) {
       // Open a modal window with the preview image
       const modal = document.createElement('div');
       modal.style.position = 'fixed';
@@ -102,7 +178,7 @@ function handleDrop(event) {
       modal.style.alignItems = 'center';
       
       const img = document.createElement('img');
-      img.src = previewImage;
+      img.src = prevImage;
       img.style.maxWidth = '80%';
       img.style.maxHeight = '80%';
       img.style.objectFit = 'contain';
@@ -118,22 +194,12 @@ function handleDrop(event) {
 
   const profileApi = useApi(updateProfile);
 
+//   console.log(user.user)
+
   const onSubmit = async () => {
     let req = {
         userId: user.user?.userId,
         ...userData,
-    // userFirstName,
-    // userLastName,
-    // userEmail,
-    // userDateOfBirth,
-    // userPicture: "rodeuxhlgwtut",
-    // userPhoneNumber,
-    // userCountry,
-    // userState,
-    // userCity,
-    // userStreet,
-    // userIdentityNumber,
-    // userIdentityImage: "9870"
       };
 
       let id = toast.loading("We are updating your profile...");
@@ -174,7 +240,9 @@ function handleDrop(event) {
                             onChange={(e) => setUserData({ ...userData, userFirstName: e.target.value })}
                             className="inputbox-full mb-5"
                             placeholder="First Name"
+                            ref={inputRef}
                             autoFocus
+                            
                         />
                     </div>
                     <div className='mt-10 border-b'>
@@ -190,7 +258,9 @@ function handleDrop(event) {
                             onChange={(e) => setUserData({ ...userData, userLastName: e.target.value })}
                             className="inputbox-full mb-5"
                             placeholder="Last Name"
-                            autoFocus
+                            ref={inputRef}
+
+                            
                         />
                     </div>
                     <div className='mt-10 border-b'>
@@ -206,7 +276,7 @@ function handleDrop(event) {
                             onChange={(e) => setUserData({ ...userData, userEmail: e.target.value })}
                             className="inputbox-full mb-5"
                             placeholder="Email Address"
-                            autoFocus
+                            
                         />
                     </div>
                     <div className='mt-10 border-b'>
@@ -240,7 +310,7 @@ function handleDrop(event) {
                             onChange={(e) => setUserData({ ...userData, userPhoneNumber: e.target.value })}
                             className="inputbox-full mb-5"
                             placeholder="Phone Number"
-                            autoFocus
+                            
                         />
                     </div>
                     <div className='mt-10 border-b'>
@@ -256,7 +326,7 @@ function handleDrop(event) {
                             onChange={(e) => setUserData({ ...userData, userCountry: e.target.value })}
                             className="inputbox-full mb-5"
                             placeholder="Country"
-                            autoFocus
+                            
                         />
                     </div>
                     <div className='mt-10 border-b'>
@@ -272,7 +342,7 @@ function handleDrop(event) {
                             onChange={(e) => setUserData({ ...userData, userState: e.target.value })}
                             className="inputbox-full mb-5"
                             placeholder="State"
-                            autoFocus
+                            
                         />
                     </div>
                     <div className='mt-10 border-b'>
@@ -288,7 +358,7 @@ function handleDrop(event) {
                             onChange={(e) => setUserData({ ...userData, userCity: e.target.value })}
                             className="inputbox-full mb-5"
                             placeholder="City"
-                            autoFocus
+                            
                         />
                     </div>
                     <div className='mt-10 border-b'>
@@ -298,13 +368,13 @@ function handleDrop(event) {
                         </div>
                         <input
                             type="text"
-                            name="userCity"
-                            id="userCity"
+                            name="userStreet"
+                            id="userStreet"
                             value={userData.userStreet}
                             onChange={(e) => setUserData({ ...userData, userStreet: e.target.value })}
                             className="inputbox-full mb-5"
                             placeholder="Street"
-                            autoFocus
+                            
                         />
                     </div>
                     
@@ -345,10 +415,10 @@ function handleDrop(event) {
                                 className="h-96 w-96 border-dashed border-2 border-gray-400 flex justify-center items-center"
                                 onDrop={handleDrop}
                                 onDragOver={handleDragOver}
-                                onClick={handleImageClick}
+                                onClick={handleImageClic}
                             >
-                                {previewImage ? (
-                                    <img src={previewImage} alt="Preview" />
+                                {prevImage ? (
+                                    <img src={prevImage} alt="Preview" />
                                 ) : (
                                     <p>Drag and drop an image here</p>
                                 )}
@@ -392,8 +462,24 @@ function handleDrop(event) {
             <div className='flex '>
                 <div className='border rounded-lg p-4 mr-2 w-72 h-72 mt-10'>
                     <div className='flex items-center flex-col'>
-                        <Image src={AvatarProfile} alt=''  />
-                        <p className='font-bold'>Update picture</p>
+                        {/* <Image src={selectedImages} alt=''  /> */}
+                        
+                        <input
+                            type="file"
+                            id="imageInput"
+                            multiple
+                            onChange={handleImageSelect}
+                            className="hidden"
+                        />
+                        
+            
+            <img src={userData.userPicture} className="w-20 h-20 object-cover rounded-full" />
+            {selectedImages.length === 0 && (
+        <label htmlFor="imageInput" className="mt-2 font-bold cursor-pointer">
+          Update profile image
+        </label>
+      )}
+        {/* <img src={userData.userPicture} /> */}
                     </div>
                     <div>
                         <p className='text-gray-500'>Joined in 2023</p>
