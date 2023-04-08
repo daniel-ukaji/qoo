@@ -29,8 +29,8 @@ const PageEleven = ({ prevStep }) => {
     }
 
   return (
-    <Layout>
-        <div className="pl-10 p-6 h-screen flex flex-col justify-between">
+    <div className='bg-white'>
+        <div className="pl-10 p-6 h-screen flex flex-col justify-between max-w-[40rem] mx-auto">
             {/* <!-- Content for the left side --> */}
             <Link href="/" className=''>
               <div className="">
@@ -39,9 +39,9 @@ const PageEleven = ({ prevStep }) => {
             </Link>
 
             <div>
-              <h1 className='font-bold'>Set your price</h1>
-              <div className="flex space-x-4 items-center">
-                  <button className="border w-10 rounded-lg p-1 relative text-center">
+              <h1 className='text-4xl font-semibold mb-7 font-sora'>Now, set your price</h1>
+              <div className="flex justify-center space-x-4 items-center border pb-10 rounded-md bg-[#F7F7F7]">
+                  <button className="border w-10 rounded-lg p-1 relative text-center bg-white">
                           <Image src={Minus} className="border p-10"/>
                   </button>
                   <div className='flex flex-col items-center mt-6'>
@@ -55,30 +55,15 @@ const PageEleven = ({ prevStep }) => {
                             payload: option,
                         })}
                     />
-                    <p className='mt-3 text-gray-500'>Per night</p>
+                    <p className='mt-3 text-black'>Per night</p>
                   </div>
-                  <button className="border w-10 rounded-lg p-1 relative text-center" >
+                  <button className="border w-10 rounded-lg p-1 relative text-center bg-white" >
                           <Image src={Plus} className="border p-10"/>
                   </button>
               </div>
             </div>
 
-
-            {/* <div className="">
-                <h1>Price</h1>
-            <InputField
-                label="Enter your name:"
-                placeholder="Name"
-                value={inputValue}
-                onChange={handleInputChange}
-                setPageInput={(option) => ({
-                    type: 'SET_PROPERTY_BOOKING_PRICE',
-                    payload: option,
-                })}
-            />
-            </div> */}
-
-            <div>
+            <div className='flex justify-between items-center'>
             <button
                 className="py-3 px-6 mr-2 mb-2 text-sm font-medium text-black focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200"
                 onClick={handleBackClick}
@@ -94,22 +79,8 @@ const PageEleven = ({ prevStep }) => {
               </button>
             </div>
         </div>
-        <div className="flex flex-col justify-between pl-10 p-6 relative bg-gradient-to-b from-[#DB5461] to-[#7B61FF] min-h-screen">
-            {/* <!-- Content for the right side --> */}
-            <div className='h-10 w-10'>
-                <Image src={HostFrame}  />
-            </div>
-
-            <div className='font-sora font-bold mb-36 flex flex-col space-y-5'>
-                <p className='text-3xl text-white'>2.</p>
-                <p className='text-4xl text-white'>Now set your price</p>
-            </div>
-
-            <div>
-
-            </div>
-        </div>
-    </Layout>
+        
+    </div>
   );
 };
 

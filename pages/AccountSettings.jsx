@@ -15,9 +15,10 @@ import axios from 'axios';
 
 function AccountSettings() {
     const user = useAuth();
-    const [activeTab, setActiveTab] = useState('listing');
+    const [activeTab, setActiveTab] = useState('personal');
     const [previewImage, setPreviewImage] = useState(null);
     const [prevImage, setPrevImage] = useState(null);
+    const [firstName, setFirstName] = useState('');
     
     const inputRef = useRef(null);
 
@@ -34,7 +35,7 @@ function AccountSettings() {
         userFirstName: '',
         userLastName: '',
         userEmail: '',
-        userDateOfBirth: new Date(),
+        userDateOfBirth: '',
         userPhoneNumber: '',
         userCountry: '',
         userState: '',
@@ -46,11 +47,25 @@ function AccountSettings() {
       });
 
       useEffect(() => {
-        const savedUserData = JSON.parse(localStorage.getItem('userData'));
-        if (savedUserData) {
-          setUserData(savedUserData);
-        }
-      }, []);
+        localStorage.setItem('userData', JSON.stringify(userData));
+      }, [userData]);
+
+//       const handleInputChange = (e) => {
+//   const { name, value } = e.target;
+//   if (name === 'userDateOfBirth') {
+//     setUserData(prevState => ({ ...prevState, [name]: new Date(value) }));
+//   } else {
+//     setUserData(prevState => ({ ...prevState, [name]: value }));
+//   }
+// };
+
+
+    //   useEffect(() => {
+    //     const savedUserData = JSON.parse(localStorage.getItem('userData'));
+    //     if (savedUserData) {
+    //       setUserData(savedUserData);
+    //     }
+    //   }, []);
     
       // save the user data to localStorage whenever the state is updated
       useEffect(() => {
@@ -219,224 +234,13 @@ function handleDrop(event) {
   }
   
     
+//   useEffect(() => {
+//     setActiveTab(tabs[0].id);
+//   }, []);
 
-
-
-    // console.log(user.user)
-
-    function PersonalInfo() {
-        return (
-            <section className='max-w-[40rem]'>
-                    <div className='mt-10 border-b'>
-                        <div className='flex justify-between'>
-                            <p className='font-bold mb-3'>First Name</p>
-                            <button className='font-bold'>Edit</button>
-                        </div>
-                        <input
-                            type="text"
-                            name="userFirstName"
-                            id="userFirstName"
-                            value={userData.userFirstName}
-                            onChange={(e) => setUserData({ ...userData, userFirstName: e.target.value })}
-                            className="inputbox-full mb-5"
-                            placeholder="First Name"
-                            ref={inputRef}
-                            autoFocus
-                            
-                        />
-                    </div>
-                    <div className='mt-10 border-b'>
-                        <div className='flex justify-between'>
-                            <p className='font-bold mb-3'>Last Name</p>
-                            <button className='font-bold'>Edit</button>
-                        </div>
-                        <input
-                            type="text"
-                            name="userLastName"
-                            id="userLastName"
-                            value={userData.userLastName}
-                            onChange={(e) => setUserData({ ...userData, userLastName: e.target.value })}
-                            className="inputbox-full mb-5"
-                            placeholder="Last Name"
-                            ref={inputRef}
-
-                            
-                        />
-                    </div>
-                    <div className='mt-10 border-b'>
-                        <div className='flex justify-between'>
-                            <p className='font-bold mb-3'>Email</p>
-                            <button className='font-bold'>Edit</button>
-                        </div>
-                        <input
-                            type="email"
-                            name="userEmail"
-                            id="userEmail"
-                            value={userData.userEmail}
-                            onChange={(e) => setUserData({ ...userData, userEmail: e.target.value })}
-                            className="inputbox-full mb-5"
-                            placeholder="Email Address"
-                            
-                        />
-                    </div>
-                    <div className='mt-10 border-b'>
-                        <div className='flex justify-between'>
-                            <p className='font-bold mb-3'>Date of Birth</p>
-                            <button className='font-bold'>Edit</button>
-                        </div>
-                        <DatePicker
-                            className="inputbox-full mb-5"
-                            selected={userData.userDateOfBirth}
-                            onChange={(date) => setUserData({ ...userData, userDateOfBirth: date })}
-                            dateFormat="dd/MM/yyyy"
-                            maxDate={new Date()}
-                            showYearDropdown
-                            scrollableYearDropdown
-                            yearDropdownItemNumber={100}
-                            placeholderText="Select Date of Birth"
-                        />
-
-                    </div>
-                    <div className='mt-10 border-b'>
-                        <div className='flex justify-between'>
-                            <p className='font-bold mb-3'>Phone Number</p>
-                            <button className='font-bold'>Edit</button>
-                        </div>
-                        <input
-                            type="text"
-                            name="userPhoneNumber"
-                            id="userPhoneNumber"
-                            value={userData.userPhoneNumber}
-                            onChange={(e) => setUserData({ ...userData, userPhoneNumber: e.target.value })}
-                            className="inputbox-full mb-5"
-                            placeholder="Phone Number"
-                            
-                        />
-                    </div>
-                    <div className='mt-10 border-b'>
-                        <div className='flex justify-between'>
-                            <p className='font-bold mb-3'>Country</p>
-                            <button className='font-bold'>Edit</button>
-                        </div>
-                        <input
-                            type="text"
-                            name="selectedCountry"
-                            id="selectedCountry"
-                            value={userData.userCountry}
-                            onChange={(e) => setUserData({ ...userData, userCountry: e.target.value })}
-                            className="inputbox-full mb-5"
-                            placeholder="Country"
-                            
-                        />
-                    </div>
-                    <div className='mt-10 border-b'>
-                        <div className='flex justify-between'>
-                            <p className='font-bold mb-3'>State</p>
-                            <button className='font-bold'>Edit</button>
-                        </div>
-                        <input
-                            type="text"
-                            name="userState"
-                            id="userState"
-                            value={userData.userState}
-                            onChange={(e) => setUserData({ ...userData, userState: e.target.value })}
-                            className="inputbox-full mb-5"
-                            placeholder="State"
-                            
-                        />
-                    </div>
-                    <div className='mt-10 border-b'>
-                        <div className='flex justify-between'>
-                            <p className='font-bold mb-3'>City</p>
-                            <button className='font-bold'>Edit</button>
-                        </div>
-                        <input
-                            type="text"
-                            name="userCity"
-                            id="userCity"
-                            value={userData.userCity}
-                            onChange={(e) => setUserData({ ...userData, userCity: e.target.value })}
-                            className="inputbox-full mb-5"
-                            placeholder="City"
-                            
-                        />
-                    </div>
-                    <div className='mt-10 border-b'>
-                        <div className='flex justify-between'>
-                            <p className='font-bold mb-3'>Street</p>
-                            <button className='font-bold'>Edit</button>
-                        </div>
-                        <input
-                            type="text"
-                            name="userStreet"
-                            id="userStreet"
-                            value={userData.userStreet}
-                            onChange={(e) => setUserData({ ...userData, userStreet: e.target.value })}
-                            className="inputbox-full mb-5"
-                            placeholder="Street"
-                            
-                        />
-                    </div>
-                    
-                </section>
-            )
-        }
-
-    function Login(){
-        return (
-            <section className='max-w-[40rem]'>
-                <div className=''>
-                    <h1 className='font-bold mt-10 text-xl'>Documents</h1>
-
-                    <section className='max-w-[40rem]'>
-                        <div className='mt-10 border-b'>
-                            <div className='flex justify-between'>
-                                <p className='font-bold mb-3'>ID NUMBER</p>
-                                <button className='font-bold'>Update</button>
-                            </div>
-                            <input
-                            type="text"
-                            name="userIdentityNumber"
-                            id="userIdentityNumber"
-                            value={userData.userIdentityNumber}
-                            onChange={(e) => setUserData({ ...userData, userIdentityNumber: e.target.value })}
-                            className="inputbox-full mb-5"
-                            placeholder="Enter the number"
-                            autoFocus
-                        />
-                        </div>
-
-                        <div className='mt-10 border-b'>
-                            <div className='flex justify-between'>
-                                <p className='font-bold mb-3'>ID IMAGE</p>
-                                <button className='font-bold'>Update</button>
-                            </div>
-                            <div
-                                className="h-96 w-96 border-dashed border-2 border-gray-400 flex justify-center items-center"
-                                onDrop={handleDrop}
-                                onDragOver={handleDragOver}
-                                onClick={handleImageClic}
-                            >
-                                {prevImage ? (
-                                    <img src={prevImage} alt="Preview" />
-                                ) : (
-                                    <p>Drag and drop an image here</p>
-                                )}
-                            </div>
-                        </div>
-                        
-                    </section>
-                </div>
-
-            </section>
-        )
-    }
-
-    
-
-    useEffect(() => {
-        setActiveTab(tabs[0].id);
-      }, []);
+useEffect(() => {
+    setActiveTab("personal");
+  }, []);
 
 
     const tabs = [
@@ -448,6 +252,7 @@ function handleDrop(event) {
   return (
     <div className='font-sora'>
         <HostHeader />
+                        
         <main className='max-w-[66rem] w-full mx-auto mt-10'>
             <div className='flex justify-between items-center'>
                 <h1 className='font-bold text-2xl'>Account Settings</h1>
@@ -490,7 +295,7 @@ function handleDrop(event) {
                 </div>
 
                 <div className='mt-10 max-w-[40rem] ml-5'>
-                    <div className="flex mb-5">
+                    {/* <div className="flex mb-5">
                         {tabs.map((tab, index) => (
                         <button
                             key={tab.id}
@@ -505,7 +310,210 @@ function handleDrop(event) {
                     {activeTab === 'personalinfo' && <PersonalInfo />}
                     {activeTab === 'login' && <Login />}
             
+                </div> */}
+                <div>
+      <div className="flex mb-4">
+        <button
+          className={`px-4 py-2 rounded-l ${
+            activeTab === "personal" ? "bg-gray-300" : "bg-gray-100"
+          }`}
+          onClick={() => setActiveTab("personal")}
+        >
+          Personal Info
+        </button>
+        <button
+          className={`px-4 py-2 rounded-r ${
+            activeTab === "document" ? "bg-gray-300" : "bg-gray-100"
+          }`}
+          onClick={() => setActiveTab("document")}
+        >
+          Documents
+        </button>
+      </div>
+      {activeTab === "personal" && (
+        <section className='max-w-[40rem]'>
+        <div className='mt-10 border-b'>
+            <div className='flex justify-between'>
+                <p className='font-bold mb-3'>First Name</p>
+                <button className='font-bold'>Edit</button>
+            </div>
+            <input
+                type="text"
+                name="userFirstName"
+                id="userFirstName"
+                value={userData.userFirstName}
+                onChange={(e) => setUserData({ ...userData, userFirstName: e.target.value })}
+                className="inputbox-full mb-5"
+                placeholder="First Name"
+                
+            />
+           
+        </div>
+        <div className='mt-10 border-b'>
+            <div className='flex justify-between'>
+                <p className='font-bold mb-3'>Last Name</p>
+                <button className='font-bold'>Edit</button>
+            </div>
+            <input
+                type="text"
+                name="userLastName"
+                id="userLastName"
+                value={userData.userLastName}
+                onChange={(e) => setUserData({ ...userData, userLastName: e.target.value })}
+                className="inputbox-full mb-5"
+                placeholder="Last Name"
+
+                
+            />
+        </div>
+        <div className='mt-10 border-b'>
+            <div className='flex justify-between'>
+                <p className='font-bold mb-3'>Email</p>
+                <button className='font-bold'>Edit</button>
+            </div>
+            <input
+                type="email"
+                name="userEmail"
+                id="userEmail"
+                value={userData.userEmail}
+                onChange={(e) => setUserData({ ...userData, userEmail: e.target.value })}
+                className="inputbox-full mb-5"
+                placeholder="Email Address"
+                
+            />
+        </div>
+        <div className='mt-10 border-b'>
+            <div className='flex justify-between'>
+                <p className='font-bold mb-3'>Date of Birth</p>
+                <button className='font-bold'>Edit</button>
+            </div>
+            <DatePicker
+                className="inputbox-full mb-5"
+                selected={userData.userDateOfBirth}
+                onChange={(date) => setUserData({ ...userData, userDateOfBirth: date })}
+                dateFormat="dd/MM/yyyy"
+                maxDate={new Date()}
+                showYearDropdown
+                scrollableYearDropdown
+                yearDropdownItemNumber={100}
+                placeholderText="Select Date of Birth"
+            />
+
+        </div>
+        <div className='mt-10 border-b'>
+            <div className='flex justify-between'>
+                <p className='font-bold mb-3'>Phone Number</p>
+                <button className='font-bold'>Edit</button>
+            </div>
+            <input
+                type="text"
+                name="userPhoneNumber"
+                id="userPhoneNumber"
+                value={userData.userPhoneNumber}
+                onChange={(e) => setUserData({ ...userData, userPhoneNumber: e.target.value })}
+                className="inputbox-full mb-5"
+                placeholder="Phone Number"
+                
+            />
+        </div>
+        <div className='mt-10 border-b'>
+            <div className='flex justify-between'>
+                <p className='font-bold mb-3'>Country</p>
+                <button className='font-bold'>Edit</button>
+            </div>
+            <input
+                type="text"
+                name="selectedCountry"
+                id="selectedCountry"
+                value={userData.userCountry}
+                onChange={(e) => setUserData({ ...userData, userCountry: e.target.value })}
+                className="inputbox-full mb-5"
+                placeholder="Country"
+                
+            />
+        </div>
+        <div className='mt-10 border-b'>
+            <div className='flex justify-between'>
+                <p className='font-bold mb-3'>State</p>
+                <button className='font-bold'>Edit</button>
+            </div>
+            <input
+                type="text"
+                name="userState"
+                id="userState"
+                value={userData.userState}
+                onChange={(e) => setUserData({ ...userData, userState: e.target.value })}
+                className="inputbox-full mb-5"
+                placeholder="State"
+                
+            />
+        </div>
+        <div className='mt-10 border-b'>
+            <div className='flex justify-between'>
+                <p className='font-bold mb-3'>City</p>
+                <button className='font-bold'>Edit</button>
+            </div>
+            <input
+                type="text"
+                name="userCity"
+                id="userCity"
+                value={userData.userCity}
+                onChange={(e) => setUserData({ ...userData, userCity: e.target.value })}
+                className="inputbox-full mb-5"
+                placeholder="City"
+                
+            />
+        </div>
+        <div className='mt-10 border-b'>
+            <div className='flex justify-between'>
+                <p className='font-bold mb-3'>Street</p>
+                <button className='font-bold'>Edit</button>
+            </div>
+            <input
+                type="text"
+                name="userStreet"
+                id="userStreet"
+                value={userData.userStreet}
+                onChange={(e) => setUserData({ ...userData, userStreet: e.target.value })}
+                className="inputbox-full mb-5"
+                placeholder="Street"
+                
+            />
+        </div>
+        
+    </section>
+      )}
+      {activeTab === "document" && (
+        <section className='max-w-[40rem]'>
+        <div className=''>
+            <h1 className='font-bold mt-10 text-xl'>Documents</h1>
+
+            <section className='max-w-[40rem]'>
+                <div className='mt-10 border-b'>
+                    <div className='flex justify-between'>
+                        <p className='font-bold mb-3'>ID NUMBER</p>
+                        <button className='font-bold'>Update</button>
+                    </div>
+                    <input
+                    type="text"
+                    name="userIdentityNumber"
+                    id="userIdentityNumber"
+                    value={userData.userIdentityNumber}
+                    onChange={(e) => setUserData({ ...userData, userIdentityNumber: e.target.value })}
+                    className="inputbox-full mb-5"
+                    placeholder="Enter the number"
+                    autoFocus
+                />
                 </div>
+
+                
+                
+            </section>
+        </div>
+
+    </section>
+      )}
+    </div>
             </div>
         </div>
 

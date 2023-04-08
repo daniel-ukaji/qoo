@@ -64,6 +64,7 @@ const PageTwelve = ({ prevStep }) => {
       const MoreQuestions = useSelector((state) => state.propertyBookingConditions);
       const Amenities = useSelector((state) => state.propertyAmenities);
       const propertyImages = useSelector((state) => state?.propertyImages);
+      const GuestSpace = useSelector((state) => state?.propertyGuestSpace);
 
       const imageString = propertyImages?.map((image) => image.toString()).join(',');
 
@@ -81,6 +82,10 @@ const PageTwelve = ({ prevStep }) => {
       const uniqueArray = WhatToOffer.filter((item, index, self) => {
         return self.indexOf(item) === index;
       });
+
+      console.log(GuestSpace)
+      console.log(imageString)
+
 
       // console.log(uniqueArray)
 
@@ -153,26 +158,9 @@ const PageTwelve = ({ prevStep }) => {
     debugger;
   });
 
-
-
-      // const response = await PropertyApi.request(data);
-
-      // console.log(response)
-      // if(response.ok) {
-      //   router.push({
-      //     pathname: "/hostSuccess",
-      //   });
-      // }
-
     }
       
-    //   try {
-    //     const response = await axios.post('https://6v50nb72wg.execute-api.us-east-1.amazonaws.com/dev/property/create', data);
-    //     console.log('Form submitted successfully:', response.data);
-    //   } catch (error) {
-    //     console.error('Error submitting form:', error);
-    //   }
-    // };      
+      
 
     const handleSubmit = (event) => {
       event.preventDefault();
@@ -183,8 +171,8 @@ const PageTwelve = ({ prevStep }) => {
 
 
   return (
-    <Layout>
-        <div className="pl-10 p-6 h-screen flex flex-col justify-between">
+    <div className='bg-white font-sora'>
+        <div className="pl-10 p-6 h-screen flex flex-col justify-between max-w-[40rem] mx-auto">
             {/* <!-- Content for the left side --> */}
             <Link href="/" className=''>
               <div className="">
@@ -194,8 +182,9 @@ const PageTwelve = ({ prevStep }) => {
 
 
             <div className="flex flex-col space-y-8">
+            <h1 className='text-4xl font-semibold mb-5'>Just one last step!</h1>
               <div>
-                <h1 className='mb-5 font-bold'>How are you hosting on Qoospayce?</h1>
+                <h1 className='text-xl font-semibold mb-5'>How are you hosting on Qoospayce?</h1>
                 <CheckButtons
                     options={options}
                     selectedOption={selectedOption}
@@ -207,7 +196,7 @@ const PageTwelve = ({ prevStep }) => {
               </div>
                 
                 <div>
-                  <h1 className='mb-5 font-bold'>Does your place have any of these?</h1>
+                  <h1 className='text-xl font-semibold mb-5'>Does your place have any of these?</h1>
                   <CheckButtons
                       options={option2}
                       selectedOption={BookingConditions}
@@ -219,19 +208,7 @@ const PageTwelve = ({ prevStep }) => {
                 </div>
             </div>
 
-            {/* <div className="">
-                <h1>How are you hosting on Qoospayce?</h1>
-                <CheckButtons
-                    options={options}
-                    selectedOption={selectedOption}
-                    setPageSelection={(option) => ({
-                    type: 'SET_PROPERTY_ADDITIONAL_NOTES',
-                    payload: option,
-                    })}
-                />
-            </div> */}
-
-            <div>
+            <div className='flex justify-between'>
             <button
                 className="py-3 px-6 mr-2 mb-2 text-sm font-medium text-black focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200"
                 onClick={handleBackClick}
@@ -254,22 +231,8 @@ const PageTwelve = ({ prevStep }) => {
               {/* )} */}
             </div>
         </div>
-        <div className="flex flex-col justify-between pl-10 p-6 relative bg-gradient-to-b from-[#DB5461] to-[#7B61FF] min-h-screen">
-            {/* <!-- Content for the right side --> */}
-            <div className='h-10 w-10'>
-                <Image src={HostFrame}  />
-            </div>
-
-            <div className='font-sora font-bold mb-36 flex flex-col space-y-5'>
-                <p className='text-3xl text-white'>2.</p>
-                <p className='text-4xl text-white'>Now set your price</p>
-            </div>
-
-            <div>
-
-            </div>
-        </div>
-    </Layout>
+        
+    </div>
   );
 };
 

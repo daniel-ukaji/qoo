@@ -28,8 +28,8 @@ const PageEight = ({ prevStep }) => {
 
 
   return (
-    <Layout>
-        <div className="pl-10 p-6 h-screen flex flex-col justify-between font-sora">
+    <div className='bg-white'>
+        <div className="pl-10 p-6 h-screen flex flex-col justify-between font-sora max-w-[50rem] mx-auto">
             {/* <!-- Content for the left side --> */}
             <Link href="/" className=''>
               <div className="">
@@ -38,8 +38,8 @@ const PageEight = ({ prevStep }) => {
             </Link>
 
             <div className="">
-            <h1 className='font-bold'>Create Your Title</h1>
-            <p className='mb-5 text-gray-500 text-sm'>Your listing should highlight what makes your place special</p>
+            <h1 className='text-4xl font-semibold mb-5'>Now, let's give your apartment a title</h1>
+            <p className='mb-5 text-gray-500 text-lg'>Your listing should highlight what makes your place special</p>
             <TextAreaField
                 label="Create your Title:"
                 placeholder="Name"
@@ -52,7 +52,7 @@ const PageEight = ({ prevStep }) => {
             />
             </div>
 
-            <div>
+            <div className='flex justify-between'>
             <button
                 className="py-3 px-6 mr-2 mb-2 text-sm font-medium text-black focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200"
                 onClick={handleBackClick}
@@ -68,22 +68,8 @@ const PageEight = ({ prevStep }) => {
               </button>
             </div>
         </div>
-        <div className="flex flex-col justify-between pl-10 p-6 relative bg-gradient-to-b from-[#DB5461] to-[#7B61FF] min-h-screen">
-            {/* <!-- Content for the right side --> */}
-            <div className='h-10 w-10'>
-                <Image src={HostFrame}  />
-            </div>
-
-            <div className='font-sora font-bold mb-36 flex flex-col space-y-5'>
-                <p className='text-3xl text-white'>3.</p>
-                <p className='text-4xl text-white'>Let's give your place a name</p>
-            </div>
-
-            <div>
-
-            </div>
-        </div>
-    </Layout>
+        
+    </div>
   );
 };
 

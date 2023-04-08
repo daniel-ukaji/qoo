@@ -28,8 +28,8 @@ const PageNine = ({ prevStep }) => {
 
 
   return (
-    <Layout>
-        <div className="pl-10 p-6 h-screen flex flex-col justify-between font-sora">
+    <div className='bg-white'>
+        <div className="pl-10 p-6 h-screen flex flex-col justify-between font-sora max-w-[50rem] mx-auto">
             {/* <!-- Content for the left side --> */}
             <Link href="/" className=''>
               <div className="">
@@ -38,7 +38,9 @@ const PageNine = ({ prevStep }) => {
             </Link>
 
             <div className="">
-            <h1 className='font-bold mb-5'>Create your Description</h1>
+            <h1 className='text-4xl font-semibold mb-5'>Create your Description</h1>
+            <p className='mb-5 text-gray-500 text-lg'>Share what makes your place special.</p>
+
             <TextAreaField
                 label="Create your Description:"
                 placeholder="Name"
@@ -51,7 +53,7 @@ const PageNine = ({ prevStep }) => {
             />
             </div>
 
-            <div>
+            <div className='flex justify-between'>
             <button
                 className="py-3 px-6 mr-2 mb-2 text-sm font-medium text-black focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200"
                 onClick={handleBackClick}
@@ -67,22 +69,8 @@ const PageNine = ({ prevStep }) => {
               </button>
             </div>
         </div>
-        <div className="flex flex-col justify-between pl-10 p-6 relative bg-gradient-to-b from-[#DB5461] to-[#7B61FF] min-h-screen">
-            {/* <!-- Content for the right side --> */}
-            <div className='h-10 w-10'>
-                <Image src={HostFrame}  />
-            </div>
-
-            <div className='font-sora font-bold mb-36 flex flex-col space-y-5'>
-                <p className='text-3xl text-white'>3.</p>
-                <p className='text-4xl text-white'>Let's give your place a name</p>
-            </div>
-
-            <div>
-
-            </div>
-        </div>
-    </Layout>
+        
+    </div>
   );
 };
 

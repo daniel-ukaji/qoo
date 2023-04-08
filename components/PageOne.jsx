@@ -19,8 +19,9 @@ const PageTest = () => {
   };
 
   return (
-    <Layout>
-        <div className="pl-10 p-6 h-screen flex flex-col justify-between">
+    // <Layout>
+    <div className='bg-white font-sora'>
+        <div className="pl-10 p-6 h-screen flex flex-col justify-between max-w-[50rem] mx-auto">
             {/* <!-- Content for the left side --> */}
             <Link href="/" className=''>
               <div className="">
@@ -29,6 +30,7 @@ const PageTest = () => {
             </Link>
 
             <div className="">
+              <h1 className='text-4xl font-semibold mb-5 max-w-[40rem]'>Which of these best describes your place?</h1>
               <ClickableBox
                 options={options}
                 selectedOption={selectedOption}
@@ -49,22 +51,9 @@ const PageTest = () => {
               </button>
             </div>
         </div>
-        <div className="flex flex-col justify-between pl-10 p-6 relative bg-gradient-to-b from-[#DB5461] to-[#7B61FF] min-h-screen">
-            {/* <!-- Content for the right side --> */}
-            <div className='h-10 w-10'>
-              <Image src={HostFrame}  />
-            </div>
-
-        <div className='font-sora font-bold mb-36'>
-            <p className='text-3xl text-white'>1.</p>
-            <p className='text-4xl text-white'>Which of these best describes your place?</p>
-        </div>
-
-        <div>
-
-        </div>
-        </div>
-    </Layout>
+        
+    {/* </Layout> */}
+    </div>
   );
 };
 

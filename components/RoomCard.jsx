@@ -38,7 +38,7 @@ const RoomCard = ({
           <h1 className="mt-4 mb-1 text-sm font-medium text-gray-900">
             {roomTitle}
           </h1>
-          <h1 className="text-xs font-normal text-secondary text-opacity-80">
+          <h1 className="text-xs font-normal text-secondary text-opacity-80 truncate">
             {roomAddy}
           </h1>
           <div className="flex items-center mt-1 space-x-4 text-sm text-secondary text-opacity-80">

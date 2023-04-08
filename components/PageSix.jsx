@@ -16,18 +16,6 @@ const PageSix = ({ prevStep }) => {
     'Playstation 5', 'Piano', 'Exercise equipment', 'Lake Access', 'Beach Access',
     'Outdoor shower', 'Smoke alarm', 'First aid kit', 'Fire extinguisher', 'Carbon monoxide alarm'
   ];
-
-    // const handleOptionClick = (option) => {
-    //   if (selectedOption.includes(option)) {
-    //     // Remove the option if it's already selected
-    //     const updatedOptions = selectedOption.filter((item) => item !== option);
-    //     dispatch({ type: 'SET_PROPERTY_SERVICES', payload: updatedOptions });
-    //   } else {
-    //     // Add the option if it's not selected yet
-    //     const updatedOptions = [...selectedOption, option];
-    //     dispatch({ type: 'SET_PROPERTY_SERVICES', payload: updatedOptions });
-    //   }
-    // };
     
 
     const handleNextClick = () => {
@@ -41,8 +29,8 @@ const PageSix = ({ prevStep }) => {
     }
 
   return (
-    <Layout className="">
-        <div className="pl-10 p-6  flex flex-col justify-between">
+    <div className="bg-white">
+        <div className="pl-10 p-6  flex flex-col justify-between max-w-[50rem] mx-auto">
             {/* <!-- Content for the left side --> */}
             <Link href="/" className=''>
               <div className="">
@@ -51,6 +39,7 @@ const PageSix = ({ prevStep }) => {
             </Link>
 
             <div className="">
+              <h1 className='text-4xl font-semibold mt-5  mb-5  text-black'>Tell guests what your place has to offer</h1>
             <ClickableMultipleBox
                 options={options}
                 selectedOption={selectedOption}
@@ -66,7 +55,7 @@ const PageSix = ({ prevStep }) => {
             /> */}
             </div>
 
-            <div className='mt-3'>
+            <div className='mt-3 flex justify-between items-center'>
             <button
                 className="py-3 px-6 mr-2 mb-2 text-sm font-medium text-black focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200"
                 onClick={handleBackClick}
@@ -82,22 +71,8 @@ const PageSix = ({ prevStep }) => {
               </button>
             </div>
         </div>
-        <div className="flex flex-col justify-between pl-10 p-6 relative bg-gradient-to-b from-[#DB5461] to-[#7B61FF] h-screen">
-            {/* <!-- Content for the right side --> */}
-            <div className='h-10 w-10'>
-                <Image src={HostFrame}  />
-            </div>
-
-            <div className='font-sora font-bold mb-36 flex flex-col space-y-5'>
-                <p className='text-3xl text-white'>1.</p>
-                <p className='text-4xl text-white'>Tell guest what your place has to offer</p>
-            </div>
-
-            <div>
-
-            </div>
-        </div>
-    </Layout>
+        
+    </div>
   );
 };
 

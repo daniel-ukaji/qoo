@@ -10,7 +10,10 @@ const PageTen = ({ prevStep }) => {
     const dispatch = useDispatch();
     const selectedOption = useSelector((state) => state.page10Selection);
 
-    const options = ['QooSpayce Guests', 'Any Guests'];
+    const options = [
+                      {label: 'QooSpayce Guests', additionalText: ''},
+                      {label: 'Any Guests', additionalText: 'Get reservations faster when you welcome anyone from the Qoospayce community.'}
+                    ]; 
 
     const handleNextClick = () => {
         if (!selectedOption) return; // Do not proceed if no option is selected
@@ -23,8 +26,8 @@ const PageTen = ({ prevStep }) => {
     }
 
   return (
-    <Layout>
-        <div className="pl-10 p-6 h-screen flex flex-col justify-between">
+    <div className='bg-white'>
+        <div className="pl-10 p-6 h-screen flex flex-col justify-between max-w-[50rem] mx-auto">
             {/* <!-- Content for the left side --> */}
             <Link href="/" className=''>
               <div className="">
@@ -43,7 +46,7 @@ const PageTen = ({ prevStep }) => {
             />
             </div>
 
-            <div>
+            <div className='flex justify-between items-center'>
             <button
                 className="py-3 px-6 mr-2 mb-2 text-sm font-medium text-black focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200"
                 onClick={handleBackClick}
@@ -59,22 +62,8 @@ const PageTen = ({ prevStep }) => {
               </button>
             </div>
         </div>
-        <div className="flex flex-col justify-between pl-10 p-6 relative bg-gradient-to-b from-[#DB5461] to-[#7B61FF] min-h-screen">
-            {/* <!-- Content for the right side --> */}
-            <div className='h-10 w-10'>
-                <Image src={HostFrame}  />
-            </div>
-
-            <div className='font-sora font-bold mb-36 flex flex-col space-y-5'>
-                <p className='text-3xl text-white'>1.</p>
-                <p className='text-4xl text-white'>Choose who to welcome to your first reservation</p>
-            </div>
-
-            <div>
-
-            </div>
-        </div>
-    </Layout>
+        
+    </div>
   );
 };
 

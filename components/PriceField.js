@@ -12,7 +12,7 @@ const PriceField = ({ inputValue, setPageInput }) => {
       <input
         type="text"
         id="inputField"
-        className="text-center bg-transparent border border-gray-300 focus:outline-none text-gray-900 text-sm rounded-lg  block max-w-xl p-3   dark:placeholder-gray-400 dark:text-white"
+        className="text-center text-3xl border-2 outline-none bg-white border-[#EAECF0] rounded-lg py-2 px-4 block w-96 h-20 appearance-none leading-normal"
         value={inputValue}
         onChange={handleInputChange}
       />

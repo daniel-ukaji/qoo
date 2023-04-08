@@ -213,35 +213,6 @@ const hideOnClickOutside = (e) => {
 
     const totalPrice = property.propertyBookingPrice * finalDate
     const finalPrice = totalPrice + (totalPrice * 7 / 100)
-  // const [totalPrice, setTotalPrice] = useState(property.propertyBookingPrice * finalDate);
-
-//   const checkInDate = new Date(property.propertyBookedDates[8].checkInDate);
-//   const checkOutDate = new Date(property.propertyBookedDates[8].checkOutDate);
-//   const rangeOfDates = [];
-
-//   console.log(checkInDate)
-
-//   let currentDate = checkInDate;
-// while (currentDate <= checkOutDate) {
-//   rangeOfDates.push(new Date(currentDate));
-//   currentDate.setDate(currentDate.getDate() + 1);
-// }
-
-// const formattedDates = rangeOfDates.map(date => {
-//   const isoString = date.toISOString();
-//   const formattedString = isoString.replace("T", " ").replace("Z", "");
-//   return formattedString;
-// });
-
-// console.log(formattedDates[0])
-
-// console.log(date)
-
-// console.log(rangeOfDates)
-
-// console.log(property.propertyBookedDates.checkInDate)
-
-// console.log(property.propertyBookedDates)
 
 const propertyBookedDates = property.propertyBookedDates;
 
@@ -264,77 +235,12 @@ const formattedDates = allDates.map(date => {
 });
 
 console.log(formattedDates);
-
-  // console.log(property.propertyBookedDates)
-  // console.log(property.propertyBookedDates[8].checkInDate)
-  // console.log(property.propertyBookedDates[8].checkOutDate)
-
-    
-  // const checkInDate = new Date(property.propertyBookedDates[8].checkInDate);
-  // const checkOutDate = new Date(property.propertyBookedDates[8].checkOutDate);
-  // const rangeOfDates = [];
-  
-  // let currentDate = checkInDate;
-  // while (currentDate <= checkOutDate) {
-  //   rangeOfDates.push(new Date(currentDate));
-  //   currentDate.setDate(currentDate.getDate() + 1);
-  // }
-  
-  // const disabledDates = rangeOfDates.map(date => {
-  //   const year = date.getFullYear();
-  //   const month = date.getMonth();
-  //   const day = date.getDate();
-  //   return new Date(year, month, day);
-  // });
-  
-  // const isDateDisabled = (date) => {
-  //   // check if the date is in the disabledDates array
-  //   return disabledDates.some(disabledDate => {
-  //     return date.getTime() === disabledDate.getTime();
-  //   });
-  // };
-
-  // const formattedDisabledDates = disabledDates.map(date => {
-  //   const isoString = date.toISOString();
-  //   const formattedString = isoString.substring(0, 10);
-  //   return formattedString;
-  // });
-
-  // console.log(formattedDisabledDates)
-
-// console.log(formattedDates);
-
-// const isDateDisabled = (date) => {
-//   // check if the date is in the disabledDates array
-//   return formattedDates.some(formattedDates => {
-//     return date.getTime() === formattedDates.getTime();
-//   });
-// };
-
-
-// console.log(rangeOfDates);
-
-
-
-    
     
     const {
       addToBooking,
       resetBooking,
       booking
     } = useContext(GlobalContext)
-
-    // useEffect(() => {
-    //   return () => {
-    //     addToBooking([]); // Reset booking state when unmounting
-    //   };
-    // }, []);
-
-    // const addToBook = (property) => {
-    //   if (!booking.some((p) => p.propertyId === property.propertyId)) {
-    //     addToBooking((prevBooking) => [...prevBooking, property]);
-    //   }
-    // };
 
     let storedBooking = booking.find(o => o.propertyId === property.propertyId)
 
@@ -347,18 +253,17 @@ console.log(formattedDates);
       <div className="font-sora">
         <Header />
         <section className="mx-auto mb-14 max-w-[90rem] px-10">
-          <button
+          {/* <button
             onClick={() => Router.back()}
             className="flex items-center px-2 py-3 space-x-3 border border-gray-200 rounded-lg w-fit"
           >
             <BiChevronLeft className="text-gray-900" />
             <h1>Back to home</h1>
-          </button>
+          </button> */}
 
-          <div className="mt-7">
+          <div className="">
             <h1 className="text-2xl font-bold text-gray-800">
-              {property.propertyName} @{property.propertyGPS}{" "}
-              {property.propertyStreet}
+              {property.propertyName}
             </h1>
           </div>
 
@@ -523,37 +428,32 @@ console.log(formattedDates);
                   </div>
                 </div>
 
-                <div className="mt-12 border-b">
-                  <h1 className="mb-4 text-lg font-bold text-gray-800">
+                <div className="mt-8 border-b">
+                  <h1 className="text-lg font-bold text-gray-800">
                     All bills inclusive
                   </h1>
-                  <section className="flex flex-col space-y-20">
-                    <div className="flex space-x-28">
-                      <div className="flex flex-col justify-center items-center space-y-2"><IoBulbOutline className="w-7 h-7 text-primary" /> <h1>Power Supply</h1></div>
-                      <div className="flex flex-col justify-center items-center space-y-2"><HiOutlineSparkles className="w-7 h-7 text-primary" /> <h1>Cleaning Services</h1></div>
-                      <div className="flex flex-col justify-center items-center space-y-2"><MdOutlineWaterDrop className="w-7 h-7 text-primary" /> <h1>Water Supply</h1></div>
-                    </div>
+                    <section className="grid grid-cols-2 gap-4">
+                        <div className="flex flex-col space-y-4"><IoBulbOutline className="w-7 h-7 text-primary" /> <h1>Power Supply</h1></div>
+                        <div className="flex flex-col space-y-4"><HiOutlineSparkles className="w-7 h-7 text-primary" /> <h1>Cleaning</h1></div>
+                        <div className="flex flex-col space-y-4"><MdOutlineWaterDrop className="w-7 h-7 text-primary" /> <h1>Water Supply</h1></div>
 
-                    <div className="flex space-x-28">
-                      <div className="flex flex-col justify-center items-center space-y-2"><BsHeadset className="w-7 h-7 text-primary" /> <h1>24-hours Support</h1></div>
-                      <div className="flex flex-col justify-center items-center space-y-2"><RiGasStationFill className="w-7 h-7 text-primary" /><h1>Gas Supply</h1></div>
-                      <div className="flex flex-col justify-center items-center space-y-2"><GiNuclearWaste className="w-7 h-7 text-primary" /> <h1>Waste management</h1></div>
-                    </div>
+                        <div className="flex flex-col space-y-4"><BsHeadset className="w-7 h-7 text-primary" /> <h1>24-hours Support</h1></div>
+                        <div className="flex flex-col space-y-4"><RiGasStationFill className="w-7 h-7 text-primary" /><h1>Gas Supply</h1></div>
+                        <div className="flex flex-col space-y-4"><GiNuclearWaste className="w-7 h-7 text-primary" /> <h1>Waste management</h1></div>
 
-                    <div className="flex space-x-28">
-                      <div className="flex flex-col justify-center items-center space-y-2"><BsHouseDoor className="w-7 h-7 text-primary" /> <h1>Estate dues</h1></div>
-                      <div className="flex flex-col justify-center items-center space-y-2"><GiUmbrella className="w-7 h-7 ml-10 text-primary" /> <h1 className="ml-10">Amenities</h1></div>
-                    </div>
+                        <div className="flex flex-col space-y-4"><BsHouseDoor className="w-7 h-7 text-primary" /> <h1>Estate dues</h1></div>
+                        <div className="flex flex-col space-y-4"><GiUmbrella className="w-7 h-7 text-primary" /> <h1>Amenities</h1></div>
 
-                  </section>
+                    </section>
                   
                 </div>
 
-                <div className="mt-12 border-b">
-                  <h1 className="mb-4 text-lg font-bold text-gray-800">
+                <div className="border-b">
+                
+                  <section className="flex flex-col ">
+                  <h1 className="text-lg  mb-4 font-bold text-gray-800">
                     Amenities
                   </h1>
-                  <section className="flex flex-col space-y-10">
                     {/* {property.propertyServices} */}
                     <div className="grid grid-cols-2 gap-4">
                     {property.propertyServices?.split(",").map((item) => { 
@@ -569,16 +469,17 @@ console.log(formattedDates);
                     <button onClick={() => {
                         setModalActive(true);
                         addToBooking(property);
-                      }} className="text-primary flex items-start underline">See all</button>
+                      }} className="text-primary mt-5 flex items-start underline">See all</button>
 
                   </section>
                 </div>
 
-                <div className="mt-12 border-b">
-                  <h1 className="mb-4 text-lg font-bold text-gray-800">
+                <div className="border-b">
+                  
+                  <section className="flex flex-col space-y-6">
+                  <h1 className="text-lg font-bold text-gray-800">
                     Booking Conditions
                   </h1>
-                  <section className="flex flex-col space-y-10">
                     <div className="grid grid-cols-2 gap-4">
                       <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1>No smoking</h1></div>
                       <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1>No parties or events</h1></div>
@@ -591,11 +492,12 @@ console.log(formattedDates);
                   </section>
                 </div>
 
-                <div className="mt-12 border-b">
-                  <h1 className="mb-4 text-lg font-bold text-gray-800">
-                    Mandatory or Included Services
-                  </h1>
-                  <section className="flex flex-col space-y-10">
+                <div className="border-b">
+                  
+                  <section className="flex flex-col space-y-6">
+                    <h1 className="text-lg font-bold text-gray-800">
+                      Mandatory or Included Services
+                    </h1>
                     <div className="grid grid-cols-2 gap-4">
                       <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1>Final CLeaning: Included</h1></div>
                       <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1>Internet Access: Included</h1></div>
@@ -608,11 +510,12 @@ console.log(formattedDates);
                   </section>
                 </div>
 
-                <div className="mt-12 border-b">
-                  <h1 className="mb-4 text-lg font-bold text-gray-800">
-                    Optional Services
-                  </h1>
-                  <section className="flex flex-col space-y-10">
+                <div className="border-b">
+                  
+                  <section className="flex flex-col space-y-6">
+                    <h1 className="text-lg font-bold text-gray-800">
+                      Optional Services
+                    </h1>
                     <div className="grid grid-cols-2 gap-4">
                       <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1>Early Check in/Late check Out: NGN10,000.00 /booking</h1></div>
                       <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1>Open-air parking: Included</h1></div>
@@ -766,7 +669,7 @@ console.log(formattedDates);
                 </div> */}
               </div>
 
-              <div className="flex flex-col w-2/3">
+              <div className="flex flex-col w-2/3 bg-gray-100  rounded-md border-black drop-shadow-xl">
                 {/* Card-booking */}
                 <div className="self-end p-6 border border-gray-200 rounded-lg w-full">
                   <div className="flex items-center justify-between">
@@ -790,11 +693,11 @@ console.log(formattedDates);
                   <div className='flex items-center justify-between relative'>
                     <div >
                       <p className="font-bold text-black mb-1">Check In</p>
-                      <div className='flex w-[8.184rem] items-center justify-between rounded-lg border border-gray-200 py-3 px-4'>
+                      <div className='flex w-[8.184rem] items-center justify-between rounded-lg border border-black py-3 px-4'>
                         <input 
                           value={ `${format(new Date(startDate), "MM/dd/yyyy")}` }
                           placeholder='Check-in'
-                          className='w-full outline-none bg-transparent' 
+                          className='w-full outline-none bg-transparent text-black' 
                           onClick={() => setOpen(open => !open)}
                           />
                         <BiChevronDown className='w-4 h-5 text-black' />
@@ -802,11 +705,11 @@ console.log(formattedDates);
                     </div>
                     <div>
                       <p className="font-bold text-black mb-1">Check Out</p>
-                      <div className='flex w-[8.184rem] items-center justify-between rounded-lg border border-gray-200 py-3 px-4'>
+                      <div className='flex w-[8.184rem] items-center justify-between rounded-lg border border-black py-3 px-4'>
                         <input 
                             value={ `${format(new Date(endDate), "MM/dd/yyyy")}` }
                             placeholder='Check-out'
-                            className='w-full outline-none bg-transparent'
+                            className='w-full outline-none bg-transparent text-black'
                             onClick={() => setOpen(open => !open)}
                             />
                           <BiChevronDown className='w-4 h-5 text-black' />
@@ -843,7 +746,7 @@ console.log(formattedDates);
                     <BiChevronDown className='w-4 h-5 text-black' />
                   </div> */}
 
-                  <div className="flex items-center justify-center border rounded-md">
+                  <div className="flex items-center justify-center border border-black rounded-md">
       <div className="relative w-full" ref={dropdownRef}>
         <button
           className=" text-gray-700 font-semibold py-4 px-4 w-full rounded inline-flex items-center"
@@ -916,13 +819,13 @@ console.log(formattedDates);
     }
   }}
 >
-  {!authLevel.user ? "Sign in to Book" : "Book Now"}
+  {!authLevel.user ? "Sign in to Book" : "Reserve"}
 </button>
 
 
                   
 
-                  <div className="my-4 border-t border-t-gray-200">
+                  <div className="my-4 border-t border-t-black">
 
                   <div className="">
                   {selectedDateRange ? (
@@ -944,7 +847,7 @@ console.log(formattedDates);
                   </div>
                   </div>
                   {/* <Load /> */}
-                  <div className="flex border-t justify-between items-center mt-5">
+                  <div className="flex border-t border-t-black justify-between items-center mt-5">
                     <Link href="mailto:qoospayce@gmail.com"><div className="cursor-pointer flex flex-col justify-center items-center space-y-2 mt-3"><AiOutlineMail className="text-2xl" /> <p className="text-xs">Contact</p></div></Link>
                     <Link href={`https://api.whatsapp.com/send?phone=+2349115015468&text=${encodedMessage}`}><div className="cursor-pointer flex flex-col justify-center items-center space-y-2 mt-3"><AiOutlineWhatsApp className="text-2xl" /><p className="text-xs">WhatsApp</p></div></Link>
                     <div className="cursor-pointer flex flex-col justify-center items-center space-y-2 mt-3"><AiOutlinePhone className="text-2xl" /> <p className="text-xs">+234-9122877657</p></div>

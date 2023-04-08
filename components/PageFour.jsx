@@ -33,8 +33,8 @@ const PageTestFour = ({ prevStep }) => {
     }
 
   return (
-    <Layout>
-        <div className="pl-10 p-6 h-screen flex flex-col justify-between">
+    <div className='bg-white'>
+        <div className="pl-10 p-6 h-screen flex flex-col justify-between max-w-[40rem] mx-auto">
             {/* <!-- Content for the left side --> */}
             <Link href="/" className=''>
               <div className="">
@@ -43,6 +43,7 @@ const PageTestFour = ({ prevStep }) => {
             </Link>
 
             <div className="flex flex-col mt-4 space-y-3 text-sm font-medium text-secondary">
+              <h1 className='text-3xl font-bold mb-5'>Share some basics about your place</h1>
             <h1 className='font-bold mb-3'>Room & Bathroom</h1>
             <h1>Bedrooms</h1>
             <ClickableCircle
@@ -74,7 +75,7 @@ const PageTestFour = ({ prevStep }) => {
             />
             </div>
 
-            <div className='mt-6'>
+            <div className='mt-6 flex justify-between items-center'>
             <button
                 className="py-3 px-6 mr-2 mb-2 text-sm font-medium text-black focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200"
                 onClick={handleBackClick}
@@ -90,23 +91,8 @@ const PageTestFour = ({ prevStep }) => {
               </button>
             </div>
         </div>
-        <div className="flex flex-col justify-between pl-10 p-6 relative bg-gradient-to-b from-[#DB5461] to-[#7B61FF] min-h-screen">
-            {/* <!-- Content for the right side --> */}
-            <div className='h-10 w-10'>
-                <Image src={HostFrame}  />
-            </div>
-
-            <div className='font-sora mb-36 space-y-5'>
-                <p className='text-3xl text-white font-bold mb-10'>4.</p>
-                <p className='text-4xl text-white font-bold'>Confirm your address</p>
-                <p className='text-md text-white'>We will send your address to guests only when they've made reservations</p>
-            </div>
-
-            <div>
-
-            </div>
-        </div>
-    </Layout>
+        
+    </div>
   );
 };
 

@@ -10,7 +10,11 @@ const PageTwo = ({ prevStep }) => {
     const dispatch = useDispatch();
     const selectedOption = useSelector((state) => state.propertyGuestSpace);
   
-    const options = ['Entire Place', 'Private room', 'Shared room'];
+    const options = [
+      { label: 'Entire Place', additionalText: 'Guests have the whole place to themselves' },
+      { label: 'Private room', additionalText: 'Guests sleep in a private room but areas may be shared with you or others.' },
+      { label: 'Shared room', additionalText: 'Guests sleep in a room or common area that may be shared with you or others.' }
+    ];
   
     const handleNextClick = () => {
       if (!selectedOption) return; // Do not proceed if no option is selected
@@ -25,8 +29,8 @@ const PageTwo = ({ prevStep }) => {
     
 
   return (
-    <Layout>
-        <div className="pl-10 p-6 h-screen flex flex-col justify-between">
+    <div className='bg-white font-sora'>
+        <div className="pl-10 p-6 h-screen flex flex-col justify-between max-w-[50rem] mx-auto">
             {/* <!-- Content for the left side --> */}
             <Link href="/" className=''>
               <div className="">
@@ -35,6 +39,7 @@ const PageTwo = ({ prevStep }) => {
             </Link>
 
             <div className="flex flex-col space-y-3">
+              <h1 className='text-4xl font-semibold mb-5 max-w-[40rem] text-black'>What type of place will guests have?</h1>
                 <RadioButtons
                     options={options}
                     selectedOption={selectedOption}
@@ -46,7 +51,7 @@ const PageTwo = ({ prevStep }) => {
                 />
             </div>
 
-            <div>
+            <div className='flex justify-between items-center'>
             <button
                 className="py-3 px-6 mr-2 mb-2 text-sm font-medium text-black focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200"
                 onClick={handleBackClick}
@@ -62,23 +67,8 @@ const PageTwo = ({ prevStep }) => {
               </button>
             </div>
         </div>
-        <div className="flex flex-col justify-between pl-10 p-6 relative bg-gradient-to-b from-[#DB5461] to-[#7B61FF] min-h-screen">
-            {/* <!-- Content for the right side --> */}
-            <div className='h-10 w-10'>
-                <Image src={HostFrame}  />
-            </div>
-
-            <div className='font-sora mb-36 space-y-5'>
-                <p className='text-3xl text-white font-bold mb-10'>4.</p>
-                <p className='text-4xl text-white font-bold'>What type of place will guests have?</p>
-                {/* <p className='text-md text-white'>We will send your address to guests only when they've made reservations</p> */}
-            </div>
-
-            <div>
-
-            </div>
-        </div>
-    </Layout>
+        
+    </div>
   );
 };
 
