@@ -4,6 +4,7 @@ import RadioButtons from '../components/RadioButtons';
 import HostFrame from '../public/images/HostFrame.png'
 import Image from 'next/image';
 import Link from 'next/link';
+import logopic from '../public/images/qoo_logo.png';
 
 
 const PageTen = ({ prevStep }) => {
@@ -29,11 +30,11 @@ const PageTen = ({ prevStep }) => {
     <div className='bg-white'>
         <div className="pl-10 p-6 h-screen flex flex-col justify-between max-w-[50rem] mx-auto">
             {/* <!-- Content for the left side --> */}
-            <Link href="/" className=''>
-              <div className="">
-                <button className="py-2 px-5 mr-2 mb-2 text-sm font-medium focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200">Exit</button>
-              </div>
-            </Link>
+            <div className="relative w-14 h-14 cursor-pointer mb-5">
+              <Link href='/'>
+                <Image src={logopic} layout='fill' objectFit='cover' />
+              </Link>
+            </div>
 
             <div className="">
             <RadioButtons

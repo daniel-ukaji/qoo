@@ -10,7 +10,7 @@ const RadioButtons = ({ options, selectedOption, setPageSelection }) => {
   return (
     <div className="flex flex-col space-y-6">
       {options.map((option) => (
-  <div className='flex mt-5 font-sora items-center pl-4 pt-2 pb-2 rounded border border-black dark:border-gray-700'>
+  <div className='flex mt-2 font-sora items-center pl-4 rounded border border-black dark:border-gray-700'>
     <label
       key={option.label}
       htmlFor={`option-${option.label}`}

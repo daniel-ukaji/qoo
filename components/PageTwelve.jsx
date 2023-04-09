@@ -10,6 +10,8 @@ import Loader from './Loader';
 import { createproperty } from '../utils/api/property/createProperty';
 import { useAuth } from '../utils/hooks/useAuth';
 import Link from 'next/link';
+import logopic from '../public/images/qoo_logo.png';
+
 // import { useHistory } from 'react-router-dom';
 
 
@@ -174,11 +176,11 @@ const PageTwelve = ({ prevStep }) => {
     <div className='bg-white font-sora'>
         <div className="pl-10 p-6 h-screen flex flex-col justify-between max-w-[40rem] mx-auto">
             {/* <!-- Content for the left side --> */}
-            <Link href="/" className=''>
-              <div className="">
-                <button className="py-2 px-5 mr-2 mb-2 text-sm font-medium focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200">Exit</button>
-              </div>
-            </Link>
+            <div className="relative w-14 h-14 cursor-pointer mb-5">
+              <Link href='/'>
+                <Image src={logopic} layout='fill' objectFit='cover' />
+              </Link>
+            </div>
 
 
             <div className="flex flex-col space-y-8">

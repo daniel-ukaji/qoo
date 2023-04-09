@@ -66,8 +66,8 @@ export default function Home() {
       <Header onSearch={setSearchQuery} />
 
 
-      <main className="px-20 mt-8">
-        <div className="flex flex-wrap items-center mt-8 mb-7 gap-x-5 gap-y-10">
+      <main className="px-20 mt-8 max-w-[90rem] mx-auto">
+      <div className="flex flex-wrap items-center mt-8 mb-7 gap-x-5 gap-y-10">
           {isError && <p>{error.message}</p>}
           {loading && <SkeletonCard cards={numItems} />}
           {!loading &&

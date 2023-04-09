@@ -4,6 +4,7 @@ import Layout from '../components/Layout'
 import HostFrame from '../public/images/HostFrame.png'
 import Image from 'next/image';
 import Link from 'next/link';
+import logopic from '../public/images/qoo_logo.png';
 
 
 const PageTestThree = ({ prevStep }) => {
@@ -58,16 +59,16 @@ const PageTestThree = ({ prevStep }) => {
     <div className='bg-white'>
         <div className="pl-10 p-6 h-screen flex flex-col justify-between max-w-[40rem] mx-auto">
             {/* <!-- Content for the left side --> */}
-            <Link href="/" className=''>
-              <div className="">
-                <button className="py-2 px-5 mr-2 mb-2 text-sm font-medium focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200">Exit</button>
-              </div>
-            </Link>
-
-            <div className="flex flex-col space-y-8">
+          
+            <div className="flex flex-col space-y-3">
+            <div className="relative w-14 h-14 cursor-pointer mb-5">
+              <Link href='/'>
+                <Image src={logopic} layout='fill' objectFit='cover' />
+              </Link>
+            </div>
               <h1 className='text-4xl font-semibold mt-5 max-w-[40rem]'>Where's your place located?</h1>
               <div className='relative'>
-              <label htmlFor="" className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>Street</label>
+              <label htmlFor="" className='block mb-2 mt-3 text-sm font-medium text-gray-900 dark:text-white'>Street</label>
                   <InputField
                     label="Enter your Address:"
                     placeholder="Maloko Close"
@@ -140,23 +141,9 @@ const PageTestThree = ({ prevStep }) => {
                 />
                 
               </div>
-
-              {/* <div className='relative'>
-                <InputField
-                  label="Enter your Address:"
-                  placeholder="Nigeria"
-                  value={propertyImage}
-                  onChange={handleImagesChange}
-                  setPageInput={(option) => ({
-                      type: 'SET_PROPERTY_IMAGE',
-                      payload: option,
-                })}
-                />
-                <label htmlFor="" className='absolute top-0 left-0 bg-white px-2 -mt-3 ml-3 text-gray-600 text-sm'>Images</label>
-              </div> */}
             </div>
 
-            <div className='flex justify-between items-center mt-5'>
+            <div className='flex justify-between items-center'>
             <button
                 className="py-3 px-6 mr-2 mb-2 text-sm font-medium text-black focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200"
                 onClick={handleBackClick}

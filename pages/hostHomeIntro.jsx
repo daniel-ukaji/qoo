@@ -5,7 +5,7 @@ import { useSpring, animated } from '@react-spring/web'
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import hostpic from '../public/images/hostpic.jpg';
-import hostpictwo from '../public/images/hostpictwo.jpg';
+import logopic from '../public/images/qoo_logo.png';
 
 
 const hostHomeIntro = () => {
@@ -20,24 +20,29 @@ const hostHomeIntro = () => {
       <div className={`pl-10 p-6 h-screen flex flex-col justify-between bg-white font-sora`}>
         {/* <!-- Content for the left side --> */}
         
-        <animated.div style={props} className="">
+        {/* <animated.div style={props} className="">
             <button onClick={() => router.push("/")} className="cursor-pointer py-2 px-5 mr-2 mb-2 text-sm font-medium focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200">Exit</button>
+        </animated.div> */}
+        <animated.div style={props} className="relative w-14 h-14 cursor-pointer">
+          <Link href='/'>
+            <Image src={logopic} layout='fill' objectFit='cover' />
+          </Link>
         </animated.div>
-        <animated.div style={props} className="">
+        <animated.div style={props} className="ml-20">
             <h1 className="text-4xl text-black font-medium">It is easy to become a host on Qoospayce</h1>
         </animated.div>
         <animated.div style={props}>
         <Link href="/hostHomeIntroTwo">
-            <button className="py-3 px-6 mr-2 mb-2 text-sm font-medium text-white focus:outline-none bg-[#DB5461] rounded-lg border border-gray-200">
+            <button className=" py-3 px-6 mr-2 mb-2 text-sm font-medium text-white focus:outline-none bg-[#DB5461] rounded-lg border border-gray-200">
                 <a>Proceed</a>
             </button>
             </Link>
         </animated.div>
       </div>
-      <div className="flex flex-col bg-white justify-between items-center h-screen">
+      <div className="flex flex-col bg-white justify-center items-center h-screen">
         {/* <!-- Content for the right side --> */} 
         <div className='flex border-b pb-5 items-center justify-between max-w-2xl mx-auto'>
-            <div>
+            <div className=''>
               <h1 className='font-medium text-3xl mb-3'>1  Tell us about your place</h1>
               <p className='text-xl w-96 text-gray-500'>Share some basic info, like where it is and how many guests can stay.</p>
             </div>
@@ -65,8 +70,18 @@ const hostHomeIntro = () => {
               <Image src={hostpic} layout='fill' objectFit='cover' />
             </div>
           </div>
-
+          {/* <animated.div style={props} className="mt-10 flex justify-between border ml-96">
+          
+        <Link href="/hostHomeIntroTwo">
+            <button className="py-3 px-6 mr-2 mb-2 text-sm font-medium text-white focus:outline-none bg-[#DB5461] rounded-lg border border-gray-200">
+                <a>Proceed</a>
+            </button>
+            </Link>
+            
+        </animated.div> */}
+          
       </div>
+      
       
     </Layout>
     
