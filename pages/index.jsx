@@ -90,7 +90,7 @@ export default function Home() {
           <div className="flex justify-center items-center mb-20">
             <button
               onClick={() => {
-                setNumItems(numItems + 8);
+                setNumItems(numItems + 10);
               }}
               className="flex justify-center items-center px-4 py-2 bg-primary text-white rounded-md mt-4"
             >
