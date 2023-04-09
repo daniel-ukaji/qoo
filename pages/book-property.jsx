@@ -339,41 +339,46 @@ const handleClick = () => {
                 height: `calc(100vh - ${navBar}`,
               }}
             >
-              <div className="py-9">
-                <button
+              <div className="">
+                {/* <button
                   // onClick={() => Router.back()}
                   onClick={handleClick}
                   className="flex items-center px-2 py-3 space-x-2 border border-gray-200 rounded-lg w-fit"
                 >
                   <BiChevronLeft className="text-sm font-normal text-gray-900" />
                   <h1>Back to property</h1>
-                </button>
+                </button> */}
                 
                 {booking.map((property) => {
                     return (
                       <div className="mt-6">
                         <h1 className="text-2xl font-bold text-gray-800">
-                          {property.propertyName} @{property.propertyGPS}  {property.propertyStreet}
+                          {property.propertyName}
                         </h1>
                       </div>
                       )
                     })}
-                <div className="flex justify-between mt-2">
-                  <div className="flex self-end space-x-2">
-                    <div className="flex items-center space-x-1">
-                      <FiMapPin className="w-4 h-4 text-primary" />
-                      <h1 className="text-sm font-normal text-secondary">
-                        Ikeja, Lagos
-                      </h1>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                      <FiUser className="w-4 h-4 text-primary" />
-                      <h1 className="text-sm font-normal text-secondary">
-                        JJM Consults
-                      </h1>
+
+                {booking.map((property) => {
+                  return (
+                  <div className="flex justify-between mt-2">
+                    <div className="flex self-end space-x-2">
+                      <div className="flex items-center space-x-1">
+                        <FiMapPin className="w-4 h-4 text-primary" />
+                        <h1 className="text-sm font-normal text-secondary">
+                          {property.propertyStreet}
+                        </h1>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <FiUser className="w-4 h-4 text-primary" />
+                        <h1 className="text-sm font-normal text-secondary">
+                          JJM Consults
+                        </h1>
+                      </div>
                     </div>
                   </div>
-                </div>
+                  )
+                })}
               </div>
               {/* {booking.map((property) => {
                 
@@ -388,38 +393,9 @@ const handleClick = () => {
               </div>
               })} */}
 
-              <div className="flex flex-col mt-11">
-              <div className="mt-5 border-b">
-                  <h1 className="mb-4 text-lg font-bold text-gray-800">
-                    All bills inclusive
-                  </h1>
-                  <section className="flex flex-col space-y-20">
-                    <div className="flex space-x-28">
-                      <div className="flex flex-col justify-center items-center space-y-2"><IoBulbOutline className="w-10 h-10 text-primary" /> <h1>Power Supply</h1></div>
-                      <div className="flex flex-col justify-center items-center space-y-2"><HiOutlineSparkles className="w-10 h-10 text-primary" /> <h1>Cleaning Services</h1></div>
-                      <div className="flex flex-col justify-center items-center space-y-2"><MdOutlineWaterDrop className="w-10 h-10 text-primary" /> <h1>Water Supply</h1></div>
-                    </div>
-
-                    <div className="flex space-x-28">
-                      <div className="flex flex-col justify-center items-center space-y-2"><BsHeadset className="w-10 h-10 text-primary" /> <h1>24-hours Support</h1></div>
-                      <div className="flex flex-col justify-center items-center space-y-2"><RiGasStationFill className="w-10 h-10 text-primary" /><h1>Gas Supply</h1></div>
-                      <div className="flex flex-col justify-center items-center space-y-2"><GiNuclearWaste className="w-10 h-10 text-primary" /> <h1>Waste management</h1></div>
-                    </div>
-
-                    <div className="flex space-x-28">
-                      <div className="flex flex-col justify-center items-center space-y-2"><BsHouseDoor className="w-10 h-10 text-primary" /> <h1>Estate dues</h1></div>
-                      <div className="flex flex-col justify-center items-center space-y-2"><GiUmbrella className="w-10 h-10 ml-10 text-primary" /> <h1 className="ml-10">Amenities</h1></div>
-                    </div>
-
-                  </section>
-                  
-                </div>
-                
-              </div>
-
-              <div className="flex flex-col mt-11">
+              <div className="flex flex-col mt-11 border-b pb-5">
                 <h1 className="text-lg font-bold text-gray-800">
-                  2. Personal details
+                  1. Personal details
                 </h1>
 
                 <div className="flex flex-col mt-4 space-y-6">
@@ -529,6 +505,26 @@ const handleClick = () => {
                   </div>
                 </div>
               </div>
+
+              <div className="mt-5 border-b pb-7">
+                  <h1 className="text-lg font-bold text-gray-800">
+                   2. All bills inclusive
+                  </h1>
+                  <div className="grid grid-cols-2 gap-2 mt-3">
+                        <div className="flex items-center space-x-4  max-w-[80%]"><IoBulbOutline className="w-5 h-5 text-primary" /> <h1 className="text-sm">Power Supply</h1></div>
+                        <div className="flex items-center space-x-4  max-w-[80%]"><HiOutlineSparkles className="w-5 h-5 text-primary" /> <h1 className="text-sm">Cleaning</h1></div>
+                        <div className="flex items-center space-x-4  max-w-[80%]"><MdOutlineWaterDrop className="w-5 h-5 text-primary" /> <h1 className="text-sm">Water Supply</h1></div>
+
+                        <div className="flex items-center space-x-4  max-w-[80%]"><BsHeadset className="w-5 h-5 text-primary" /> <h1 className="text-sm">24-hours Support</h1></div>
+                        <div className="flex items-center space-x-4  max-w-[80%]"><RiGasStationFill className="w-5 h-5 text-primary" /><h1 className="text-sm">Gas Supply</h1></div>
+                        <div className="flex items-center space-x-4  max-w-[80%]"><GiNuclearWaste className="w-5 h-5 text-primary" /> <h1 className="text-sm">Waste management</h1></div>
+
+                        <div className="flex items-center space-x-4  max-w-[80%]"><BsHouseDoor className="w-5 h-5 text-primary" /> <h1 className="text-sm">Estate dues</h1></div>
+                        <div className="flex items-center space-x-4  max-w-[80%]"><GiUmbrella className="w-5 h-5 text-primary" /> <h1 className="text-sm">Amenities</h1></div>
+                  </div>
+                    {/*  */}
+                  
+                </div>
 
               <div className="h-[37.313rem]"></div>
             </div>

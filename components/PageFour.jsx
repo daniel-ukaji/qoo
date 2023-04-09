@@ -33,7 +33,7 @@ const PageTestFour = ({ prevStep }) => {
     }
 
   return (
-    <div className='bg-white'>
+    <div className='bg-white font-sora'>
         <div className="pl-10 p-6 h-screen flex flex-col justify-between max-w-[40rem] mx-auto">
             {/* <!-- Content for the left side --> */}
             <Link href="/" className=''>
@@ -44,7 +44,6 @@ const PageTestFour = ({ prevStep }) => {
 
             <div className="flex flex-col mt-4 space-y-3 text-sm font-medium text-secondary">
               <h1 className='text-3xl font-bold mb-5'>Share some basics about your place</h1>
-            <h1 className='font-bold mb-3'>Room & Bathroom</h1>
             <h1>Bedrooms</h1>
             <ClickableCircle
                 title="Bedrooms"

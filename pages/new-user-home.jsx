@@ -25,7 +25,7 @@ const NewUserHome = () => {
 
       <main className="flex flex-col items-center justify-center w-full mt-10 mb-16">
         <div className="w-[24.438rem] ">
-          <h1 className="text-5xl font-bold text-center text-secondary leading-[3.75rem]">
+          <h1 className="text-4xl font-bold text-center text-secondary leading-[2.75rem]">
             Open your door to hosting
           </h1>
         </div>

@@ -14,7 +14,7 @@ function hostHomeIntroTwo() {
 
   return (
     <Layout>
-      <div className="pl-10 p-6 bg-white h-screen flex flex-col justify-between">
+      <div className="pl-10 p-6 bg-white h-screen flex flex-col justify-between font-sora">
         {/* <!-- Content for the left side --> */}
         <animated.div style={props} className="flex justify-start">
             <button className="py-2 px-5 mr-2 mb-2 text-sm font-medium focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200">Exit</button>
@@ -38,7 +38,7 @@ function hostHomeIntroTwo() {
             </Link>
         </animated.div>
       </div>
-      <div className="flex flex-col bg-white justify-between items-center min-h-screen">
+      <div className="flex flex-col bg-white justify-between items-center min-h-screen font-sora">
         {/* <!-- Content for the right side --> */} 
         <div></div>
         <div className='relative w-[30rem] h-[30rem]'>

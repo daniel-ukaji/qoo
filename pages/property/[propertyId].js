@@ -401,29 +401,29 @@ console.log(formattedDates);
                   <h1 className="mb-4 text-lg font-bold text-gray-800">
                     Property Details
                   </h1>
-                  <div className="flex gap-5 text-sm font-normal text-secondary">
-                    <div className="flex w-[6.875rem] flex-col space-y-3 rounded-lg border border-gray-200 p-3">
+                  <div className="flex justify-between gap-5 text-sm font-normal text-secondary">
+                    <div className="flex w-[6.875rem] flex-col space-y-3 rounded-lg border-gray-200 p-3">
                       <MdSupervisorAccount className="w-4 h-4 text-primary" />
                       <h1>{property.propertyGuestNumber} guests</h1>
                     </div>
 
-                    <div className="flex w-[6.875rem] flex-col space-y-3 rounded-lg border border-gray-200 p-3">
+                    <div className="flex w-[6.875rem] flex-col space-y-3 rounded-lg border-gray-200 p-3">
                       <IoIosBed className="w-4 h-4 text-primary" />
                       <h1>{property.propertyBedroomNumber} bedroom</h1>
                     </div>
 
-                    <div className="flex w-[6.875rem] flex-col space-y-3 rounded-lg border border-gray-200 p-3">
+                    <div className="flex w-[6.875rem] flex-col space-y-3 rounded-lg border-gray-200 p-3">
                       <FaBath className="w-4 h-4 text-primary" />
                       <h1>{property.propertyBathroomNumber} bathroom</h1>
                     </div>
 
-                    <div className="flex w-[6.875rem] flex-col space-y-3 rounded-lg border border-gray-200 p-3">
+                    <div className="flex w-[6.875rem] flex-col space-y-3 rounded-lg border-gray-200 p-3">
                       <FaSpotify className="w-4 h-4 text-primary" />
                       <h1>{property.propertyGuestNumber} guests</h1>
                     </div>
 
-                    <div className="flex w-[6.875rem] flex-col items-center justify-center space-y-3 rounded-lg border border-gray-200 p-3">
-                      <h1>View All</h1>
+                    <div className="flex w-[6.875rem] flex-col items-center justify-center space-y-3 rounded-lg border-gray-200 p-3">
+                      {/* <h1>View All</h1> */}
                     </div>
                   </div>
                 </div>
@@ -497,8 +497,8 @@ console.log(formattedDates);
                       Mandatory or Included Services
                     </h1>
                     <div className="grid grid-cols-2 gap-3">
-                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">Final CLeaning: Included</h1></div>
-                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">Internet Access: Included</h1></div>
+                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">Final cleaning: Included</h1></div>
+                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">Internet access: Included</h1></div>
                     </div>
 
                     <div className="grid">
@@ -515,156 +515,17 @@ console.log(formattedDates);
                       Optional Services
                     </h1>
                     <div className="grid grid-cols-2 gap-3">
-                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">Early Check in/Late check Out: NGN10,000.00 /booking</h1></div>
+                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">Video shoot: NGN100,000.00 /booking</h1></div>
                       <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">Open-air parking: Included</h1></div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-3">
-                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">Video shoot: NGN100,000.00 /booking</h1></div>
-                      {/* <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1>No Inflammables</h1></div> */}
+                    <div className="grid">
+                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">Early check in/Late check Out: NGN10,000.00 /booking</h1></div>
                     </div>
                   </div>
                 </div>
 
-                {/* <div className="mt-12">
-                  <h1 className="mb-4 text-lg font-bold text-gray-800">
-                    Bedroom
-                  </h1>
-                  <div className="flex gap-5 text-sm font-normal text-secondary">
-                  {property.propertyBedroomDescription?.split(",").map((item) => { 
-                     return (
-                      
-                        <div className=" p-2 bg-gray-200 rounded">
-                          {item}
-                        </div> 
-                        
-                      
-                     ) 
-                   })} 
-                  </div>
-                </div> */}
-
-                {/* <div className="mt-12">
-                  <h1 className="mb-4 text-lg font-bold text-gray-800">
-                    General
-                  </h1>
-                  <div className="flex gap-5 text-sm font-normal text-secondary">
-                  {property.propertyGeneral.split(",").map((item) => {
-                    return (
-                      
-                      <div className="p-2 bg-gray-200 rounded">{item}</div>
-                        
-                      
-                    )
-                  })}
-                  </div>
-                </div> */}
-
-                {/* <div className="mt-12">
-                  <h1 className="mb-4 text-lg font-bold text-gray-800">
-                    Mandatory or included services
-                  </h1>
-                  <div className="flex gap-5 text-sm font-normal text-secondary">
-                  {property.propertyMandatory.split(",").map((item) => {
-                    return (
-                      
-                      <div className="p-2 bg-gray-200 rounded">{item}</div>
-                        
-                      
-                    )
-                  })}
-                    
-                  </div>
-                </div> */}
-
-                {/* <div className="mt-12">
-                  <h1 className="mb-4 text-lg font-bold text-gray-800">
-                    Optional services
-                  </h1>
-                  <div className="flex gap-5 text-sm font-normal text-secondary">
-                  {property.propertyOptionalServices.split(",").map((item) => {
-                    return (
-                      
-                      <div className="p-2 bg-gray-200 rounded">{item}</div>
-                        
-                      
-                    )
-                  })}
-                    <div className="p-2 bg-gray-200 rounded">
-                      Video shoot: NGN50,000.00 /booking
-                    </div>
-                  </div>
-                </div> */}
-
-                {/* <div className="mt-12">
-                  <h1 className="mb-4 text-lg font-bold text-gray-800">
-                    Check-in schedule/Check-out schedule
-                  </h1>
-                  <div className="flex gap-5 text-sm font-normal text-secondary">
-                    {property.propertySchedule.split(",").map((item) => {
-                      return (
-                      
-                        <div className="p-2 bg-gray-200 rounded">{item}</div>
-                        
-                      
-                      )
-                    })}
-                    
-                  </div>
-                </div> */}
-
-                {/* <div className="mt-12">
-                  <h1 className="mb-4 text-lg font-bold text-gray-800">
-                    Security Deposit
-                  </h1>
-                  <div className="flex flex-col gap-y-2">
-                    <div className="flex gap-6">
-                      <div className="w-[7.813rem] text-sm font-normal text-secondary">
-                        <h1>Amount:</h1>
-                      </div>
-                      <div className="text-sm font-bold text-secondary">
-                        <h1>{property.propertySecurityDeposit} /booking</h1>
-                      </div>
-                    </div>
-
-                    <div className="flex gap-6">
-                      <div className="w-[7.813rem] text-sm font-normal text-secondary">
-                        <h1>Payment Method:</h1>
-                      </div>
-                      <div className="text-sm font-bold text-secondary">
-                        <h1>Bank transfer</h1>
-                      </div>
-                    </div>
-                  </div>
-                </div> */}
-
-                {/* <div className="mt-12">
-                  <h1 className="mb-4 text-lg font-bold text-gray-800">
-                    Booking Conditions
-                  </h1>
-                  <p className="text-sm font-normal text-secondary">
-                    {property.propertyBookingCondition}
-                  </p>
-                </div> */}
-
-                {/* <div className="mt-12">
-                  <h1 className="mb-4 text-lg font-bold text-gray-800">
-                    Additional notes
-                  </h1>
-                  <div className="flex flex-col gap-2 text-sm font-normal text-secondary">
-                  {property.propertyAdditionalNotes.split(",").map((item) => {
-                      return (
-                      
-                        <p>{`- ${item}`}</p>
-                        
-                      
-                      )
-                    })}
-
-
-                    
-                  </div>
-                </div> */}
+                
               </div>
 
               <div className="flex flex-col w-2/3 bg-gray-100  rounded-md border-black drop-shadow-xl ">
@@ -829,15 +690,17 @@ console.log(formattedDates);
                   {selectedDateRange ? (
                     <div className="flex flex-col mt-5 justify-between text-sm font-bold text-secondary space-y-3 border-t border-t-black">
                       <div className="flex justify-between mt-5">
-                          <h1>Price after tax</h1>
-                          
-                          <h1>₦ {formatter.format(finalPrice)}</h1>
-                        </div>
-                        <div className="flex justify-between">
                           <h1>₦ {property.propertyBookingPrice} × {finalDate} Nights</h1>
                       
                           {/* <h1>₦0 </h1> */}
                         </div>
+                      
+                      <div className="flex justify-between">
+                          <h1>Price after tax</h1>
+                          
+                          <h1>₦ {formatter.format(finalPrice)}</h1>
+                        </div>
+                        
                       </div>
                     ):(
                       null

@@ -29,7 +29,7 @@ const PageSix = ({ prevStep }) => {
     }
 
   return (
-    <div className="bg-white">
+    <div className="bg-white font-sora">
         <div className="pl-10 p-6  flex flex-col justify-between max-w-[50rem] mx-auto">
             {/* <!-- Content for the left side --> */}
             <Link href="/" className=''>
