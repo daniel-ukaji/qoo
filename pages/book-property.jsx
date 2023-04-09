@@ -536,7 +536,7 @@ const handleClick = () => {
             {booking.map((property) => {
               const totalPrice = property.propertyBookingPrice * finalDate
               return (
-              <div className="sticky right-0 flex items-center justify-center w-2/6">
+              <div className="sticky right-0 flex items-center justify-center w-2/6 sticky right-0">
                 <div className="inset-0 p-6 border border-gray-200 rounded-lg">
                   <div className="flex flex-col space-y-2 text-sm font-normal text-secondary">
                     <div className="flex items-center justify-between">
