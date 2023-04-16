@@ -73,7 +73,7 @@ function bookingsEmpty() {
   return (
     <div className="font-sora relative">
       <Header />
-      <div className='px-20 mt-8 pb-3'>
+      <div className='px-5 xl:px-20 mt-8 pb-3'>
         <h5 className='font-Sora text-3xl text-[#162748]'>Bookings</h5>
       </div>
       {noBookings ? (
@@ -86,8 +86,8 @@ function bookingsEmpty() {
           </button>
         </div>
       ) : (
-        <main className="px-20 mt-8">
-          <div className="flex flex-wrap items-center mt-8 mb-7 gap-x-5 gap-y-10">
+        <main className="xl:px-20 mt-8 md:max-w-full md:mx-auto">
+          <div className="flex flex-wrap justify-center items-center mt-8 mb-7 gap-x-5 gap-y-10">
             {bookings.data?.map((booking) => (
               <BookingCard  
                 key={booking.bookingPropertyId}

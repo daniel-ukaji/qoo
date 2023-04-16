@@ -19,17 +19,17 @@ function Wallet() {
     <div className='font-sora'>
         <HostHeader />
         <section className=''>
-            <div className='flex justify-between'>
+            <div className='flex flex-col md:flex-row items-center md:items-right justify-between'>
                 <h1 className='font-bold text-2xl'>Wallet balance</h1>
                 <button className='text-[#DB5461]'>Add payout account</button>
             </div>
-            <div className='flex mt-5'>
-                <div className='border rounded-lg mr-2 w-1/2'>
-                    <h1 className='mt-14 mb-14 ml-4 font-bold text-xl text-gray-500'>₦ {formatter.format(user.user?.userWalletBalance)}</h1>
+            <div className='flex flex-col md:flex-row mt-5 space-y-3 md:space-y-0'>
+                <div className='border rounded-lg mr-2 w-full md:w-1/2'>
+                    <h1 className='mt-14 mb-14 ml-4 font-bold text-center md:text-left text-xl text-gray-500'>₦ {formatter.format(user.user?.userWalletBalance)}</h1>
                 </div>
-                <div className='border rounded-lg p-4 mr-2 w-1/2'>
-                    <p className='mt-5 text-xl'>Guaranty Trust Bank</p>
-                    <p className='mt-3 text-gray-500'>0123456789</p>
+                <div className='border rounded-lg p-4 mr-2 w-full md:w-1/2'>
+                    <p className='mt-5 text-center md:text-left text-xl'>Guaranty Trust Bank</p>
+                    <p className='mt-3 text-center md:text-left text-gray-500'>0123456789</p>
                 </div>
             </div>
             <div className='border rounded-lg p-4 mt-10' >

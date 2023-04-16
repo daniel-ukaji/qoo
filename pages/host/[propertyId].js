@@ -14,6 +14,7 @@ import Image from 'next/image';
 import { useApi } from '../../utils/hooks/useApi';
 import { updateProperty } from '../../utils/api/property/updateProperty';
 import { toast } from 'react-toastify';
+import Head from 'next/head';
 
 const PropertyName = () => {
     const [activeTab, setActiveTab] = useState('listing');
@@ -223,7 +224,7 @@ const router = useRouter();
                   })} */}
               {/* Big Image */}
               
-              <div className="relative w-1/2 h-full">
+              <div className="relative w-full lg:w-1/2 h-full">
                 <Image
                   src={property.propertyImages[0].propertyImageUrl}
                   alt="room image"
@@ -233,7 +234,7 @@ const router = useRouter();
                 />
               </div>
               {/* Sub images */}
-              <div className="flex flex-col justify-between w-1/2 h-full ml-6">
+              <div className="flex hidden lg:flex flex-col justify-between w-1/2 h-full ml-6">
                 <div className="flex justify-between">
                   <div className="relative h-[15.688rem] w-fourty8 ">
                     <Image
@@ -276,8 +277,8 @@ const router = useRouter();
                 </div>
               </div>
             </div>
-            <div className="flex mt-10">
-                <div className="border rounded-lg p-4 mr-2 w-1/2">
+            <div className="flex flex-col space-y-5 md:space-y-0 lg:flex-row mt-10">
+                <div className="border rounded-lg p-4 mr-2 w-full lg:w-1/2">
                     {/* Content for the first box goes here */}
                     <h1 className='font-bold text-xl mb-5'>Listing Basics</h1>
                     <div className='flex justify-between border-b'>
@@ -293,20 +294,20 @@ const router = useRouter();
                                 id="propertyName"
                                 value={propertyName}
                                 onChange={(e) => setPropertyName(e.target.value)}
-                                className="inputbox-full mt-3"
+                                className="rounded-lg px-4 py-3 outline-none h-12 border border-gray-200 w-[13.375rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2 mt-3"
                                 placeholder="Email address"
                                 autoFocus
                             />
                             <button
                             onClick={handleSaveClick}
-                            className="bg-[#DB5461] hover:bg-[#c13845] text-white mt-5 rounded-lg px-4 py-2"
+                            className="bg-[#DB5461] hover:bg-[#c13845] text-white mt-5 ml-4 lg:ml-0 rounded-lg px-4 py-2"
                             >
                                 Save
                             </button>
                             </div>
                             
                             ):(
-                                <div className='flex justify-between w-[32rem]'>
+                                <div className='flex justify-between w-[20rem] md:w-[27rem]'>
                                     <div className=''>
                                         <p className='text-gray-500'>{propertyName}</p>
                                     </div>
@@ -328,20 +329,20 @@ const router = useRouter();
                                     id="propertyName"
                                     value={propertyDescription}
                                     onChange={(e) => setPropertyDescription(e.target.value)}
-                                    className="inputbox-full mt-3"
+                                    className="rounded-lg px-4 py-3 outline-none h-12 border border-gray-200 w-[13.375rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2 mt-3"
                                     placeholder="Email address"
                                     autoFocus
                                 />
                                 <button
                                 onClick={handleSaveClickDescription}
-                                className="bg-[#DB5461] hover:bg-[#c13845] text-white mt-5 rounded-lg px-4 py-2"
+                                className="bg-[#DB5461] hover:bg-[#c13845] text-white ml-4 lg:ml-0 mt-5 rounded-lg px-4 py-2"
                                 >
                                     Save
                                 </button>
                                 </div>
 
                                 ):(
-                                    <div className='flex justify-between w-[32rem] mb-3 mt-3'>
+                                    <div className='flex justify-between w-[20rem] md:w-[27rem] mb-3 mt-3'>
                                         <div className=''>
                                             <p className='text-gray-500'>{propertyDescription}</p>
                                         </div>
@@ -363,21 +364,21 @@ const router = useRouter();
                                     id="propertyName"
                                     value={propertyGuestNumber}
                                     onChange={(e) => setpropertyGuestNumber(e.target.value)}
-                                    className="inputbox-full mt-3"
+                                    className="rounded-lg px-4 py-3 outline-none h-12 border border-gray-200 w-[13.375rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2 mt-3"
                                     placeholder="Number of Guests"
                                     autoFocus
                                 />
                                 <button
                                 onClick={handleSaveClickGuestNumber}
-                                className="bg-[#DB5461] hover:bg-[#c13845] text-white mt-5 rounded-lg px-4 py-2"
+                                className="bg-[#DB5461] hover:bg-[#c13845] text-white ml-4 lg:ml-0 mt-5 rounded-lg px-4 py-2"
                                 >
                                     Save
                                 </button>
                                 </div>
 
                                 ):(
-                                    <div className='flex justify-between w-[32rem] mb-3 mt-3'>
-                                        <div className=''>
+                                  <div className='flex justify-between w-[20rem] md:w-[27rem] mb-3 mt-3'>
+                                      <div className=''>
                                             <p className='text-gray-500'>{propertyGuestNumber}</p>
                                         </div>
                                         <div>
@@ -398,20 +399,20 @@ const router = useRouter();
                                     id="propertyName"
                                     value={propertyStreet}
                                     onChange={(e) => setPropertyStreet(e.target.value)}
-                                    className="inputbox-full mt-3"
+                                    className="rounded-lg px-4 py-3 outline-none h-12 border border-gray-200 w-[13.375rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2 mt-3"
                                     placeholder="Email address"
                                     autoFocus
                                 />
                                 <button
                                 onClick={handleSaveClickPropertyStreet}
-                                className="bg-[#DB5461] hover:bg-[#c13845] text-white mt-5 rounded-lg px-4 py-2"
+                                className="bg-[#DB5461] hover:bg-[#c13845] text-white ml-4 lg:ml-0 mt-5 rounded-lg px-4 py-2"
                                 >
                                     Save
                                 </button>
                                 </div>
 
                                 ):(
-                                    <div className='flex justify-between w-[32rem] mb-3 mt-3'>
+                                  <div className='flex justify-between w-[20rem] md:w-[27rem] mb-3 mt-3'>
                                         <div className=''>
                                             <p className='text-gray-500'>{propertyStreet}</p>
                                         </div>
@@ -424,7 +425,7 @@ const router = useRouter();
 
                     
                 </div>
-                <div className="border rounded-lg p-4 ml-2 w-1/2">
+                <div className="border rounded-lg p-4 ml-0 lg:ml-2 w-full lg:w-1/2">
                     {/* Content for the second box goes here */}
                     <h1 className='font-bold text-xl mb-5'>Property and Rooms</h1>
                     <div className='border-b'>
@@ -438,20 +439,20 @@ const router = useRouter();
                                     id="propertyName"
                                     value={propertyType}
                                     onChange={(e) => setPropertyType(e.target.value)}
-                                    className="inputbox-full mt-3"
+                                    className="rounded-lg px-4 py-3 outline-none h-12 border border-gray-200 w-[13.375rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2 mt-3"
                                     placeholder="Email address"
                                     autoFocus
                                 />
                                 <button
                                 onClick={handleSaveClickPropertyType}
-                                className="bg-[#DB5461] hover:bg-[#c13845] text-white mt-5 rounded-lg px-4 py-2"
+                                className="bg-[#DB5461] hover:bg-[#c13845] text-white ml-4 lg:ml-0 mt-5 rounded-lg px-4 py-2"
                                 >
                                     Save
                                 </button>
                                 </div>
 
                                 ):(
-                                    <div className='flex justify-between w-[32rem] mb-3 mt-3'>
+                                  <div className='flex justify-between w-[20rem] md:w-[27rem] mb-3 mt-3'>
                                         <div className=''>
                                             <p className='text-gray-500'>{propertyType}</p>
                                         </div>
@@ -473,20 +474,20 @@ const router = useRouter();
                                     id="propertyName"
                                     value={propertyBedroomNumber}
                                     onChange={(e) => setPropertyBedroomNumber(e.target.value)}
-                                    className="inputbox-full mt-3"
+                                    className="rounded-lg px-4 py-3 outline-none h-12 border border-gray-200 w-[13.375rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2 mt-3"
                                     placeholder="Bedroom Number"
                                     autoFocus
                                 />
                                 <button
                                 onClick={handleSaveClickPropertyBedroomNumber}
-                                className="bg-[#DB5461] hover:bg-[#c13845] text-white mt-5 rounded-lg px-4 py-2"
+                                className="bg-[#DB5461] hover:bg-[#c13845] text-white ml-4 lg:ml-0 mt-5 rounded-lg px-4 py-2"
                                 >
                                     Save
                                 </button>
                                 </div>
 
                                 ):(
-                                    <div className='mt-5 mb-5 flex justify-between w-[32rem]'>
+                                    <div className='flex justify-between w-[20rem] md:w-[27rem] mb-3 mt-3'>
                                         <div>
                                             <p className='text-gray-500'>Bedrooms: {propertyBedroomNumber}</p>
                                             <p className='text-gray-500'>Bed: 3</p>
@@ -511,20 +512,20 @@ const router = useRouter();
                                     id="propertyName"
                                     value={propertyAmenities}
                                     onChange={(e) => setPropertyAmenities(e.target.value)}
-                                    className="inputbox-full mt-3"
+                                    className="rounded-lg px-4 py-3 outline-none h-12 border border-gray-200 w-[13.375rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2 mt-3"
                                     placeholder="Email address"
                                     autoFocus
                                 />
                                 <button
                                 onClick={handleSaveClickPropertyAmenities}
-                                className="bg-[#DB5461] hover:bg-[#c13845] text-white mt-5 rounded-lg px-4 py-2"
+                                className="bg-[#DB5461] hover:bg-[#c13845] text-white ml-4 lg:ml-0 mt-5 rounded-lg px-4 py-2"
                                 >
                                     Save
                                 </button>
                                 </div>
 
                                 ):(
-                                    <div className='flex justify-between w-[32rem] mb-3 mt-3'>
+                                  <div className='flex justify-between w-[20rem] md:w-[27rem] mb-3 mt-3'>
                                         <div className=''>
                                             <div className="flex items-center px-2 py-3 space-x-3 border border-gray-200 rounded-lg w-fit">
                                                 {propertyAmenities}
@@ -548,20 +549,20 @@ const router = useRouter();
                                     id="propertyName"
                                     value={propertyBookingConditions}
                                     onChange={(e) => setPropertyBookingConditions(e.target.value)}
-                                    className="inputbox-full mt-3"
+                                    className="rounded-lg px-4 py-3 outline-none h-12 border border-gray-200 w-[13.375rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2 mt-3"
                                     placeholder="Email address"
                                     autoFocus
                                 />
                                 <button
                                 onClick={handleSaveClickPropertyBookingConditions}
-                                className="bg-[#DB5461] hover:bg-[#c13845] text-white mt-5 rounded-lg px-4 py-2"
+                                className="bg-[#DB5461] hover:bg-[#c13845] text-white ml-4 lg:ml-0 mt-5 rounded-lg px-4 py-2"
                                 >
                                     Save
                                 </button>
                                 </div>
 
                                 ):(
-                                    <div className='flex justify-between w-[32rem] mb-3 mt-3'>
+                                  <div className='flex justify-between w-[20rem] md:w-[27rem] mb-3 mt-3'>
                                         <div className=''>
                                             <p className='text-gray-500'>{propertyBookingConditions}</p>
                                         </div>
@@ -584,8 +585,8 @@ const router = useRouter();
   function PricingAvailability() {
     if (property) {
         return (
-            <div className="flex mt-10">
-                <div className="border rounded-lg p-4 mr-2 w-1/2">
+            <div className="flex flex-col lg:flex-row mt-10">
+                <div className="border rounded-lg p-4 mr-2 w-full lg:w-1/2">
                     {/* Content for the first box goes here */}
                     <h1 className='font-bold text-xl mb-5'>Pricing</h1>
                     <div className='flex justify-between border-b'>
@@ -601,21 +602,21 @@ const router = useRouter();
                                 id="propertyName"
                                 value={propertyBookingPrice}
                                 onChange={(e) => setPropertyBookingPrice(e.target.value)}
-                                className="inputbox-full mt-3"
+                                className="rounded-lg px-4 py-3 outline-none h-12 border border-gray-200 w-[13.375rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2 mt-3"
                                 placeholder="Your Property Price"
                                 autoFocus
                             />
                             <button
                             onClick={handleSaveClickPropertyBookingPrice}
-                            className="bg-[#DB5461] hover:bg-[#c13845] text-white mt-5 rounded-lg px-4 py-2"
+                            className="bg-[#DB5461] hover:bg-[#c13845] text-white ml-4 lg:ml-0 mt-5 rounded-lg px-4 py-2"
                             >
                                 Save
                             </button>
                             </div>
                             
                             ):(
-                                <div className='flex justify-between w-[32rem]'>
-                                    <div className=''>
+                              <div className='flex justify-between w-[20rem] md:w-[27rem]'>
+                              <div className=''>
                                         <p className='text-gray-500'>{propertyBookingPrice}</p>
                                     </div>
                                     <div>
@@ -636,21 +637,21 @@ const router = useRouter();
                                     id="propertyName"
                                     value={propertyBookingCurrency}
                                     onChange={(e) => setPropertyBookingCurrency(e.target.value)}
-                                    className="inputbox-full mt-3"
+                                    className="rounded-lg px-4 py-3 outline-none h-12 border border-gray-200 w-[13.375rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2 mt-3"
                                     placeholder="Email address"
                                     autoFocus
                                 />
                                 <button
                                 onClick={handleSaveClickPropertyBookingCurrency}
-                                className="bg-[#DB5461] hover:bg-[#c13845] text-white mt-5 rounded-lg px-4 py-2"
+                                className="bg-[#DB5461] hover:bg-[#c13845] text-white ml-4 lg:ml-0 mt-5 rounded-lg px-4 py-2"
                                 >
                                     Save
                                 </button>
                                 </div>
 
                                 ):(
-                                    <div className='flex justify-between w-[32rem] mb-3 mt-3'>
-                                        <div className=''>
+                                  <div className='flex justify-between w-[20rem] md:w-[27rem] mt-3 mb-3'>
+                                  <div className=''>
                                             <p className='text-gray-500'>{propertyBookingCurrency}</p>
                                         </div>
                                         <div>
@@ -662,7 +663,7 @@ const router = useRouter();
 
                     
                 </div>
-                <div className="border rounded-lg p-4 ml-2 w-1/2">
+                <div className="border rounded-lg p-4 ml-0 lg:ml-2 w-full lg:w-1/2">
                     {/* Content for the second box goes here */}
                     <h1 className='font-bold text-xl mb-5'>Availability</h1>
                     <div className='border-b'>
@@ -676,21 +677,21 @@ const router = useRouter();
                                     id="propertyName"
                                     value={propertyAdditionalNotes}
                                     onChange={(e) => setPropertyAdditionalNotes(e.target.value)}
-                                    className="inputbox-full mt-3"
+                                    className="rounded-lg px-4 py-3 outline-none h-12 border border-gray-200 w-[13.375rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2 mt-3"
                                     placeholder="Email address"
                                     autoFocus
                                 />
                                 <button
                                 onClick={handleSaveClickPropertyAdditionalNotes}
-                                className="bg-[#DB5461] hover:bg-[#c13845] text-white mt-5 rounded-lg px-4 py-2"
+                                className="bg-[#DB5461] hover:bg-[#c13845] text-white ml-4 lg:ml-0 mt-5 rounded-lg px-4 py-2"
                                 >
                                     Save
                                 </button>
                                 </div>
 
                                 ):(
-                                    <div className='flex justify-between w-[32rem] mb-3 mt-3'>
-                                        <div className=''>
+                                  <div className='flex justify-between w-[20rem] md:w-[27rem] mt-3 mb-3'>
+                                  <div className=''>
                                             <p className='text-gray-500'>Additional Notes: {propertyAdditionalNotes}</p>
                                         </div>
                                         <div>
@@ -715,17 +716,22 @@ const router = useRouter();
 
   return (
     <div>
+      <Head>
+        <title>QuooSpace</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
         <HostHeader />
-        <section className="mx-auto  mt-8 mb-14 max-w-[90rem] py-7">
-        <button
+        <section className="md:mx-auto mb-14 md:max-w-full md:px-10 py-7">
+        {/* <button
             onClick={() => Router.back()}
             className="flex items-center px-2 py-3 space-x-3 border border-gray-200 rounded-lg w-fit"
           >
             <BiChevronLeft className="text-gray-900" />
             <h1>Back to home</h1>
-          </button>
+          </button> */}
 
-          <div className="mt-7">
+          <div className="mt-2">
             <h1 className="text-2xl font-bold text-gray-800">
               {property.propertyName} @{property.propertyGPS}{" "}
               {property.propertyStreet}

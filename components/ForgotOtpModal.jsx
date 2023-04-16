@@ -6,9 +6,11 @@ import OtpInput from "../components/misc/OtpInput";
 import { useApi } from "../utils/hooks/useApi";
 import { resendOtp as ResendOtpFunc } from "../utils/api/auth/resendOtp";
 import { completeErrollment } from "../utils/api/auth/completeErollment";
+import { completePasswordReset } from "../utils/api/auth/completePasswordReset";
+
 import Head from "next/head";
 
-const OtpModal = () => {
+const ForgotOtpModal = () => {
   const authLevel = useContext(AuthLevelContext);
 
   const splittedMail = authLevel.email.split("@");
@@ -28,7 +30,7 @@ const OtpModal = () => {
     loading: completeRegLoading,
     request: completeReqRequest,
     errorMessage: completeRegErrorMessage,
-  } = useApi(completeErrollment);
+  } = useApi(completePasswordReset);
 
   const [otpValue, setOtpValue] = useState("");
 
@@ -40,12 +42,13 @@ const OtpModal = () => {
 
   const handleSubmit = async () => {
     if (otpValue.length === 6) {
-      let id = toast.loading("Please wait while we complete your registration");
+      let id = toast.loading("Please wait while we complete your password change");
       let requestData = {
         userOtp: otpValue,
-        userEmail: authLevel.email,
+        username: authLevel.email,
         userPassword: authLevel.password,
-        userConfirmPassword: authLevel.password,
+        userPasswordConfirmation: authLevel.password,
+        countryCode: "234",
       };
 
       const response = await completeReqRequest(requestData);
@@ -60,7 +63,7 @@ const OtpModal = () => {
       });
 
       setOtpValue("");
-      if (response.data.responseCode === "00") authLevel.setModalVisible(true); authLevel.setModalType("LOGIN");
+      if (response.data.responseCode === "00") authLevel.setModalType("SUCCESS");
     }
   };
 
@@ -134,4 +137,4 @@ const OtpModal = () => {
   );
 };
 
-export default OtpModal;
+export default ForgotOtpModal;

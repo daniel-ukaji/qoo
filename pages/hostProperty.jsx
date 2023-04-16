@@ -45,7 +45,7 @@ function hostProperty() {
         <HostHeader />
 
         
-        <main className='max-w-[66rem] w-full mx-auto'>
+        <main className='max-w-[20rem] md:max-w-[66rem] w-full mx-auto'>
             {verifyAllow === "NOT_VERIFIED" ? (
                 <div className='border max-w-[66rem] w-full mx-auto py-3 mt-10 bg-[#FDF7F7]'>
                         <div className='flex justify-center items-center space-x-3'>
@@ -85,11 +85,11 @@ function hostProperty() {
                         
 
 
-                    <div className='flex justify-between max-w-[66rem] w-full mx-auto mt-10'>
+                    <div className='hidden xl:flex justify-between max-w-[66rem] w-full mx-auto mt-10'>
                         <p className='font-bold text-2xl'>Your Reservations</p>
                     </div>
 
-                    <div className='mt-10 mb-5'>
+                    <div className='hidden xl:block mt-10 mb-5'>
                         <MultiTable />
                     </div>
 

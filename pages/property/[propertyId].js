@@ -41,6 +41,7 @@ import { GoSettings } from "react-icons/go";
 import FilterComponent from "../../components/FilterComponent";
 import AmenitiesComponent from "../../components/AmenitiesComponent";
 import VerifyModal from "../../components/VerifyModal";
+import Head from "next/head";
 
 const Property = () => {
 
@@ -54,6 +55,9 @@ const Property = () => {
   const dropdownRef = useRef(null);
   const [modalActive, setModalActive] = useState(false);
   const [modeActive, setModeActive] = useState(false);
+  const [isSingleDate, setIsSingleDate] = useState(false);
+  const [dateRangeSelected, setDateRangeSelected] = useState(false);
+
 
   const authLevel = useContext(AuthLevelContext);
 
@@ -110,12 +114,19 @@ const Property = () => {
 
   
 
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSelect = (ranges) => {
     setStartDate(ranges.selection.startDate)
     setEndDate(ranges.selection.endDate)
     setSelectedDateRange(ranges.selection);
+    setIsSingleDate(ranges.selection.startDate.getTime() === ranges.selection.endDate.getTime());
+    setDateRangeSelected(true);
+
   }
+
+  
+  
 
   useEffect(() => {
     window.onbeforeunload = function() {
@@ -129,6 +140,7 @@ const Property = () => {
     endDate: endDate,
     key: 'selection'
   }
+  
 
   
 
@@ -251,8 +263,15 @@ console.log(formattedDates);
 
     return (
       <div className="font-sora">
-        <Header />
-        <section className="mx-auto mb-14 max-w-[90rem] px-10">
+        <Head>
+          <title>QuooSpace</title>
+          <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        {/* <div className="sticky top-0 z-50 h-[6rem] w-full"> */}
+          <Header />
+        {/* </div> */}
+        <section className="xl:mx-auto mb-14 xl:max-w-full xl:px-10">
           {/* <button
             onClick={() => Router.back()}
             className="flex items-center px-2 py-3 space-x-3 border border-gray-200 rounded-lg w-fit"
@@ -272,16 +291,16 @@ console.log(formattedDates);
           </div>
 
 
-          <div className="flex justify-between mt-2">
-            <div className="flex self-end space-x-2">
+          <div className="flex flex-col xl:space-y-0 space-y-3 xl:flex-row xl:justify-between mt-2">
+            <div className="flex flex-col xl:flex-row space-y-3 xl:self-end xl:space-x-2">
               <div className="flex items-center space-x-1">
-                <FiMapPin className="w-4 h-4 text-primary" />
+                <FiMapPin className="hidden xl:block w-4 h-4 text-primary" />
                 <h1 className="text-sm font-normal text-secondary">
                   {property.propertyStreet}
                 </h1>
               </div>
               <div className="flex items-center space-x-1">
-                <FiUser className="w-4 h-4 text-primary" />
+                <FiUser className="hidden xl:block w-4 h-4 text-primary" />
                 <h1 className="text-sm font-normal text-secondary">
                   JJM Consults
                 </h1>
@@ -319,17 +338,17 @@ console.log(formattedDates);
                     )
                   })} */}
               {/* Big Image */}
-              <div className="relative w-1/2 h-full">
+              <div className="relative w-full xl:w-1/2 h-full">
                 <Image
                   src={property.propertyImages[0].propertyImageUrl}
                   alt="room image"
-                  className="absolute h-full w-full rounded-tl-[10px] rounded-bl-[10px]"
+                  className="absolute h-full w-full rounded-md rounded-tl-[10px] rounded-bl-[10px]"
                   layout="fill"
                   objectFit="cover"
                 />
               </div>
               {/* Sub images */}
-              <div className="flex flex-col justify-between w-1/2 h-full ml-6">
+              <div className="flex hidden xl:flex flex-col justify-between w-1/2 h-full ml-6">
                 <div className="flex justify-between">
                   <div className="relative h-[15.688rem] w-fourty8 ">
                     <Image
@@ -376,8 +395,8 @@ console.log(formattedDates);
 
           {/* Property info and booking details */}
           <div className="mt-8 font-sora">
-            <div className="flex items-start justify-between w-full mt-4">
-              <div className="w-2/3 ">
+            <div className="flex flex-col xl:flex-row xl:items-start xl:justify-between w-full mt-4">
+              <div className="w-full xl:w-2/3 ">
                 {/* First Div containing room info */}
                 
                 <div>
@@ -391,7 +410,7 @@ console.log(formattedDates);
                     <h1>{properties.propertyBedroomSplit}</h1>
                   )
                 })} */}
-                  <p className="text-sm font-normal leading-6 text-gray-600 ">
+                  <p className="text-sm xl:text-left text-justify font-normal leading-6 text-gray-600 ">
                     {property.propertyDescription}
                   </p>
                   
@@ -401,7 +420,7 @@ console.log(formattedDates);
                   <h1 className="mb-4 text-lg font-bold text-gray-800">
                     Property Details
                   </h1>
-                  <div className="flex justify-between gap-5 text-sm font-normal text-secondary">
+                  <div className="flex flex-wrap xl:flex-nowrap justify-between gap-5 text-sm font-normal text-secondary">
                     <div className="flex w-[6.875rem] flex-col space-y-3 rounded-lg border-gray-200 p-3">
                       <MdSupervisorAccount className="w-4 h-4 text-primary" />
                       <h1>{property.propertyGuestNumber} guests</h1>
@@ -422,7 +441,7 @@ console.log(formattedDates);
                       <h1>{property.propertyGuestNumber} guests</h1>
                     </div>
 
-                    <div className="flex w-[6.875rem] flex-col items-center justify-center space-y-3 rounded-lg border-gray-200 p-3">
+                    <div className="flex hidden xl:flex w-[6.875rem] flex-col items-center justify-center space-y-3 rounded-lg border-gray-200 p-3">
                       {/* <h1>View All</h1> */}
                     </div>
                   </div>
@@ -432,7 +451,7 @@ console.log(formattedDates);
                   <h1 className="text-lg font-bold text-gray-800">
                     All bills inclusive
                   </h1>
-                  <div className="grid grid-cols-2 gap-2 mt-3">
+                  <div className="grid xl:grid-cols-2 gap-4 xl:gap-2 mt-3">
                         <div className="flex items-center space-x-4  max-w-[80%]"><IoBulbOutline className="w-5 h-5 text-primary" /> <h1 className="text-sm">Power Supply</h1></div>
                         <div className="flex items-center space-x-4  max-w-[80%]"><HiOutlineSparkles className="w-5 h-5 text-primary" /> <h1 className="text-sm">Cleaning</h1></div>
                         <div className="flex items-center space-x-4  max-w-[80%]"><MdOutlineWaterDrop className="w-5 h-5 text-primary" /> <h1 className="text-sm">Water Supply</h1></div>
@@ -478,12 +497,12 @@ console.log(formattedDates);
                   <h1 className="text-lg font-bold text-gray-800">
                     Booking Conditions
                   </h1>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid xl:grid-cols-2 gap-3">
                       <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">No smoking</h1></div>
                       <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">No parties or events</h1></div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid xl:grid-cols-2 gap-3">
                       <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">Private/residential use only</h1></div>
                       <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">No Inflammables</h1></div>
                     </div>
@@ -496,7 +515,7 @@ console.log(formattedDates);
                     <h1 className="text-lg font-bold text-gray-800">
                       Mandatory or Included Services
                     </h1>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid xl:grid-cols-2 gap-3">
                       <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">Final cleaning: Included</h1></div>
                       <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">Internet access: Included</h1></div>
                     </div>
@@ -514,12 +533,12 @@ console.log(formattedDates);
                     <h1 className="text-lg font-bold text-gray-800">
                       Optional Services
                     </h1>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid xl:grid-cols-2 gap-3">
                       <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">Video shoot: NGN100,000.00 /booking</h1></div>
                       <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">Open-air parking: Included</h1></div>
                     </div>
 
-                    <div className="grid">
+                    <div className="grid gap-3">
                       <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">Early check in/Late check Out: NGN10,000.00 /booking</h1></div>
                     </div>
                   </div>
@@ -528,7 +547,8 @@ console.log(formattedDates);
                 
               </div>
 
-              <div className="flex flex-col w-2/3 bg-gray-100  rounded-md border-black drop-shadow-xl ">
+
+              <div className="sticky top-5 mt-6 xl:mt-0 flex flex-col w-full xl:w-2/3 bg-gray-100  rounded-md border-black drop-shadow-xl ">
                 {/* Card-booking */}
                 <div className="self-end p-6 border border-gray-200 rounded-lg w-full">
                   <div className="flex items-center justify-between">
@@ -552,23 +572,23 @@ console.log(formattedDates);
                   <div className='flex items-center justify-between relative'>
                     <div >
                       <p className="font-bold text-gray-800 text-xs mb-1">Check In</p>
-                      <div className='flex w-[8.384rem] items-center justify-between rounded-lg border border-gray-800 py-3 px-4'>
+                      <div className='flex w-full xl:w-[8.384rem] items-center justify-between rounded-lg border border-gray-800 py-3 px-4'>
                         <input 
                           value={ `${format(new Date(startDate), "MM/dd/yyyy")}` }
                           placeholder='Check-in'
-                          className='w-full outline-none bg-transparent text-gray-800' 
+                          className='touch-manipulation w-full outline-none bg-transparent text-gray-800' 
                           onClick={() => setOpen(open => !open)}
                           />
                         <BiChevronDown className='w-4 h-5 text-black' />
                       </div>
                     </div>
                     <div>
-                      <p className="font-bold text-xs mb-1 text-gray-800">Check Out</p>
-                      <div className='flex w-[8.384rem] items-center justify-between rounded-lg border border-gray-800 py-3 px-4'>
+                      <p className="font-bold text-xs mb-1 text-gray-800 ml-2 xl:ml-0">Check Out</p>
+                      <div className='flex w-full xl:w-[8.384rem] items-center justify-between rounded-lg ml-2 xl:ml-0 border border-gray-800 py-3 px-4'>
                         <input 
                             value={ `${format(new Date(endDate), "MM/dd/yyyy")}` }
                             placeholder='Check-out'
-                            className='w-full outline-none bg-transparent text-gray-800'
+                            className='touch-manipulation w-full outline-none bg-transparent text-gray-800'
                             onClick={() => setOpen(open => !open)}
                             />
                           <BiChevronDown className='w-4 h-5 text-black' />
@@ -585,13 +605,17 @@ console.log(formattedDates);
                               minDate={new Date()}
                               ranges={[selectionRange]}
                               rangeColors={["#DB5461"]}
-                              months={2}
+                              months={1}
                               direction="horizontal"
                               className="absolute left-1/2 -translate-x-2/4 top-10 border z-30 bg-transparent  "
                           />
                       }
                     </div>
+
                   </div>
+                  {isSingleDate && <p className="text-red-500 text-xs">You cannot select one date. Please choose more than one date.</p>}
+
+
                   
                   <p className="mt-3 font-bold text-xs text-gray-800 mb-1">Number of Guests</p>
                   {/* <div className='flex items-center justify-between px-4 py-3 border border-gray-200 rounded-lg'>
@@ -605,15 +629,15 @@ console.log(formattedDates);
                     <BiChevronDown className='w-4 h-5 text-black' />
                   </div> */}
 
-                  <div className="flex items-center justify-center border border-gray-800 rounded-md">
-      <div className="relative w-full" ref={dropdownRef}>
+                  <div className="flex items-center justify-center w-full border border-gray-800 rounded-md">
+      <div className="relative " ref={dropdownRef}>
         <button
-          className=" text-gray-700 font-semibold py-4 px-4 w-full rounded inline-flex items-center"
+          className=" text-gray-700 font-semibold py-4 px-2 xl:px-4 w-full rounded inline-flex items-center"
           onClick={handleGuestClick}
         >
           <span className="mr-1">{numGuests} Guests</span>
           <svg
-            className={`fill-current ml-40 h-4 w-4 ${showDropdown ? 'transform rotate-180' : ''}`}
+            className={`fill-current ml-48 xl:ml-40 h-4 w-4 ${showDropdown ? 'transform rotate-180' : ''}`}
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
           >
@@ -654,17 +678,19 @@ console.log(formattedDates);
                 </div>
 
                 <button
-  className="mt-7 h-[2.875rem] w-full rounded-[10px] bg-primary text-sm font-medium text-white"
+  className={`mt-7 h-[2.875rem] w-full rounded-[10px] bg-primary text-sm font-medium text-white ${isSingleDate || !dateRangeSelected ? "bg-gray-500 pointer-events-none" : ""}`}
+  disabled={isSingleDate || !dateRangeSelected}
   onClick={() => {
     if (!authLevel.user) {
       authLevel.setModalVisible(true);
       authLevel.setModalType("LOGIN");
-    } else if (userStat === "NOT_VERIFIED") { // add check for user status
+    } else if (userStat === "INCOMPLETE_PROFILE") { // add check for user status
       // show modal that takes user to profile page
       // ...
       setModeActive(true);
 
-    } else {
+    }
+     else {
       resetBooking();
       addToBooking(property);
       router.push({

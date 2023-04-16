@@ -6,6 +6,7 @@ import Image from 'next/image';
 import TextAreaField from './TextAreaField';
 import Link from 'next/link';
 import logopic from '../public/images/qoo_logo.png';
+import Head from 'next/head';
 
 
 
@@ -30,6 +31,11 @@ const PageNine = ({ prevStep }) => {
 
   return (
     <div className='bg-white'>
+      <Head>
+        <title>QuooSpace</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
         <div className="pl-10 p-6 h-screen flex flex-col justify-between font-sora max-w-[50rem] mx-auto">
             {/* <!-- Content for the left side --> */}
             <div className="relative w-14 h-14 cursor-pointer mb-5">
@@ -39,8 +45,8 @@ const PageNine = ({ prevStep }) => {
             </div>
 
             <div className="">
-            <h1 className='text-4xl font-semibold mb-5'>Create your Description</h1>
-            <p className='mb-5 text-gray-500 text-lg'>Share what makes your place special.</p>
+            <h1 className='text-2xl md:text-4xl font-semibold mb-5'>Create your Description</h1>
+            <p className='mb-5 text-gray-500 text-md md:text-lg'>Share what makes your place special.</p>
 
             <TextAreaField
                 label="Create your Description:"

@@ -11,7 +11,7 @@ const ClickableCircle = ({ options, selectedOption, setPageSelection }) => {
   };
 
   return (
-    <div className="flex justify-start space-x-5 items-start">
+    <div className="flex flex-wrap md:justify-start space-x-1 xl:space-x-3 md:space-x-5 md:items-start">
       {options.map((option) => (
         <div
           key={option}

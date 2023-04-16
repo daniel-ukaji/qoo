@@ -8,9 +8,15 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useApi } from '../utils/hooks/useApi';
 import { updateProfile } from '../utils/api/user/updateUser';
 import { toast } from 'react-toastify';
+import Footer from "../components/misc/footer";
+
+
 // import { readUser, readUsers } from '../utils/api/user/readUser';
 // import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 import axios from 'axios';
+import Head from 'next/head';
+import { MdAccountCircle } from 'react-icons/md';
+import { AiFillCheckCircle } from 'react-icons/ai';
 
 
 function AccountSettings() {
@@ -19,6 +25,8 @@ function AccountSettings() {
     const [previewImage, setPreviewImage] = useState(null);
     const [prevImage, setPrevImage] = useState(null);
     const [firstName, setFirstName] = useState('');
+    const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
     
     const inputRef = useRef(null);
 
@@ -26,10 +34,13 @@ function AccountSettings() {
     const API_ENDPOINT = 'https://6v50nb72wg.execute-api.us-east-1.amazonaws.com/dev/user/read-by-user-id';
 
     const userId = user.user?.userId;
+    const userStat = user.user?.userStatus
+
 
     const requestBody = {
         userId: userId
       };
+
 
     const [userData, setUserData] = useState({
         userFirstName: '',
@@ -46,9 +57,13 @@ function AccountSettings() {
         userIdentityImage: '9870',
       });
 
+
+
       useEffect(() => {
         localStorage.setItem('userData', JSON.stringify(userData));
       }, [userData]);
+
+      
 
 //       const handleInputChange = (e) => {
 //   const { name, value } = e.target;
@@ -207,31 +222,146 @@ function handleDrop(event) {
     }
   }
 
+  const validate = () => {
+    let errors = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^\d+$/;
+    const identityRegex = /^[0-9]{9}$/;
+  
+    if (!userData.userFirstName.trim()) {
+      errors.userFirstName = 'First name is required';
+    }
+    if (!userData.userLastName.trim()) {
+      errors.userLastName = 'Last name is required';
+    }
+    if (!userData.userEmail.trim()) {
+      errors.userEmail = 'Email is required';
+    } else if (!emailRegex.test(userData.userEmail)) {
+      errors.userEmail = 'Invalid email format';
+    }
+    if (!userData.userDateOfBirth) {
+      errors.userDateOfBirth = 'Date of birth is required';
+    }
+    if (!userData.userPhoneNumber.trim()) {
+      errors.userPhoneNumber = 'Phone number is required';
+    } else if (!phoneRegex.test(userData.userPhoneNumber)) {
+      errors.userPhoneNumber = 'Invalid phone number format';
+    }
+    if (!userData.userCountry.trim()) {
+      errors.userCountry = 'Country is required';
+    }
+    if (!userData.userState.trim()) {
+      errors.userState = 'State is required';
+    }
+    if (!userData.userCity.trim()) {
+      errors.userCity = 'City is required';
+    }
+    if (!userData.userStreet.trim()) {
+      errors.userStreet = 'Street is required';
+    }
+    if (!userData.userIdentityNumber.trim()) {
+      errors.userIdentityNumber = 'Identity number is required';
+    } else if (!identityRegex.test(userData.userIdentityNumber)) {
+      errors.userIdentityNumber = 'Invalid identity number format';
+    }
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  const [formErrors, setFormErrors] = useState({});
+  
+
   const profileApi = useApi(updateProfile);
+
+  const onSubmit = async () => {
+    let errors = {};
+  
+    // check if all required fields are filled
+    if (!userData.userFirstName) {
+      errors.userFirstName = "First name is required";
+    }
+    if (!userData.userLastName) {
+      errors.userLastName = "Last name is required";
+    }
+    if (!userData.userEmail) {
+      errors.userEmail = "Email is required";
+    }
+    if (!userData.userDateOfBirth) {
+      errors.userDateOfBirth = "Date of birth is required";
+    }
+    if (!userData.userPhoneNumber) {
+      errors.userPhoneNumber = "Phone number is required";
+    }
+    if (!userData.userCountry) {
+      errors.userCountry = "Country is required";
+    }
+    if (!userData.userState) {
+      errors.userState = "State is required";
+    }
+    if (!userData.userCity) {
+      errors.userCity = "City is required";
+    }
+    if (!userData.userStreet) {
+      errors.userStreet = "Street is required";
+    }
+    if (!userData.userIdentityNumber) {
+      errors.userIdentityNumber = "Identity number is required";
+    }
+  
+    // if there are errors, set the state and return
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
+  
+    let req = {
+      userId: user.user?.userId,
+      ...userData,
+    };
+  
+    let id = toast.loading("We are updating your profile...");
+  
+    const response = await profileApi.request(req);
+  
+    console.log(response);
+  
+    toast.update(id, {
+      type: response.data.responseCode !== "00" ? "error" : "success",
+      render: response.data.responseMessage,
+      isLoading: profileApi.loading,
+      autoClose: true,
+      onClick: () => !profileApi.errorMessage && toast.dismiss(),
+    });
+  };
 
 //   console.log(user.user)
 
-  const onSubmit = async () => {
-    let req = {
-        userId: user.user?.userId,
-        ...userData,
-      };
+  // const onSubmit = async () => {
+    
+    
 
-      let id = toast.loading("We are updating your profile...");
+  //   let req = {
+  //       userId: user.user?.userId,
+  //       ...userData,
+  //     };
 
-      const response = await profileApi.request(req);
+  //     let id = toast.loading("We are updating your profile...");
 
-      console.log(response)
+  //     const response = await profileApi.request(req);
 
-      toast.update(id, {
-        type: response.data.responseCode !== "00" ? "error" : "success",
-        render: response.data.responseMessage,
-        isLoading: profileApi.loading,
-        autoClose: true,
-        onClick: () => !profileApi.errorMessage && toast.dismiss(),
-      });
+  //     console.log(response)
 
-  }
+  //     toast.update(id, {
+  //       type: response.data.responseCode !== "00" ? "error" : "success",
+  //       render: response.data.responseMessage,
+  //       isLoading: profileApi.loading,
+  //       autoClose: true,
+  //       onClick: () => !profileApi.errorMessage && toast.dismiss(),
+  //     });
+
+  // }
+
+  
   
     
 //   useEffect(() => {
@@ -251,10 +381,15 @@ useEffect(() => {
 
   return (
     <div className='font-sora'>
+      <Head>
+        <title>QuooSpace</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
         <HostHeader />
                         
         <main className='max-w-[66rem] w-full mx-auto mt-10'>
-            <div className='flex justify-between items-center'>
+            <div className='flex flex-col lg:flex-row justify-between items-center'>
                 <h1 className='font-bold text-2xl'>Account Settings</h1>
                 <button
                     onClick={onSubmit}
@@ -264,55 +399,62 @@ useEffect(() => {
                 </button>
             </div>
 
-            <div className='flex '>
-                <div className='border rounded-lg p-4 mr-2 w-72 h-72 mt-10'>
-                    <div className='flex items-center flex-col'>
-                        {/* <Image src={selectedImages} alt=''  /> */}
-                        
-                        <input
-                            type="file"
-                            id="imageInput"
-                            multiple
-                            onChange={handleImageSelect}
-                            className="hidden"
-                        />
-                        
-            
-            <img src={userData.userPicture} className="w-20 h-20 object-cover rounded-full" />
-            {selectedImages.length === 0 && (
-        <label htmlFor="imageInput" className="mt-2 font-bold cursor-pointer">
-          Update profile image
-        </label>
-      )}
-        {/* <img src={userData.userPicture} /> */}
-                    </div>
+            <div className='flex flex-col lg:flex-row lg:items-start lg:justify-start justify-center items-center'>
+                <div className='xl:sticky xl:top-5 border rounded-lg p-4 mr-2 w-72 h-72 mt-10'>
+<div className='flex items-center flex-col'>
+  <input
+    type="file"
+    id="imageInput"
+    multiple
+    onChange={handleImageSelect}
+    className="hidden"
+  />
+  {userData.userPicture ? (
+    <img
+      src={userData.userPicture}
+      alt=""
+      className="w-20 h-20 object-cover rounded-full"
+    />
+  ) : (
+    <MdAccountCircle className="w-20 h-20 text-gray-400 rounded-full" />
+  )}
+  {selectedImages.length === 0 && (
+    <label htmlFor="imageInput" className="mt-2 font-bold cursor-pointer">
+      Update profile image
+    </label>
+  )}
+</div>
+                  {userStat === "INCOMPLETE_PROFILE" ? (
                     <div>
                         <p className='text-gray-500'>Joined in 2023</p>
                         <p>Identity</p>
                         <p>Email</p>
                         <p>Phone number</p>
                     </div>
+                    
+                  ): (
+                    <div>
+                      <p className='text-gray-500'>Joined in 2023</p>
+                    <div className='flex justify-between'>
+                      <p>Identity</p>
+                      <AiFillCheckCircle className='w-4 h-4 text-green-600' />
+                    </div>
+                    <div className='flex justify-between'>
+                      <p>Email</p>
+                      <AiFillCheckCircle className='w-4 h-4 text-green-600' />
+                    </div>
+                    <div className='flex justify-between'>
+                      <p>Phone number</p>
+                      <AiFillCheckCircle className='w-4 h-4 text-green-600' />
+                    </div>
+                </div>
+                  )}
                 </div>
 
-                <div className='mt-10 max-w-[40rem] ml-5'>
-                    {/* <div className="flex mb-5">
-                        {tabs.map((tab, index) => (
-                        <button
-                            key={tab.id}
-                            className={`py-2 px-4 border-b  rounded-1-md ${activeTab === tab.id ? 'border-[#DB5461] text-black' : 'bg-[#FFFFFF] text-gray-800'} ${index > 0 ? 'border-1 border-b-3 border-gray-200' : ''} border-gray-300`}
-                            onClick={() => setActiveTab(tab.id)}
-                        >
-                            {tab.label}
-                        </button>
-                        ))}
-                    </div>
-                <div>
-                    {activeTab === 'personalinfo' && <PersonalInfo />}
-                    {activeTab === 'login' && <Login />}
-            
-                </div> */}
-                <div>
-      <div className="flex mb-4">
+                <div className='flex flex-col items-center lg:items-start mt-10 max-w-[40rem] ml-5'>
+                    
+                {/* <div className=''> */}
+      <div className="flex border justify-start items-center mb-4 ">
         <button
           className={`px-4 py-2 rounded-l ${
             activeTab === "personal" ? "bg-gray-300" : "bg-gray-100"
@@ -331,194 +473,362 @@ useEffect(() => {
         </button>
       </div>
       {activeTab === "personal" && (
-        <section className='max-w-[40rem]'>
-        <div className='mt-10 border-b'>
+        <div className='max-w-[40rem] mb-10'>
+        <div className='mt-2 lg:mt-3'>
             <div className='flex justify-between'>
                 <p className='font-bold mb-3'>First Name</p>
-                <button className='font-bold'>Edit</button>
             </div>
-            <input
+            {/* <input
                 type="text"
                 name="userFirstName"
                 id="userFirstName"
                 value={userData.userFirstName}
                 onChange={(e) => setUserData({ ...userData, userFirstName: e.target.value })}
-                className="inputbox-full mb-5"
+                className="rounded-lg px-4 py-3 outline-none h-12 border border-black w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2"
                 placeholder="First Name"
                 
-            />
+            /> */}
+            <input
+        type="text"
+        name="userFirstName"
+        id="userFirstName"
+        value={userData.userFirstName || ""}
+        onChange={(e) =>
+          setUserData({ ...userData, userFirstName: e.target.value })
+        }
+        className={`rounded-lg px-4 py-3 outline-none h-12 border ${
+          formErrors.userFirstName ? "border-red-500" : "border-black"
+        } w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2`}
+        placeholder="Phone Number"
+      />
+      {formErrors.userFirstName && (
+        <div className="text-red-500 text-sm">
+          {formErrors.userFirstName}
+        </div>
+      )}
            
         </div>
-        <div className='mt-10 border-b'>
+        <div className='mt-10'>
             <div className='flex justify-between'>
                 <p className='font-bold mb-3'>Last Name</p>
-                <button className='font-bold'>Edit</button>
+                {/* <button className='font-bold'>Edit</button> */}
             </div>
-            <input
+            {/* <input
                 type="text"
                 name="userLastName"
                 id="userLastName"
                 value={userData.userLastName}
                 onChange={(e) => setUserData({ ...userData, userLastName: e.target.value })}
-                className="inputbox-full mb-5"
+                className="rounded-lg px-4 py-3 outline-none h-12 border border-black w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2"
                 placeholder="Last Name"
 
                 
-            />
+            /> */}
+            <input
+        type="text"
+        name="userLastName"
+        id="userLastName"
+        value={userData.userLastName || ""}
+        onChange={(e) =>
+          setUserData({ ...userData, userLastName: e.target.value })
+        }
+        className={`rounded-lg px-4 py-3 outline-none h-12 border ${
+          formErrors.userLastName ? "border-red-500" : "border-black"
+        } w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2`}
+        placeholder="Phone Number"
+      />
+      {formErrors.userLastName && (
+        <div className="text-red-500 text-sm">
+          {formErrors.userLastName}
         </div>
-        <div className='mt-10 border-b'>
+      )}
+        </div>
+        <div className='mt-10'>
             <div className='flex justify-between'>
                 <p className='font-bold mb-3'>Email</p>
-                <button className='font-bold'>Edit</button>
+                {/* <button className='font-bold'>Edit</button> */}
             </div>
-            <input
+            {/* <input
                 type="email"
                 name="userEmail"
                 id="userEmail"
                 value={userData.userEmail}
                 onChange={(e) => setUserData({ ...userData, userEmail: e.target.value })}
-                className="inputbox-full mb-5"
+                className="rounded-lg px-4 py-3 outline-none h-12 border border-black w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2"
                 placeholder="Email Address"
                 
-            />
+            /> */}
+            <input
+        type="email"
+        name="userEmail"
+        id="userEmail"
+        value={userData.userEmail || ""}
+        onChange={(e) =>
+          setUserData({ ...userData, userEmail: e.target.value })
+        }
+        className={`rounded-lg px-4 py-3 outline-none h-12 border ${
+          formErrors.userEmail ? "border-red-500" : "border-black"
+        } w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2`}
+        placeholder="Phone Number"
+      />
+      {formErrors.userEmail && (
+        <div className="text-red-500 text-sm">
+          {formErrors.userEmail}
         </div>
-        <div className='mt-10 border-b'>
+      )}
+        </div>
+        <div className='mt-10'>
             <div className='flex justify-between'>
                 <p className='font-bold mb-3'>Date of Birth</p>
-                <button className='font-bold'>Edit</button>
+                {/* <button className='font-bold'>Edit</button> */}
             </div>
             <DatePicker
-                className="inputbox-full mb-5"
-                selected={userData.userDateOfBirth}
+                className={`rounded-lg px-4 py-3 outline-none h-12 border ${
+                  formErrors.userDateOfBirth ? "border-red-500" : "border-black"
+                } w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2`}                selected={userData.userDateOfBirth}
                 onChange={(date) => setUserData({ ...userData, userDateOfBirth: date })}
                 dateFormat="dd/MM/yyyy"
+                value={userData.userDateOfBirth || ""}
                 maxDate={new Date()}
                 showYearDropdown
                 scrollableYearDropdown
                 yearDropdownItemNumber={100}
                 placeholderText="Select Date of Birth"
             />
-
+              {formErrors.userDateOfBirth && (
+        <div className="text-red-500 text-sm">
+          {formErrors.userDateOfBirth}
         </div>
-        <div className='mt-10 border-b'>
+      )}
+        </div>
+        <div className='mt-10'>
             <div className='flex justify-between'>
                 <p className='font-bold mb-3'>Phone Number</p>
-                <button className='font-bold'>Edit</button>
+                {/* <button className='font-bold'>Edit</button> */}
             </div>
-            <input
+            {/* <input
                 type="text"
                 name="userPhoneNumber"
                 id="userPhoneNumber"
                 value={userData.userPhoneNumber}
                 onChange={(e) => setUserData({ ...userData, userPhoneNumber: e.target.value })}
-                className="inputbox-full mb-5"
+                className="rounded-lg px-4 py-3 outline-none h-12 border border-black w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2"
                 placeholder="Phone Number"
                 
-            />
+            /> */}
+            <input
+        type="text"
+        name="userPhoneNumber"
+        id="userPhoneNumber"
+        value={userData.userPhoneNumber || ""}
+        onChange={(e) =>
+          setUserData({ ...userData, userPhoneNumber: e.target.value })
+        }
+        className={`rounded-lg px-4 py-3 outline-none h-12 border ${
+          formErrors.userPhoneNumber ? "border-red-500" : "border-black"
+        } w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2`}
+        placeholder="Phone Number"
+      />
+      {formErrors.userPhoneNumber && (
+        <div className="text-red-500 text-sm">
+          {formErrors.userPhoneNumber}
         </div>
-        <div className='mt-10 border-b'>
+      )}
+          
+        </div>
+        <div className='mt-10'>
             <div className='flex justify-between'>
                 <p className='font-bold mb-3'>Country</p>
-                <button className='font-bold'>Edit</button>
+                {/* <button className='font-bold'>Edit</button> */}
             </div>
-            <input
+            {/* <input
                 type="text"
                 name="selectedCountry"
                 id="selectedCountry"
                 value={userData.userCountry}
                 onChange={(e) => setUserData({ ...userData, userCountry: e.target.value })}
-                className="inputbox-full mb-5"
+                className="rounded-lg px-4 py-3 outline-none h-12 border border-black w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2"
                 placeholder="Country"
                 
-            />
+            /> */}
+            <input
+        type="text"
+        name="userCountry"
+        id="userCountry"
+        value={userData.userCountry || ""}
+        onChange={(e) =>
+          setUserData({ ...userData, userCountry: e.target.value })
+        }
+        className={`rounded-lg px-4 py-3 outline-none h-12 border ${
+          formErrors.userCountry ? "border-red-500" : "border-black"
+        } w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2`}
+        placeholder="Phone Number"
+      />
+      {formErrors.userCountry && (
+        <div className="text-red-500 text-sm">
+          {formErrors.userCountry}
         </div>
-        <div className='mt-10 border-b'>
+      )}
+        </div>
+        <div className='mt-10'>
             <div className='flex justify-between'>
                 <p className='font-bold mb-3'>State</p>
-                <button className='font-bold'>Edit</button>
+                {/* <button className='font-bold'>Edit</button> */}
             </div>
-            <input
+            {/* <input
                 type="text"
                 name="userState"
                 id="userState"
                 value={userData.userState}
                 onChange={(e) => setUserData({ ...userData, userState: e.target.value })}
-                className="inputbox-full mb-5"
+                className="rounded-lg px-4 py-3 outline-none h-12 border border-black w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2"
                 placeholder="State"
                 
-            />
+            /> */}
+            <input
+        type="text"
+        name="userState"
+        id="userState"
+        value={userData.userState || ""}
+        onChange={(e) =>
+          setUserData({ ...userData, userState: e.target.value })
+        }
+        className={`rounded-lg px-4 py-3 outline-none h-12 border ${
+          formErrors.userState ? "border-red-500" : "border-black"
+        } w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2`}
+        placeholder="Phone Number"
+      />
+      {formErrors.userState && (
+        <div className="text-red-500 text-sm">
+          {formErrors.userState}
         </div>
-        <div className='mt-10 border-b'>
+      )}
+        </div>
+        <div className='mt-10'>
             <div className='flex justify-between'>
                 <p className='font-bold mb-3'>City</p>
-                <button className='font-bold'>Edit</button>
+                {/* <button className='font-bold'>Edit</button> */}
             </div>
-            <input
+            {/* <input
                 type="text"
                 name="userCity"
                 id="userCity"
                 value={userData.userCity}
                 onChange={(e) => setUserData({ ...userData, userCity: e.target.value })}
-                className="inputbox-full mb-5"
+                className="rounded-lg px-4 py-3 outline-none h-12 border border-black w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2"
                 placeholder="City"
                 
-            />
+            /> */}
+            <input
+        type="text"
+        name="userCity"
+        id="userCity"
+        value={userData.userCity || ""}
+        onChange={(e) =>
+          setUserData({ ...userData, userCity: e.target.value })
+        }
+        className={`rounded-lg px-4 py-3 outline-none h-12 border ${
+          formErrors.userCity ? "border-red-500" : "border-black"
+        } w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2`}
+        placeholder="Phone Number"
+      />
+      {formErrors.userCity && (
+        <div className="text-red-500 text-sm">
+          {formErrors.userCity}
         </div>
-        <div className='mt-10 border-b'>
+      )}
+        </div>
+        <div className='mt-10'>
             <div className='flex justify-between'>
                 <p className='font-bold mb-3'>Street</p>
-                <button className='font-bold'>Edit</button>
+                {/* <button className='font-bold'>Edit</button> */}
             </div>
-            <input
+            {/* <input
                 type="text"
                 name="userStreet"
                 id="userStreet"
                 value={userData.userStreet}
                 onChange={(e) => setUserData({ ...userData, userStreet: e.target.value })}
-                className="inputbox-full mb-5"
+                className="rounded-lg px-4 py-3 outline-none h-12 border border-black w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2"
                 placeholder="Street"
                 
-            />
+            /> */}
+            <input
+        type="text"
+        name="userStreet"
+        id="userStreet"
+        value={userData.userStreet || ""}
+        onChange={(e) =>
+          setUserData({ ...userData, userStreet: e.target.value })
+        }
+        className={`rounded-lg px-4 py-3 outline-none h-12 border ${
+          formErrors.userStreet ? "border-red-500" : "border-black"
+        } w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2`}
+        placeholder="Phone Number"
+      />
+      {formErrors.userStreet && (
+        <div className="text-red-500 text-sm">
+          {formErrors.userStreet}
+        </div>
+      )}
         </div>
         
-    </section>
+    </div>
       )}
       {activeTab === "document" && (
-        <section className='max-w-[40rem]'>
+        <div className='max-w-[40rem] mb-10'>
         <div className=''>
-            <h1 className='font-bold mt-10 text-xl'>Documents</h1>
+            {/* <h1 className='font-bold mt-10 text-xl ml-1 md:ml-0'>Documents</h1> */}
 
-            <section className='max-w-[40rem]'>
-                <div className='mt-10 border-b'>
-                    <div className='flex justify-between'>
+            <div className='max-w-[40rem]'>
+                <div className=''>
+                    <div className='flex items-center justify-between'>
                         <p className='font-bold mb-3'>ID NUMBER</p>
-                        <button className='font-bold'>Update</button>
+                        {/* <button className='font-bold'>Update</button> */}
                     </div>
-                    <input
+                    {/* <input
                     type="text"
                     name="userIdentityNumber"
                     id="userIdentityNumber"
                     value={userData.userIdentityNumber}
                     onChange={(e) => setUserData({ ...userData, userIdentityNumber: e.target.value })}
-                    className="inputbox-full mb-5"
+                    className="rounded-lg px-4 py-3 outline-none h-12 border border-black w-[18rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2"
                     placeholder="Enter the number"
-                    autoFocus
-                />
+                /> */}
+                <input
+        type="text"
+        name="userIdentityNumber"
+        id="userIdentityNumber"
+        value={userData.userIdentityNumber || ""}
+        onChange={(e) =>
+          setUserData({ ...userData, userIdentityNumber: e.target.value })
+        }
+        className={`rounded-lg px-4 py-3 outline-none h-12 border ${
+          formErrors.userIdentityNumber ? "border-red-500" : "border-black"
+        } w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2`}
+        placeholder="Phone Number"
+      />
+      {formErrors.userIdentityNumber && (
+        <div className="text-red-500 text-sm">
+          {formErrors.userIdentityNumber}
+        </div>
+      )}
                 </div>
 
                 
                 
-            </section>
+            </div>
         </div>
 
-    </section>
-      )}
     </div>
+      )}
+    {/* </div> */}
             </div>
         </div>
 
 
         </main>
+        <Footer />
     </div>
   )
 }

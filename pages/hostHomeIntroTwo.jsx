@@ -24,29 +24,29 @@ function hostHomeIntroTwo() {
             <Image src={logopic} layout='fill' objectFit='cover' />
           </Link>
         </animated.div>
-        <animated.div style={props} className="ml-20">
+        <animated.div style={props} className=" lg:ml-20">
             <p className='text-lg mb-5 font-bold'>Step 1</p>
             <h1 className="text-6xl font-medium mb-5 text-black">Tell us about your place</h1>
             <p className='text-md'>In this step, we'll ask you which type of property you have and if guests will book the entire place or just a room. Then let us know the location and how many guests can stay.</p>
         </animated.div>
-        <animated.div style={props} className='flex justify-start'>
+        <animated.div style={props} className='flex justify-between md:justify-start'>
           <Link href="/hostHomeIntro">
             <button className="py-3 px-6 mr-2 mb-2 text-sm font-medium focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200">
               Back
             </button>
             </Link>
 
-            {/* <Link href="/App">
-              <button className="hidden py-3 px-6 mr-2 mb-2 text-sm font-medium text-white focus:outline-none bg-[#DB5461] rounded-lg border border-gray-200">
+            <Link href="/App">
+              <button className="md:hidden py-3 px-6 mr-2 mb-2 text-sm font-medium text-white focus:outline-none bg-[#DB5461] rounded-lg border border-gray-200">
                 Proceed
               </button>
-            </Link> */}
+            </Link>
         </animated.div>
       </div>
-      <div className="flex flex-col bg-white justify-between min-h-screen">
+      <div className="hidden md:flex flex-col bg-white justify-between min-h-screen">
         {/* <!-- Content for the right side --> */} 
         <div></div>
-        <div className='relative w-[30rem] h-[30rem] mx-auto'>
+        <div className='relative w-[20rem] h-[20rem] mx-auto'>
           <Image src={hostpic} layout='fill' objectFit='cover' />
         </div>
         <div className='flex justify-end mb-5 mr-5'>

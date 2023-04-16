@@ -2,17 +2,26 @@ import Image from "next/image";
 import React, { useContext, useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { MdClose } from "react-icons/md";
-import logo from "/public/images/qoo_logo.png";
+import logo from "../public/images/qoo_logo.png";
 import { BsFacebook } from "react-icons/bs";
 import { ImAppleinc } from "react-icons/im";
 import { toast } from "react-toastify";
+import ModalComponent from "../components/ModalComponent";
+import LoginModal from "../components/LoginModal";
+import OtpModal from "../components/OtpModal";
+import ForgotPasswordComponent from "../components/ForgotPasswordComponent";
+import ForgotOtpModal from "../components/ForgotOtpModal";
+import ResetSuccess from "../components/ResetSuccess";
 
 import Loader from "../components/Loader";
 import { initialEnrollment } from "../utils/api/auth/initialEnrolment";
 import { AuthLevelContext } from "../utils/context/AuthLevelContext.js";
+import Navi from "../components/misc/Navi";
+
 
 import { useApi } from "../utils/hooks/useApi";
-import Load from "./Load";
+import Load from "../components/Load";
+import Head from "next/head";
 
 const SignUpComponent = () => {
   const authLevel = useContext(AuthLevelContext);
@@ -83,6 +92,7 @@ const SignUpComponent = () => {
     if (response.data.responseCode !== "00") return;
 
     if (response.data.responseCode === "00") {
+      authLevel.setModalVisible(true);
       authLevel.setModalType("OTP");
       authLevel.setEmail(email);
       authLevel.setPassword(password);
@@ -90,7 +100,15 @@ const SignUpComponent = () => {
   };
 
   return (
-    <div className="relative p-6 overflow-scroll bg-white rounded-2xl overflow-y-auto max-h-full">
+    <div className="relative p-6 bg-white rounded-2xl">
+      <Head>
+        <title>QuooSpace</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <div className="hidden">
+        <Navi />
+      </div>
       <div className="flex flex-col items-center justify-center">
         <div className="relative w-12 h-12">
           <Image src={logo} className="absolute w-full h-full" />
@@ -99,14 +117,14 @@ const SignUpComponent = () => {
           Create your Qoospace account{" "}
         </h1>
       </div>
-      <button
+      {/* <button
         onClick={() => authLevel.setModalVisible(false)}
         className="absolute flex items-center justify-center bg-gray-100 rounded-full top-6 right-6 w-7 h-7"
       >
         <MdClose className="w-4 h-4 font-bold text-black" />
-      </button>
+      </button> */}
 
-      <div className="flex flex-col items-center justify-center px-3 mt-9 ">
+      <div className="flex flex-col items-center justify-center px-3 mt-9">
         <div className="flex flex-col justify-center items-center space-y-6">
           <div className="flex flex-col xl:flex-row space-y-6 xl:space-y-0 space-x-0 xl:space-x-4 items-center justify-between">
             <input
@@ -198,7 +216,10 @@ const SignUpComponent = () => {
         <div className="text-sm font-normal mt-6 text-[#68717F]">
           Already have an account?{" "}
           <span className="text-primary">
-            <button onClick={() => authLevel.setModalType("LOGIN")}>
+            <button onClick={() => {
+        authLevel.setModalVisible(true);
+        authLevel.setModalType("LOGIN");
+      }}>
               Log in
             </button>
           </span>
@@ -240,6 +261,28 @@ const SignUpComponent = () => {
           </button>
         </div>
       </div>
+
+
+      <ModalComponent
+        isVisible={authLevel.modalVisible}
+        shouldBeBlurAndDarkened
+        shouldBeCentered
+        onClose={() => authLevel.setModalVisible(false)}
+      >
+        {authLevel.modalType === "LOGIN" ? (
+          <LoginModal />
+        ) : authLevel.modalType === "REGISTER" ? (
+          <SignUpComponent />
+        ) : authLevel.modalType === "OTP" ? (
+          <OtpModal />
+        ) : authLevel.modalType === "FORGOT" ? (
+          <ForgotPasswordComponent />
+        ) : authLevel.modalType === "OTPRESET" ? (
+          <ForgotOtpModal />
+        ) : authLevel.modalType === "SUCCESS" ? (
+          <ResetSuccess />
+        ) : null}
+      </ModalComponent>
     </div>
   );
 };

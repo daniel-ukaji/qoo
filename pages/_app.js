@@ -13,6 +13,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { GlobalProvider } from '../context/GlobalState'
 import ProgressBar from "@badrap/bar-of-progress";
 import { useRouter } from "next/router";
+import { SessionProvider } from 'next-auth/react';
 
 const progress = new ProgressBar({
   size: 4,
@@ -26,7 +27,7 @@ const progress = new ProgressBar({
 // Router.events.on('routeChangeComplete', progress.finish)
 // Router.events.on('routeChangeError', progress.finish)
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, session }) {
 
   const [queryClient] = useState(() => new QueryClient());
 
@@ -71,6 +72,7 @@ function MyApp({ Component, pageProps }) {
   return (
     
   <GlobalProvider>
+    <SessionProvider session={session}>
     <QueryClientProvider client={queryClient}>
       <AuthLevelContext.Provider
         value={{
@@ -95,6 +97,7 @@ function MyApp({ Component, pageProps }) {
         <ToastContainer />
       </AuthLevelContext.Provider>
     </QueryClientProvider>
+    </SessionProvider>
     </GlobalProvider>
   );
 }

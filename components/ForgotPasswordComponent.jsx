@@ -7,6 +7,7 @@ import { BsFacebook } from "react-icons/bs";
 import { ImAppleinc } from "react-icons/im";
 import { useApi } from "../utils/hooks/useApi";
 import { login } from "../utils/api/auth/login";
+import { resetPassword } from "../utils/api/auth/resetPassword";
 import { AuthLevelContext } from "../utils/context/AuthLevelContext";
 import Load from "./Load";
 import { useAuth } from "../utils/hooks/useAuth";
@@ -14,7 +15,7 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 
 
-const LoginModal = () => {
+const ForgotPasswordComponent = () => {
   const authLevel = useContext(AuthLevelContext);
   const auth = useAuth();
 
@@ -25,37 +26,37 @@ const LoginModal = () => {
 
 
   const loginApi = useApi(login);
+  const passwordApi = useApi(resetPassword);
 
   const onSubmit = async () => {
-    if (email.length && password.length) {
+    if (email.length) {
       let req = {
         username: email,
-        password,
+        countryCode: "234",
       };
 
       // let id = toast.loading("Please wait whiles we complete your request");
 
-      const response = await loginApi.request(req);
+    //   const response = await loginApi.request(req);
+         const response = await passwordApi.request(req);
 
       console.log(response)
 
-      // toast.update(id, {
-      //   type: response.data.responseCode !== "00" ? "error" : "success",
-      //   render: response.data.responseMessage,
-      //   isLoading: loginApi.loading,
-      //   autoClose: true,
-      //   onClick: () => !loginApi.errorMessage && toast.dismiss(),
-      // });
+    //   toast.update(id, {
+    //     type: response.data.responseCode !== "00" ? "error" : "success",
+    //     render: response.data.responseMessage,
+    //     isLoading: passwordApi.loading,
+    //     autoClose: true,
+    //     onClick: () => !passwordApi.errorMessage && toast.dismiss(),
+    //   });
 
-      if (response.data && response.data.responseCode === "00") {
-        let unusualResponseString = response.data.token;
-        let token = unusualResponseString.slice(7).trim();
-        auth.logIn(token);
-        authLevel.setModalVisible(false);
-        authLevel.setModalType("NONE");
-        window.location.href = "/"; // or whatever your homepage URL is
+      if (response.data.responseCode !== "00") return;
 
-      }
+    if (response.data.responseCode === "00") {
+      authLevel.setModalType("OTPRESET");
+      authLevel.setEmail(email);
+      authLevel.setPassword(password);
+    }
     }
   };
 
@@ -65,8 +66,8 @@ const LoginModal = () => {
         <div className="relative w-12 h-12">
           <Image src={logo} className="absolute w-full h-full" />
         </div>
-        <h1 className="mt-3 text-lg font-semibold text-secondary">
-          Log in to your Qoospace account
+        <h1 className="mt-3 text-sm text-center xl:text-sm font-semibold text-secondary">
+          Enter your email address and new password
         </h1>
       </div>
       <button
@@ -99,10 +100,10 @@ const LoginModal = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="touch-auto	rounded-lg px-4 py-3 outline-none h-12 border border-gray-200 w-[18.375rem] xl:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2;"
-            placeholder="Enter password"
+            placeholder="Enter new password"
           />
 
-          {loginApi.loading ? (
+          {passwordApi.loading ? (
             <div className="flex items-center justify-center">
               <Load />
             </div>
@@ -114,13 +115,13 @@ const LoginModal = () => {
               className="rounded-lg px-4 bg-primary text-white text-center py-3 outline-none h-14 border border-gray-w00 w-[18.375rem] xl:w-[28.063rem]"
               onClick={onSubmit}
             >
-              Login
+              Proceed
             </button>
           )}
           
         </div>
 
-        <div className="flex justify-between items-center space-x-10 xl:space-x-48 mt-3">
+        {/* <div className="flex justify-between items-center space-x-48 mt-3">
           <div className="text-[#68717F] text-sm font-normal flex items-center space-x-2">
               <input
                 type="checkbox"
@@ -132,7 +133,7 @@ const LoginModal = () => {
               />
               Remember Me
             </div>
-            <button onClick={() => authLevel.setModalType("FORGOT")} className="text-sm font-semibold">Forgot password</button>
+            <button className="text-sm font-semibold">Forgot password</button>
         </div>
         
         <div className="text-sm font-normal mt-6 text-[#68717F]">
@@ -178,10 +179,10 @@ const LoginModal = () => {
               Sign in with Apple
             </h1>
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );
 };
 
-export default LoginModal;
+export default ForgotPasswordComponent;

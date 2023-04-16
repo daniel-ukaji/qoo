@@ -3,8 +3,10 @@ import { Home, Search, Heart, User } from "react-feather";
 import ThemeToggle from "./ThemeToggle";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
-export default function MobileNav() {
+
+export default function MobileNav({ links }) {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
 
@@ -19,7 +21,7 @@ export default function MobileNav() {
         <span></span>
       </div>
       <div className="items">
-        <div
+        {/* <div
           onClick={() => router.push("/")}
           className={`item ${router.pathname === "/" ? "active" : null}`}
         >
@@ -35,8 +37,31 @@ export default function MobileNav() {
         </div>
         <div className="item">
           <User /> Profile
+        </div> */}
+        <div className="flex flex-col justify-start ite item">
+          {links.map((link) => {
+            if (link.actionType === "BUTTON") {
+              return (
+                <button
+                  key={link.id}
+                  onClick={link.onPress}
+                  className="item"
+                >
+                  {link.label}
+                </button>
+              );
+            } else if (link.actionType === "LINK") {
+              return (
+                <Link href={link.href} key={link.id}>
+                  <div className="item">
+                  {link.label}
+                  </div>
+                </Link>
+              );
+            }
+          })}
         </div>
-        <ThemeToggle icon text className="item" />
+        {/* <ThemeToggle icon text className="item" /> */}
       </div>
     </MobileNavDiv>
   );
@@ -72,7 +97,7 @@ const MobileNavDiv = styled.div`
 
       .item {
         display: flex;
-        align-items: center;
+        // align-items: center;
         padding: 0.25rem 3rem 0.25rem 0.5rem;
         border-radius: 1rem;
         cursor: pointer;

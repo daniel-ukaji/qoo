@@ -4,6 +4,8 @@ export const COMPLETE_ENROLLMENT = "authentication/complete-enrollment";
 export const RESEND_OTP = "authentication/resend-otp";
 export const LOGIN = "authentication/login";
 export const ME = "authentication/user-details";
+export const PASSWORD_RESET = "authentication/initiate-password-reset";
+export const COMPLETE_PASSWORD_RESET = "authentication/complete-password-reset";
 
 // Properties
 export const GETPROPETIES = "property/read";

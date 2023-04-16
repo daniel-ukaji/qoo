@@ -5,6 +5,7 @@ import HostFrame from '../public/images/HostFrame.png'
 import Image from 'next/image';
 import Link from 'next/link';
 import logopic from '../public/images/qoo_logo.png';
+import Head from 'next/head';
 
 
 const PageTestThree = ({ prevStep }) => {
@@ -57,6 +58,11 @@ const PageTestThree = ({ prevStep }) => {
 
   return (
     <div className='bg-white'>
+      <Head>
+        <title>QuooSpace</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
         <div className="pl-10 p-6 h-screen flex flex-col justify-between max-w-[40rem] mx-auto">
             {/* <!-- Content for the left side --> */}
           
@@ -66,7 +72,7 @@ const PageTestThree = ({ prevStep }) => {
                 <Image src={logopic} layout='fill' objectFit='cover' />
               </Link>
             </div>
-              <h1 className='text-4xl font-semibold mt-5 max-w-[40rem]'>Where's your place located?</h1>
+              <h1 className='text-4xl font-medium md:font-semibold mt-5 max-w-[40rem]'>Where's your place located?</h1>
               <div className='relative'>
               <label htmlFor="" className='block mb-2 mt-3 text-sm font-medium text-gray-900 dark:text-white'>Street</label>
                   <InputField

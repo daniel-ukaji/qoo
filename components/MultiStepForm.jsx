@@ -15,6 +15,7 @@ import PageTen from './PageTen';
 import PageEleven from './PageEleven';
 import PageTwelve from './PageTwelve';
 import PageThirteen from './PageThirteen';
+import BedCount from './BedCount';
 // import PageCounter from './PageCounter';
 // import ProgressBar from "@badrap/bar-of-progress";
 // import { useRouter } from 'next/router';
@@ -36,8 +37,10 @@ const MultiStepForm = () => {
         return <PageTwo nextStep={nextStep} prevStep={prevStep} />;
       case 3:
         return <PageThree nextStep={nextStep} prevStep={prevStep} />;
+      // case 4:
+      //   return <PageFour nextStep={nextStep} prevStep={prevStep} />;
       case 4:
-        return <PageFour nextStep={nextStep} prevStep={prevStep} />;
+        return <BedCount nextStep={nextStep} prevStep={prevStep} />;
       case 5:
         return <PageStepTwo nextStep={nextStep} prevStep={prevStep} />;
       case 6:

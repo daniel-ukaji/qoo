@@ -18,7 +18,7 @@ function hostSuccess() {
             <AiFillCheckCircle className='w-20 h-20 text-primary' />
             <h1 className='text-2xl font-bold'>Successful</h1>
             <p className='text-sm text-[#667085]'>You have successfully created your listing</p>
-            <button onClick={() => router.push('/') } className="px-40 py-2 mt-6 text-xs font-medium text-center text-white rounded-xl bg-primary w-fit">
+            <button onClick={() => router.push('/') } className="px-32 xl:px-40 py-2 mt-6 text-xs font-medium text-center text-white rounded-xl bg-primary w-fit">
           Continue
         </button>        
         </div>

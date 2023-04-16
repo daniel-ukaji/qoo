@@ -25,7 +25,7 @@ const AmenitiesComponent = ({ onClick }) => {
 
       <section>
       <section className="flex flex-col space-y-10 overflow-y-auto max-h-96">
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid xl:grid-cols-2 gap-4">
         {booking[0].propertyServices?.split(",").map((item) => (                      
             <div className="flex space-x-3 py-3 container w-full"><SlScreenDesktop className="w-5 h-5 text-primary" /><h1>{item}</h1></div>    
         ))}

@@ -12,6 +12,7 @@ import { ADD_IMAGE, REMOVE_IMAGE } from '../store'
 import { PlusIcon } from '@heroicons/react/solid';
 import Link from 'next/link'
 import logopic from '../public/images/qoo_logo.png';
+import Head from 'next/head'
 
 
 
@@ -88,6 +89,11 @@ const handleBackClick = () => {
 
 return (
   <div className='bg-white'>
+    <Head>
+        <title>QuooSpace</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
     <div className="pl-10 p-6 h-screen flex flex-col justify-between max-w-[50rem] mx-auto">
       {/* <!-- Content for the left side --> */}
       <div className="relative w-14 h-14 cursor-pointer mb-5">

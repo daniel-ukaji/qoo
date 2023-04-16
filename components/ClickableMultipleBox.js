@@ -12,11 +12,11 @@ const ClickableBox = ({ options, selectedOption, setPageSelection }) => {
   };
 
   return (
-    <div className="grid grid-cols-3 gap-3">
+    <div className="grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-3">
       {options.map((option) => (
         <label
           key={option}
-          className={`p-4 m-2 cursor-pointer border text-sm text-black hover:border-[#DB5461] rounded-md flex flex-col justify-center items-start space-y-5 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110  ${
+          className={`p-2 md:p-4 m-2 cursor-pointer border text-sm text-black hover:border-[#DB5461] rounded-md flex flex-col justify-center items-start space-y-5 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110  ${
             selectedOption.includes(option) ? 'border-[#DB5461]' : 'border-gray-300'
           }`}
         >

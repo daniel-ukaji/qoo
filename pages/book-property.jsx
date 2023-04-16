@@ -30,6 +30,7 @@ import { GiNuclearWaste, GiUmbrella } from "react-icons/gi";
 import { nanoid } from 'nanoid';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import Head from "next/head";
 
 
 const Index = () => {
@@ -320,7 +321,12 @@ const handleClick = () => {
   // const foot = '76px';
   return (
     
-    <div className="relative h-screen w-screen max-w-[90rem] font-sora">
+    <div className="relative h-screen  max-w-[90rem] font-sora">
+      <Head>
+        <title>QuooSpace</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <div className="sticky top-0 z-50 h-[6rem] w-full">
         <Header />
       </div>
@@ -332,12 +338,13 @@ const handleClick = () => {
   >
     {({ isSubmitting }) => (
       <Form>
-          <div className="flex px-20">
+          <div className="flex flex-col xl:flex-row px-5 xl:px-20">
             <div
-              className="w-8/12 overflow-scroll scrollbar-hide"
-              style={{
-                height: `calc(100vh - ${navBar}`,
-              }}
+              className="xl:w-8/12 xl:overflow-scroll xl:scrollbar-hide xl:h-screen"
+              // style={{
+              //   height: `calc(100vh - ${navBar})`,
+                
+              // }}
             >
               <div className="">
                 {/* <button
@@ -362,15 +369,15 @@ const handleClick = () => {
                 {booking.map((property) => {
                   return (
                   <div className="flex justify-between mt-2">
-                    <div className="flex self-end space-x-2">
+                    <div className="flex flex-col xl:flex-row space-y-3 xl:self-end xl:space-x-2">
                       <div className="flex items-center space-x-1">
-                        <FiMapPin className="w-4 h-4 text-primary" />
+                        <FiMapPin className="hidden xl:block w-4 h-4 text-primary" />
                         <h1 className="text-sm font-normal text-secondary">
                           {property.propertyStreet}
                         </h1>
                       </div>
                       <div className="flex items-center space-x-1">
-                        <FiUser className="w-4 h-4 text-primary" />
+                        <FiUser className="hidden xl:block w-4 h-4 text-primary" />
                         <h1 className="text-sm font-normal text-secondary">
                           JJM Consults
                         </h1>
@@ -399,8 +406,8 @@ const handleClick = () => {
                 </h1>
 
                 <div className="flex flex-col mt-4 space-y-6">
-          <div className="flex items-center justify-between ">
-            <div className="flex flex-col w-fourty8">
+          <div className="flex flex-col xl:flex-row space-y-5 xl:space-y-0 xl:items-center justify-between ">
+            <div className="flex flex-col xl:w-fourty8">
               <Field
                 type="text"
                 name="firstname"
@@ -412,7 +419,7 @@ const handleClick = () => {
             </div>
 
 
-            <div className="flex flex-col w-fourty8">
+            <div className="flex flex-col xl:w-fourty8">
               <Field
                 type="text"
                 name="lastname"
@@ -424,8 +431,8 @@ const handleClick = () => {
             </div>
           </div>
 
-          <div className="flex items-center justify-between">
-            <div className="flex flex-col w-fourty8">
+          <div className="flex flex-col xl:flex-row space-y-5 xl:space-y-0 xl:items-center justify-between ">
+            <div className="flex flex-col xl:w-fourty8">
               <Field
                 type="text"
                 name="address"
@@ -436,7 +443,7 @@ const handleClick = () => {
               <ErrorMessage name="address" component="div" className="text-red-500" />
             </div>
             
-            <div className="flex flex-col w-fourty8">
+            <div className="flex flex-col xl:w-fourty8">
               <Field
                 type="text"
                 name="city"
@@ -447,8 +454,8 @@ const handleClick = () => {
               <ErrorMessage name="city" component="div" className="text-red-500" />
             </div>
           </div>
-          <div className="flex items-center justify-between">
-            <div className="flex flex-col w-fourty8">
+          <div className="flex flex-col xl:flex-row space-y-5 xl:space-y-0 xl:items-center justify-between ">
+            <div className="flex flex-col xl:w-fourty8">
               <Field
                 type="text"
                 name="phonenumber"
@@ -459,7 +466,7 @@ const handleClick = () => {
               <ErrorMessage name="phonenumber" component="div" className="text-red-500" />
             </div>
             
-            <div className="flex flex-col w-fourty8">
+            <div className="flex flex-col xl:w-fourty8">
               <Field
                 type="text"
                 name="email"
@@ -510,7 +517,7 @@ const handleClick = () => {
                   <h1 className="text-lg font-bold text-gray-800">
                    2. All bills inclusive
                   </h1>
-                  <div className="grid grid-cols-2 gap-2 mt-3">
+                  <div className="flex flex-col space-y-3 xl:grid xl:grid-cols-2 xl:gap-2  mt-3">
                         <div className="flex items-center space-x-4  max-w-[80%]"><IoBulbOutline className="w-5 h-5 text-primary" /> <h1 className="text-sm">Power Supply</h1></div>
                         <div className="flex items-center space-x-4  max-w-[80%]"><HiOutlineSparkles className="w-5 h-5 text-primary" /> <h1 className="text-sm">Cleaning</h1></div>
                         <div className="flex items-center space-x-4  max-w-[80%]"><MdOutlineWaterDrop className="w-5 h-5 text-primary" /> <h1 className="text-sm">Water Supply</h1></div>
@@ -526,13 +533,12 @@ const handleClick = () => {
                   
                 </div>
 
-              <div className="h-[37.313rem]"></div>
             </div>
             
             {booking.map((property) => {
               const totalPrice = property.propertyBookingPrice * finalDate
               return (
-              <div className="sticky right-0 flex items-center justify-center w-2/6 sticky right-0">
+              <div className="sticky right-0 flex items-center justify-center w-2/6 mb-5 xl:mb-0 xl:mx-0 mx-auto mt-5 xl:mt-0 px-24 xl:px-0">
                 <div className="inset-0 p-6 border border-gray-200 rounded-lg">
                   <div className="flex flex-col space-y-2 text-sm font-normal text-secondary">
                     <div className="flex items-center justify-between">

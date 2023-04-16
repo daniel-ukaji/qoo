@@ -53,9 +53,9 @@ const PageTwelve = ({ prevStep }) => {
       const zipcode = useSelector((state) => state.propertyZipCode);
       const country = useSelector((state) => state.propertyCountry);
       const clickBox = useSelector((state) => state.propertyType)
-      const selectedBedrooms = useSelector((state) => state.propertyBedroomNumber);
-      const selectedBeds = useSelector((state) => state.propertyGuestNumber);
-      const selectedBathrooms = useSelector((state) => state.propertyBathroomNumber);
+      const selectedBedrooms = useSelector((state) => state.propertyBedroomNum);
+      const selectedBeds = useSelector((state) => state.propertyGuestNum);
+      const selectedBathrooms = useSelector((state) => state.propertyBathroomNum);
       const WhatToOffer = useSelector((state) => state.propertyServices);
       const ImageUpload = useSelector((state) => state.propertyImages);
       const createTitle = useSelector((state) => state.propertyName);
@@ -68,11 +68,15 @@ const PageTwelve = ({ prevStep }) => {
       const propertyImages = useSelector((state) => state?.propertyImages);
       const GuestSpace = useSelector((state) => state?.propertyGuestSpace);
 
+      console.log(selectedBathrooms)
+      console.log(selectedBeds)
+      console.log(selectedBedrooms)
+
       const imageString = propertyImages?.map((image) => image.toString()).join(',');
 
-      console.log(selectedBathrooms)
+      // console.log(selectedBathrooms)
 
-      console.log(imageString)
+      // console.log(imageString)
 
       const flattenedAmenities = WhatToOffer.flat().filter((item, index, self) => {
         return item && self.indexOf(item) === index;

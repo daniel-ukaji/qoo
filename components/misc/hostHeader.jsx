@@ -17,6 +17,8 @@ import {
 import { useRouter } from "next/router";
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
+import MobileNav from "../MobileNav";
+
 
 const HostHeader = () => {
   const router = useRouter();
@@ -111,14 +113,15 @@ const HostHeader = () => {
 
   return (
     <>
-      <nav className="mx-auto flex w-full max-w-[90rem] items-center justify-between border-b border-b-gray-200 bg-white px-20 py-7">
+      <nav className="mx-auto flex w-full max-w-full items-center justify-between border-b border-b-gray-200 bg-white px-5 md:px-20 py-4">
         <Link href="/">
           <div className="relative h-[2.5rem] w-[9.75rem] cursor-pointer">
             <Image src={applogo} className="absolute" alt="app logo" />
           </div>
         </Link>
-        
-        <div className="flex space-x-5 text-gray-500">
+        {/* <MobileNav links={authLevel.user ? authorizedLinks : unAuthorizedLinks} /> */}
+
+        <div className="hidden md:flex space-x-5 text-gray-500">
             <Link href="/hostProperty" ><a className={isActive("/hostProperty")}>Today</a></Link>
             <Link href="/Inbox" >Inbox</Link>
             <Link href="/Calendar" >Calendar</Link>

@@ -231,20 +231,15 @@ console.log(formattedDates);
 
     return (
       <div className="font-sora">
+        <div className="sticky top-0 z-50 h-[6rem] w-full">
         <Header />
-        <section className="mx-auto mb-14 max-w-[90rem] px-10">
-          <button
-            onClick={() => Router.back()}
-            className="flex items-center px-2 py-3 space-x-3 border border-gray-200 rounded-lg w-fit"
-          >
-            <BiChevronLeft className="text-gray-900" />
-            <h1>Back to home</h1>
-          </button>
+        </div>
+        <section className="md:mx-auto mb-14 md:max-w-full md:px-10">
+          
 
           <div className="mt-7">
             <h1 className="text-2xl font-bold text-gray-800">
-              {property.propertyName} @{property.propertyGPS}{" "}
-              {property.propertyStreet}
+              {property.propertyName}
             </h1>
           </div>
 
@@ -253,16 +248,16 @@ console.log(formattedDates);
           </div>
 
 
-          <div className="flex justify-between mt-2">
-            <div className="flex self-end space-x-2">
+          <div className="flex flex-col xl:space-y-0 space-y-3 xl:flex-row xl:justify-between mt-2">
+            <div className="flex flex-col xl:flex-row space-y-3 xl:self-end xl:space-x-2">
               <div className="flex items-center space-x-1">
-                <FiMapPin className="w-4 h-4 text-primary" />
+                <FiMapPin className="hidden xl:block w-4 h-4 text-primary" />
                 <h1 className="text-sm font-normal text-secondary">
                   {property.propertyStreet}
                 </h1>
               </div>
               <div className="flex items-center space-x-1">
-                <FiUser className="w-4 h-4 text-primary" />
+                <FiUser className="hidden xl:block w-4 h-4 text-primary" />
                 <h1 className="text-sm font-normal text-secondary">
                   JJM Consults
                 </h1>
@@ -300,7 +295,7 @@ console.log(formattedDates);
                     )
                   })} */}
               {/* Big Image */}
-              <div className="relative w-1/2 h-full">
+              <div className="relative w-full md:w-1/2 h-full">
                 <Image
                   src={property.propertyImages[0].propertyImageUrl}
                   alt="room image"
@@ -310,7 +305,7 @@ console.log(formattedDates);
                 />
               </div>
               {/* Sub images */}
-              <div className="flex flex-col justify-between w-1/2 h-full ml-6">
+              <div className="flex hidden md:flex flex-col justify-between w-1/2 h-full ml-6">
                 <div className="flex justify-between">
                   <div className="relative h-[15.688rem] w-fourty8 ">
                     <Image
@@ -357,8 +352,8 @@ console.log(formattedDates);
 
           {/* Property info and booking details */}
           <div className="mt-8">
-            <div className="flex items-start justify-between w-full mt-4">
-              <div className="w-full ">
+            <div className="flex flex-col md:flex-row md:items-start md:justify-between w-full mt-4">
+              <div className="w-full md:w-2/3 ">
                 {/* First Div containing room info */}
                 
                 <div>
@@ -372,74 +367,67 @@ console.log(formattedDates);
                   
                 </div>
 
-                <div className="mt-8 mr-5 w-full">
+                <div className="mt-8 mr-5">
                   <h1 className="mb-4 text-lg font-bold text-gray-800">
-                    Amenities
+                    Property Details
                   </h1>
-                  <div className="flex gap-5 text-sm font-normal text-secondary">
-                    <div className="flex w-[6.875rem] flex-col space-y-3 rounded-lg border border-gray-200 p-3">
+                  <div className="flex flex-wrap xl:flex-nowrap justify-between gap-5 text-sm font-normal text-secondary">
+                    <div className="flex w-[6.875rem] flex-col space-y-3 rounded-lg border-gray-200 p-3">
                       <MdSupervisorAccount className="w-4 h-4 text-primary" />
                       <h1>{property.propertyGuestNumber} guests</h1>
                     </div>
 
-                    <div className="flex w-[6.875rem] flex-col space-y-3 rounded-lg border border-gray-200 p-3">
+                    <div className="flex w-[6.875rem] flex-col space-y-3 rounded-lg border-gray-200 p-3">
                       <IoIosBed className="w-4 h-4 text-primary" />
                       <h1>{property.propertyBedroomNumber} bedroom</h1>
                     </div>
 
-                    <div className="flex w-[6.875rem] flex-col space-y-3 rounded-lg border border-gray-200 p-3">
+                    <div className="flex w-[6.875rem] flex-col space-y-3 rounded-lg border-gray-200 p-3">
                       <FaBath className="w-4 h-4 text-primary" />
                       <h1>{property.propertyBathroomNumber} bathroom</h1>
                     </div>
 
-                    <div className="flex w-[6.875rem] flex-col space-y-3 rounded-lg border border-gray-200 p-3">
+                    <div className="flex w-[6.875rem] flex-col space-y-3 rounded-lg border-gray-200 p-3">
                       <FaSpotify className="w-4 h-4 text-primary" />
                       <h1>{property.propertyGuestNumber} guests</h1>
                     </div>
 
-                    <div className="flex w-[6.875rem] flex-col items-center justify-center space-y-3 rounded-lg border border-gray-200 p-3">
-                      <h1>View All</h1>
+                    <div className="flex hidden xl:flex w-[6.875rem] flex-col items-center justify-center space-y-3 rounded-lg border-gray-200 p-3">
+                      {/* <h1>View All</h1> */}
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-12 border-b">
-                  <h1 className="mb-4 text-lg font-bold text-gray-800">
+                <div className="mt-5 border-b pb-7">
+                  <h1 className="text-lg font-bold text-gray-800">
                     All bills inclusive
                   </h1>
-                  <section className="flex flex-col space-y-20">
-                    <div className="flex space-x-28">
-                      <div className="flex flex-col justify-center items-center space-y-2"><IoBulbOutline className="w-7 h-7 text-primary" /> <h1>Power Supply</h1></div>
-                      <div className="flex flex-col justify-center items-center space-y-2"><HiOutlineSparkles className="w-7 h-7 text-primary" /> <h1>Cleaning Services</h1></div>
-                      <div className="flex flex-col justify-center items-center space-y-2"><MdOutlineWaterDrop className="w-7 h-7 text-primary" /> <h1>Water Supply</h1></div>
-                    </div>
+                  <div className="grid xl:grid-cols-2 gap-4 xl:gap-2 mt-3">
+                        <div className="flex items-center space-x-4  max-w-[80%]"><IoBulbOutline className="w-5 h-5 text-primary" /> <h1 className="text-sm">Power Supply</h1></div>
+                        <div className="flex items-center space-x-4  max-w-[80%]"><HiOutlineSparkles className="w-5 h-5 text-primary" /> <h1 className="text-sm">Cleaning</h1></div>
+                        <div className="flex items-center space-x-4  max-w-[80%]"><MdOutlineWaterDrop className="w-5 h-5 text-primary" /> <h1 className="text-sm">Water Supply</h1></div>
 
-                    <div className="flex space-x-28">
-                      <div className="flex flex-col justify-center items-center space-y-2"><BsHeadset className="w-7 h-7 text-primary" /> <h1>24-hours Support</h1></div>
-                      <div className="flex flex-col justify-center items-center space-y-2"><RiGasStationFill className="w-7 h-7 text-primary" /><h1>Gas Supply</h1></div>
-                      <div className="flex flex-col justify-center items-center space-y-2"><GiNuclearWaste className="w-7 h-7 text-primary" /> <h1>Waste management</h1></div>
-                    </div>
+                        <div className="flex items-center space-x-4  max-w-[80%]"><BsHeadset className="w-5 h-5 text-primary" /> <h1 className="text-sm">24-hours Support</h1></div>
+                        <div className="flex items-center space-x-4  max-w-[80%]"><RiGasStationFill className="w-5 h-5 text-primary" /><h1 className="text-sm">Gas Supply</h1></div>
+                        <div className="flex items-center space-x-4  max-w-[80%]"><GiNuclearWaste className="w-5 h-5 text-primary" /> <h1 className="text-sm">Waste management</h1></div>
 
-                    <div className="flex space-x-28">
-                      <div className="flex flex-col justify-center items-center space-y-2"><BsHouseDoor className="w-7 h-7 text-primary" /> <h1>Estate dues</h1></div>
-                      <div className="flex flex-col justify-center items-center space-y-2"><GiUmbrella className="w-7 h-7 ml-10 text-primary" /> <h1 className="ml-10">Amenities</h1></div>
-                    </div>
-
-                  </section>
+                        <div className="flex items-center space-x-4  max-w-[80%]"><BsHouseDoor className="w-5 h-5 text-primary" /> <h1 className="text-sm">Estate dues</h1></div>
+                        <div className="flex items-center space-x-4  max-w-[80%]"><GiUmbrella className="w-5 h-5 text-primary" /> <h1 className="text-sm">Amenities</h1></div>
+                  </div>
+                    {/*  */}
                   
                 </div>
 
-                <div className="mt-12 border-b">
-                  <h1 className="mb-4 text-lg font-bold text-gray-800">
+                <div className="mt-5 pb-7 border-b max-w-2xl">
+                  <h1 className="text-lg  mb-4 font-bold text-gray-800">
                     Amenities
                   </h1>
-                  <section className="flex flex-col space-y-10">
                     {/* {property.propertyServices} */}
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid xl:grid-cols-2 gap-3">
                     {property.propertyServices?.split(",").map((item) => { 
                      return (
                       
-                      <div className="flex space-x-3 py-3"><SlScreenDesktop className="w-5 h-5 text-primary" /><h1>{item}</h1></div> 
+                      <div className="flex items-center space-x-4 max-w-[80%]"><SlScreenDesktop className="w-5 h-5 text-primary" /><h1 className="text-sm">{item}</h1></div> 
                         
                       
                      ) 
@@ -449,59 +437,61 @@ console.log(formattedDates);
                     <button onClick={() => {
                         setModalActive(true);
                         addToBooking(property);
-                      }} className="text-primary flex items-start underline">See all</button>
+                      }} className="text-primary mt-5 flex items-start underline">See all</button>
 
-                  </section>
-                </div>
+                  </div>
 
-                <div className="mt-12 border-b">
-                  <h1 className="mb-4 text-lg font-bold text-gray-800">
+                  <div className="mt-5 border-b pb-5">
+                  
+                  <div className="flex flex-col space-y-6">
+                  <h1 className="text-lg font-bold text-gray-800">
                     Booking Conditions
                   </h1>
-                  <section className="flex flex-col space-y-10">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1>No smoking</h1></div>
-                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1>No parties or events</h1></div>
+                    <div className="grid xl:grid-cols-2 gap-3">
+                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">No smoking</h1></div>
+                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">No parties or events</h1></div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1>Private/residential use only</h1></div>
-                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1>No Inflammables</h1></div>
+                    <div className="grid xl:grid-cols-2 gap-3">
+                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">Private/residential use only</h1></div>
+                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">No Inflammables</h1></div>
                     </div>
-                  </section>
+                  </div>
                 </div>
 
-                <div className="mt-12 border-b">
-                  <h1 className="mb-4 text-lg font-bold text-gray-800">
-                    Mandatory or Included Services
-                  </h1>
-                  <section className="flex flex-col space-y-10">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1>Final CLeaning: Included</h1></div>
-                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1>Internet Access: Included</h1></div>
+                <div className="mt-5 border-b pb-5">
+                  
+                  <div className="flex flex-col space-y-6">
+                    <h1 className="text-lg font-bold text-gray-800">
+                      Mandatory or Included Services
+                    </h1>
+                    <div className="grid xl:grid-cols-2 gap-3">
+                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">Final cleaning: Included</h1></div>
+                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">Internet access: Included</h1></div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1>Security deposit (Refundable): NGN50,000.00 /booking</h1></div>
+                    <div className="grid">
+                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">Security deposit (Refundable): NGN50,000.00 /booking</h1></div>
                       {/* <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1>No Inflammables</h1></div> */}
                     </div>
-                  </section>
+                  </div>
                 </div>
 
-                <div className="mt-12 border-b">
-                  <h1 className="mb-4 text-lg font-bold text-gray-800">
-                    Optional Services
-                  </h1>
-                  <section className="flex flex-col space-y-10">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1>Early Check in/Late check Out: NGN10,000.00 /booking</h1></div>
-                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1>Open-air parking: Included</h1></div>
+                <div className="mt-5 border-b pb-5">
+                  
+                  <div className="flex flex-col space-y-6">
+                    <h1 className="text-lg font-bold text-gray-800">
+                      Optional Services
+                    </h1>
+                    <div className="grid xl:grid-cols-2 gap-3">
+                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">Video shoot: NGN100,000.00 /booking</h1></div>
+                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">Open-air parking: Included</h1></div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1>Video shoot: NGN100,000.00 /booking</h1></div>
+                    <div className="grid gap-3">
+                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">Early check in/Late check Out: NGN10,000.00 /booking</h1></div>
                     </div>
-                  </section>
+                  </div>
                 </div>
 
               </div>
@@ -519,7 +509,6 @@ console.log(formattedDates);
         onClose={() => setModalActive(false)}
       >
         <AmenitiesComponent onClick={() => setModalActive(false)} />
-        <VerifyModal onClick={() => setModalActive(false)} />
       </ModalComponent>
 
       <ModalComponent

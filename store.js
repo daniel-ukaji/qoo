@@ -4,6 +4,33 @@ import thunk from 'redux-thunk';
 const ADD_IMAGE = 'ADD_IMAGE';
 const REMOVE_IMAGE = 'REMOVE_IMAGE';
 
+// Define action types
+const SET_BEDROOMS_SELECTION = 'SET_BEDROOMS_SELECTION';
+const SET_BEDS_SELECTION = 'SET_BEDS_SELECTION';
+const SET_BATHROOMS_SELECTION = 'SET_BATHROOMS_SELECTION';
+
+// Define action creators
+export const setBedroomsSelection = (bedrooms) => {
+  return {
+    type: SET_BEDROOMS_SELECTION,
+    payload: bedrooms
+  };
+};
+
+export const setBedsSelection = (beds) => {
+  return {
+    type: SET_BEDS_SELECTION,
+    payload: beds
+  };
+};
+
+export const setBathroomsSelection = (bathrooms) => {
+  return {
+    type: SET_BATHROOMS_SELECTION,
+    payload: bathrooms
+  };
+};
+
 
 const initialState = {
   pageNumber: 1,
@@ -30,6 +57,9 @@ const initialState = {
   propertyBookingConditions: '',
   propertyImage: '',
   count: 0,
+  propertyBedroomNum: 0,
+  propertyGuestNum: 0,
+  propertyBathroomNum: 0
 };
 
 const formReducer = (state = initialState, action) => {
@@ -53,12 +83,29 @@ const formReducer = (state = initialState, action) => {
         return { ...state, propertyCountry: action.payload };
     case 'SET_PROPERTY_AMENITIES':
       return { ...state, propertyAmenities: action.payload };
-    case 'SET_BEDROOMS_SELECTION':
-      return { ...state, propertyBedroomNumber: action.payload };
-    case 'SET_BEDS_SELECTION':
-      return { ...state, propertyGuestNumber: action.payload };
-    case 'SET_BATHROOMS_SELECTION':
-      return { ...state, propertyBathroomNumber: action.payload };
+    case SET_BEDROOMS_SELECTION:
+      return {
+        ...state,
+        propertyBedroomNum: action.payload
+      };
+    case SET_BEDS_SELECTION:
+      return {
+        ...state,
+        propertyGuestNum: action.payload
+      };
+    case SET_BATHROOMS_SELECTION:
+      return {
+        ...state,
+        propertyBathroomNum: action.payload
+      };
+      
+    // case 'SET_BEDROOMS_SELECTION':
+    //   return { ...state, propertyBedroomNumber: action.payload };
+    // case 'SET_BEDS_SELECTION':
+    //   return { ...state, propertyGuestNumber: action.payload };
+    // case 'SET_BATHROOMS_SELECTION':
+    //   return { ...state, propertyBathroomNumber: action.payload };
+
     // case 'SET_PROPERTY_SERVICES':
     //   return { ...state, propertyServices: action.payload };
     // case 'SET_PROPERTY_SERVICES':

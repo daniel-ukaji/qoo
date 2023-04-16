@@ -28,7 +28,7 @@ import MobileNavBar from '../mobileNavBar'
 import MobileNav from "../MobileNav";
 
 
-const Header = ({ onSearch }) => {
+const Navi = ({ onSearch }) => {
   const router = useRouter();
   const [searchInput, setSearchInput] = useState("");
   const [startDate, setStartDate] = useState(new Date());
@@ -109,33 +109,65 @@ const Header = ({ onSearch }) => {
         authLevel.setModalType("LOGIN");
       },
     },
-    // {
-    //   label: "Become a Host",
-    //   actionType: "LINK",
-    //   id: "2",
-    //   href: "/become-a-host",
-    // },
-    // {
-    //   label: "Help",
-    //   actionType: "LINK",
-    //   href: "/help&Support",
-    //   id: "4",
-    // },
   ];
 
   const authorizedLinks = [
-    // {
-    //   label: "Bookings",
-    //   actionType: "LINK",
-    //   id: "1",
-    //   href: "/bookings",
-    // },
-    // {
-    //   label: "Wishlist",
-    //   actionType: "LINK",
-    //   href: "/wishlist",
-    //   id: "2",
-    // },
+    {
+      label: "Bookings",
+      actionType: "LINK",
+      href: "/bookingsEmpty",
+      id: "1",
+    },
+    {
+      label: "Become a host",
+      actionType: "LINK",
+      href: "/new-user-home",
+      id: "2",
+    },
+    {
+      label: "Account settings",
+      actionType: "LINK",
+      href: "/AccountSettings",
+      id: "3",
+    },
+    {
+      label: "Host Admin",
+      actionType: "LINK",
+      href: "/hostProperty",
+      id: "4",
+    },
+    {
+      label: "Log out",
+      actionType: "BUTTON",
+      id: "5",
+      onPress: () => logOut(),
+    },
+  ];
+
+  const unAuthLinks = [
+    {
+      label: "Sign up",
+      // actionType: "BUTTON",
+      actionType: "LINK",
+      href: "/SignUpPage",
+      id: "1",
+      // onPress: () => {
+      //   authLevel.setModalVisible(true);
+      //   authLevel.setModalType("REGISTER");
+      // },
+    },
+    {
+      label: "Login",
+      actionType: "BUTTON",
+      id: "3",
+      onPress: () => {
+        authLevel.setModalVisible(true);
+        authLevel.setModalType("LOGIN");
+      },
+    },
+  ];
+
+  const authLinks = [
     {
       label: "Bookings",
       actionType: "LINK",
@@ -176,14 +208,14 @@ const Header = ({ onSearch }) => {
   return (
     <>
       
-      <nav className="mx-auto flex w-full max-w-full items-center justify-between border-b border-b-gray-200 bg-white px-5 md:px-20 py-4">
+      <nav className="mx-auto flex flex-col space-y-1 xl:space-y-0 xl:flex-row w-full max-w-full items-center justify-center xl:justify-between border-b border-b-gray-200 bg-white px-5 md:px-20 py-4">
         {/* <Link href="/"> */}
           <div onClick={handleClick} className="relative h-[2.5rem] w-[9.75rem] cursor-pointer">
             <Image src={applogo} className="absolute" alt="app logo" />
           </div>
-          {/* <MobileNav links={authLevel.user ? authorizedLinks : unAuthorizedLinks} /> */}
+          <MobileNav links={authLevel.user ? authLinks : unAuthLinks} />
         {/* </Link> */}
-        <div className="flex hidden md:flex h-[2.5rem] w-[20rem] items-center justify-between rounded-[64px] border border-gray-300 py-2 px-4">
+        <div className="flex  md:flex h-[2rem] xl:h-[2.5rem] w-[20rem] items-center justify-between rounded-[64px] border border-gray-300 py-2 px-4">
           <input
             value={searchValue} 
             // onChange={(e) =>setSearchInput(e.target.value)}
@@ -191,7 +223,7 @@ const Header = ({ onSearch }) => {
             type="text"
             name=""
             id=""
-            className="w-10/12 h-full border-none outline-none placeholder:text-gray-400"
+            className="w-8/12 xl:w-10/12 h-full border-none outline-none placeholder:text-gray-400"
             placeholder="Search the location"
           />
           <div>
@@ -199,12 +231,12 @@ const Header = ({ onSearch }) => {
           </div>
         </div>
 
-        <div className="flex space-x-7 items-center">
+        <div className="hidden xl:flex space-x-7 items-center">
         <button
             onClick={() => {
               setModalActive(true);
             }}
-            className="flex hidden md:flex items-center px-3 py-3 space-x-1 border border-gray-300 rounded-lg"
+            className="flex md:flex items-center px-3 py-3 space-x-1 border border-gray-300 rounded-lg"
           >
             <GoSettings className="w-6 h-5 text-gray-900" />
             <h1 className="text-sm text-gray-900">Filter</h1>
@@ -285,4 +317,4 @@ const Header = ({ onSearch }) => {
   );
 };
 
-export default Header;
+export default Navi;

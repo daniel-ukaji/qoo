@@ -10,7 +10,9 @@ import ModalComponent from "../components/ModalComponent";
 import FilterComponent from "../components/FilterComponent.jsx";
 import { fetchproperties } from "../utils/api/property/getProperties";
 import SkeletonCard from "../components/SkeletonCard";
+import Navi from "../components/misc/Navi";
 import Navbar from "../components/Navbar";
+
 
 
 export default function Home() {
@@ -59,15 +61,22 @@ export default function Home() {
     <div className="font-sora">
       <Head>
         <title>QuooSpace</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       {/* <Navbar /> */}
-      <Header onSearch={setSearchQuery} />
+      <div className="sticky top-0 z-50 h-[6rem] w-full">
+        {/* <Header onSearch={setSearchQuery} /> */}
+        <Navi onSearch={setSearchQuery} />
+
+      </div>
+      
 
 
-      <main className="px-20 mt-8 max-w-[90rem] mx-auto">
-      <div className="flex flex-wrap items-center mt-8 mb-7 gap-x-5 gap-y-10">
+
+      <main className="px-5 md:px-20 w-full mt-8 max-w-full mx-auto">
+      <div className="flex flex-wrap justify-center items-center mt-8 mb-7 gap-x-5 gap-y-10">
           {isError && <p>{error.message}</p>}
           {loading && <SkeletonCard cards={numItems} />}
           {!loading &&
