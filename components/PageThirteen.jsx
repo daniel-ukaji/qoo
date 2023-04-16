@@ -101,7 +101,7 @@ return (
                 <Image src={logopic} layout='fill' objectFit='cover' />
               </Link>
             </div>
-      <div className='border cursor-pointer max-w-2xl flex flex-col items-center'>
+      <div onClick={() => document.getElementById('imageInput').click()} className='border cursor-pointer max-w-2xl flex flex-col items-center'>
               <div className='flex flex-col items-center mt-16 mb-16'>
               {selectedImages.length === 0 && (
                 <>
@@ -117,35 +117,24 @@ return (
         <div key={index}  className='relative w-[10rem]'>
           <button
             className="absolute top-0 right-0 text-white font-bold text-sm bg-red-500 rounded-full w-5 h-5 flex items-center justify-center"
-            onClick={() => handleImageDelete(index)}
+            onClick={(event) => {
+              event.stopPropagation(); // Stop the click event from propagating to the outer div
+              handleImageDelete(index);
+            }}
           >
             x
           </button>
-          {/* <div className='relative w-[10rem] h-[10rem]'>
-            <Image src={image.preview} layout='fill' objectFit='cover'/>
-          </div> */}
+          
           <img src={image.preview} className="w-[10rem] h-[10rem] object-cover" />
         </div>
       
 
-      {/* <div className="grid grid-cols-2 gap-4 col-span-3">
-        {selectedImages.map((image, index) => (
-          <div key={index} className="relative">
-            <button
-              className="absolute top-0 right-0 text-white font-bold text-sm bg-red-500 rounded-full w-5 h-5 flex items-center justify-center"
-              onClick={() => handleImageDelete(index + 1)}
-            >
-              x
-            </button>
-            <img src={image.preview} className="w-full h-full object-cover" />
-          </div>
-        ))}
-      </div> */}
+      
     </div>
     ))}
 
     {selectedImages.length === 0 && (
-      <label htmlFor="imageInput" className="mt-8 cursor-pointer text-gray-500">
+      <label className="mt-8 cursor-pointer text-gray-500">
         Upload from your device
       </label>
     )}

@@ -9,7 +9,7 @@ import Link from 'next/link';
 
 function PageStepTwo() {
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch() 
 
     const handleNextClick = () => {
         dispatch({ type: 'SET_PAGE_NUMBER', payload: 6 });
@@ -30,9 +30,9 @@ function PageStepTwo() {
               </Link>
             </div>
         <div className="flex flex-col lg:ml-20 space-y-5 font-sora">
-            <p className='text-lg mb-5 font-bold'>Step 2</p>
-            <h1 className="text-6xl font-medium mb-5 text-black">Make your place stand out</h1>
-            <p className='text-md'>In this step, we'll ask you which type of property you have and if guests will book the entire place or just a room. Then let us know the location and how many guests can stay.</p>
+            <p className='text-md xl:text-lg mb-5 font-bold'>Step 2</p>
+            <h1 className="text-4xl xl:text-6xl font-medium mb-5 text-black">Make your place stand out</h1>
+            <p className='text-sm xl:text-md'>In this step, we'll ask you which type of property you have and if guests will book the entire place or just a room. Then let us know the location and how many guests can stay.</p>
         </div>
         <div className="flex justify-between md:justify-start">
           <button onClick={handleBackClick} className="py-3 px-6 mr-2 mb-2 text-sm font-medium focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200">

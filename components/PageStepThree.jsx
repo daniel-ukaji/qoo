@@ -25,9 +25,9 @@ function PageStepThree() {
               </Link>
             </div>
             <div className="flex flex-col xl:ml-20 space-y-5 font-sora">
-            <p className='text-lg mb-5 font-bold'>Step 3</p>
-            <h1 className="text-6xl font-medium mb-5 text-black">Finish up and publish</h1>
-            <p className='text-md'>Finally, you’ll choose if you'd like to start with an experienced guest, then you'll set your nightly price. Answer a few quick questions and publish when you're ready.</p>
+            <p className='text-md xl:text-lg mb-5 font-bold'>Step 3</p>
+            <h1 className="text-4xl xl:text-6xl font-medium mb-5 text-black">Finish up and publish</h1>
+            <p className='text-sm xl:text-md'>Finally, you’ll choose if you'd like to start with an experienced guest, then you'll set your nightly price. Answer a few quick questions and publish when you're ready.</p>
         </div>
         <div className="flex justify-between md:justify-start">
           <button className="py-3 px-6 mr-2 mb-2 text-sm font-medium focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200">

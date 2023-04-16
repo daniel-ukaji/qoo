@@ -25,9 +25,9 @@ function hostHomeIntroTwo() {
           </Link>
         </animated.div>
         <animated.div style={props} className=" lg:ml-20">
-            <p className='text-lg mb-5 font-bold'>Step 1</p>
-            <h1 className="text-6xl font-medium mb-5 text-black">Tell us about your place</h1>
-            <p className='text-md'>In this step, we'll ask you which type of property you have and if guests will book the entire place or just a room. Then let us know the location and how many guests can stay.</p>
+            <p className='text-md xl:text-lg mb-5 font-bold'>Step 1</p>
+            <h1 className="text-4xl xl:text-6xl font-medium mb-5 text-black">Tell us about your place</h1>
+            <p className='text-sm xl:text-md'>In this step, we'll ask you which type of property you have and if guests will book the entire place or just a room. Then let us know the location and how many guests can stay.</p>
         </animated.div>
         <animated.div style={props} className='flex justify-between md:justify-start'>
           <Link href="/hostHomeIntro">

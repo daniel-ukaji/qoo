@@ -72,9 +72,9 @@ const PageTestThree = ({ prevStep }) => {
                 <Image src={logopic} layout='fill' objectFit='cover' />
               </Link>
             </div>
-              <h1 className='text-4xl font-medium md:font-semibold mt-5 max-w-[40rem]'>Where's your place located?</h1>
-              <div className='relative'>
-              <label htmlFor="" className='block mb-2 mt-3 text-sm font-medium text-gray-900 dark:text-white'>Street</label>
+              <h1 className='text-2xl xl:text-4xl font-semibold md:font-semibold mt-5 max-w-[40rem]'>Where's your place located?</h1>
+              <div className=''>
+              <p htmlFor="" className='block mb-2 mt-3 text-sm font-medium text-gray-900'>Street</p>
                   <InputField
                     label="Enter your Address:"
                     placeholder="Maloko Close"
@@ -89,7 +89,7 @@ const PageTestThree = ({ prevStep }) => {
               </div>
 
               <div className='relative'>
-              <label htmlFor="" className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>City</label>
+              <p htmlFor="" className='block mb-2 text-sm font-medium text-gray-900'>City</p>
                 <InputField
                   label="Enter your Address:"
                   placeholder="Lagos"
@@ -104,7 +104,7 @@ const PageTestThree = ({ prevStep }) => {
               </div>
 
               <div className='relative'>
-              <label htmlFor="" className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>State (optional)</label>
+              <p htmlFor="" className='block mb-2 text-sm font-medium text-gray-900'>State (optional)</p>
                 <InputField
                   label="Enter your Address:"
                   placeholder="Lagos"
@@ -119,7 +119,7 @@ const PageTestThree = ({ prevStep }) => {
               </div>
 
               <div className='relative'>
-              <label htmlFor="" className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>ZipCode (optional)</label>
+              <p htmlFor="" className='block mb-2 text-sm font-medium text-gray-900'>ZipCode (optional)</p>
                 <InputField
                   label="Enter your Address:"
                   placeholder="102213"
@@ -134,7 +134,7 @@ const PageTestThree = ({ prevStep }) => {
               </div>
 
               <div className='relative'>
-              <label htmlFor="" className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>Country</label>
+              <p htmlFor="" className='block mb-2 text-sm font-medium text-gray-900'>Country</p>
                 <InputField
                   label="Enter your Address:"
                   placeholder="Name"

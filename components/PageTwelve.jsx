@@ -188,9 +188,9 @@ const PageTwelve = ({ prevStep }) => {
 
 
             <div className="flex flex-col space-y-8">
-            <h1 className='text-4xl font-semibold mb-5'>Just one last step!</h1>
+            <h1 className='text-3xl xl:text-4xl font-semibold mb-5'>Just one last step!</h1>
               <div>
-                <h1 className='text-xl font-semibold mb-5'>How are you hosting on Qoospayce?</h1>
+                <h1 className='text-md xl:text-xl font-semibold mb-5'>How are you hosting on Qoospayce?</h1>
                 <CheckButtons
                     options={options}
                     selectedOption={selectedOption}
@@ -202,7 +202,7 @@ const PageTwelve = ({ prevStep }) => {
               </div>
                 
                 <div>
-                  <h1 className='text-xl font-semibold mb-5'>Does your place have any of these?</h1>
+                  <h1 className='text-md xl:text-xl font-semibold mb-5'>Does your place have any of these?</h1>
                   <CheckButtons
                       options={option2}
                       selectedOption={BookingConditions}

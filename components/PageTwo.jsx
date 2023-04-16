@@ -40,7 +40,7 @@ const PageTwo = ({ prevStep }) => {
             </div>
 
             <div className="flex flex-col space-y-3">
-              <h1 className='text-3xl font-semibold mb-5 max-w-[40rem] text-black'>What type of place will guests have?</h1>
+              <h1 className='text-2xl xl:text-3xl font-semibold mb-5 max-w-[40rem] text-black'>What type of place will guests have?</h1>
                 <RadioButtons
                     options={options}
                     selectedOption={selectedOption}

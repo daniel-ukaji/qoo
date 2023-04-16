@@ -46,7 +46,7 @@ const PageEleven = ({ prevStep }) => {
             </div>
 
             <div>
-              <h1 className='text-4xl font-medium md:font-semibold mb-7 font-sora'>Now, set your price</h1>
+              <h1 className='text-2xl xl:text-4xl font-medium md:font-semibold mb-7 font-sora'>Now, set your price</h1>
               <div className="flex justify-center space-x-4 items-center border pb-10 rounded-md bg-[#F7F7F7]">
                   {/* <button className="border w-10 rounded-lg p-1 relative text-center bg-white">
                           <Image src={Minus} className="border p-10"/>

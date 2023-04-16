@@ -10,13 +10,13 @@ import logopic from '../public/images/qoo_logo.png';
 import Image from 'next/image';
 
 
-function CounterPage() {
+function CounterPage({ prevStep }) {
   const dispatch = useDispatch();
   const bedrooms = useSelector((state) => state.propertyBedroomNum);
   const beds = useSelector((state) => state.propertyGuestNum);
   const bathrooms = useSelector((state) => state.propertyBathroomNum);
 
-  const handleNextClick = ({ prevStep }) => {
+  const handleNextClick = () => {
     if (!bedrooms || !beds || !bathrooms) {
       return; // Do not proceed if any selection is empty
     }
@@ -64,7 +64,7 @@ const handleBackClick = () => {
               </Link>
             </div>
             <div className="">
-              <h1 className='text-4xl font-semibold mb-5 max-w-[40rem]'>Let's start with the basics</h1>
+              <h1 className='text-2xl xl:text-4xl font-semibold mb-5 max-w-[40rem]'>Let's start with the basics</h1>
               <p className='text-md mt-5 font-medium'>How many people can stay here?</p>
 
             <div className='flex flex-col space-y-8 mt-8'>

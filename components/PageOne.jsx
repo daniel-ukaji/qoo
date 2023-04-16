@@ -30,7 +30,7 @@ const PageTest = () => {
               </Link>
             </div>
             <div className="">
-              <h1 className='text-4xl font-semibold mb-5 max-w-[40rem]'>Which of these best describes your place?</h1>
+              <h1 className='text-2xl xl:text-4xl font-semibold mb-5 max-w-[40rem]'>Which of these best describes your place?</h1>
               <ClickableBox
                 options={options}
                 selectedOption={selectedOption}

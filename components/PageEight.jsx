@@ -45,7 +45,7 @@ const PageEight = ({ prevStep }) => {
             </div>
 
             <div className="">
-            <h1 className='text-3xl md:text-4xl font-semibold mb-5'>Now, let's give your apartment a title</h1>
+            <h1 className='text-3xl xl:text-4xl font-semibold mb-5'>Now, let's give your apartment a title</h1>
             <p className='mb-5 text-gray-500 text-md md:text-lg'>Your listing should highlight what makes your place special</p>
             <TextAreaField
                 label="Create your Title:"

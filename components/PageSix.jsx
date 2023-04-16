@@ -41,7 +41,7 @@ const PageSix = ({ prevStep }) => {
             </div>
 
             <div className="">
-              <h1 className='text-3xl font-semibold mt-5  mb-5  text-black'>Tell guests what your place has to offer</h1>
+              <h1 className='text-xl xl:text-3xl font-semibold mt-5  mb-5  text-black'>Tell guests what your place has to offer</h1>
             <ClickableMultipleBox
                 options={options}
                 selectedOption={selectedOption}

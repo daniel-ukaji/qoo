@@ -14,7 +14,7 @@ const RadioButtons = ({ options, selectedOption, setPageSelection }) => {
     <label
       key={option.label}
       htmlFor={`option-${option.label}`}
-      className={`cursor-pointer py-4 ml-2 w-full text-xl font-bold text-black dark:text-gray-300 ${
+      className={`cursor-pointer py-4 ml-2 w-full text-xl font-bold text-black ${
         selectedOption === option.label ? ' text-black' : ''
       }`}
     >
