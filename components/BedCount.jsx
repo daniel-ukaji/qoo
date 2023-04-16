@@ -16,7 +16,7 @@ function CounterPage() {
   const beds = useSelector((state) => state.propertyGuestNum);
   const bathrooms = useSelector((state) => state.propertyBathroomNum);
 
-  const handleNextClick = () => {
+  const handleNextClick = ({ prevStep }) => {
     if (!bedrooms || !beds || !bathrooms) {
       return; // Do not proceed if any selection is empty
     }
