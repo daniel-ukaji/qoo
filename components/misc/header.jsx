@@ -24,7 +24,7 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import { GoSettings } from "react-icons/go";
 import FilterComponent from "../FilterComponent";
 import { useMediaQuery } from "@react-hook/media-query";
-import MobileNavBar from '../mobileNavBar'
+// import MobileNavBar from '../mobileNavBar'
 import MobileNav from "../MobileNav";
 
 
