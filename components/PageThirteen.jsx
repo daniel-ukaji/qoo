@@ -101,70 +101,63 @@ return (
                 <Image src={logopic} layout='fill' objectFit='cover' />
               </Link>
             </div>
-      <div onClick={() => document.getElementById('imageInput').click()} className='border cursor-pointer max-w-2xl flex flex-col items-center'>
-              <div className='flex flex-col items-center mt-16 mb-16'>
-              {selectedImages.length === 0 && (
-                <>
-                  <Image src={Icon}/>
-                  <h1 className='font-bold mt-5 text-xl'>Drag your photos here</h1>
-                  <p className='mt-1 mb-5 text-gray-500'>Add atleast 5 images</p>
-                  </>
-                  )}
-                  <div className="">
-                  {selectedImages.map((image, index) => (
-    <div className="inline-grid grid-cols-2 gap-4 border w-[10rem]">
-      
-        <div key={index}  className='relative w-[10rem]'>
-          <button
-            className="absolute top-0 right-0 text-white font-bold text-sm bg-red-500 rounded-full w-5 h-5 flex items-center justify-center"
-            onClick={(event) => {
-              event.stopPropagation(); // Stop the click event from propagating to the outer div
-              handleImageDelete(index);
-            }}
-          >
-            x
-          </button>
-          
-          <img src={image.preview} className="w-[10rem] h-[10rem] object-cover" />
-        </div>
-      
-
-      
-    </div>
-    ))}
-
+            <div
+  className='border cursor-pointer max-w-2xl flex flex-col items-center'
+  onClick={() => document.getElementById('imageInput').click()}
+>
+  <div className='flex flex-col items-center mt-16 mb-16'>
     {selectedImages.length === 0 && (
-      <label className="mt-8 cursor-pointer text-gray-500">
-        Upload from your device
-      </label>
+      <>
+        <Image src={Icon}/>
+        <h1 className='font-bold mt-5 text-xl'>Drag your photos here</h1>
+        <p className='mt-1 mb-5 text-gray-500'>Add at least 5 images</p>
+      </>
     )}
-
-    {selectedImages.length > 0 && (
-      <button
-        className="mt-8 text-[#667085] px-2 py-3 border border-[#98A2B3] rounded-lg flex justify-center items-center space-x-1"
-        onClick={() => {
-          document.getElementById("imageInput").click();
-          dispatch({ type: "ADD_IMAGE", payload: selectedImages });
-        }}
-      >
-        <PlusIcon className='w-4 h-4'/>
-        <div>
-          Add more
-        </div>
-      </button>
-    )}
-
-    <input
-      type="file"
-      id="imageInput"
-      multiple
-      onChange={handleImageSelect}
-      className="hidden"
-    />
-  </div>
-
-              </div>
+    <div className="">
+      {selectedImages.map((image, index) => (
+        <div className="inline-grid grid-cols-2 gap-4 border w-[10rem]">
+          <div key={index} className='relative w-[10rem]'>
+            <button
+              className="absolute top-0 right-0 text-white font-bold text-sm bg-red-500 rounded-full w-5 h-5 flex items-center justify-center"
+              onClick={(event) => {
+                event.stopPropagation();
+                handleImageDelete(index);
+              }}
+            >
+              x
+            </button>
+            <img src={image.preview} className="w-[10rem] h-[10rem] object-cover" />
           </div>
+        </div>
+      ))}
+      {selectedImages.length === 0 && (
+        <label className="mt-8 cursor-pointer text-gray-500">
+          Upload from your device
+        </label>
+      )}
+      {selectedImages.length > 0 && (
+        <button
+          className="mt-8 text-[#667085] px-2 py-3 border border-[#98A2B3] rounded-lg flex justify-center items-center space-x-1"
+          onClick={() => {
+            document.getElementById("imageInput").click();
+          }}
+        >
+          <PlusIcon className='w-4 h-4'/>
+          <div>
+            Add more
+          </div>
+        </button>
+      )}
+      <input
+        type="file"
+        id="imageInput"
+        multiple
+        onChange={handleImageSelect}
+        className="hidden"
+      />
+    </div>
+  </div>
+</div>
           <div className='flex justify-between items-center'>
             <div>
               <button onClick={handleBackClick} className="py-3 px-6 mr-2 mb-2 text-sm font-medium text-black focus:outline-none bg-[#EAECF0] rounded-lg border border-gray-200">Back</button>

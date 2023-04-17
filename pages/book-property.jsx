@@ -369,7 +369,7 @@ const handleClick = () => {
                 {booking.map((property) => {
                   return (
                   <div className="flex justify-between mt-2">
-                    <div className="flex flex-col xl:flex-row space-y-3 xl:self-end xl:space-x-2">
+                    <div className="flex flex-col xl:flex-row space-y-3 xl:space-y-0 xl:self-end xl:space-x-2">
                       <div className="flex items-center space-x-1">
                         <FiMapPin className="hidden xl:block w-4 h-4 text-primary" />
                         <h1 className="text-sm font-normal text-secondary">
@@ -379,7 +379,7 @@ const handleClick = () => {
                       <div className="flex items-center space-x-1">
                         <FiUser className="hidden xl:block w-4 h-4 text-primary" />
                         <h1 className="text-sm font-normal text-secondary">
-                          JJM Consults
+                          {property.propertyHost.hostFirstName} {" "} {property.propertyHost.hostLastName}
                         </h1>
                       </div>
                     </div>

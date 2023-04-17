@@ -42,6 +42,7 @@ import FilterComponent from "../../components/FilterComponent";
 import AmenitiesComponent from "../../components/AmenitiesComponent";
 import VerifyModal from "../../components/VerifyModal";
 import Head from "next/head";
+import ShareComponent from "../../components/ShareComponent";
 
 const Property = () => {
 
@@ -55,6 +56,7 @@ const Property = () => {
   const dropdownRef = useRef(null);
   const [modalActive, setModalActive] = useState(false);
   const [modeActive, setModeActive] = useState(false);
+  const [modActive, setModActive] = useState(false);
   const [isSingleDate, setIsSingleDate] = useState(false);
   const [dateRangeSelected, setDateRangeSelected] = useState(false);
 
@@ -292,7 +294,7 @@ console.log(formattedDates);
 
 
           <div className="flex flex-col xl:space-y-0 space-y-3 xl:flex-row xl:justify-between mt-2">
-            <div className="flex flex-col xl:flex-row space-y-3 xl:self-end xl:space-x-2">
+            <div className="flex flex-col xl:flex-row space-y-3 xl:space-y-0 xl:self-end xl:space-x-2">
               <div className="flex items-center space-x-1">
                 <FiMapPin className="hidden xl:block w-4 h-4 text-primary" />
                 <h1 className="text-sm font-normal text-secondary">
@@ -302,13 +304,16 @@ console.log(formattedDates);
               <div className="flex items-center space-x-1">
                 <FiUser className="hidden xl:block w-4 h-4 text-primary" />
                 <h1 className="text-sm font-normal text-secondary">
-                  JJM Consults
+                  {property.propertyHost.hostFirstName} {" "} {property.propertyHost.hostLastName}
                 </h1>
               </div>
             </div>
 
             <div className="flex items-center gap-4">
-              <button className="flex items-center gap-1 px-4 py-2 border border-gray-200 rounded-lg">
+              <button onClick={() => {
+                        setModActive(true);
+                        addToBooking(property);
+                      }} className="flex items-center gap-1 px-4 py-2 border border-gray-200 rounded-lg">
                 <FiShare2 className="w-3 h-3 text-gray-900" />
                 <h1 className="text-sm font-normal">Share</h1>
               </button>
@@ -559,11 +564,11 @@ console.log(formattedDates);
                     <div className="flex items-center space-x-2">
                       <GiRoundStar className="w-4 h-4 text-primary" />
                       <h1 className="text-sm font-medium text-secondary">
-                        4.8{" "}
+                        5.0{" "}
                       </h1>
                       <div className="w-1 h-1 rounded-full bg-secondary"></div>
                       <h1 className="text-sm font-medium text-secondary text-opacity-60">
-                        34 reviews
+                        50 reviews
                       </h1>
                     </div>
                   </div>
@@ -780,6 +785,15 @@ console.log(formattedDates);
         onClose={() => setModeActive(false)}
       >
         <VerifyModal onClick={() => setModeActive(false)} />
+      </ModalComponent>
+
+      <ModalComponent
+        isVisible={modActive}
+        shouldBeBlurAndDarkened
+        shouldBeCentered
+        onClose={() => setModActive(false)}
+      >
+        <ShareComponent onClick={() => setModActive(false)} />
       </ModalComponent>
       </div>
     );

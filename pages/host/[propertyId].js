@@ -733,23 +733,22 @@ const router = useRouter();
 
           <div className="mt-2">
             <h1 className="text-2xl font-bold text-gray-800">
-              {property.propertyName} @{property.propertyGPS}{" "}
-              {property.propertyStreet}
+              {property.propertyName}
             </h1>
           </div>
 
           <div className="flex justify-between mt-2">
             <div className="flex self-end space-x-2">
               <div className="flex items-center space-x-1">
-                <FiMapPin className="w-4 h-4 text-primary" />
+                <FiMapPin className="hidden xl:block w-4 h-4 text-primary" />
                 <h1 className="text-sm font-normal text-secondary">
-                  Ikeja, Lagos
+                  {property.propertyStreet}
                 </h1>
               </div>
               <div className="flex items-center space-x-1">
-                <FiUser className="w-4 h-4 text-primary" />
+                <FiUser className="hidden xl:block w-4 h-4 text-primary" />
                 <h1 className="text-sm font-normal text-secondary">
-                  JJM Consults
+                {property.propertyHost.hostFirstName} {" "} {property.propertyHost.hostLastName}
                 </h1>
               </div>
             </div>
