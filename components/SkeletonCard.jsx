@@ -4,13 +4,9 @@ import 'react-loading-skeleton/dist/skeleton.css'
 
 function SkeletonCard({cards}) {
   return (
-    Array(cards).fill(0).map(item => <div className="font-sora w-[14rem] xl:w-[15rem] rounded-lg cursor-pointer relative">
-    <div className="absolute p-2 bg-[#10182899] top-4 left-4 z-40 rounded-md">
-      <h1 className="text-sm font-medium text-white">
-        {/* <Skeleton width={50} /> */}
-      </h1>
-    </div>
-    <div className="relative h-[15.688rem] w-full">
+    Array(cards).fill(0).map(item => <div className="font-sora w-[14rem] xl:w-[15rem] rounded-md cursor-pointer relative">
+    
+    <div className="relative h-[13.688rem] w-full">
       <Skeleton height={250} />
     </div>
     <div>

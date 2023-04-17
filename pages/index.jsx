@@ -5,7 +5,7 @@ import Footer from "../components/misc/footer";
 import Header from "../components/misc/header";
 import RoomCard from "../components/RoomCard";
 import { GoSettings } from "react-icons/go";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ModalComponent from "../components/ModalComponent";
 import FilterComponent from "../components/FilterComponent.jsx";
 import { fetchproperties } from "../utils/api/property/getProperties";
@@ -19,6 +19,7 @@ export default function Home() {
   const [modalActive, setModalActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [numItems, setNumItems] = useState(10);
+  const [isLoading, setIsLoading] = useState(true);
 
   const {
     data: properties,
@@ -56,6 +57,10 @@ export default function Home() {
       )
   : [];
 
+  useEffect(() => { // Add useEffect hook to set isLoading
+    setIsLoading(loading);
+  }, [loading]);
+
 
   return (
     <div className="font-sora">
@@ -76,13 +81,15 @@ export default function Home() {
 
 
       <main className="px-5 md:px-20 w-full mt-8 max-w-full mx-auto">
+      {/* {isLoading && <SkeletonCard cards={numItems} />}  */}
       <div className="flex flex-wrap justify-center items-center mt-8 mb-7 gap-x-5 gap-y-10">
           {isError && <p>{error.message}</p>}
-          {loading && <SkeletonCard cards={numItems} />}
-          {!loading &&
+          {isLoading && <SkeletonCard cards={numItems} />}
+          {!isLoading &&
             filteredProperties
               .slice(0, numItems)
               .map((property) => (
+                
                 <RoomCard
                   key={property.propertyId}
                   roomAddy={`${property.propertyStreet} ${property.propertyCity}, ${property.propertyState} `}

@@ -419,7 +419,7 @@ useEffect(() => {
     <MdAccountCircle className="w-20 h-20 text-gray-400 rounded-full" />
   )}
   {selectedImages.length === 0 && (
-    <label htmlFor="imageInput" className="mt-2 font-bold cursor-pointer">
+    <label htmlFor="imageInput" className="mt-2 font-bold text-sm cursor-pointer">
       Update profile image
     </label>
   )}
@@ -434,16 +434,16 @@ useEffect(() => {
                     
                   ): (
                     <div>
-                      <p className='text-gray-500'>Joined in 2023</p>
-                    <div className='flex justify-between'>
+                      <p className='text-gray-500 text-sm'>Joined in 2023</p>
+                    <div className='flex justify-between text-sm'>
                       <p>Identity</p>
                       <AiFillCheckCircle className='w-4 h-4 text-green-600' />
                     </div>
-                    <div className='flex justify-between'>
+                    <div className='flex justify-between text-sm'>
                       <p>Email</p>
                       <AiFillCheckCircle className='w-4 h-4 text-green-600' />
                     </div>
-                    <div className='flex justify-between'>
+                    <div className='flex justify-between text-sm'>
                       <p>Phone number</p>
                       <AiFillCheckCircle className='w-4 h-4 text-green-600' />
                     </div>

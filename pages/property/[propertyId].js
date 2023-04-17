@@ -404,7 +404,7 @@ console.log(formattedDates);
               <div className="w-full xl:w-2/3 ">
                 {/* First Div containing room info */}
                 
-                <div>
+                <div className="w-11/12">
                   <h1 className="mb-4 text-lg font-bold text-gray-800">
                     Property Description
                   </h1>
@@ -415,7 +415,7 @@ console.log(formattedDates);
                     <h1>{properties.propertyBedroomSplit}</h1>
                   )
                 })} */}
-                  <p className="text-sm xl:text-left text-justify font-normal leading-6 text-gray-600 ">
+                  <p className="text-sm  text-justify font-normal leading-6 text-gray-600 ">
                     {property.propertyDescription}
                   </p>
                   
@@ -721,7 +721,7 @@ console.log(formattedDates);
                   {selectedDateRange ? (
                     <div className="flex flex-col mt-5 justify-between text-sm font-bold text-secondary space-y-3 border-t border-t-black">
                       <div className="flex justify-between mt-5">
-                          <h1>₦ {property.propertyBookingPrice} × {finalDate} Nights</h1>
+                          <h1>₦ {formatter.format(property.propertyBookingPrice)} × {finalDate} Nights</h1>
                       
                           {/* <h1>₦0 </h1> */}
                         </div>
