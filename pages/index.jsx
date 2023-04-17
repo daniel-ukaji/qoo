@@ -57,8 +57,12 @@ export default function Home() {
       )
   : [];
 
-  useEffect(() => { // Add useEffect hook to set isLoading
-    setIsLoading(loading);
+  useEffect(() => {
+    const delay = setTimeout(() => {
+      setIsLoading(loading);
+    }, 4000); // Change delay time to whatever you prefer
+  
+    return () => clearTimeout(delay);
   }, [loading]);
 
 
