@@ -259,7 +259,7 @@ console.log(formattedDates);
               <div className="flex items-center space-x-1">
                 <FiUser className="hidden xl:block w-4 h-4 text-primary" />
                 <h1 className="text-sm font-normal text-secondary">
-                  JJM Consults
+                  {property.propertyHost.hostFirstName} {" "} {property.propertyHost.hostLastName}
                 </h1>
               </div>
             </div>
