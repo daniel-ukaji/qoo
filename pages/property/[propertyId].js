@@ -357,7 +357,7 @@ console.log(formattedDates);
                 <div className="flex justify-between">
                   <div className="relative h-[15.688rem] w-fourty8 ">
                     <Image
-                      src={property.propertyImages[0].propertyImageUrl}
+                      src={property.propertyImages[1].propertyImageUrl}
                       alt="room image"
                       className="absolute w-full h-full"
                       layout="fill"
@@ -366,7 +366,7 @@ console.log(formattedDates);
                   </div>
                   <div className="relative h-[15.688rem] w-fourty8 ">
                     <Image
-                      src={property.propertyImages[0].propertyImageUrl}
+                      src={property.propertyImages[2].propertyImageUrl}
                       alt="room image"
                       className="absolute h-full w-full rounded-tr-[10px]"
                       layout="fill"
@@ -377,7 +377,7 @@ console.log(formattedDates);
                 <div className="flex items-center justify-between">
                   <div className="relative h-[15.688rem] w-fourty8">
                     <Image
-                      src={property.propertyImages[0].propertyImageUrl}
+                      src={property.propertyImages[3].propertyImageUrl}
                       alt="room image"
                       className="absolute w-full h-full"
                       layout="fill"
@@ -386,7 +386,7 @@ console.log(formattedDates);
                   </div>
                   <div className="relative h-[15.688rem] w-fourty8">
                     <Image
-                      src={property.propertyImages[0].propertyImageUrl}
+                      src={property.propertyImages[4].propertyImageUrl}
                       alt="room image"
                       className="absolute h-full w-full rounded-br-[10px]"
                       layout="fill"
