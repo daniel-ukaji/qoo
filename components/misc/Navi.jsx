@@ -223,7 +223,7 @@ const Navi = ({ onSearch }) => {
             type="text"
             name=""
             id=""
-            className="w-8/12 xl:w-10/12 h-full border-none outline-none placeholder:text-gray-400"
+            className="w-8/12 xl:w-10/12 h-full border-none text-sm outline-none placeholder:text-gray-400"
             placeholder="Search the location"
           />
           <div>
@@ -236,7 +236,7 @@ const Navi = ({ onSearch }) => {
             onClick={() => {
               setModalActive(true);
             }}
-            className="flex md:flex items-center px-3 py-3 space-x-1 border border-gray-300 rounded-lg"
+            className="hidden md:hidden items-center px-3 py-3 space-x-1 border border-gray-300 rounded-lg"
           >
             <GoSettings className="w-6 h-5 text-gray-900" />
             <h1 className="text-sm text-gray-900">Filter</h1>

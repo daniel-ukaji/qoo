@@ -87,7 +87,7 @@ function bookingsEmpty() {
         </div>
       ) : (
         <main className="xl:px-20 mt-8 md:max-w-full md:mx-auto">
-          <div className="flex flex-wrap justify-center items-center mt-8 mb-7 gap-x-5 gap-y-10">
+          <div className="flex flex-wrap items-center mt-8 mb-7 gap-x-5 gap-y-10">
             {bookings.data?.map((booking) => (
               <BookingCard  
                 key={booking.bookingPropertyId}

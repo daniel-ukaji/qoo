@@ -96,7 +96,7 @@ const SignUpComponent = () => {
           <Image src={logo} className="absolute w-full h-full" />
         </div>
         <h1 className="mt-3 text-lg font-semibold text-secondary">
-          Create your Qoospace account{" "}
+          Create your Qoospayce account{" "}
         </h1>
       </div>
       <button
@@ -168,7 +168,7 @@ const SignUpComponent = () => {
               onChange={(e) => setchecked(!checked)}
               className="mr-2 border border-gray-900 border-opacity-10 accent-primary"
             />
-            I agree to Qoospace’s Terms of Use & Privacy Policy
+            I agree to Qoospayce’s Terms of Use & Privacy Policy
           </div>
 
           {inititialEnrolApi.loading ? (
@@ -204,7 +204,7 @@ const SignUpComponent = () => {
           </span>
         </div>
 
-        <div className="flex flex-col mt-8 mb-3 space-y-2">
+        <div className="hidden flex flex-col mt-8 mb-3 space-y-2">
           <button
             type="text"
             name=""

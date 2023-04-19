@@ -12,11 +12,11 @@ function PageStepTwo() {
     const dispatch = useDispatch() 
 
     const handleNextClick = () => {
-        dispatch({ type: 'SET_PAGE_NUMBER', payload: 6 });
+        dispatch({ type: 'SET_PAGE_NUMBER', payload: 7 });
       };
 
       const handleBackClick = () => {
-        dispatch({ type: 'SET_PAGE_NUMBER', payload: 4 });
+        dispatch({ type: 'SET_PAGE_NUMBER', payload: 5 });
       };
 
   return (

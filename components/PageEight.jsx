@@ -21,11 +21,11 @@ const PageEight = ({ prevStep }) => {
     const handleNextClick = () => {
         if (!inputValue) return; // Do not proceed if input field is empty
         dispatch({ type: 'SET_PAGE8_INPUT', payload: inputValue });
-        dispatch({ type: 'SET_PAGE_NUMBER', payload: 9 });
+        dispatch({ type: 'SET_PAGE_NUMBER', payload: 10 });
     };
 
     const handleBackClick = () => {
-      prevStep(dispatch({ type: 'SET_PAGE_NUMBER', payload: 7 }))
+      prevStep(dispatch({ type: 'SET_PAGE_NUMBER', payload: 8 }))
     }
 
 

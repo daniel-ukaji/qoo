@@ -30,7 +30,7 @@ const PageTwelve = ({ prevStep }) => {
     const BookingConditions = useSelector((state) => state.propertyBookingConditions);
 
     const options = ['I am hosting as a private individual', 'I am hosting as a business'];
-    const option2 = ['Security camera', 'Dangerous weapons', 'Dangerous animals']
+    const option2 = ['Security camera', 'Dangerous weapons', 'Dangerous animals', 'None']
 
     const handleNextClick = () => {
         if (!selectedOption || !BookingConditions) return; // Do not proceed if no option is selected
@@ -40,7 +40,7 @@ const PageTwelve = ({ prevStep }) => {
     };
 
     const handleBackClick = () => {
-      prevStep(dispatch({ type: 'SET_PAGE_NUMBER', payload: 12 }))
+      prevStep(dispatch({ type: 'SET_PAGE_NUMBER', payload: 14 }))
     }
 
     // const PropertyApi = useApi(createproperty);
@@ -67,6 +67,9 @@ const PageTwelve = ({ prevStep }) => {
       const Amenities = useSelector((state) => state.propertyAmenities);
       const propertyImages = useSelector((state) => state?.propertyImages);
       const GuestSpace = useSelector((state) => state?.propertyGuestSpace);
+      const HostingType = useSelector((state) => state?.propertyHostingType);
+      const CautionFee = useSelector((state) => state?.propertyCautionFee);
+
 
       console.log(selectedBathrooms)
       console.log(selectedBeds)
@@ -91,6 +94,9 @@ const PageTwelve = ({ prevStep }) => {
 
       console.log(GuestSpace)
       console.log(imageString)
+
+      console.log(HostingType)
+      console.log(CautionFee)
 
 
       // console.log(uniqueArray)
@@ -133,6 +139,8 @@ const PageTwelve = ({ prevStep }) => {
         propertyBookingConditions: MoreQuestions,
         propertyBookingSecurityDeposit: "100034.65",
         propertyAdditionalNotes: Questions,
+        propertyHostingType: HostingType,
+        propertyCautionFee: CautionFee,
       }
 
 

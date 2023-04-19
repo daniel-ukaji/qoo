@@ -22,11 +22,11 @@ const PageSix = ({ prevStep }) => {
     const handleNextClick = () => {
       if (selectedOption.length === 0) return; // Do not proceed if no options are selected
       dispatch({ type: 'SET_PROPERTY_SERVICES', payload: selectedOption });
-      dispatch({ type: 'SET_PAGE_NUMBER', payload: 7 });
+      dispatch({ type: 'SET_PAGE_NUMBER', payload: 8 });
     };
 
     const handleBackClick = () => {
-      prevStep(dispatch({ type: 'SET_PAGE_NUMBER', payload: 5 }))
+      prevStep(dispatch({ type: 'SET_PAGE_NUMBER', payload: 6 }))
     }
 
   return (

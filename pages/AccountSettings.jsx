@@ -9,6 +9,8 @@ import { useApi } from '../utils/hooks/useApi';
 import { updateProfile } from '../utils/api/user/updateUser';
 import { toast } from 'react-toastify';
 import Footer from "../components/misc/footer";
+import { countries } from "../countries";
+import { documents } from "../documents";
 
 
 // import { readUser, readUsers } from '../utils/api/user/readUser';
@@ -17,6 +19,7 @@ import axios from 'axios';
 import Head from 'next/head';
 import { MdAccountCircle } from 'react-icons/md';
 import { AiFillCheckCircle } from 'react-icons/ai';
+import NavHeader from '../components/misc/NavHeader';
 
 
 function AccountSettings() {
@@ -53,6 +56,7 @@ function AccountSettings() {
         userCity: '',
         userStreet: '',
         userIdentityNumber: '',
+        userIdentityType: '',
         userPicture: null,
         userIdentityImage: '9870',
       });
@@ -304,6 +308,9 @@ function handleDrop(event) {
     if (!userData.userStreet) {
       errors.userStreet = "Street is required";
     }
+    if (!userData.userIdentityType) {
+      errors.userIdentityType = "Identity Type is required";
+    }
     if (!userData.userIdentityNumber) {
       errors.userIdentityNumber = "Identity number is required";
     }
@@ -386,7 +393,7 @@ useEffect(() => {
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-        <HostHeader />
+        <NavHeader />
                         
         <main className='max-w-[66rem] w-full mx-auto mt-10'>
             <div className='flex flex-col lg:flex-row justify-between items-center'>
@@ -637,39 +644,34 @@ useEffect(() => {
           
         </div>
         <div className='mt-10'>
-            <div className='flex justify-between'>
-                <p className='font-bold mb-3'>Country</p>
-                {/* <button className='font-bold'>Edit</button> */}
-            </div>
-            {/* <input
-                type="text"
-                name="selectedCountry"
-                id="selectedCountry"
-                value={userData.userCountry}
-                onChange={(e) => setUserData({ ...userData, userCountry: e.target.value })}
-                className="rounded-lg px-4 py-3 outline-none h-12 border border-black w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2"
-                placeholder="Country"
-                
-            /> */}
-            <input
-        type="text"
-        name="userCountry"
-        id="userCountry"
-        value={userData.userCountry || ""}
-        onChange={(e) =>
-          setUserData({ ...userData, userCountry: e.target.value })
-        }
-        className={`rounded-lg px-4 py-3 outline-none h-12 border ${
-          formErrors.userCountry ? "border-red-500" : "border-black"
-        } w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2`}
-        placeholder="Phone Number"
-      />
-      {formErrors.userCountry && (
-        <div className="text-red-500 text-sm">
-          {formErrors.userCountry}
-        </div>
-      )}
-        </div>
+  <div className='flex justify-between'>
+    <p className='font-bold mb-3'>Country</p>
+  </div>
+  <select
+    name="userCountry"
+    id="userCountry"
+    value={userData.userCountry || ""}
+    onChange={(e) =>
+      setUserData({ ...userData, userCountry: e.target.value })
+    }
+    className={`rounded-lg px-4 py-3 outline-none h-12 border ${
+      formErrors.userCountry ? "border-red-500" : "border-black"
+    } w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2`}
+    placeholder="Country"
+  >
+    <option value="">Select a country</option>
+    {countries.map((country) => (
+      <option key={country} value={country}>
+        {country}
+      </option>
+    ))}
+  </select>
+  {formErrors.userCountry && (
+    <div className="text-red-500 text-sm">
+      {formErrors.userCountry}
+    </div>
+  )}
+</div>
         <div className='mt-10'>
             <div className='flex justify-between'>
                 <p className='font-bold mb-3'>State</p>
@@ -781,7 +783,37 @@ useEffect(() => {
             {/* <h1 className='font-bold mt-10 text-xl ml-1 md:ml-0'>Documents</h1> */}
 
             <div className='max-w-[40rem]'>
-                <div className=''>
+            <div className='mt-10'>
+  <div className='flex justify-between'>
+    <p className='font-bold mb-3'>ID Type</p>
+  </div>
+  <select
+    name="userIdentityType"
+    id="userIdentityType"
+    value={userData.userIdentityType || ""}
+    onChange={(e) =>
+      setUserData({ ...userData, userIdentityType: e.target.value })
+    }
+    className={`rounded-lg px-4 py-3 outline-none h-12 border ${
+      formErrors.userIdentityType ? "border-red-500" : "border-black"
+    } w-full md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2`}
+    placeholder="ID Type"
+  >
+    {/* <option className='' value="">Select an ID type</option> */}
+    {documents.map((document) => (
+      <option key={document} value={document}>
+        {document}
+      </option>
+    ))}
+  </select>
+  {formErrors.userIdentityType && (
+    <div className="text-red-500 text-sm">
+      {formErrors.userIdentityType}
+    </div>
+  )}
+</div>
+
+                <div className='mt-10'>
                     <div className='flex items-center justify-between'>
                         <p className='font-bold mb-3'>ID NUMBER</p>
                         {/* <button className='font-bold'>Update</button> */}
@@ -814,6 +846,7 @@ useEffect(() => {
         </div>
       )}
                 </div>
+                
 
                 
                 

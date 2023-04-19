@@ -16,6 +16,8 @@ import PageEleven from './PageEleven';
 import PageTwelve from './PageTwelve';
 import PageThirteen from './PageThirteen';
 import BedCount from './BedCount';
+import HostingType from './HostingType';
+import CautionFee from './CautionFee';
 // import PageCounter from './PageCounter';
 // import ProgressBar from "@badrap/bar-of-progress";
 // import { useRouter } from 'next/router';
@@ -36,32 +38,36 @@ const MultiStepForm = () => {
       case 2:
         return <PageTwo nextStep={nextStep} prevStep={prevStep} />;
       case 3:
+        return <HostingType nextStep={nextStep} prevStep={prevStep} />;
+      case 4:
         return <PageThree nextStep={nextStep} prevStep={prevStep} />;
       // case 4:
       //   return <PageFour nextStep={nextStep} prevStep={prevStep} />;
-      case 4:
-        return <BedCount nextStep={nextStep} prevStep={prevStep} />;
       case 5:
-        return <PageStepTwo nextStep={nextStep} prevStep={prevStep} />;
+        return <BedCount nextStep={nextStep} prevStep={prevStep} />;
       case 6:
-        return <PageSix nextStep={nextStep} prevStep={prevStep} />;
+        return <PageStepTwo nextStep={nextStep} prevStep={prevStep} />;
       case 7:
-        return <PageThirteen nextStep={nextStep} prevStep={prevStep} />;
+        return <PageSix nextStep={nextStep} prevStep={prevStep} />;
       case 8:
-        return <PageEight nextStep={nextStep} prevStep={prevStep} />;
+        return <PageThirteen nextStep={nextStep} prevStep={prevStep} />;
       case 9:
-        return <PageNine nextStep={nextStep} prevStep={prevStep} />;
+        return <PageEight nextStep={nextStep} prevStep={prevStep} />;
       case 10:
-        return <PageStepThree nextStep={nextStep} prevStep={prevStep} />;
+        return <PageNine nextStep={nextStep} prevStep={prevStep} />;
       case 11:
-        return <PageTen nextStep={nextStep} prevStep={prevStep} />;
+        return <PageStepThree nextStep={nextStep} prevStep={prevStep} />;
       case 12:
-        return <PageEleven nextStep={nextStep} prevStep={prevStep} />;
+        return <PageTen nextStep={nextStep} prevStep={prevStep} />;
       case 13:
+        return <PageEleven nextStep={nextStep} prevStep={prevStep} />;
+      case 14:
+        return <CautionFee nextStep={nextStep} prevStep={prevStep} />;
+      case 15:
         return <PageTwelve nextStep={nextStep} prevStep={prevStep} />;
     //   case 13:
     //     return <PageTwelve nextStep={nextStep} prevStep={prevStep} />;
-      case 14:
+      case 15:
         // return <PageFive prevStep={prevStep} />;
       default:
         return null;

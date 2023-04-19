@@ -59,7 +59,9 @@ const initialState = {
   count: 0,
   propertyBedroomNum: 0,
   propertyGuestNum: 0,
-  propertyBathroomNum: 0
+  propertyBathroomNum: 0,
+  propertyHostingType: '',
+  propertyCautionFee: '',
 };
 
 const formReducer = (state = initialState, action) => {
@@ -71,6 +73,8 @@ const formReducer = (state = initialState, action) => {
       return { ...state, propertyType: action.payload };
     case 'SET_PROPERTY_GUEST_SPACE':
       return { ...state, propertyGuestSpace: action.payload };
+    case 'SET_PROPERTY_HOSTING_TYPE':
+      return { ...state, propertyHostingType: action.payload };
     case 'SET_PROPERTY_STREET':
       return { ...state, propertyStreet: action.payload };
     case 'SET_PROPERTY_CITY':
@@ -134,6 +138,8 @@ const formReducer = (state = initialState, action) => {
       return { ...state, page10Selection: action.payload };
     case 'SET_PROPERTY_BOOKING_PRICE':
       return { ...state, propertyBookingPrice: action.payload };
+    case 'SET_PROPERTY_CAUTION_FEE':
+      return { ...state, propertyCautionFee: action.payload };
     case 'SET_PROPERTY_ADDITIONAL_NOTES':
       return { ...state, propertyAdditionalNotes: action.payload };
     // case 'ADD_PROPERTY_SERVICE':

@@ -23,11 +23,11 @@ function CounterPage({ prevStep }) {
 dispatch({ type: 'SET_BEDROOMS_SELECTION', payload: bedrooms });
 dispatch({ type: 'SET_BEDS_SELECTION', payload: beds });
 dispatch({ type: 'SET_BATHROOMS_SELECTION', payload: bathrooms });
-dispatch({ type: 'SET_PAGE_NUMBER', payload: 5 });
+dispatch({ type: 'SET_PAGE_NUMBER', payload: 6 });
 };
 
 const handleBackClick = () => {
-    prevStep(dispatch({ type: 'SET_PAGE_NUMBER', payload: 3 }))
+    prevStep(dispatch({ type: 'SET_PAGE_NUMBER', payload: 4 }))
   }
 
   const incrementBedrooms = () => {

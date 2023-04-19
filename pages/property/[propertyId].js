@@ -7,13 +7,14 @@ import { FiHeart, FiMapPin, FiShare2, FiUser } from "react-icons/fi";
 import { FcLike } from "react-icons/fc";
 import { GiNuclearWaste, GiRoundStar, GiUmbrella } from "react-icons/gi";
 import { IoIosBed } from "react-icons/io";
-import { MdOutlineWaterDrop, MdSupervisorAccount } from "react-icons/md";
+import { MdClose, MdOutlineWaterDrop, MdSupervisorAccount } from "react-icons/md";
 import { fetchproperties } from "../../utils/api/property/getProperties";
 import Header from "../../components/misc/header";
 import Footer from "../../components/misc/footer";
 import RoomCard from "../../components/RoomCard";
 import { GlobalContext } from "../../context/GlobalState";
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 
 import roomImage from "/public/images/room_image.png";
@@ -43,6 +44,9 @@ import AmenitiesComponent from "../../components/AmenitiesComponent";
 import VerifyModal from "../../components/VerifyModal";
 import Head from "next/head";
 import ShareComponent from "../../components/ShareComponent";
+import { useApi } from "../../utils/hooks/useApi";
+import { scheduleBooking } from "../../utils/api/booking/scheduleBooking";
+import { toast } from "react-toastify";
 
 const Property = () => {
 
@@ -59,6 +63,12 @@ const Property = () => {
   const [modActive, setModActive] = useState(false);
   const [isSingleDate, setIsSingleDate] = useState(false);
   const [dateRangeSelected, setDateRangeSelected] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [address, setAddress] = useState("");
+  const [bookingDate, setbookingDate] = useState("");
 
 
   const authLevel = useContext(AuthLevelContext);
@@ -163,27 +173,29 @@ const Property = () => {
 
     // // Update the disabled dates state
     // setSelectedDateRange({checkInDate, checkOutDate});
+
+    // get the user's time zone offset in minutes
+const timezoneOffset = new Date().getTimezoneOffset();
+
+// adjust the start and end dates to the user's time zone
+const startDateAdjusted = new Date(startDate.getTime() - timezoneOffset * 60000);
+const endDateAdjusted = new Date(endDate.getTime() - timezoneOffset * 60000);
   
 
     router.push({
       pathname: "/book-property",
       query: { 
-        startDate: startDate.toISOString(),
-        endDate: endDate.toISOString(),
-        selectedDateRange: JSON.stringify(selectedDateRange),
+        startDate: startDateAdjusted.toISOString(),
+        endDate: endDateAdjusted.toISOString(),
         numGuests, 
       },
     });
-
-    // Reset the selected dates to default
-    setStartDate(null);
-    setEndDate(null);
   };
 
   // console.log(startDate.toISOString().split('T')[0])
 
   const user = useAuth();
-
+  const userId = user.user?.userId;
   console.log(user.user)
 
   const userStat = user.user?.userStatus
@@ -203,6 +215,8 @@ const hideOnClickOutside = (e) => {
         setOpen(false)
     }
 }
+
+
   
 
   const formatter = new Intl.NumberFormat("en-US", {
@@ -215,10 +229,51 @@ const hideOnClickOutside = (e) => {
   // const totalPriceRef = useRef(property.propertyBookingPrice * finalDate);
 
   
-
+ const createSchedule = useApi(scheduleBooking);
 
   if (property) {
     //const propertySplit = property.propertyImages.split(",")
+    const propId = property.propertyId;
+    const guestNumber = 1;
+
+    const onSubmit = async () => {
+    
+      let req = {
+          bookingRenterUserId: userId,
+          bookingRenterFirstName: firstName,
+          bookingRenterLastName: lastName,
+          bookingRenterAddress: address,
+          bookingRenterCity: "city",
+          bookingRenterPhoneNumber: phoneNumber,
+          bookingRenterEmail: email,
+          bookingRenterComment: "comments",
+          bookingPropertyId: propId,
+          // bookingPaymentId: null,
+          // bookingCheckInDate: startDate,
+          bookingAmount: "10000",
+          bookingCheckOutDate: bookingDate,
+          bookingAmount: "finalPrice",
+          bookingOptionalService: "propertyOptionalServices",
+          bookingGuestNumber: "guestNumber",
+          bookingGuestTypes: "Children, Cats"
+      };
+    
+      let id = toast.loading("We are updating your submitting your information...");
+    
+      const response = await createSchedule.request(req);
+    
+      console.log(response);
+    
+      toast.update(id, {
+        type: response.data.responseCode !== "00" ? "error" : "success",
+        render: response.data.responseMessage,
+        isLoading: createSchedule.loading,
+        autoClose: true,
+        onClick: () => !createSchedule.errorMessage && toast.dismiss(),
+      });
+    };
+  
+
 
     console.log(property.propertyImages[0].propertyImageUrl)
     console.log(property)
@@ -227,6 +282,11 @@ const hideOnClickOutside = (e) => {
 
     const totalPrice = property.propertyBookingPrice * finalDate
     const finalPrice = totalPrice + (totalPrice * 7 / 100)
+    const cautionFee = parseFloat(property.propertyCautionFee)
+    console.log(cautionFee);
+    const sumPrice = cautionFee + finalPrice
+    console.log(sumPrice)
+    console.log(property.propertyCautionFee)
 
 const propertyBookedDates = property.propertyBookedDates;
 
@@ -554,7 +614,91 @@ console.log(formattedDates);
 
 
               <div className="sticky top-5 mt-6 xl:mt-0 flex flex-col w-full xl:w-2/3 bg-gray-100  rounded-md border-black drop-shadow-xl ">
-                {/* Card-booking */}
+              {property.propertyHostingType === "FOR_RENT" ? ( 
+                <>
+                <div className="flex items-center justify-between p-2 mt-5">
+                    <div className="flex items-center justify-center space-x-1 text-[#031C43]">
+                      {/* <h1 className="text-2xl font-medium ">{property.propertyRentalPrice}</h1> */}
+                      <h1 className="text-sm font-normal">₦ {formatter.format(property.propertyBookingPrice)}</h1>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <GiRoundStar className="w-4 h-4 text-primary" />
+                      <h1 className="text-sm font-medium text-secondary">
+                        5.0{" "}
+                      </h1>
+                      <div className="w-1 h-1 rounded-full bg-secondary"></div>
+                      <h1 className="text-sm font-medium text-secondary text-opacity-60">
+                        50 reviews
+                      </h1>
+                    </div>
+                  </div>
+                <div className="flex flex-col space-y-4 p-2">
+                  <input
+                     type="text"
+                     name="firstname"
+                     id="firstname"
+                     value={firstName}
+                     onChange={(e) => setFirstName(e.target.value)}
+                     className="h-[3rem] outline-none  rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal px-2 placeholder:text-secondary placeholder:text-opacity-40"
+                     placeholder="First name"
+                  />
+                  <input
+                     type="text"
+                     name="lastname"
+                     id="lastname"
+                     value={lastName}
+                     onChange={(e) => setLastName(e.target.value)}
+                     className="h-[3rem] outline-none  rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal px-2 placeholder:text-secondary placeholder:text-opacity-40"
+                     placeholder="Last name"
+                  />
+                  <input
+                     type="email"
+                     name="email"
+                     id="email"
+                     value={email}
+                     onChange={(e) => setEmail(e.target.value)}
+                     className="h-[3rem] outline-none  rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal px-2 placeholder:text-secondary placeholder:text-opacity-40"
+                     placeholder="Email"
+                  />
+                  <input
+                     type="text"
+                     name="phonenumber"
+                     id="phonenumber"
+                     value={phoneNumber}
+                     onChange={(e) => setPhoneNumber(e.target.value)}
+                     className="h-[3rem] outline-none  rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal px-2 placeholder:text-secondary placeholder:text-opacity-40"
+                     placeholder="Phone Number"
+                  />
+                  <input
+                     type="text"
+                     name="address"
+                     id="address"
+                     value={address}
+                     onChange={(e) => setAddress(e.target.value)}
+                     className="h-[3rem] outline-none  rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal px-2 placeholder:text-secondary placeholder:text-opacity-40"
+                     placeholder="Address"
+                  />
+              
+              <input
+        type="date"
+        id="date"
+        name="date"
+        value={bookingDate}
+        className="h-[3rem] outline-none  rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal px-2 placeholder:text-secondary placeholder:text-opacity-40"
+        onChange={(e) => setbookingDate(e.target.value)}
+      />
+      <button
+                    onClick={onSubmit}
+                    className={`mt-7 mb-5 h-[2.875rem] w-full rounded-[10px] bg-primary text-sm font-medium text-white `}
+                  >
+                    Submit
+                  </button>
+                      </div>
+                  
+                </>
+              ):(
+
+              
                 <div className="self-end p-6 border border-gray-200 rounded-lg w-full">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center justify-center space-x-1 text-[#031C43]">
@@ -601,6 +745,7 @@ console.log(formattedDates);
                     </div>
                     <div ref={refOne}>
                       {open && 
+                        <>
                           <DateRange 
                               editableDateInputs={true}
                               // onChange={item => setRange([item.selection])}
@@ -612,9 +757,17 @@ console.log(formattedDates);
                               rangeColors={["#DB5461"]}
                               months={1}
                               direction="horizontal"
-                              className="absolute left-1/2 -translate-x-2/4 top-10 border z-30 bg-transparent  "
+                              className="absolute left-1/2 -translate-x-2/4 top-14 border z-30 bg-transparent  "
                           />
+                          <button
+                            onClick={() => setOpen(!open)}
+                            className="absolute flex items-center justify-center bg-gray-100 rounded-full top-44 xl:top-40 right-0 w-7 h-7 z-50"
+                          >
+                            <MdClose className="w-4 h-4 font-bold text-black" />
+                          </button>
+                          </>
                       }
+                      
                     </div>
 
                   </div>
@@ -698,14 +851,7 @@ console.log(formattedDates);
      else {
       resetBooking();
       addToBooking(property);
-      router.push({
-        pathname:"/book-property",
-        query: {
-          startDate: startDate.toISOString(),
-          endDate: endDate.toISOString(),
-          numGuests,
-        },
-      });
+      handleSubmit();
     }
   }}
 >
@@ -725,11 +871,24 @@ console.log(formattedDates);
                       
                           {/* <h1>₦0 </h1> */}
                         </div>
+
+                        <div className="flex justify-between">
+                          <h1>Caution Fee</h1>
+                          
+                          <h1>₦ {formatter.format(property.propertyCautionFee)}</h1>
+                        </div>
                       
                       <div className="flex justify-between">
                           <h1>Price after tax</h1>
                           
                           <h1>₦ {formatter.format(finalPrice)}</h1>
+                        </div>
+
+                        
+                        <div className="flex justify-between">
+                          <h1>Total</h1>
+                          
+                          <h1>₦ {formatter.format(sumPrice)}</h1>
                         </div>
                         
                       </div>
@@ -744,8 +903,8 @@ console.log(formattedDates);
                     <Link href={`https://api.whatsapp.com/send?phone=+2349115015468&text=${encodedMessage}`}><div className="cursor-pointer flex flex-col justify-center items-center space-y-2 mt-3"><AiOutlineWhatsApp className="text-2xl" /><p className="text-xs">WhatsApp</p></div></Link>
                     <div className="cursor-pointer flex flex-col justify-center items-center space-y-2 mt-3"><AiOutlinePhone className="text-2xl" /> <p className="text-xs">+234-9122877657</p></div>
                   </div>
-                </div>
-                
+                </div> )}
+              
               </div>
             </div>
           </div>

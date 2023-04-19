@@ -49,11 +49,11 @@ const PageTestThree = ({ prevStep }) => {
     dispatch({ type: 'SET_PROPERTY_ZIPCODE', payload: propertyZipCode });
     dispatch({ type: 'SET_PROPERTY_COUNTRY', payload: propertyCountry });
     // dispatch({ type: 'SET_PROPERTY_IMAGE', payload: propertyImage });
-    dispatch({ type: 'SET_PAGE_NUMBER', payload: 4 });
+    dispatch({ type: 'SET_PAGE_NUMBER', payload: 5 });
   };
 
   const handleBackClick = () => {
-    prevStep(dispatch({ type: 'SET_PAGE_NUMBER', payload: 2 }))
+    prevStep(dispatch({ type: 'SET_PAGE_NUMBER', payload: 3 }))
   }
 
   return (
@@ -73,19 +73,35 @@ const PageTestThree = ({ prevStep }) => {
               </Link>
             </div>
               <h1 className='text-2xl xl:text-4xl font-semibold md:font-semibold mt-5 max-w-[40rem]'>Where's your place located?</h1>
-              <div className=''>
-              <p htmlFor="" className='block mb-2 mt-3 text-sm font-medium text-gray-900'>Street</p>
-                  <InputField
-                    label="Enter your Address:"
-                    placeholder="Maloko Close"
-                    value={propertyStreet}
-                    onChange={handleStreetChange}
-                    setPageInput={(option) => ({
-                        type: 'SET_PROPERTY_STREET',
-                        payload: option,
-                  })}
-                  />
-                  
+              
+              <div className='relative'>
+              <p htmlFor="" className='block mb-2 text-sm font-medium text-gray-900'>Country</p>
+                <InputField
+                  label="Enter your Address:"
+                  placeholder="Name"
+                  value={propertyCountry}
+                  onChange={handleCountryChange}
+                  setPageInput={(option) => ({
+                      type: 'SET_PROPERTY_COUNTRY',
+                      payload: option,
+                })}
+                />
+                
+              </div>
+
+              <div className='relative'>
+              <p htmlFor="" className='block mb-2 text-sm font-medium text-gray-900'>State</p>
+                <InputField
+                  label="Enter your Address:"
+                  placeholder="Lagos"
+                  value={propertyState}
+                  onChange={handleStateChange}
+                  setPageInput={(option) => ({
+                      type: 'SET_PROPERTY_STATE',
+                      payload: option,
+                })}
+                />
+                
               </div>
 
               <div className='relative'>
@@ -102,24 +118,28 @@ const PageTestThree = ({ prevStep }) => {
                 />
                 
               </div>
-
-              <div className='relative'>
-              <p htmlFor="" className='block mb-2 text-sm font-medium text-gray-900'>State (optional)</p>
-                <InputField
-                  label="Enter your Address:"
-                  placeholder="Lagos"
-                  value={propertyState}
-                  onChange={handleStateChange}
-                  setPageInput={(option) => ({
-                      type: 'SET_PROPERTY_STATE',
-                      payload: option,
-                })}
-                />
-                
+              
+              <div className=''>
+              <p htmlFor="" className='block mb-2 mt-3 text-sm font-medium text-gray-900'>Street</p>
+                  <InputField
+                    label="Enter your Address:"
+                    placeholder="Maloko Close"
+                    value={propertyStreet}
+                    onChange={handleStreetChange}
+                    setPageInput={(option) => ({
+                        type: 'SET_PROPERTY_STREET',
+                        payload: option,
+                  })}
+                  />
+                  
               </div>
 
+              
+
+              
+
               <div className='relative'>
-              <p htmlFor="" className='block mb-2 text-sm font-medium text-gray-900'>ZipCode (optional)</p>
+              <p htmlFor="" className='block mb-2 text-sm font-medium text-gray-900'>ZipCode</p>
                 <InputField
                   label="Enter your Address:"
                   placeholder="102213"
@@ -133,20 +153,7 @@ const PageTestThree = ({ prevStep }) => {
                 
               </div>
 
-              <div className='relative'>
-              <p htmlFor="" className='block mb-2 text-sm font-medium text-gray-900'>Country</p>
-                <InputField
-                  label="Enter your Address:"
-                  placeholder="Name"
-                  value={propertyCountry}
-                  onChange={handleCountryChange}
-                  setPageInput={(option) => ({
-                      type: 'SET_PROPERTY_COUNTRY',
-                      payload: option,
-                })}
-                />
-                
-              </div>
+              
             </div>
 
             <div className='flex justify-between items-center'>

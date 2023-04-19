@@ -12,22 +12,22 @@ import logopic from '../public/images/qoo_logo.png';
 import Head from 'next/head';
 
 
-const PageEleven = ({ prevStep }) => {
+const CautionFee = ({ prevStep }) => {
     const dispatch = useDispatch();
-    const inputValue = useSelector((state) => state.propertyBookingPrice);
+    const inputValue = useSelector((state) => state.propertyCautionFee);
 
     const handleInputChange = (e) => {
-        dispatch({ type: 'SET_PROPERTY_BOOKING_PRICE', payload: e.target.value });
+        dispatch({ type: 'SET_PROPERTY_CAUTION_FEE', payload: e.target.value });
     };
 
     const handleNextClick = () => {
         if (!inputValue) return; // Do not proceed if input field is empty
-        dispatch({ type: 'SET_PROPERTY_BOOKING_PRICE', payload: inputValue });
-        dispatch({ type: 'SET_PAGE_NUMBER', payload: 14 });
+        dispatch({ type: 'SET_PROPERTY_CAUTION_FEE', payload: inputValue });
+        dispatch({ type: 'SET_PAGE_NUMBER', payload: 15 });
     };
 
     const handleBackClick = () => {
-      prevStep(dispatch({ type: 'SET_PAGE_NUMBER', payload: 12 }))
+      prevStep(dispatch({ type: 'SET_PAGE_NUMBER', payload: 13 }))
     }
 
   return (
@@ -46,7 +46,7 @@ const PageEleven = ({ prevStep }) => {
             </div>
 
             <div>
-              <h1 className='text-2xl xl:text-4xl font-medium md:font-semibold mb-7 font-sora'>Now, set your price</h1>
+              <h1 className='text-2xl xl:text-4xl font-medium md:font-semibold mb-7 font-sora'>Set your caution fee</h1>
               <div className="flex justify-center space-x-4 items-center border pb-10 rounded-md bg-[#F7F7F7]">
                   {/* <button className="border w-10 rounded-lg p-1 relative text-center bg-white">
                           <Image src={Minus} className="border p-10"/>
@@ -58,11 +58,11 @@ const PageEleven = ({ prevStep }) => {
                         value={inputValue}
                         onChange={handleInputChange}
                         setPageInput={(option) => ({
-                            type: 'SET_PROPERTY_BOOKING_PRICE',
+                            type: 'SET_PROPERTY_CAUTION_FEE',
                             payload: option,
                         })}
                     />
-                    <p className='mt-3 text-black'>Per night</p>
+                    {/* <p className='mt-3 text-black'>Per night</p> */}
                   </div>
                   {/* <button className="border w-10 rounded-lg p-1 relative text-center bg-white" >
                           <Image src={Plus} className="border p-10"/>
@@ -91,4 +91,4 @@ const PageEleven = ({ prevStep }) => {
   );
 };
 
-export default PageEleven;
+export default CautionFee;

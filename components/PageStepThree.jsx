@@ -12,7 +12,7 @@ function PageStepThree() {
     const dispatch = useDispatch()
 
     const handleNextClick = () => {
-        dispatch({ type: 'SET_PAGE_NUMBER', payload: 11 });
+        dispatch({ type: 'SET_PAGE_NUMBER', payload: 12 });
       };
 
   return (

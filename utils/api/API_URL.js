@@ -21,6 +21,7 @@ export const GETBOOKING = "booking/read-by-host-id";
 export const GETBOOKINGS = "booking/read";
 export const CREATEBOOKINGS = "booking/create";
 export const GETBOOKINGRENTER = "booking/read-by-user-id";
+export const SCHEDULEBOOKINGS = "booking/schedule-inspection";
 
 // Payment
 export const CREATEPAYMENT = "payment/create-payment";

@@ -1,50 +1,55 @@
 import { useSelector, useDispatch } from 'react-redux';
+import RadioButtons from './RadioButtons'
 import Layout from '../components/Layout'
-import RadioButtons from '../components/RadioButtons';
 import HostFrame from '../public/images/HostFrame.png'
 import Image from 'next/image';
 import Link from 'next/link';
 import logopic from '../public/images/qoo_logo.png';
 
 
-const PageTen = ({ prevStep }) => {
+const HostingType = ({ prevStep }) => {
     const dispatch = useDispatch();
-    const selectedOption = useSelector((state) => state.page10Selection);
-
+    const selectedOption = useSelector((state) => state.propertyHostingType);
+  
     const options = [
-                      {label: 'QooSpayce Guests', additionalText: ''},
-                      {label: 'Any Guests', additionalText: 'Get reservations faster when you welcome anyone from the Qoospayce community.'}
-                    ]; 
-
+      { label: 'For Short Let', additionalText: '' },
+      { label: 'For Rent', additionalText: '' },
+      { label: 'For Buy', additionalText: '' }
+    ];
+  
     const handleNextClick = () => {
-        if (!selectedOption) return; // Do not proceed if no option is selected
-        dispatch({ type: 'SET_PAGE10_SELECTION', payload: selectedOption });
-        dispatch({ type: 'SET_PAGE_NUMBER', payload: 13 });
+      if (!selectedOption) return; // Do not proceed if no option is selected
+      dispatch({ type: 'SET_PROPERTY_HOSTING_TYPE', payload: selectedOption });
+      dispatch({ type: 'SET_PAGE_NUMBER', payload: 4 });
     };
 
     const handleBackClick = () => {
-      prevStep(dispatch({ type: 'SET_PAGE_NUMBER', payload: 11 }))
+      prevStep(dispatch({ type: 'SET_PAGE_NUMBER', payload: 2 }))
     }
 
+    
+
   return (
-    <div className='bg-white'>
+    <div className='bg-white font-sora'>
         <div className="pl-10 p-6 h-screen flex flex-col justify-between max-w-[50rem] mx-auto">
             {/* <!-- Content for the left side --> */}
-            <div className="relative w-14 h-14 cursor-pointer mb-5">
+            <div className="relative w-14 h-14 cursor-pointer">
               <Link href='/'>
                 <Image src={logopic} layout='fill' objectFit='cover' />
               </Link>
             </div>
 
-            <div className="">
-            <RadioButtons
-                options={options}
-                selectedOption={selectedOption}
-                setPageSelection={(option) => ({
-                type: 'SET_PAGE10_SELECTION',
-                payload: option,
+            <div className="flex flex-col space-y-3">
+              <h1 className='text-2xl xl:text-3xl font-semibold mb-5 max-w-[40rem] text-black'>What is the purpose of your listing?</h1>
+                <RadioButtons
+                    options={options}
+                    selectedOption={selectedOption}
+                    setPageSelection={(option) => ({
+                    type: 'SET_PROPERTY_HOSTING_TYPE',
+                    payload: option,
                 })}
-            />
+                // style={{ margin: '3rem 0' }}
+                />
             </div>
 
             <div className='flex justify-between items-center'>
@@ -59,7 +64,7 @@ const PageTen = ({ prevStep }) => {
                 disabled={!selectedOption}
                 onClick={handleNextClick}
               >
-                Next
+                Proceed
               </button>
             </div>
         </div>
@@ -68,4 +73,4 @@ const PageTen = ({ prevStep }) => {
   );
 };
 
-export default PageTen;
+export default HostingType;

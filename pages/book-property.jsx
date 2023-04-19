@@ -31,7 +31,7 @@ import { nanoid } from 'nanoid';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Head from "next/head";
-
+import { states } from "../states";
 
 const Index = () => {
   const [firstname, setFirstName] = useState("");
@@ -139,11 +139,19 @@ const handleClick = () => {
 
   const PriceTag = booking[0]?.propertyBookingPrice * finalDate
   const finalPrice = PriceTag + (PriceTag * 7 / 100)
+  const cautionFee = parseFloat(booking[0]?.propertyCautionFee)
+  console.log(cautionFee);
+  const sumPrice = cautionFee + finalPrice
+  console.log(sumPrice)
+  console.log(booking[0]?.propertyCautionFee)
 
   const message = 'Hello, how are you?';
   const encodedMessage = encodeURIComponent(message);
 
   const paymentRef = nanoid(); // generates a random 21-character string
+
+  console.log(startDate)
+  console.log(endDate)
 
 
 
@@ -153,7 +161,7 @@ const handleClick = () => {
     // paymentHostUserId: "100041",
     paymentHostUserId: hostId,
     paymentPropertyName: propName,
-    paymentAmount: finalPrice,
+    paymentAmount: sumPrice,
     paymentCurrency:"NGN",
     paymentReference: paymentRef,
   }  
@@ -165,7 +173,7 @@ const handleClick = () => {
     address: '',
     city: '',
     phonenumber: '',
-    comments: '',
+    // comments: '',
   };
 
   const onSubmit = async (values, { setSubmitting }) => {
@@ -193,7 +201,7 @@ const handleClick = () => {
           bookingPaymentId: null,
           bookingCheckInDate: startDate,
           bookingCheckOutDate: endDate,
-          bookingAmount: finalPrice,
+          bookingAmount: sumPrice,
           bookingOptionalService: propertyOptionalServices,
           bookingGuestNumber: numGuests,
           bookingGuestTypes: "Children, Cats"
@@ -305,7 +313,7 @@ const handleClick = () => {
     address: Yup.string().required('Please enter your address'),
     city: Yup.string().required('Please enter your city'),
     phonenumber: Yup.string().required('Please enter your phone number'),
-    comments: Yup.string().required('Please enter your comments'),
+    // comments: Yup.string().required('Please enter your comments'),
   });
 
   useEffect(() => {
@@ -444,15 +452,25 @@ const handleClick = () => {
             </div>
             
             <div className="flex flex-col xl:w-fourty8">
-              <Field
-                type="text"
-                name="city"
-                id="city"
-                className="h-[3rem] outline-none rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
-                placeholder="City"
-              />
-              <ErrorMessage name="city" component="div" className="text-red-500" />
-            </div>
+  <Field
+    as="select"
+    name="city"
+    id="city"
+    className="h-[3rem] outline-none rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal  px-2 placeholder:text-secondary placeholder:text-opacity-40"
+    placeholder="State"
+  >
+    <option value="" disabled>
+      Select your state
+    </option>
+    {states.map((state) => (
+      <option key={state} value={state}>
+        {state}
+      </option>
+    ))}
+  </Field>
+  <ErrorMessage name="city" component="div" className="text-red-500" />
+</div>
+
           </div>
           <div className="flex flex-col xl:flex-row space-y-5 xl:space-y-0 xl:items-center justify-between ">
             <div className="flex flex-col xl:w-fourty8">
@@ -487,7 +505,7 @@ const handleClick = () => {
               placeholder="Comments"
             />
 
-              <ErrorMessage name="comments" component="div" className="text-red-500" />
+              {/* <ErrorMessage name="comments" component="div" className="text-red-500" /> */}
           </div>
           </div>
 
@@ -537,6 +555,12 @@ const handleClick = () => {
             
             {booking.map((property) => {
               const totalPrice = property.propertyBookingPrice * finalDate
+              const finalPrice = totalPrice + (totalPrice * 7 / 100)
+              const cautionFee = parseFloat(property.propertyCautionFee)
+              console.log(cautionFee);
+              const sumPrice = cautionFee + finalPrice
+              console.log(sumPrice)
+              console.log(property.propertyCautionFee)
               return (
               <div className="sticky right-0 flex items-center justify-center w-2/6 mb-5 xl:mb-0 xl:mx-0 mx-auto mt-5 xl:mt-0 px-24 xl:px-0">
                 <div className="inset-0 p-6 border border-gray-200 rounded-lg">
@@ -560,7 +584,7 @@ const handleClick = () => {
                   <div className="my-4 border-t border-t-gray-200 border-b" >
                   <div className="flex items-center justify-between text-sm font-bold text-secondary">
                     <h1>Total</h1>
-                    <h1>₦ {formatter.format(totalPrice)}</h1>
+                    <h1>₦ {formatter.format(sumPrice)}</h1>
                   </div>
                   {CreatePayment.loading ? (
                     <div className="flex items-center justify-center">

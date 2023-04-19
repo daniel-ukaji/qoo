@@ -66,7 +66,7 @@ const LoginModal = () => {
           <Image src={logo} className="absolute w-full h-full" />
         </div>
         <h1 className="mt-3 text-lg font-semibold text-secondary">
-          Log in to your Qoospace account
+          Log in to your Qoospayce account
         </h1>
       </div>
       <button
@@ -144,7 +144,7 @@ const LoginModal = () => {
           </span>
         </div>
 
-        <div className="flex flex-col mt-8 mb-6 space-y-2">
+        <div className="hidden flex flex-col mt-8 mb-6 space-y-2">
           <button
             type="text"
             name=""

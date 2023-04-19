@@ -12,6 +12,19 @@ import { fetchproperties } from "../utils/api/property/getProperties";
 import SkeletonCard from "../components/SkeletonCard";
 import Navi from "../components/misc/Navi";
 import Navbar from "../components/Navbar";
+import { FaBed, FaHome, FaUsers } from "react-icons/fa";
+import { TbBeach, TbMountain, TbPool } from 'react-icons/tb';
+import social from '/public/images/Social03.png';
+import Image from "next/image";
+
+
+
+
+const categories = [
+  { name: "FOR_RENT", label: "FOR RENT", icon: <TbBeach size={25} /> },
+  { name: "FOR_SHORT_STAY", label: "FOR SHORT STAY", icon: <TbMountain size={25} /> },
+  { name: "FOR_BUY", label: "FOR BUY", icon: <TbPool size={25} /> },
+];
 
 
 
@@ -20,6 +33,8 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [numItems, setNumItems] = useState(10);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
 
   const {
     data: properties,
@@ -55,6 +70,10 @@ export default function Home() {
             .toLowerCase()
             .includes(searchQuery.toLowerCase())
       )
+      .filter(
+        (property) =>
+          selectedCategory === null || property.propertyHostingType === selectedCategory
+      )
   : [];
 
   useEffect(() => {
@@ -67,7 +86,7 @@ export default function Home() {
 
 
   return (
-    <div className="font-sora">
+    <div className="font-sora bg-white">
       <Head>
         <title>QuooSpace</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
@@ -84,11 +103,68 @@ export default function Home() {
 
 
 
-      <main className="px-5 md:px-20 w-full mt-8 max-w-full mx-auto">
+      <main className="px-5 md:px-20 w-full mt-8 xl:mt-2 max-w-full mx-auto">
+      <div className="flex justify-between items-center mb-4">
+          <div className="flex gap-x-7">
+            {categories.map((category) => (
+              <button
+                key={category}
+                className={`flex 
+                flex-col 
+                items-center 
+                justify-center 
+                gap-2
+                p-3
+                border-b-2
+                hover:text-neutral-800
+                hover:border-b-neutral-800
+                hover:border-b-4
+                transition
+                cursor-pointer ${
+                  selectedCategory === category.name
+                    ? 'border-b-neutral-800' : 'border-transparent'
+                }
+                ${
+                  selectedCategory === category.name
+                    ? 'border-b-4' : 'border-transparent'
+                }
+                ${
+                  selectedCategory === category.name
+                    ? 'text-neutral-800' : 'text-neutral-500'
+                }
+                `}
+                onClick={() =>
+                  setSelectedCategory(
+                    selectedCategory === category.name ? null : category.name
+                  )
+                }
+              >
+                {/* <Icon /> */}
+                {category.icon} {category.label}
+              </button>
+              
+            ))}
+          </div>
+          <button
+            className="hidden flex items-center gap-x-1 px-3 py-1 rounded-full bg-gray-200 text-gray-800"
+            onClick={() => setModalActive(true)}
+          >
+            <GoSettings />
+            <span>Filter</span>
+          </button>
+        </div>
       {/* {isLoading && <SkeletonCard cards={numItems} />}  */}
-      <div className="flex flex-wrap justify-center items-center mt-8 mb-7 gap-x-5 gap-y-10">
+      <div className="flex flex-wrap justify-center xl:justify-start items-center mt-8 mb-7 gap-x-5 gap-y-10">
           {isError && <p>{error.message}</p>}
           {isLoading && <SkeletonCard cards={numItems} />}
+          {!isLoading && filteredProperties.length === 0 && (
+          <div className="flex flex-col w-full justify-center items-center text-center mt-5 space-y-2 pb-20">
+          <Image src={social} />
+          <h5 className='font-Sora text-1xl text-gray-900'>No search results</h5>
+          <p className='text-xs text-gray-600 font-normal'>Time to dust off your bags and start planning your next adventure.</p>
+          
+        </div>
+        )}
           {!isLoading &&
             filteredProperties
               .slice(0, numItems)
@@ -119,7 +195,8 @@ export default function Home() {
           </div>
         )}
       </main>
-      <Footer />
+
+        <Footer />
 
       <ModalComponent
         isVisible={modalActive}

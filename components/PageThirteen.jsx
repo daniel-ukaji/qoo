@@ -80,11 +80,11 @@ function hostHomeStepTwoTwo({ prevStep }) {
   };
 
   const handleNextClick = () => {
-    dispatch({ type: 'SET_PAGE_NUMBER', payload: 8 });
+    dispatch({ type: 'SET_PAGE_NUMBER', payload: 9 });
 };
 
 const handleBackClick = () => {
-  prevStep(dispatch({ type: 'SET_PAGE_NUMBER', payload: 6 }))
+  prevStep(dispatch({ type: 'SET_PAGE_NUMBER', payload: 7 }))
 }
 
 return (
@@ -138,8 +138,10 @@ return (
       {selectedImages.length > 0 && (
         <button
           className="mt-8 text-[#667085] px-2 py-3 border border-[#98A2B3] rounded-lg flex justify-center items-center space-x-1"
-          onClick={() => {
+          onClick={(event) => {
+            event.stopPropagation();
             document.getElementById("imageInput").click();
+
           }}
         >
           <PlusIcon className='w-4 h-4'/>
