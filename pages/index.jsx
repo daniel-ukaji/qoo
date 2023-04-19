@@ -21,9 +21,9 @@ import Image from "next/image";
 
 
 const categories = [
-  { name: "FOR_RENT", label: "FOR RENT", icon: <TbBeach size={25} /> },
-  { name: "FOR_SHORT_STAY", label: "FOR SHORT STAY", icon: <TbMountain size={25} /> },
-  { name: "FOR_BUY", label: "FOR BUY", icon: <TbPool size={25} /> },
+  { name: "FOR_RENT", label: "RENT", icon: <TbBeach size={25} /> },
+  { name: "FOR_SHORT_STAY", label: "SHORT STAY", icon: <TbMountain size={25} /> },
+  { name: "FOR_BUY", label: "BUY", icon: <TbPool size={25} /> },
 ];
 
 
@@ -104,7 +104,7 @@ export default function Home() {
 
 
       <main className="px-5 md:px-20 w-full mt-8 xl:mt-2 max-w-full mx-auto">
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-center xl:justify-between items-center mb-4">
           <div className="flex gap-x-7">
             {categories.map((category) => (
               <button
