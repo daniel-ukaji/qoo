@@ -15,6 +15,7 @@ import { useApi } from '../../utils/hooks/useApi';
 import { updateProperty } from '../../utils/api/property/updateProperty';
 import { toast } from 'react-toastify';
 import Head from 'next/head';
+import NavHeader from '../../components/misc/NavHeader';
 
 const PropertyName = () => {
     const [activeTab, setActiveTab] = useState('listing');
@@ -721,7 +722,9 @@ const router = useRouter();
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-        <HostHeader />
+        {/* <HostHeader /> */}
+        <NavHeader />
+
         <section className="md:mx-auto mb-14 md:max-w-full md:px-10 py-7">
         {/* <button
             onClick={() => Router.back()}

@@ -8,6 +8,7 @@ import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 import axios from 'axios';
 import { fetchBooking } from '../utils/api/booking/getBookingRenter';
 import BookingCard from '../components/BookingCard';
+import NavHeader from '../components/misc/NavHeader';
 
 function bookingsEmpty() {
   const [bookings, setBookings] = useState([]);
@@ -72,7 +73,9 @@ function bookingsEmpty() {
 
   return (
     <div className="font-sora relative">
-      <Header />
+      {/* <Header /> */}
+      <NavHeader />
+
       <div className='px-5 xl:px-20 mt-8 pb-3'>
         <h5 className='font-Sora text-3xl text-[#162748]'>Bookings</h5>
       </div>

@@ -32,6 +32,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Head from "next/head";
 import { states } from "../states";
+import NavHeader from "../components/misc/NavHeader";
 
 const Index = () => {
   const [firstname, setFirstName] = useState("");
@@ -336,7 +337,9 @@ const handleClick = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="sticky top-0 z-50 h-[6rem] w-full">
-        <Header />
+        {/* <Header /> */}
+        <NavHeader />
+
       </div>
       
       <Formik

@@ -47,6 +47,7 @@ import ShareComponent from "../../components/ShareComponent";
 import { useApi } from "../../utils/hooks/useApi";
 import { scheduleBooking } from "../../utils/api/booking/scheduleBooking";
 import { toast } from "react-toastify";
+import NavHeader from "../../components/misc/NavHeader";
 
 const Property = () => {
 
@@ -331,7 +332,9 @@ console.log(formattedDates);
           <link rel="icon" href="/favicon.ico" />
         </Head>
         {/* <div className="sticky top-0 z-50 h-[6rem] w-full"> */}
-          <Header />
+          {/* <Header /> */}
+          <NavHeader />
+
         {/* </div> */}
         <section className="xl:mx-auto mb-14 xl:max-w-full xl:px-10">
           {/* <button
@@ -556,23 +559,32 @@ console.log(formattedDates);
 
                   </div>
 
-                <div className="mt-5 border-b pb-5">
-                  
-                  <div className="flex flex-col space-y-6">
-                  <h1 className="text-lg font-bold text-gray-800">
-                    Booking Conditions
-                  </h1>
-                    <div className="grid xl:grid-cols-2 gap-3">
-                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">No smoking</h1></div>
-                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">No parties or events</h1></div>
-                    </div>
 
-                    <div className="grid xl:grid-cols-2 gap-3">
-                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">Private/residential use only</h1></div>
-                      <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">No Inflammables</h1></div>
+                {property.propertyHostingType === "FOR_RENT" ? (
+                  null
+                ): (
+                  <div className="mt-5 border-b pb-5">
+                    
+                    <div className="flex flex-col space-y-6">
+                    <h1 className="text-lg font-bold text-gray-800">
+                      Booking Conditions
+                    </h1>
+                      <div className="grid xl:grid-cols-2 gap-3">
+                        <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">No smoking</h1></div>
+                        <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">No parties or events</h1></div>
+                      </div>
+
+                      <div className="grid xl:grid-cols-2 gap-3">
+                        <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">Private/residential use only</h1></div>
+                        <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">No Inflammables</h1></div>
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
+
+                {property.propertyHostingType === "FOR_RENT" ? (
+                  null
+                ): (
 
                 <div className="mt-5 border-b pb-5">
                   
@@ -591,6 +603,11 @@ console.log(formattedDates);
                     </div>
                   </div>
                 </div>
+                )}
+
+                {property.propertyHostingType === "FOR_RENT" ? (
+                  null
+                ): (
 
                 <div className="mt-5 border-b pb-5">
                   
@@ -607,7 +624,7 @@ console.log(formattedDates);
                       <div className="flex space-x-3 items-center"><AiFillCheckCircle className="w-5 h-5 text-primary" /><h1 className="text-sm">Early check in/Late check Out: NGN10,000.00 /booking</h1></div>
                     </div>
                   </div>
-                </div>
+                </div> )}
 
                 
               </div>
@@ -691,7 +708,7 @@ console.log(formattedDates);
                     onClick={onSubmit}
                     className={`mt-7 mb-5 h-[2.875rem] w-full rounded-[10px] bg-primary text-sm font-medium text-white `}
                   >
-                    Submit
+                    Book Inspection
                   </button>
                       </div>
                   

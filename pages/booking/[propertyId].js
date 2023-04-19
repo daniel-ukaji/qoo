@@ -42,6 +42,7 @@ import FilterComponent from "../../components/FilterComponent";
 import AmenitiesComponent from "../../components/AmenitiesComponent";
 import VerifyModal from "../../components/VerifyModal";
 import axios from "axios";
+import NavHeader from "../../components/misc/NavHeader";
 
 const Property = () => {
 
@@ -232,7 +233,9 @@ console.log(formattedDates);
     return (
       <div className="font-sora">
         <div className="sticky top-0 z-50 h-[6rem] w-full">
-        <Header />
+        {/* <Header /> */}
+        <NavHeader />
+
         </div>
         <section className="md:mx-auto mb-14 md:max-w-full md:px-10">
           

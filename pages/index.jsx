@@ -21,9 +21,9 @@ import Image from "next/image";
 
 
 const categories = [
-  { name: "FOR_RENT", label: "RENT", icon: <TbBeach size={25} /> },
-  { name: "FOR_SHORT_STAY", label: "SHORT STAY", icon: <TbMountain size={25} /> },
-  { name: "FOR_BUY", label: "BUY", icon: <TbPool size={25} /> },
+  { name: "FOR_RENT", label: "Rent", icon: <TbBeach size={25} /> },
+  { name: "FOR_SHORT_STAY", label: "Short Stay", icon: <TbMountain size={25} /> },
+  { name: "FOR_BUY", label: "Buy", icon: <TbPool size={25} /> },
 ];
 
 
@@ -103,8 +103,8 @@ export default function Home() {
 
 
 
-      <main className="px-5 md:px-20 w-full mt-8 xl:mt-2 max-w-full mx-auto">
-      <div className="flex justify-center xl:justify-between items-center mb-4">
+      <main className="px-5 md:px-20 w-full mt-8 xl:mt-0 max-w-full mx-auto">
+      <div className="flex justify-center xl:justify-center items-center mb-4">
           <div className="flex gap-x-7">
             {categories.map((category) => (
               <button
@@ -140,7 +140,8 @@ export default function Home() {
                 }
               >
                 {/* <Icon /> */}
-                {category.icon} {category.label}
+                {category.icon} 
+                <span className="text-xs" >{category.label}</span>
               </button>
               
             ))}
@@ -154,7 +155,7 @@ export default function Home() {
           </button>
         </div>
       {/* {isLoading && <SkeletonCard cards={numItems} />}  */}
-      <div className="flex flex-wrap justify-center xl:justify-start items-center mt-8 mb-7 gap-x-5 gap-y-10">
+      <div className="flex flex-wrap justify-center xl:justify-start items-center mt-2 mb-7 gap-x-5 gap-y-10">
           {isError && <p>{error.message}</p>}
           {isLoading && <SkeletonCard cards={numItems} />}
           {!isLoading && filteredProperties.length === 0 && (
