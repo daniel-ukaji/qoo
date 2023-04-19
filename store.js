@@ -46,7 +46,7 @@ const initialState = {
   propertyGuestNumber: '',
   propertyBathroomNumber:'',
   propertyServices: '',
-  propertyImages: '', // added new field for selected image file, null
+  propertyImages: [], // added new field for selected image file, null
   propertyName: '',
   propertyDescription: '',
   page10Selection: '',
@@ -160,15 +160,13 @@ const formReducer = (state = initialState, action) => {
     case 'SET_PROPERTY_BOOKING_CONDITIONS':
       return { ...state, propertyBookingConditions: action.payload };
     case ADD_IMAGE:
-      return {...state, propertyImages: action.payload};
-        
-    // case REMOVE_IMAGE:
-    //     const newImages = {...state.propertyImages};
-    //     newImages.splice(action.payload, 1);
-      return {
-          ...state,
-          propertyImages: newImages,
-        };
+      return { ...state, propertyImages: [...state.propertyImages, ...action.payload] };
+    case REMOVE_IMAGE:
+      return { ...state, propertyImages: action.payload };
+      // return {
+      //     ...state,
+      //     propertyImages: newImages,
+      //   };
     // case SET_COUNT:
     //   return { ...state, count: action.payload };
     default:

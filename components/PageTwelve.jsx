@@ -75,6 +75,8 @@ const PageTwelve = ({ prevStep }) => {
       console.log(selectedBeds)
       console.log(selectedBedrooms)
 
+      console.log(propertyImages)
+
       const imageString = propertyImages?.map((image) => image.toString()).join(',');
 
       // console.log(selectedBathrooms)

@@ -75,8 +75,8 @@ function hostHomeStepTwoTwo({ prevStep }) {
     newSelectedImages.splice(index, 1);
     setSelectedImages(newSelectedImages);
 
-    // dispatch REMOVE_IMAGE action here
-//   dispatch({ type: REMOVE_IMAGE, payload: newSelectedImages });
+    //dispatch REMOVE_IMAGE action here
+  dispatch({ type: REMOVE_IMAGE, payload: newSelectedImages });
   };
 
   const handleNextClick = () => {
