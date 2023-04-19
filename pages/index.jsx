@@ -21,9 +21,9 @@ import Image from "next/image";
 
 
 const categories = [
-  { name: "FOR_RENT", label: "Rent", icon: <TbBeach size={25} /> },
-  { name: "FOR_SHORT_STAY", label: "Short Stay", icon: <TbMountain size={25} /> },
-  { name: "FOR_BUY", label: "Buy", icon: <TbPool size={25} /> },
+  { name: "FOR RENT", label: "Rent", icon: <TbBeach size={25} /> },
+  { name: "FOR SHORT STAY", label: "Short Stay", icon: <TbMountain size={25} /> },
+  { name: "FOR BUY", label: "Buy", icon: <TbPool size={25} /> },
 ];
 
 
@@ -33,7 +33,7 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [numItems, setNumItems] = useState(10);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState("FOR SHORT STAY");
 
 
   const {

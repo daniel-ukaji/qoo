@@ -58,7 +58,7 @@ function AccountSettings() {
         userIdentityNumber: '',
         userIdentityType: '',
         userPicture: null,
-        userIdentityImage: '9870',
+        userIdentityImage: null,
       });
 
 
@@ -186,6 +186,14 @@ useEffect(() => {
     
 
 
+      const handleImageDelete = (index) => {
+        const newSelectedImages = [...selectedImages];
+        newSelectedImages.splice(index, 1);
+        setSelectedImages(newSelectedImages);
+    
+        //dispatch REMOVE_IMAGE action here
+      };
+
 function handleDrop(event) {
     event.preventDefault();
     const imageFile = event.dataTransfer.files[0];
@@ -225,52 +233,6 @@ function handleDrop(event) {
       document.body.appendChild(modal);
     }
   }
-
-  const validate = () => {
-    let errors = {};
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phoneRegex = /^\d+$/;
-    const identityRegex = /^[0-9]{9}$/;
-  
-    if (!userData.userFirstName.trim()) {
-      errors.userFirstName = 'First name is required';
-    }
-    if (!userData.userLastName.trim()) {
-      errors.userLastName = 'Last name is required';
-    }
-    if (!userData.userEmail.trim()) {
-      errors.userEmail = 'Email is required';
-    } else if (!emailRegex.test(userData.userEmail)) {
-      errors.userEmail = 'Invalid email format';
-    }
-    if (!userData.userDateOfBirth) {
-      errors.userDateOfBirth = 'Date of birth is required';
-    }
-    if (!userData.userPhoneNumber.trim()) {
-      errors.userPhoneNumber = 'Phone number is required';
-    } else if (!phoneRegex.test(userData.userPhoneNumber)) {
-      errors.userPhoneNumber = 'Invalid phone number format';
-    }
-    if (!userData.userCountry.trim()) {
-      errors.userCountry = 'Country is required';
-    }
-    if (!userData.userState.trim()) {
-      errors.userState = 'State is required';
-    }
-    if (!userData.userCity.trim()) {
-      errors.userCity = 'City is required';
-    }
-    if (!userData.userStreet.trim()) {
-      errors.userStreet = 'Street is required';
-    }
-    if (!userData.userIdentityNumber.trim()) {
-      errors.userIdentityNumber = 'Identity number is required';
-    } else if (!identityRegex.test(userData.userIdentityNumber)) {
-      errors.userIdentityNumber = 'Invalid identity number format';
-    }
-    setErrors(errors);
-    return Object.keys(errors).length === 0;
-  };
 
   const [formErrors, setFormErrors] = useState({});
   
@@ -427,7 +389,7 @@ useEffect(() => {
   )}
   {selectedImages.length === 0 && (
     <label htmlFor="imageInput" className="mt-2 font-bold text-sm cursor-pointer">
-      Update profile image
+      {userData.userPicture ? 'Update profile image' : 'Add profile image'}
     </label>
   )}
 </div>
@@ -459,6 +421,17 @@ useEffect(() => {
                 </div>
 
                 <div className='flex flex-col items-center lg:items-start mt-10 max-w-[40rem] ml-5'>
+                {formErrors.userIdentityType && (
+    <div className="text-red-500 text-sm">
+      {formErrors.userIdentityType}
+    </div>
+  )}
+
+{formErrors.userIdentityNumber && (
+        <div className="text-red-500 text-sm">
+          {formErrors.userIdentityNumber}
+        </div>
+      )}
                     
                 {/* <div className=''> */}
       <div className="flex border justify-start items-center mb-4 ">
@@ -485,16 +458,7 @@ useEffect(() => {
             <div className='flex justify-between'>
                 <p className='font-bold mb-3'>First Name</p>
             </div>
-            {/* <input
-                type="text"
-                name="userFirstName"
-                id="userFirstName"
-                value={userData.userFirstName}
-                onChange={(e) => setUserData({ ...userData, userFirstName: e.target.value })}
-                className="rounded-lg px-4 py-3 outline-none h-12 border border-black w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2"
-                placeholder="First Name"
-                
-            /> */}
+            
             <input
         type="text"
         name="userFirstName"
@@ -520,17 +484,7 @@ useEffect(() => {
                 <p className='font-bold mb-3'>Last Name</p>
                 {/* <button className='font-bold'>Edit</button> */}
             </div>
-            {/* <input
-                type="text"
-                name="userLastName"
-                id="userLastName"
-                value={userData.userLastName}
-                onChange={(e) => setUserData({ ...userData, userLastName: e.target.value })}
-                className="rounded-lg px-4 py-3 outline-none h-12 border border-black w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2"
-                placeholder="Last Name"
-
-                
-            /> */}
+            
             <input
         type="text"
         name="userLastName"
@@ -555,16 +509,7 @@ useEffect(() => {
                 <p className='font-bold mb-3'>Email</p>
                 {/* <button className='font-bold'>Edit</button> */}
             </div>
-            {/* <input
-                type="email"
-                name="userEmail"
-                id="userEmail"
-                value={userData.userEmail}
-                onChange={(e) => setUserData({ ...userData, userEmail: e.target.value })}
-                className="rounded-lg px-4 py-3 outline-none h-12 border border-black w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2"
-                placeholder="Email Address"
-                
-            /> */}
+           
             <input
         type="email"
         name="userEmail"
@@ -613,16 +558,7 @@ useEffect(() => {
                 <p className='font-bold mb-3'>Phone Number</p>
                 {/* <button className='font-bold'>Edit</button> */}
             </div>
-            {/* <input
-                type="text"
-                name="userPhoneNumber"
-                id="userPhoneNumber"
-                value={userData.userPhoneNumber}
-                onChange={(e) => setUserData({ ...userData, userPhoneNumber: e.target.value })}
-                className="rounded-lg px-4 py-3 outline-none h-12 border border-black w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2"
-                placeholder="Phone Number"
-                
-            /> */}
+            
             <input
         type="text"
         name="userPhoneNumber"
@@ -677,16 +613,7 @@ useEffect(() => {
                 <p className='font-bold mb-3'>State</p>
                 {/* <button className='font-bold'>Edit</button> */}
             </div>
-            {/* <input
-                type="text"
-                name="userState"
-                id="userState"
-                value={userData.userState}
-                onChange={(e) => setUserData({ ...userData, userState: e.target.value })}
-                className="rounded-lg px-4 py-3 outline-none h-12 border border-black w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2"
-                placeholder="State"
-                
-            /> */}
+            
             <input
         type="text"
         name="userState"
@@ -711,16 +638,7 @@ useEffect(() => {
                 <p className='font-bold mb-3'>City</p>
                 {/* <button className='font-bold'>Edit</button> */}
             </div>
-            {/* <input
-                type="text"
-                name="userCity"
-                id="userCity"
-                value={userData.userCity}
-                onChange={(e) => setUserData({ ...userData, userCity: e.target.value })}
-                className="rounded-lg px-4 py-3 outline-none h-12 border border-black w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2"
-                placeholder="City"
-                
-            /> */}
+            
             <input
         type="text"
         name="userCity"
@@ -745,16 +663,7 @@ useEffect(() => {
                 <p className='font-bold mb-3'>Street</p>
                 {/* <button className='font-bold'>Edit</button> */}
             </div>
-            {/* <input
-                type="text"
-                name="userStreet"
-                id="userStreet"
-                value={userData.userStreet}
-                onChange={(e) => setUserData({ ...userData, userStreet: e.target.value })}
-                className="rounded-lg px-4 py-3 outline-none h-12 border border-black w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2"
-                placeholder="Street"
-                
-            /> */}
+            
             <input
         type="text"
         name="userStreet"
@@ -818,15 +727,7 @@ useEffect(() => {
                         <p className='font-bold mb-3'>ID NUMBER</p>
                         {/* <button className='font-bold'>Update</button> */}
                     </div>
-                    {/* <input
-                    type="text"
-                    name="userIdentityNumber"
-                    id="userIdentityNumber"
-                    value={userData.userIdentityNumber}
-                    onChange={(e) => setUserData({ ...userData, userIdentityNumber: e.target.value })}
-                    className="rounded-lg px-4 py-3 outline-none h-12 border border-black w-[18rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2"
-                    placeholder="Enter the number"
-                /> */}
+                    
                 <input
         type="text"
         name="userIdentityNumber"
@@ -846,7 +747,26 @@ useEffect(() => {
         </div>
       )}
                 </div>
-                
+
+                {/* <div className='mt-10 border-b'>
+                            <div className='flex justify-between'>
+                                <p className='font-bold mb-3'>ID IMAGE</p>
+                                
+                            </div>
+                            <input
+                              type="file"
+                              id="imageInput"
+                              multiple
+                              onChange={handleImageSelect}
+                              className=""
+                            />
+
+                            <img
+                                  src={userData.userIdentityImage}
+                                  alt=""
+                                  className="w-20 h-20 object-cover rounded-full"
+                                />
+                        </div> */}
 
                 
                 

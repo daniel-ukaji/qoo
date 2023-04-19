@@ -631,7 +631,7 @@ console.log(formattedDates);
 
 
               <div className="sticky top-5 mt-6 xl:mt-0 flex flex-col w-full xl:w-2/3 bg-gray-100  rounded-md border-black drop-shadow-xl ">
-              {property.propertyHostingType === "FOR_RENT" ? ( 
+              {property.propertyHostingType === "FOR RENT" ? ( 
                 <>
                 <div className="flex items-center justify-between p-2 mt-5">
                     <div className="flex items-center justify-center space-x-1 text-[#031C43]">

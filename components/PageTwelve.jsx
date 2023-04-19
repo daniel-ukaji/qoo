@@ -97,7 +97,7 @@ const PageTwelve = ({ prevStep }) => {
       console.log(GuestSpace)
       console.log(imageString)
 
-      console.log(HostingType)
+      console.log(HostingType.toUpperCase())
       console.log(CautionFee)
 
 
@@ -141,7 +141,7 @@ const PageTwelve = ({ prevStep }) => {
         propertyBookingConditions: MoreQuestions,
         propertyBookingSecurityDeposit: "100034.65",
         propertyAdditionalNotes: Questions,
-        propertyHostingType: HostingType,
+        propertyHostingType: HostingType.toUpperCase(),
         propertyCautionFee: CautionFee,
       }
 

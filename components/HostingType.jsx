@@ -12,7 +12,7 @@ const HostingType = ({ prevStep }) => {
     const selectedOption = useSelector((state) => state.propertyHostingType);
   
     const options = [
-      { label: 'For Short Let', additionalText: '' },
+      { label: 'For Short Stay', additionalText: '' },
       { label: 'For Rent', additionalText: '' },
       { label: 'For Buy', additionalText: '' }
     ];
