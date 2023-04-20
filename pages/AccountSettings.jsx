@@ -124,6 +124,7 @@ useEffect(() => {
     
     // console.log(user?.user.userDateOfBirth)
     const [selectedImages, setSelectedImages] = useState([]);
+    const [selected, setSelected] = useState([]);
 
     const handleImageSelect = (event) => {
         const files = Array.from(event.target.files);
@@ -169,6 +170,59 @@ useEffect(() => {
                   });
 
                 setPreviewImage(imageUrl)
+                  
+              })
+              .catch((error) => console.error(error));
+          };
+      
+          reader.readAsDataURL(file);
+        });
+      };
+
+      const handleImage = (event) => {
+        const files = Array.from(event.target.files);
+        const selectedImagesCop = [...selected];
+        const urls = [];
+      
+        files.forEach((file) => {
+          const reader = new FileReader();
+      
+          reader.onload = () => {
+            const base64Image = reader.result.split(",")[1];
+            selectedImagesCop.push({ file, preview: reader.result });
+            setSelected(selectedImagesCop);
+
+            const usernam = "hostId_" + Math.random().toString(36).slice(2);
+      
+            // Send ImageData to the API and log the response
+            const ImageDat = {
+              username: usernam,
+              base64: base64Image,
+              region: "us-east-1",
+              source: "qucoon",
+              s3bucket: "apvertise-repo",
+            };
+            fetch("https://m2nz1o078e.execute-api.us-east-1.amazonaws.com/prod/uploadimage2s3", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(ImageDat),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                console.log(data.url)
+                const imageUri = data.url; // Retrieve the URL from the API response
+                urls.push(imageUri);
+
+                setUserData((prevState) => {
+                    return {
+                      ...prevState,
+                      userIdentityImage: imageUri,
+                    };
+                  });
+
+                setPreviewImage(imageUri)
                   
               })
               .catch((error) => console.error(error));
@@ -537,11 +591,12 @@ useEffect(() => {
             <DatePicker
                 className={`rounded-lg px-4 py-3 outline-none h-12 border ${
                   formErrors.userDateOfBirth ? "border-red-500" : "border-black"
-                } w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2`}                selected={userData.userDateOfBirth}
+                } w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2`}                
                 onChange={(date) => setUserData({ ...userData, userDateOfBirth: date })}
+                selected={userData.userDateOfBirth}
                 dateFormat="dd/MM/yyyy"
                 value={userData.userDateOfBirth || ""}
-                maxDate={new Date()}
+                maxDate={new Date("2004-12-31")}
                 showYearDropdown
                 scrollableYearDropdown
                 yearDropdownItemNumber={100}
@@ -625,7 +680,7 @@ useEffect(() => {
         className={`rounded-lg px-4 py-3 outline-none h-12 border ${
           formErrors.userState ? "border-red-500" : "border-black"
         } w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2`}
-        placeholder="Phone Number"
+        placeholder="State"
       />
       {formErrors.userState && (
         <div className="text-red-500 text-sm">
@@ -650,7 +705,7 @@ useEffect(() => {
         className={`rounded-lg px-4 py-3 outline-none h-12 border ${
           formErrors.userCity ? "border-red-500" : "border-black"
         } w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2`}
-        placeholder="Phone Number"
+        placeholder="City"
       />
       {formErrors.userCity && (
         <div className="text-red-500 text-sm">
@@ -675,7 +730,7 @@ useEffect(() => {
         className={`rounded-lg px-4 py-3 outline-none h-12 border ${
           formErrors.userStreet ? "border-red-500" : "border-black"
         } w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2`}
-        placeholder="Phone Number"
+        placeholder="Street"
       />
       {formErrors.userStreet && (
         <div className="text-red-500 text-sm">
@@ -739,7 +794,7 @@ useEffect(() => {
         className={`rounded-lg px-4 py-3 outline-none h-12 border ${
           formErrors.userIdentityNumber ? "border-red-500" : "border-black"
         } w-[20rem] md:w-[28.063rem] placeholder:text-secondary placeholder:text-opacity-40 text-sm focus:border-primary focus:border-2`}
-        placeholder="Phone Number"
+        placeholder="Identity Number"
       />
       {formErrors.userIdentityNumber && (
         <div className="text-red-500 text-sm">
@@ -748,25 +803,33 @@ useEffect(() => {
       )}
                 </div>
 
-                {/* <div className='mt-10 border-b'>
+                
+
+                <div className='mt-10 border-b'>
                             <div className='flex justify-between'>
                                 <p className='font-bold mb-3'>ID IMAGE</p>
-                                
+                                <label htmlFor="image">Upload picture</label>
                             </div>
+                            <div className="w-72 h-72 xl:h-96 xl:w-96 border-dashed border-2 border-gray-400 flex justify-center items-center">
                             <input
                               type="file"
-                              id="imageInput"
+                              id="image"
                               multiple
-                              onChange={handleImageSelect}
-                              className=""
+                              onChange={handleImage}
+                              className="hidden"
                             />
+
+                            
+                          
 
                             <img
                                   src={userData.userIdentityImage}
                                   alt=""
-                                  className="w-20 h-20 object-cover rounded-full"
+                                  className="w-72 h-72 xl:w-96 xl:h-96 object-cover "
                                 />
-                        </div> */}
+                            </div>
+                            
+                        </div>
 
                 
                 

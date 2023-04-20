@@ -252,27 +252,77 @@ const hideOnClickOutside = (e) => {
           // bookingPaymentId: null,
           // bookingCheckInDate: startDate,
           bookingAmount: "10000",
-          bookingCheckOutDate: bookingDate,
+          bookingInspectionDate: bookingDate,
           bookingAmount: "finalPrice",
           bookingOptionalService: "propertyOptionalServices",
           bookingGuestNumber: "guestNumber",
           bookingGuestTypes: "Children, Cats"
       };
     
-      let id = toast.loading("We are updating your submitting your information...");
+      let id = toast.loading("We are submitting your information...");
     
       const response = await createSchedule.request(req);
     
       console.log(response);
     
-      toast.update(id, {
-        type: response.data.responseCode !== "00" ? "error" : "success",
-        render: response.data.responseMessage,
-        isLoading: createSchedule.loading,
-        autoClose: true,
-        onClick: () => !createSchedule.errorMessage && toast.dismiss(),
-      });
+      if (response.data.responseCode === "00") {
+        toast.update(id, {
+          type: "success",
+          render: response.data.responseMessage,
+          isLoading: createSchedule.loading,
+          autoClose: true,
+          onClick: () => !createSchedule.errorMessage && toast.dismiss(),
+        });
+        
+        // Redirect to the homepage
+        router.push('/BookingInspection');
+      } else {
+        toast.update(id, {
+          type: "error",
+          render: response.data.responseMessage,
+          isLoading: createSchedule.loading,
+          autoClose: true,
+          onClick: () => !createSchedule.errorMessage && toast.dismiss(),
+        });
+      }
     };
+
+    // const onSubmit = async () => {
+    
+    //   let req = {
+    //       bookingRenterUserId: userId,
+    //       bookingRenterFirstName: firstName,
+    //       bookingRenterLastName: lastName,
+    //       bookingRenterAddress: address,
+    //       bookingRenterCity: "city",
+    //       bookingRenterPhoneNumber: phoneNumber,
+    //       bookingRenterEmail: email,
+    //       bookingRenterComment: "comments",
+    //       bookingPropertyId: propId,
+    //       // bookingPaymentId: null,
+    //       // bookingCheckInDate: startDate,
+    //       bookingAmount: "10000",
+    //       bookingInspectionDate: bookingDate,
+    //       bookingAmount: "finalPrice",
+    //       bookingOptionalService: "propertyOptionalServices",
+    //       bookingGuestNumber: "guestNumber",
+    //       bookingGuestTypes: "Children, Cats"
+    //   };
+    
+    //   let id = toast.loading("We are updating your submitting your information...");
+    
+    //   const response = await createSchedule.request(req);
+    
+    //   console.log(response);
+    
+    //   toast.update(id, {
+    //     type: response.data.responseCode !== "00" ? "error" : "success",
+    //     render: response.data.responseMessage,
+    //     isLoading: createSchedule.loading,
+    //     autoClose: true,
+    //     onClick: () => !createSchedule.errorMessage && toast.dismiss(),
+    //   });
+    // };
   
 
 
@@ -560,7 +610,7 @@ console.log(formattedDates);
                   </div>
 
 
-                {property.propertyHostingType === "FOR_RENT" ? (
+                {property.propertyHostingType === "FOR RENT" ? (
                   null
                 ): (
                   <div className="mt-5 border-b pb-5">
@@ -582,7 +632,7 @@ console.log(formattedDates);
                   </div>
                 )}
 
-                {property.propertyHostingType === "FOR_RENT" ? (
+                {property.propertyHostingType === "FOR RENT" ? (
                   null
                 ): (
 
@@ -605,7 +655,7 @@ console.log(formattedDates);
                 </div>
                 )}
 
-                {property.propertyHostingType === "FOR_RENT" ? (
+                {property.propertyHostingType === "FOR RENT" ? (
                   null
                 ): (
 
@@ -696,14 +746,14 @@ console.log(formattedDates);
                      placeholder="Address"
                   />
               
-              <input
-        type="date"
-        id="date"
-        name="date"
-        value={bookingDate}
-        className="h-[3rem] outline-none  rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal px-2 placeholder:text-secondary placeholder:text-opacity-40"
-        onChange={(e) => setbookingDate(e.target.value)}
-      />
+              <DatePicker
+          id="date"
+          selected={bookingDate}
+          dateFormat="dd/MM/yyyy"
+          onChange={(date) => setbookingDate(date)}
+          className="outline-none  rounded-lg border border-gray-200 placeholder:text-sm placeholder:font-normal p-2 w-full placeholder:text-secondary placeholder:text-opacity-40"
+          placeholderText="Select date for Inspection"
+        />
       <button
                     onClick={onSubmit}
                     className={`mt-7 mb-5 h-[2.875rem] w-full rounded-[10px] bg-primary text-sm font-medium text-white `}
@@ -917,8 +967,8 @@ console.log(formattedDates);
                   {/* <Load /> */}
                   <div className="flex border-t border-t-black justify-between items-center mt-5">
                     <Link href="mailto:qoospayce@gmail.com"><div className="cursor-pointer flex flex-col justify-center items-center space-y-2 mt-3"><AiOutlineMail className="text-2xl" /> <p className="text-xs">Contact</p></div></Link>
-                    <Link href={`https://api.whatsapp.com/send?phone=+2349115015468&text=${encodedMessage}`}><div className="cursor-pointer flex flex-col justify-center items-center space-y-2 mt-3"><AiOutlineWhatsApp className="text-2xl" /><p className="text-xs">WhatsApp</p></div></Link>
-                    <div className="cursor-pointer flex flex-col justify-center items-center space-y-2 mt-3"><AiOutlinePhone className="text-2xl" /> <p className="text-xs">+234-9122877657</p></div>
+                    <Link href={`https://api.whatsapp.com/send?phone=+23490115015468&text=${encodedMessage}`}><div className="cursor-pointer flex flex-col justify-center items-center space-y-2 mt-3"><AiOutlineWhatsApp className="text-2xl" /><p className="text-xs">WhatsApp</p></div></Link>
+                    <a href="tel:+2349122877657" className="cursor-pointer flex flex-col justify-center items-center space-y-2 mt-3"><AiOutlinePhone className="text-2xl" /> <p className="text-xs">+23490115015468</p></a>
                   </div>
                 </div> )}
               

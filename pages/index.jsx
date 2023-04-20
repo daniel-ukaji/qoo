@@ -16,14 +16,17 @@ import { FaBed, FaHome, FaUsers } from "react-icons/fa";
 import { TbBeach, TbMountain, TbPool } from 'react-icons/tb';
 import social from '/public/images/Social03.png';
 import Image from "next/image";
+import { GiCastle } from "react-icons/gi";
+import { HiBuildingLibrary } from "react-icons/hi2"
+import { MdHomeWork } from "react-icons/md";
 
 
 
 
 const categories = [
-  { name: "FOR RENT", label: "Rent", icon: <TbBeach size={25} /> },
-  { name: "FOR SHORT STAY", label: "Short Stay", icon: <TbMountain size={25} /> },
-  { name: "FOR BUY", label: "Buy", icon: <TbPool size={25} /> },
+  { name: "FOR RENT", label: "Rent", icon: <HiBuildingLibrary size={25} /> },
+  { name: "FOR SHORT STAY", label: "Short Stay", icon: <GiCastle size={25} /> },
+  { name: "FOR BUY", label: "Buy", icon: <MdHomeWork size={25} /> },
 ];
 
 
@@ -75,6 +78,7 @@ export default function Home() {
           selectedCategory === null || property.propertyHostingType === selectedCategory
       )
   : [];
+
 
   useEffect(() => {
     const delay = setTimeout(() => {
@@ -135,7 +139,7 @@ export default function Home() {
                 `}
                 onClick={() =>
                   setSelectedCategory(
-                    selectedCategory === category.name ? null : category.name
+                    selectedCategory === category.name ? category.name : category.name
                   )
                 }
               >
@@ -161,7 +165,7 @@ export default function Home() {
           {!isLoading && filteredProperties.length === 0 && (
           <div className="flex flex-col w-full justify-center items-center text-center mt-5 space-y-2 pb-20">
           <Image src={social} />
-          <h5 className='font-Sora text-1xl text-gray-900'>No search results</h5>
+          <h5 className='font-Sora text-1xl text-gray-900'>No results</h5>
           <p className='text-xs text-gray-600 font-normal'>Time to dust off your bags and start planning your next adventure.</p>
           
         </div>

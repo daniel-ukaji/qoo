@@ -8,6 +8,7 @@ import Navbar from "../components/Navbar";
 import ModalComponent from "../components/ModalComponent";
 import VerifyModal from "../components/VerifyModal";
 import { useAuth } from "../utils/hooks/useAuth";
+import NavHeader from "../components/misc/NavHeader";
 
 const NewUserHome = () => {
 
@@ -20,8 +21,9 @@ const NewUserHome = () => {
 
   return (
     <div className="font-sora">
-      <Header />
+      {/* <Header /> */}
       {/* <Navbar /> */}
+      <NavHeader />
 
       <main className="flex flex-col items-center justify-center w-full mt-10 mb-16">
         <div className="w-[24.438rem] ">
