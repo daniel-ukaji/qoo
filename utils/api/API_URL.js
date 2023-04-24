@@ -26,6 +26,8 @@ export const SCHEDULEBOOKINGS = "booking/schedule-inspection";
 // Payment
 export const CREATEPAYMENT = "payment/create-payment";
 export const VERIFYPAYMENT = "payment/verify-payment";
+export const PAYOUT = "payment/payout";
+export const ADDPAYOUT = "user/add-payout-account";
 
 // User
 export const VERIFYPROFILE = "user/verify-profile";

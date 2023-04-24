@@ -18,6 +18,12 @@ export const countries = [
     "Bahamas",
     "Bahrain",
     "Bangladesh",
-    "Barbados"
+    "Barbados",
+    "Ghana",
+    "Togo",
+    "Benin Republic",
+    "Cameroon",
+    "Dubai",
+    "Netherlands"
   ];
   

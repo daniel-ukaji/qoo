@@ -113,7 +113,7 @@ useEffect(() => {
     };
   
     fetchUserData();
-  }, []);
+  }, );
 
 //   useEffect(() => {
 //     setTimeout(() => {

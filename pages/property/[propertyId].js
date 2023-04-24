@@ -44,10 +44,14 @@ import AmenitiesComponent from "../../components/AmenitiesComponent";
 import VerifyModal from "../../components/VerifyModal";
 import Head from "next/head";
 import ShareComponent from "../../components/ShareComponent";
+import ImageGalleryComponent from "../../components/ImageGalleryComponent";
 import { useApi } from "../../utils/hooks/useApi";
 import { scheduleBooking } from "../../utils/api/booking/scheduleBooking";
 import { toast } from "react-toastify";
 import NavHeader from "../../components/misc/NavHeader";
+import "react-image-gallery/styles/css/image-gallery.css";
+import ImageGallery from "react-image-gallery";
+import { TbGridDots } from "react-icons/tb";
 
 const Property = () => {
 
@@ -62,6 +66,7 @@ const Property = () => {
   const [modalActive, setModalActive] = useState(false);
   const [modeActive, setModeActive] = useState(false);
   const [modActive, setModActive] = useState(false);
+  const [moActive, setMoActive] = useState(false);
   const [isSingleDate, setIsSingleDate] = useState(false);
   const [dateRangeSelected, setDateRangeSelected] = useState(false);
   const [firstName, setFirstName] = useState("");
@@ -70,6 +75,8 @@ const Property = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
   const [bookingDate, setbookingDate] = useState("");
+  
+
 
 
   const authLevel = useContext(AuthLevelContext);
@@ -233,6 +240,11 @@ const hideOnClickOutside = (e) => {
  const createSchedule = useApi(scheduleBooking);
 
   if (property) {
+    const [selectedImage, setSelectedImage] = useState(property.propertyImages[0].propertyImageUrl);
+  
+  const handleImageClick = (imageUrl) => {
+    setSelectedImage(imageUrl);
+  };
     //const propertySplit = property.propertyImages.split(",")
     const propId = property.propertyId;
     const guestNumber = 1;
@@ -464,6 +476,13 @@ console.log(formattedDates);
                   layout="fill"
                   objectFit="cover"
                 />
+                <button onClick={() => {
+                        setMoActive(true);
+                        addToBooking(property);
+                      }} className="xl:hidden flex justify-center items-center absolute bottom-0 left-1/2 transform -translate-x-1/5 -translate-y-1/2 mt-7 h-[2.375rem] w-[10rem] rounded-[10px] border border-black bg-white hover:bg-[#F7F7F7] text-sm font-medium text-black">
+                      <TbGridDots className="w-4 h-4 mr-2" /> 
+                      Show all Photos
+                    </button>
               </div>
               {/* Sub images */}
               <div className="flex hidden xl:flex flex-col justify-between w-1/2 h-full ml-6">
@@ -505,11 +524,20 @@ console.log(formattedDates);
                       layout="fill"
                       objectFit="cover"
                     />
+                    <button onClick={() => {
+                        setMoActive(true);
+                        addToBooking(property);
+                      }} className="flex justify-center items-center absolute bottom-0 left-1/2 transform -translate-x-1/3 -translate-y-1/2 mt-7 h-[2.375rem] w-[10rem] rounded-[10px] border border-black bg-white hover:bg-[#F7F7F7] text-sm font-medium text-black">
+                      <TbGridDots className="w-4 h-4 mr-2" /> 
+                      Show all Photos
+                    </button>
+
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
 
           {/* Property info and booking details */}
           <div className="mt-8 font-sora">
@@ -828,9 +856,9 @@ console.log(formattedDates);
                           />
                           <button
                             onClick={() => setOpen(!open)}
-                            className="absolute flex items-center justify-center bg-gray-100 rounded-full top-44 xl:top-40 right-0 w-7 h-7 z-50"
+                            className="absolute flex items-center justify-center text-black bg-gray-100 rounded-md top-44 xl:top-40 right-2 w-14 h-7 z-50"
                           >
-                            <MdClose className="w-4 h-4 font-bold text-black" />
+                            Close
                           </button>
                           </>
                       }
@@ -968,7 +996,7 @@ console.log(formattedDates);
                   <div className="flex border-t border-t-black justify-between items-center mt-5">
                     <Link href="mailto:qoospayce@gmail.com"><div className="cursor-pointer flex flex-col justify-center items-center space-y-2 mt-3"><AiOutlineMail className="text-2xl" /> <p className="text-xs">Contact</p></div></Link>
                     <Link href={`https://api.whatsapp.com/send?phone=+23490115015468&text=${encodedMessage}`}><div className="cursor-pointer flex flex-col justify-center items-center space-y-2 mt-3"><AiOutlineWhatsApp className="text-2xl" /><p className="text-xs">WhatsApp</p></div></Link>
-                    <a href="tel:+2349122877657" className="cursor-pointer flex flex-col justify-center items-center space-y-2 mt-3"><AiOutlinePhone className="text-2xl" /> <p className="text-xs">+23490115015468</p></a>
+                    <a href="tel:+23490115015468" className="cursor-pointer flex flex-col justify-center items-center space-y-2 mt-3"><AiOutlinePhone className="text-2xl" /> <p className="text-xs">+23490115015468</p></a>
                   </div>
                 </div> )}
               
@@ -1020,6 +1048,15 @@ console.log(formattedDates);
         onClose={() => setModActive(false)}
       >
         <ShareComponent onClick={() => setModActive(false)} />
+      </ModalComponent>
+
+      <ModalComponent
+      isVisible={moActive}
+      shouldBeBlurAndDarkened
+      shouldBeCentered
+      onClose={() => setMoActive(false)}
+      >
+      <ImageGalleryComponent onClick={() => setMoActive(false)} />
       </ModalComponent>
       </div>
     );
