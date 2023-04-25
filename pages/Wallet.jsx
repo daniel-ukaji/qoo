@@ -58,7 +58,7 @@ function Wallet() {
         };
       
         fetchUserData();
-      }, );
+      }, []);
 
       useEffect(() => {
         const fetchUserDat = async () => {

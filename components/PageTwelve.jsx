@@ -11,6 +11,8 @@ import { createproperty } from '../utils/api/property/createProperty';
 import { useAuth } from '../utils/hooks/useAuth';
 import Link from 'next/link';
 import logopic from '../public/images/qoo_logo.png';
+import Load from '../components/Load';
+import { useState } from 'react';
 
 // import { useHistory } from 'react-router-dom';
 
@@ -19,6 +21,8 @@ import logopic from '../public/images/qoo_logo.png';
 const PageTwelve = ({ prevStep }) => {
   const router = useRouter();
   // const history = useHistory();
+  const [isLoading, setIsLoading] = useState(false);
+
 
   const userHost = useAuth();
   console.log(userHost.user)
@@ -172,6 +176,8 @@ const PageTwelve = ({ prevStep }) => {
     // console.error(error);
     // alert('There was a problem submitting your request. Please try again later.');
     debugger;
+  }).finally(() => {
+    setIsLoading(false);
   });
 
     }
@@ -180,7 +186,8 @@ const PageTwelve = ({ prevStep }) => {
 
     const handleSubmit = (event) => {
       event.preventDefault();
-      
+      setIsLoading(true);
+
       
       submitForm();
     };
@@ -237,13 +244,20 @@ const PageTwelve = ({ prevStep }) => {
                   <Loader fill_color="fill-primary" />
                 </div> */}
               {/* ):( */}
-                <button
-                  className={`py-3 px-6 mr-2 mb-2 text-sm font-medium text-white focus:outline-none bg-[#DB5461] rounded-lg border border-gray-200 ${!selectedOption || !BookingConditions ? "bg-gray-300 pointer-events-none" : ""}`}
-                  disabled={!selectedOption || !BookingConditions}
-                  onClick={handleSubmit}
-                >
-                  Submit
-                </button>
+              {isLoading ?
+                <div className="flex">
+                  <Load />
+                </div>
+                : 
+              <button
+                className={`py-3 px-6 mr-2 mb-2 text-sm font-medium text-white focus:outline-none bg-[#DB5461] rounded-lg border border-gray-200 ${!selectedOption || !BookingConditions ? "bg-gray-300 pointer-events-none" : ""}`}
+                disabled={!selectedOption || !BookingConditions || isLoading}
+                onClick={handleSubmit}
+              > 
+                 Submit
+              </button>
+              }
+
               {/* )} */}
             </div>
         </div>

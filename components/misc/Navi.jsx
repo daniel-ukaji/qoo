@@ -213,7 +213,7 @@ const Navi = ({ onSearch }) => {
           <div onClick={handleClick} className="relative h-[2.5rem] w-[9.75rem] cursor-pointer">
             <Image src={applogo} className="absolute" alt="app logo" />
           </div>
-          <MobileNav links={authLevel.user ? authLinks : unAuthLinks} />
+          <MobileNav links={authLevel.user ? authorizedLinks : unAuthorizedLinks} />
         {/* </Link> */}
         <div className="flex  md:flex h-[2rem] xl:h-[2.5rem] w-[20rem] items-center justify-between rounded-[64px] border border-gray-300 py-2 px-4">
           <input

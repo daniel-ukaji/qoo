@@ -22,7 +22,7 @@ const ImageGalleryComponent = ({ onClick }) => {
     <div className="text-center mb-5">
       {/* <h1 className="text-xs xl:text-base font-bold text-secondary">Share this property with friends & family</h1> */}
     </div>
-    <button onClick={onClick} className="absolute mb-5 flex items-center justify-center bg-gray-100 rounded-full top-6 right-2 xl:right-6 w-7 h-7">
+    <button onClick={onClick} className="absolute mb-5 flex items-center justify-center bg-gray-100 rounded-full top-0 right-2 xl:right-6 w-7 h-7">
       <MdClose className="w-4 h-4 font-bold text-black" />
     </button>
 
