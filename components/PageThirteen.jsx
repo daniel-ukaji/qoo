@@ -43,7 +43,7 @@ function hostHomeStepTwoTwo({ prevStep }) {
               source: "qucoon",
               s3bucket: "apvertise-repo",
             };
-            fetch("https://m2nz1o078e.execute-api.us-east-1.amazonaws.com/prod/uploadimage2s3", {
+            fetch(`${process.env.NEXT_PUBLIC_IMAGE}`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",

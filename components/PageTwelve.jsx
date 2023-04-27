@@ -151,7 +151,7 @@ const PageTwelve = ({ prevStep }) => {
 
 
 
-      fetch('https://6v50nb72wg.execute-api.us-east-1.amazonaws.com/dev/property/create', {
+      fetch(`${process.env.NEXT_PUBLIC_URL}/property/create`, {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
