@@ -45,7 +45,7 @@ const ShareComponent = ({ onClick }) => {
   return (
     <div className="relative p-6 bg-white rounded-lg w-11/12 xl:w-1/3">
       <div className="text-center mb-5">
-        <h1 className="text-xs xl:text-base font-bold text-secondary">Share this property with friends & family</h1>
+        <h1 className="text-xs xl:text-base font-bold text-secondary">Share this property</h1>
       </div>
       <button onClick={onClick} className="absolute mb-5 flex items-center justify-center bg-gray-100 rounded-full top-6 right-2 xl:right-6 w-7 h-7">
         <MdClose className="w-4 h-4 font-bold text-black" />
