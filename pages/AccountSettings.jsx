@@ -405,9 +405,9 @@ useEffect(() => {
   return (
     <div className='font-sora'>
       <Head>
-        <title>QuooSpace</title>
+        <title>QooSpayce</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/qoo_logo.png" />
       </Head>
         <NavHeader />
                         

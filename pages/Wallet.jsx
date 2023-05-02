@@ -10,6 +10,7 @@ import ModalComponent from '../components/ModalComponent'
 import PayoutComponent from '../components/PayoutComponent'
 import Footer from '../components/misc/footer'
 import axios from 'axios'
+import Head from 'next/head'
 
 function Wallet() {
 
@@ -111,6 +112,11 @@ function Wallet() {
 
   return (
     <div className='font-sora bg-white'>
+      <Head>
+        <title>QooSpayce</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+        <link rel="icon" href="/qoo_logo.png" />
+      </Head>
         <HostHeader />
         <section className=''>
             <div className='flex flex-col md:flex-row items-center md:items-right justify-between'>

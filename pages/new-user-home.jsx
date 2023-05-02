@@ -9,6 +9,7 @@ import ModalComponent from "../components/ModalComponent";
 import VerifyModal from "../components/VerifyModal";
 import { useAuth } from "../utils/hooks/useAuth";
 import NavHeader from "../components/misc/NavHeader";
+import Head from "next/head";
 
 const NewUserHome = () => {
 
@@ -21,6 +22,11 @@ const NewUserHome = () => {
 
   return (
     <div className="font-sora">
+      <Head>
+        <title>QooSpayce</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+        <link rel="icon" href="/qoo_logo.png" />
+      </Head>
       {/* <Header /> */}
       {/* <Navbar /> */}
       <NavHeader />

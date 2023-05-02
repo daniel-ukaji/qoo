@@ -389,15 +389,15 @@ console.log(formattedDates);
     return (
       <div className="font-sora">
         <Head>
-          <title>QuooSpace</title>
+          <title>QooSpayce</title>
           <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-          <link rel="icon" href="/favicon.ico" />
+          <link rel="icon" href="/qoo_logo.png" />
         </Head>
-        {/* <div className="sticky top-0 z-50 h-[6rem] w-full"> */}
+        <div className="h-[6rem] w-full">
           {/* <Header /> */}
           <NavHeader />
 
-        {/* </div> */}
+        </div>
         <section className="xl:mx-auto mb-14 xl:max-w-full xl:px-10">
           {/* <button
             onClick={() => Router.back()}

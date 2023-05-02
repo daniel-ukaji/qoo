@@ -9,6 +9,8 @@ import axios from 'axios';
 import { fetchBooking } from '../utils/api/booking/getBookingRenter';
 import BookingCard from '../components/BookingCard';
 import NavHeader from '../components/misc/NavHeader';
+import Head from "next/head";
+
 
 function bookingsEmpty() {
   const [bookings, setBookings] = useState([]);
@@ -62,17 +64,22 @@ function bookingsEmpty() {
         fetchUserData();
       }, [userId]);
 
-      // useEffect(() => {
-      //   if (bookings.length === 0) {
-      //     setNoBookings(true);
-      //   } else {
-      //     setNoBookings(false);
-      //   }
-      // }, [bookings]);
+      useEffect(() => {
+        if (bookings.length === 0) {
+          setNoBookings(true);
+        } else {
+          setNoBookings(false);
+        }
+      }, [bookings]);
 
 
   return (
     <div className="font-sora relative">
+      <Head>
+        <title>QooSpayce</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+        <link rel="icon" href="/qoo_logo.png" />
+      </Head>
       {/* <Header /> */}
       <NavHeader />
 
@@ -90,7 +97,7 @@ function bookingsEmpty() {
         </div>
       ) : (
         <main className="xl:px-20 mt-8 md:max-w-full md:mx-auto">
-          <div className="flex flex-wrap items-center mt-8 mb-7 gap-x-5 gap-y-10">
+          <div className="flex flex-wrap items-center justify-center xl:justify-start mt-8 mb-7 gap-x-5 gap-y-10">
             {bookings.data?.map((booking) => (
               <BookingCard  
                 key={booking.bookingPropertyId}

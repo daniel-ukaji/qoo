@@ -12,6 +12,7 @@ import MultiTable from './MultiTable'
 import { useAuth } from '../utils/hooks/useAuth'
 import { fetchpropertyHostId, getPropertyHostId } from '../utils/api/property/getPropertyHostId'
 import { useApi } from '../utils/hooks/useApi'
+import Head from 'next/head'
 
 
 function hostProperty() {
@@ -42,6 +43,11 @@ function hostProperty() {
 
   return (
     <div>
+      <Head>
+        <title>QooSpayce</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+        <link rel="icon" href="/qoo_logo.png" />
+      </Head>
         <HostHeader />
 
         
