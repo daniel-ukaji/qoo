@@ -106,7 +106,7 @@ useEffect(() => {
       try {
         const response = await axios.post(API_ENDPOINT, requestBody);
         setUserData(response.data);
-        console.log(response.data) // assuming that the API response is an object with the user data
+        // console.log(response.data) // assuming that the API response is an object with the user data
       } catch (error) {
         console.error(error);
       }
@@ -158,7 +158,7 @@ useEffect(() => {
             })
               .then((response) => response.json())
               .then((data) => {
-                console.log(data.url)
+                // console.log(data.url)
                 const imageUrl = data.url; // Retrieve the URL from the API response
                 urls.push(imageUrl);
 
@@ -211,7 +211,7 @@ useEffect(() => {
             })
               .then((response) => response.json())
               .then((data) => {
-                console.log(data.url)
+                // console.log(data.url)
                 const imageUri = data.url; // Retrieve the URL from the API response
                 urls.push(imageUri);
 
@@ -346,7 +346,7 @@ function handleDrop(event) {
   
     const response = await profileApi.request(req);
   
-    console.log(response);
+    // console.log(response);
   
     toast.update(id, {
       type: response.data.responseCode !== "00" ? "error" : "success",

@@ -55,14 +55,14 @@ const Index = () => {
   // const formatEndDate = format(new Date(endDate), "MM/dd/yyyy")
   const formattedStartDate = new Date(startDate).getTime()
   const formattedEndDate = new Date(endDate).getTime()
-  console.log(formattedStartDate)
+  // console.log(formattedStartDate)
   // console.log(formattedStartDate)
   // console.log(formattedStartDate)
   // console.log(formattedEndDate)
   const dateRange = formattedEndDate - formattedStartDate
-  console.log(dateRange)
+  // console.log(dateRange)
   const finalDate = dateRange / (1000 * 3600 * 24);
-  console.log(finalDate)
+  // console.log(finalDate)
   const navBar = "96px";
 
 //   const checkInDate = new Date(startDate);
@@ -88,11 +88,11 @@ const handleClick = () => {
   const auth = useAuth();
 
   const user = auth.user?.userId;
-  console.log(user);
+  // console.log(user);
 
-  console.log(booking.propertyId);
+  // console.log(booking.propertyId);
 
-  console.log(booking.propertyName)
+  // console.log(booking.propertyName)
 
   // console.log(booking[0]?.propertyHost.hostUserId)
 
@@ -126,7 +126,7 @@ const handleClick = () => {
 
   // console.log(format(new Date(booking[0]?.propertyBookedDates[0]?.checkInDate), "MM/dd/yyyy"))
 
-  console.log(booking)
+  // console.log(booking)
 
   const hostId = booking[0]?.propertyHost.hostUserId;
 
@@ -141,18 +141,18 @@ const handleClick = () => {
   const PriceTag = booking[0]?.propertyBookingPrice * finalDate
   const finalPrice = PriceTag + (PriceTag * 7 / 100)
   const cautionFee = parseFloat(booking[0]?.propertyCautionFee)
-  console.log(cautionFee);
+  // console.log(cautionFee);
   const sumPrice = cautionFee + finalPrice
-  console.log(sumPrice)
-  console.log(booking[0]?.propertyCautionFee)
+  // console.log(sumPrice)
+  // console.log(booking[0]?.propertyCautionFee)
 
   const message = 'Hello, how are you?';
   const encodedMessage = encodeURIComponent(message);
 
   const paymentRef = nanoid(); // generates a random 21-character string
 
-  console.log(startDate)
-  console.log(endDate)
+  // console.log(startDate)
+  // console.log(endDate)
 
 
 
@@ -212,8 +212,8 @@ const handleClick = () => {
         localStorage.setItem('bookingResponse', JSON.stringify(bookingResponse)); // Store booking response in localStorage
 
         const bookingSubmit = await CreateBooking.request(bookingResponse);
-        console.log(response);
-        console.log(bookingSubmit);
+        // console.log(response);
+        // console.log(bookingSubmit);
   
       // Reset form
       setSubmitting(false);
@@ -224,88 +224,7 @@ const handleClick = () => {
     }
   };
 
-  // const onSubmit = async (e) => {
-    
-  //     // let id = toast.loading("Please wait whiles we complete your request");
-
-  //     // const response = await CreateBooking.request(bookingData);
-
-
-  //     e.preventDefault();
-  //     const errors = {};
-
-  //     // Check if required fields are empty
-  //     if (!firstname) {
-  //       errors.firstname = 'Please enter your first name';
-  //     }
-  //     if (!lastname) {
-  //       errors.lastname = 'Please enter your last name';
-  //     }
-  //     if (!address) {
-  //       errors.address = 'Please enter your address';
-  //     }
-  //     if (!city) {
-  //       errors.city = 'Please enter your city';
-  //     }
-  //     if (!phonenumber) {
-  //       errors.phonenumber = 'Please enter your phone number';
-  //     }
-  //     if (!email) {
-  //       errors.email = 'Please enter your email address';
-  //     }
-  //     if (!comments) {
-  //       errors.comments = 'Please enter your email address';
-  //     }
-
-  //     if (Object.keys(errors).length > 0) {
-  //       setFormErrors(errors);
-  //       setIsFormComplete(false);
-  //     } else {
-  //       setIsFormComplete(true)
-  //       // Submit form
-  //       // const response = await CreatePayment.request(paymentData);
   
-  //       // if (response.data.paymentUrl) { // Check if payment URL was returned by backend API
-  //       //   window.location.href = response.data.paymentUrl; // Redirect user to payment URL
-  //       // }
-
-  //       const response = await CreatePayment.request(paymentData);
-
-  //       if (response.data.paymentUrl) { 
-  //         // paymentData.paymentReference = response.data.paymentReference; // Store payment reference in localStorage
-  //         window.location.href = response.data.paymentUrl; // Redirect user to payment URL
-  //         localStorage.setItem('paymentReference', response.data.paymentReference);
-  //         // localStorage.setItem('paymentUrl', response.data.paymentUrl);
-  //       }
-  
-  //       const bookingResponse = {
-  //         bookingRenterUserId: user,
-  //         bookingRenterFirstName: firstname,
-  //         bookingRenterLastName: lastname,
-  //         bookingRenterAddress: address,
-  //         bookingRenterCity: city,
-  //         bookingRenterPhoneNumber: phonenumber,
-  //         bookingRenterEmail: email,
-  //         bookingRenterComment: comments,
-  //         bookingPropertyId: propId,
-  //         bookingPaymentId: null,
-  //         bookingCheckInDate: startDate,
-  //         bookingCheckOutDate: endDate,
-  //         bookingAmount: finalPrice,
-  //         bookingOptionalService: propertyOptionalServices,
-  //         bookingGuestNumber: numGuests,
-  //         bookingGuestTypes: "Children, Cats"
-  //       }
-  
-        
-  //       localStorage.setItem('bookingResponse', JSON.stringify(bookingResponse)); // Store booking response in localStorage
-
-  //       const bookingSubmit = await CreateBooking.request(bookingResponse);
-  //       console.log(response);
-  //       console.log(bookingSubmit);
-  //     }
-
-  // }
 
   const validationSchema = Yup.object().shape({
     firstname: Yup.string().required('Please enter your first name'),
@@ -560,10 +479,10 @@ const handleClick = () => {
               const totalPrice = property.propertyBookingPrice * finalDate
               const finalPrice = totalPrice + (totalPrice * 7 / 100)
               const cautionFee = parseFloat(property.propertyCautionFee)
-              console.log(cautionFee);
+              // console.log(cautionFee);
               const sumPrice = cautionFee + finalPrice
-              console.log(sumPrice)
-              console.log(property.propertyCautionFee)
+              // console.log(sumPrice)
+              // console.log(property.propertyCautionFee)
               return (
               <div className="sticky right-0 flex items-center justify-center w-2/6 mb-5 xl:mb-0 xl:mx-0 mx-auto mt-5 xl:mt-0 px-24 xl:px-0">
                 <div className="inset-0 p-6 border border-gray-200 rounded-lg">

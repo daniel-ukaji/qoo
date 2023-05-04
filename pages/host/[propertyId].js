@@ -192,7 +192,7 @@ const router = useRouter();
 
       const response = await propertyApi.request(req);
 
-      console.log(response)
+      // console.log(response)
 
       toast.update(id, {
         type: response.data.responseCode !== "00" ? "error" : "success",

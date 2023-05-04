@@ -163,14 +163,13 @@ const Property = () => {
   
 
   
-
   const formattedStartDate = new Date(startDate).getTime()
   const formattedEndDate = new Date(endDate).getTime()
   const dateRange = formattedEndDate - formattedStartDate
   const finalDate = dateRange / (1000 * 3600 * 24);
 
   const date = new Date()
-  console.log("Daniel:", startDate)
+  // console.log("Daniel:", startDate)
 
   // const [totalPrice, setTotalPrice] = useState(property.propertyBookingPrice * finalDate);
 
@@ -204,7 +203,7 @@ const endDateAdjusted = new Date(endDate.getTime() - timezoneOffset * 60000);
 
   const user = useAuth();
   const userId = user.user?.userId;
-  console.log(user.user)
+  // console.log(user.user)
 
   const userStat = user.user?.userStatus
 
@@ -275,7 +274,7 @@ const hideOnClickOutside = (e) => {
     
       const response = await createSchedule.request(req);
     
-      console.log(response);
+      // console.log(response);
     
       if (response.data.responseCode === "00") {
         toast.update(id, {
@@ -338,18 +337,18 @@ const hideOnClickOutside = (e) => {
   
 
 
-    console.log(property.propertyImages[0].propertyImageUrl)
-    console.log(property)
+    // console.log(property.propertyImages[0].propertyImageUrl)
+    // console.log(property)
 
-    console.log(property.propertyBedroomNumber)
+    // console.log(property.propertyBedroomNumber)
 
     const totalPrice = property.propertyBookingPrice * finalDate
     const finalPrice = totalPrice + (totalPrice * 7 / 100)
     const cautionFee = parseFloat(property.propertyCautionFee)
-    console.log(cautionFee);
+    // console.log(cautionFee);
     const sumPrice = cautionFee + finalPrice
-    console.log(sumPrice)
-    console.log(property.propertyCautionFee)
+    // console.log(sumPrice)
+    // console.log(property.propertyCautionFee)
 
 const propertyBookedDates = property.propertyBookedDates;
 
@@ -371,7 +370,7 @@ const formattedDates = allDates.map(date => {
   return formattedString;
 });
 
-console.log(formattedDates);
+// console.log(formattedDates);
     
     const {
       addToBooking,

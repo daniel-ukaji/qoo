@@ -142,7 +142,7 @@ const Property = () => {
   const finalDate = dateRange / (1000 * 3600 * 24);
 
   const date = new Date()
-  console.log("Daniel:", startDate)
+  // console.log("Daniel:", startDate)
 
   // const [totalPrice, setTotalPrice] = useState(property.propertyBookingPrice * finalDate);
 
@@ -152,7 +152,7 @@ const Property = () => {
 
   const user = useAuth();
 
-  console.log(user.user)
+  // console.log(user.user)
 
   const userStat = user.user?.userStatus
 
@@ -188,10 +188,10 @@ const hideOnClickOutside = (e) => {
   if (property) {
     //const propertySplit = property.propertyImages.split(",")
 
-    console.log(property.propertyImages[0].propertyImageUrl)
-    console.log(property)
+    // console.log(property.propertyImages[0].propertyImageUrl)
+    // console.log(property)
 
-    console.log(property.propertyBedroomNumber)
+    // console.log(property.propertyBedroomNumber)
 
     const totalPrice = property.propertyBookingPrice * finalDate
     const finalPrice = totalPrice + (totalPrice * 7 / 100)
@@ -217,7 +217,7 @@ const formattedDates = allDates.map(date => {
   return formattedString;
 });
 
-console.log(formattedDates);    
+// console.log(formattedDates);    
     const {
       addToBooking,
       resetBooking,

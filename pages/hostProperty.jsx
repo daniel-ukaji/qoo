@@ -18,7 +18,7 @@ import Head from 'next/head'
 function hostProperty() {
 
     const user = useAuth();
-    console.log(user.user?.userHostId)
+    // console.log(user.user?.userHostId)
 
     const propertyHost = user.user?.userHostId;
 

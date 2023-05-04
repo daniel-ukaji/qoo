@@ -17,8 +17,8 @@ function bookingsEmpty() {
   const [noBookings, setNoBookings] = useState(false);
 
   const user  = useAuth();
-  console.log(user)
-  console.log(user.user?.userId)
+  // console.log(user)
+  // console.log(user.user?.userId)
 
   const API_ENDPOINT = 'https://6v50nb72wg.execute-api.us-east-1.amazonaws.com/dev/booking/read-by-user-id';
 
@@ -55,7 +55,7 @@ function bookingsEmpty() {
           try {
             const response = await axios.post(API_ENDPOINT, requestBody);
             setBookings(response.data);
-            console.log(response.data) // assuming that the API response is an object with the user data
+            // console.log(response.data) // assuming that the API response is an object with the user data
           } catch (error) {
             console.error(error);
           }
