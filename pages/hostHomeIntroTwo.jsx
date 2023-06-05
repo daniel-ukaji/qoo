@@ -5,6 +5,7 @@ import Link from 'next/link';
 import hostpic from '../public/images/hostpic.jpg';
 import Image from 'next/image';
 import logopic from '../public/images/qoo_logo.png';
+import Head from 'next/head';
 
 
 
@@ -16,6 +17,11 @@ function hostHomeIntroTwo() {
 
   return (
     <>
+    <Head>
+          <title>QooSpayce</title>
+          <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+          <link rel="icon" href="/qoo_logo.png" />
+        </Head>
     <Layout>
       <div className="pl-10 p-6 bg-white h-screen flex flex-col justify-between font-sora">
         {/* <!-- Content for the left side --> */}

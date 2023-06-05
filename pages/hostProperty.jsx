@@ -13,6 +13,8 @@ import { useAuth } from '../utils/hooks/useAuth'
 import { fetchpropertyHostId, getPropertyHostId } from '../utils/api/property/getPropertyHostId'
 import { useApi } from '../utils/hooks/useApi'
 import Head from 'next/head'
+import TawkMessengerReact from '@tawk.to/tawk-messenger-react';
+import { useRef } from 'react';
 
 
 function hostProperty() {
@@ -25,6 +27,15 @@ function hostProperty() {
     const FetchHostProp = useApi(getPropertyHostId)
 
     const verifyAllow = user.user?.userStatus
+
+    const propId = process.env.NEXT_PUBLIC_TAWK_PROPERTYID
+const widId = process.env.NEXT_PUBLIC_WIDGETID
+
+const tawkMessengerRef = useRef();
+
+    const handleMinimize = () => {
+        tawkMessengerRef.current.minimize();
+    };
 
     const {
         data: properties,
@@ -50,6 +61,11 @@ function hostProperty() {
       </Head>
         <HostHeader />
 
+
+        <TawkMessengerReact
+                propertyId= {propId}
+                widgetId={widId}
+                ref={tawkMessengerRef}/>
         
         <main className='max-w-[20rem] md:max-w-[66rem] w-full mx-auto'>
             {verifyAllow === "NOT_VERIFIED" ? (

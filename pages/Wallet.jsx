@@ -11,6 +11,8 @@ import PayoutComponent from '../components/PayoutComponent'
 import Footer from '../components/misc/footer'
 import axios from 'axios'
 import Head from 'next/head'
+import TawkMessengerReact from '@tawk.to/tawk-messenger-react';
+import { useRef } from 'react';
 
 function Wallet() {
 
@@ -45,6 +47,15 @@ function Wallet() {
       const requestBod = {
         transactionUserId: userIds
       };
+
+      const propId = process.env.NEXT_PUBLIC_TAWK_PROPERTYID
+const widId = process.env.NEXT_PUBLIC_WIDGETID
+
+const tawkMessengerRef = useRef();
+
+    const handleMinimize = () => {
+        tawkMessengerRef.current.minimize();
+    };
 
       useEffect(() => {
         const fetchUserData = async () => {
@@ -118,6 +129,11 @@ function Wallet() {
         <link rel="icon" href="/qoo_logo.png" />
       </Head>
         <HostHeader />
+
+        <TawkMessengerReact
+                propertyId= {propId}
+                widgetId={widId}
+                ref={tawkMessengerRef}/>
         <section className=''>
             <div className='flex flex-col md:flex-row items-center md:items-right justify-between'>
                 <h1 className='font-bold text-2xl'>Wallet balance</h1>

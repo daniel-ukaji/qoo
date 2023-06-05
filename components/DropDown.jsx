@@ -48,7 +48,7 @@ const DropDown = ({ links }) => {
                 <button
                   key={link.id}
                   onClick={link.onPress}
-                  className="flex w-full h-full px-5 py-2 text-sm font-medium text-gray-900 rounded hover:bg-gray-200 hover:text-black"
+                  className="flex w-full h-full px-5 py-2 text-xs font-medium text-gray-900 rounded hover:bg-gray-200 hover:text-black"
                 >
                   {link.label}
                 </button>
@@ -56,7 +56,7 @@ const DropDown = ({ links }) => {
             } else if (link.actionType === "LINK") {
               return (
                 <Link href={link.href} key={link.id}>
-                  <div className="flex w-full h-full px-5 py-2 text-sm font-medium text-gray-900 rounded cursor-pointer hover:bg-gray-200 hover:text-black">
+                  <div className="flex w-full h-full px-5 py-2 text-xs font-medium text-gray-900 rounded cursor-pointer hover:bg-gray-200 hover:text-black">
                     {link.label}
                   </div>
                 </Link>

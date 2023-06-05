@@ -52,6 +52,7 @@ import NavHeader from "../../components/misc/NavHeader";
 import "react-image-gallery/styles/css/image-gallery.css";
 import ImageGallery from "react-image-gallery";
 import { TbGridDots } from "react-icons/tb";
+import TawkMessengerReact from '@tawk.to/tawk-messenger-react';
 
 const Property = () => {
 
@@ -75,6 +76,15 @@ const Property = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
   const [bookingDate, setbookingDate] = useState("");
+
+  const proId = process.env.NEXT_PUBLIC_TAWK_PROPERTYID
+ const widId = process.env.NEXT_PUBLIC_WIDGETID
+
+ const tawkMessengerRef = useRef();
+
+    const handleMinimize = () => {
+        tawkMessengerRef.current.minimize();
+    };
   
 
 
@@ -238,6 +248,8 @@ const hideOnClickOutside = (e) => {
   
  const createSchedule = useApi(scheduleBooking);
 
+ 
+
   if (property) {
     const [selectedImage, setSelectedImage] = useState(property.propertyImages[0].propertyImageUrl);
   
@@ -398,6 +410,11 @@ const formattedDates = allDates.map(date => {
 
         </div>
         <section className="xl:mx-auto mb-14 xl:max-w-full xl:px-10">
+        <TawkMessengerReact
+                propertyId= {proId}
+                widgetId={widId}
+                ref={tawkMessengerRef}
+          />
           {/* <button
             onClick={() => Router.back()}
             className="flex items-center px-2 py-3 space-x-3 border border-gray-200 rounded-lg w-fit"
@@ -1020,7 +1037,10 @@ const formattedDates = allDates.map(date => {
               <RoomCard />
             </div>
           </div> */}
+          
+
         </section>
+        
         <Footer />
         <ModalComponent
         isVisible={modalActive}

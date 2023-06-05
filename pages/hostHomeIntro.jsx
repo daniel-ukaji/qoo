@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import hostpic from '../public/images/hostpic.jpg';
 import logopic from '../public/images/qoo_logo.png';
+import Head from 'next/head';
 
 
 const hostHomeIntro = () => {
@@ -15,7 +16,14 @@ const hostHomeIntro = () => {
 
 
   return (
+    <>
+    <Head>
+          <title>QooSpayce</title>
+          <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+          <link rel="icon" href="/qoo_logo.png" />
+        </Head>
     <Layout>
+      
       
       <div className={`hidden  pl-10 p-6 h-screen md:flex flex-col justify-between bg-white font-sora`}>
         {/* <!-- Content for the left side --> */}
@@ -47,8 +55,8 @@ const hostHomeIntro = () => {
         </animated.div>
         <div className='flex border-b pb-5 items-center justify-between max-w-2xl mx-auto ml-5 xl:ml-0 mt-5 xl:mt-0'>
             <div className=''>
-              <h1 className='font-medium text-xl md:text-3xl mb-3'>1  Tell us about your place</h1>
-              <p className='text-md xl:text-xl xl:w-96 text-gray-500'>Share some basic info, like where it is and how many guests can stay.</p>
+              <h1 className='font-medium text-xl md:text-2xl mb-3'>1  Tell us about your place</h1>
+              <p className='text-md xl:text-lg xl:w-96 text-gray-500'>Share some basic info, like where it is and how many guests can stay.</p>
             </div>
             <div className='hidden xl:block relative w-[6rem] xl:w-[10rem] h-[6rem] xl:h-[10rem]'>
               <Image src={hostpic} layout='fill' objectFit='cover' />
@@ -57,8 +65,8 @@ const hostHomeIntro = () => {
 
         <div className='flex border-b pb-5 items-center justify-between max-w-2xl mt-3 xl:mt-0 mx-auto ml-5 xl:ml-0'>
             <div>
-              <h1 className='font-medium text-xl md:text-3xl mb-3'>2 Make it stand out</h1>
-              <p className='text-md xl:text-xl xl:w-96 text-gray-500'>Add 5 or more photos plus a title and description—we’ll help you out.</p>
+              <h1 className='font-medium text-xl md:text-2xl mb-3'>2 Make it stand out</h1>
+              <p className='text-md xl:text-lg xl:w-96 text-gray-500'>Add 5 or more photos plus a title and description—we’ll help you out.</p>
             </div>
             <div className='hidden xl:block relative w-[6rem] xl:w-[10rem] h-[6rem] xl:h-[10rem]'>
               <Image src={hostpic} layout='fill' objectFit='cover' />
@@ -67,8 +75,8 @@ const hostHomeIntro = () => {
 
           <div className='flex xl:border-b pb-5 items-center justify-between max-w-2xl mt-3 xl:mt-0 mx-auto ml-5 xl:ml-0'>
             <div>
-              <h1 className='font-medium text-xl md:text-3xl mb-3'>3 Finish up and Publish</h1>
-              <p className='text-md xl:text-xl xl:w-96 text-gray-500'>Choose if you'd like to finsih creating your property</p>
+              <h1 className='font-medium text-xl md:text-2xl mb-3'>3 Finish up and Publish</h1>
+              <p className='text-md xl:text-lg xl:w-96 text-gray-500'>Choose if you'd like to finsih creating your property</p>
             </div>
             <div className='hidden xl:block relative w-[6rem] xl:w-[10rem] h-[6rem] xl:h-[10rem]'>
               <Image src={hostpic} layout='fill' objectFit='cover' />
@@ -89,6 +97,7 @@ const hostHomeIntro = () => {
       
       
     </Layout>
+    </>
     
   );
 };

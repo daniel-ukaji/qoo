@@ -10,6 +10,8 @@ import VerifyModal from "../components/VerifyModal";
 import { useAuth } from "../utils/hooks/useAuth";
 import NavHeader from "../components/misc/NavHeader";
 import Head from "next/head";
+import TawkMessengerReact from '@tawk.to/tawk-messenger-react';
+import { useRef } from 'react';
 
 const NewUserHome = () => {
 
@@ -19,6 +21,15 @@ const NewUserHome = () => {
   console.log(user.user)
 
   const userStat = user.user?.userStatus
+
+  const propId = process.env.NEXT_PUBLIC_TAWK_PROPERTYID
+const widId = process.env.NEXT_PUBLIC_WIDGETID
+
+const tawkMessengerRef = useRef();
+
+    const handleMinimize = () => {
+        tawkMessengerRef.current.minimize();
+    };
 
   return (
     <div className="font-sora">
@@ -62,6 +73,11 @@ const NewUserHome = () => {
             objectFit="cover"
           />
         </div>
+        <TawkMessengerReact
+                propertyId= {propId}
+                widgetId={widId}
+                ref={tawkMessengerRef}
+          />
       </main>
 
       <Footer />

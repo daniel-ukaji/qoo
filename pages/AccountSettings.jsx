@@ -20,7 +20,8 @@ import Head from 'next/head';
 import { MdAccountCircle } from 'react-icons/md';
 import { AiFillCheckCircle } from 'react-icons/ai';
 import NavHeader from '../components/misc/NavHeader';
-
+import TawkMessengerReact from '@tawk.to/tawk-messenger-react';
+// 
 
 function AccountSettings() {
     const user = useAuth();
@@ -31,7 +32,16 @@ function AccountSettings() {
     const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
     
-    const inputRef = useRef(null);
+    // const inputRef = useRef(null);
+
+    const propId = process.env.NEXT_PUBLIC_TAWK_PROPERTYID
+const widId = process.env.NEXT_PUBLIC_WIDGETID
+
+const tawkMessengerRef = useRef();
+
+    const handleMinimize = () => {
+        tawkMessengerRef.current.minimize();
+    };
 
 
     const API_ENDPOINT = 'https://6v50nb72wg.execute-api.us-east-1.amazonaws.com/dev/user/read-by-user-id';
@@ -410,6 +420,11 @@ useEffect(() => {
         <link rel="icon" href="/qoo_logo.png" />
       </Head>
         <NavHeader />
+
+        <TawkMessengerReact
+                propertyId= {propId}
+                widgetId={widId}
+                ref={tawkMessengerRef}/>
                         
         <main className='max-w-[66rem] w-full mx-auto mt-10'>
             <div className='flex flex-col lg:flex-row justify-between items-center'>

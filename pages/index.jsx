@@ -19,6 +19,8 @@ import Image from "next/image";
 import { GiCastle } from "react-icons/gi";
 import { HiBuildingLibrary } from "react-icons/hi2"
 import { MdHomeWork } from "react-icons/md";
+import TawkMessengerReact from '@tawk.to/tawk-messenger-react';
+import { useRef } from 'react';
 
 
 
@@ -37,6 +39,15 @@ export default function Home() {
   const [numItems, setNumItems] = useState(10);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("FOR SHORT STAY");
+
+  const propId = process.env.NEXT_PUBLIC_TAWK_PROPERTYID
+const widId = process.env.NEXT_PUBLIC_WIDGETID
+
+const tawkMessengerRef = useRef();
+
+    const handleMinimize = () => {
+        tawkMessengerRef.current.minimize();
+    };
 
 
   const {
@@ -104,6 +115,10 @@ export default function Home() {
 
       </div>
       
+      <TawkMessengerReact
+                propertyId= {propId}
+                widgetId={widId}
+                ref={tawkMessengerRef}/>
 
 
 
