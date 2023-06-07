@@ -101,3 +101,12 @@
 //         </div>
 //     );
 // }
+import React from 'react'
+
+function LayPage() {
+  return (
+    <div>LayPage</div>
+  )
+}
+
+export default LayPage
